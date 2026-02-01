@@ -1,6 +1,0 @@
-product_id,name,category,price,stock,min_stock_level,vendor_id,last_updated
-101,Premium Widget,Electronics,199.99,45,10,V001,2024-01-15
-102,Standard Gadget,Electronics,99.50,120,20,V001,2024-01-16
-103,Office Desk,Furniture,250.00,12,5,V002,2024-01-10
-104,Ergonomic Chair,Furniture,175.00,28,5,V002,2024-01-12
-105,Coffee Beans (Bulk),Supplies,45.00,50,15,V003,2024-01-18
