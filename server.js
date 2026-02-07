@@ -1,102 +1,193 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const { spawn } = require('child_process');
+const net = require('net');
 
-const PORT = 8080;
-
-const mimeTypes = {
-    '.html': 'text/html',
-    '.js': 'text/javascript',
-    '.css': 'text/css',
-    '.json': 'application/json',
-    '.png': 'image/png',
-    '.jpg': 'image/jpg',
-    '.gif': 'image/gif',
-    '.svg': 'image/svg+xml',
-    '.ico': 'image/x-icon',
-    '.mjs': 'text/javascript',
-    '.jsx': 'text/plain',
-    '.map': 'application/json',
-    '.woff2': 'font/woff2',
-    '.woff': 'font/woff',
-    '.ttf': 'font/ttf'
+/* --- CONFIGURATION --- */
+const PROJECTS = {
+    '/Archshield': {
+        name: 'Archshield',
+        // No frontend port - served statically via 8080
+        backendPort: 8001,
+        frontendPath: 'Archshield/frontend',
+        backendPath: 'Archshield/backend',
+        // Use venv python
+        backendCommand: path.join(__dirname, 'Archshield/backend/venv/Scripts/python.exe'),
+        backendArgs: ['-m', 'uvicorn', 'app.main:app', '--host', '0.0.0.0', '--port', '8001'],
+        // No separate frontend server needed - static files are served by main server
+        redirectUrl: '/Archshield/frontend/out/index.html'
+    },
+    '/businessanalyticspro': {
+        name: 'BusinessAnalyticsPro',
+        frontendPort: 5173,
+        backendPort: 8002,
+        frontendPath: 'businessanalyticspro/Dashboard/frontend',
+        backendPath: 'businessanalyticspro/Dashboard/backend',
+        // Use venv python
+        backendCommand: path.join(__dirname, 'businessanalyticspro/Dashboard/backend/venv/Scripts/python.exe'),
+        backendArgs: ['-m', 'uvicorn', 'main:app', '--host', '0.0.0.0', '--port', '8002'],
+        frontendCommand: 'npm.cmd', // Use npm.cmd for Windows
+        frontendArgs: ['run', 'dev', '--', '--port', '5173']
+    }
 };
 
-const server = http.createServer((req, res) => {
-    // Decode URL to handle spaces and special chars
-    const requestUrl = decodeURI(req.url);
-    // Strip query string for file lookup
-    const pathname = requestUrl.split('?')[0];
-    console.log(`${req.method} ${requestUrl}`);
+const PORT = 8080;
+const runningProcesses = {};
 
-    let filePath = '.' + pathname;
-    if (filePath === './') {
-        filePath = './index.html';
+/* --- HELPER: CHECK PORT --- */
+function checkPort(port, callback) {
+    const socket = new net.Socket();
+    socket.setTimeout(200);
+    socket.on('connect', () => {
+        socket.destroy();
+        callback(true);
+    });
+    socket.on('timeout', () => {
+        socket.destroy();
+        callback(false);
+    });
+    socket.on('error', (err) => {
+        socket.destroy();
+        callback(false);
+    });
+    socket.connect(port, '127.0.0.1');
+}
+
+/* --- SERVER LOGIC --- */
+const server = http.createServer((req, res) => {
+    console.log(`[REQUEST] ${req.method} ${req.url}`);
+
+    // 1. Handle Project Routes (Launchers)
+    if (PROJECTS[req.url]) {
+        launchProject(PROJECTS[req.url], res);
+        return;
     }
 
-    const extname = String(path.extname(filePath)).toLowerCase();
-    const contentType = mimeTypes[extname] || 'application/octet-stream';
+    // 2. Serve Static Files (timmmm website)
+    // Default to index.html
+    let filePath = '.' + req.url;
+    if (filePath === './') filePath = './index.html';
+
+    const extname = path.extname(filePath);
+    let contentType = 'text/html';
+
+    switch (extname) {
+        case '.js': contentType = 'text/javascript'; break;
+        case '.css': contentType = 'text/css'; break;
+        case '.json': contentType = 'application/json'; break;
+        case '.png': contentType = 'image/png'; break;
+        case '.jpg': contentType = 'image/jpg'; break;
+        case '.svg': contentType = 'image/svg+xml'; break;
+        case '.woff2': contentType = 'font/woff2'; break; // Added for fonts
+    }
 
     fs.readFile(filePath, (error, content) => {
         if (error) {
-            // Handle Directory (EISDIR) - Serve Listing or Index
-            if (error.code == 'EISDIR' || (error.code == 'ENOENT' && fs.existsSync(filePath) && fs.statSync(filePath).isDirectory())) {
-                const indexPage = path.join(filePath, 'index.html');
-
-                fs.readFile(indexPage, (err, indexContent) => {
-                    if (err) {
-                        // No index.html, generate directory listing
-                        fs.readdir(filePath, (readDirErr, files) => {
-                            if (readDirErr) {
-                                res.writeHead(500);
-                                res.end('Error reading directory: ' + readDirErr.code);
-                                return;
-                            }
-
-                            // Simple Directory Listing HTML
-                            res.writeHead(200, { 'Content-Type': 'text/html' });
-                            let list = `<html><head><title>Directory: ${requestUrl}</title><style>body{font-family:monospace;padding:2rem;background:#0f172a;color:#fff}a{color:#22d3ee;display:block;margin:5px 0;text-decoration:none}a:hover{text-decoration:underline}</style></head><body><h1>Directory: ${requestUrl}</h1><hr>`;
-                            if (requestUrl !== '/') list += `<a href="../">../</a>`;
-                            files.forEach(file => {
-                                list += `<a href="${path.join(requestUrl, file).replace(/\\/g, '/')}">${file}</a>`;
-                            });
-                            list += `</body></html>`;
-                            res.end(list);
-                        });
-                    } else {
-                        // index.html exists, serve it
-                        res.writeHead(200, { 'Content-Type': 'text/html' });
-                        res.end(indexContent, 'utf-8');
-                    }
-                });
-                return;
-            }
-
-            // Handle File Not Found
+            console.log(`[STATIC-FAIL] ${req.url} -> ${filePath} (${error.code})`);
             if (error.code == 'ENOENT') {
                 res.writeHead(404);
-                res.end('404 Not Found: ' + filePath);
+                res.end('404 Not Found');
             } else {
                 res.writeHead(500);
-                res.end('Server Error: ' + error.code);
+                res.end('Sorry, check with the site admin for error: ' + error.code + ' ..\n');
             }
         } else {
+            // console.log(`[STATIC-OK] ${req.url} -> ${contentType}`);
             res.writeHead(200, { 'Content-Type': contentType });
             res.end(content, 'utf-8');
         }
     });
-
 });
+
+/* --- LAUNCHER FUNCTION --- */
+function launchProject(config, res) {
+    // 1. Check if already running
+    if (runningProcesses[config.name]) {
+        console.log(`[INFO] ${config.name} tracked as running.`);
+    } else {
+        console.log(`[LAUNCH] Starting ${config.name}...`);
+
+        // Start Backend (Silent if already claimed)
+        const backend = spawn(config.backendCommand, config.backendArgs, {
+            cwd: path.join(__dirname, config.backendPath),
+            shell: true
+        });
+        backend.stdout.on('data', (d) => process.stdout.write(`[BE]: ${d}`));
+        backend.stderr.on('data', (d) => process.stderr.write(`[BE-ERR]: ${d}`));
+
+        runningProcesses[config.name] = { backend };
+
+        // Start Frontend (Only if configured)
+        if (config.frontendCommand) {
+            const frontend = spawn(config.frontendCommand, config.frontendArgs, {
+                cwd: path.join(__dirname, config.frontendPath),
+                shell: true
+            });
+            frontend.stdout.on('data', (d) => process.stdout.write(`[FE]: ${d}`));
+            frontend.stderr.on('data', (d) => process.stderr.write(`[FE-ERR]: ${d}`));
+            frontend.on('error', (err) => console.error(`[FE-FAIL] ${err}`));
+
+            runningProcesses[config.name].frontend = frontend;
+        }
+    }
+
+    // 2. Check Port Availability
+    // SPECIAL CASE: If it's a static site (redirectUrl exists and no frontendPort/frontendCommand needed), redirect immediately.
+    // The details page (frontend) is ready instantly because it is served by the main server.
+    // We let the backend start in background.
+    if (config.redirectUrl && !config.frontendPort) {
+        console.log(`[REDIRECT] ${config.name} is static content. Redirecting immediately.`);
+        res.writeHead(302, { 'Location': config.redirectUrl });
+        res.end();
+        return;
+    }
+
+    // Default: Check if the target port (frontend or backend) is ready before redirecting
+    const targetPort = config.frontendPort || config.backendPort;
+    const finalUrl = config.redirectUrl || `http://localhost:${config.frontendPort}`;
+
+    checkPort(targetPort, (isOpen) => {
+        if (isOpen) {
+            console.log(`[REDIRECT] ${config.name} is ready. Redirecting.`);
+            res.writeHead(302, { 'Location': finalUrl });
+            res.end();
+        } else {
+            console.log(`[WAIT] ${config.name} (Port ${targetPort}) not ready.`);
+            servePollingPage(res, config, targetPort, finalUrl);
+        }
+    });
+}
+
+function servePollingPage(res, config, checkPortNum, targetUrl) {
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.end(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Opening ${config.name}...</title>
+            <style>
+                body { background: #050a14; color: white; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+                .loader { width: 50px; height: 50px; border: 3px solid rgba(255,255,255,0.1); border-radius: 50%; border-top-color: #3b82f6; animation: spin 0.8s ease-in-out infinite; }
+                @keyframes spin { to { transform: rotate(360deg); } }
+            </style>
+            <script>
+                // We poll the SERVER endpoint again, effectively refreshing until redirected
+                // Because we can't CORS check an external backend port easily from client JS
+                // We just reload this page after a delay. The server logic above repeats checkPort.
+
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            </script>
+        </head>
+        <body>
+            <div class="loader"></div>
+        </body>
+        </html>
+    `);
+}
 
 server.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}/`);
-    console.log('Press Ctrl+C to stop.');
-});
-
-server.on('error', (e) => {
-    if (e.code === 'EADDRINUSE') {
-        console.error(`Port ${PORT} is already in use.`);
-        console.error(`Please close any existing server windows and run launch.bat again.`);
-        process.exit(1);
-    }
 });

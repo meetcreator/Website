@@ -4,103 +4,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drumil | Project Nexus</title>
-    <meta name="description"
-        content="Drumil Patel's Engineering & Design Nexus. Explore my Portfolio, Business Analytics Dashboard, and Archshield Security Architecture projects.">
-    <meta name="keywords"
-        content="Drumil Patel, Portfolio, Web Development, Business Analytics, Archshield, Design, Engineering, Nexus">
-    <meta name="author" content="Drumil Patel">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tinmco.com/">
-    <meta property="og:title" content="Drumil | Project Nexus">
-    <meta property="og:description"
-        content="Drumil Patel's Engineering & Design Nexus. Explore my Portfolio, Business Analytics Dashboard, and Archshield Security Architecture projects.">
-    <meta property="og:image" content="https://tinmco.com/portal_assets/preview.jpg">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://tinmco.com/">
-    <meta property="twitter:title" content="Drumil | Project Nexus">
-    <meta property="twitter:description"
-        content="Drumil Patel's Engineering & Design Nexus. Explore my Portfolio, Business Analytics Dashboard, and Archshield Security Architecture projects.">
-    <meta property="twitter:image" content="https://tinmco.com/portal_assets/preview.jpg">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Drumil Patel",
-      "url": "https://tinmco.com/",
-      "jobTitle": "Software Engineer & Designer",
-      "worksFor": {
-        "@type": "Organization",
-        "name": "Self-Employed"
-      }
-    }
-    </script>
-    <link rel="stylesheet" href="portal_assets/style.css">
-    <!-- Optional: Preload fonts or add favicon here -->
+    <title>timmmm | Strategic Technology Engineering</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div id="canvas-container">
-        <canvas id="neural-canvas"></canvas>
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">timmmm_</div>
+                <div class="nav-links">
+                    <a href="#methodology">Methodology</a>
+                    <a href="#capabilities">Capabilities</a>
+                    <a href="#portfolio">Portfolio</a>
+                    <a href="#contact">Initiate</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="container hero-content">
+            <span class="hero-label">System Architecture & Automation</span>
+            <h1>We Don't Just Write Code.<br>We Engineer <span style="color: var(--accent-primary);">Revenue.</span>
+            </h1>
+            <p style="margin: 32px 0 48px;">
+                Specialized consulting for founders who need scalable technical infrastructure, not just a website.
+                We build the engine that drives your business growth.
+            </p>
+            <a href="#contact" class="btn">Initialize Project</a>
+        </div>
+    </section>
+
+    <!-- Infinite Scroll Tech Stack -->
+    <div class="marquee-section">
+        <div class="marquee-content">
+            <!-- Duplicated for infinite loop illusion -->
+            <div class="tech-item"><i class="fab fa-react"></i> REACT</div>
+            <div class="tech-item"><i class="fab fa-python"></i> PYTHON</div>
+            <div class="tech-item"><i class="fab fa-aws"></i> AWS</div>
+            <div class="tech-item"><i class="fab fa-docker"></i> DOCKER</div>
+            <div class="tech-item"><i class="fab fa-node"></i> NODE.JS</div>
+            <div class="tech-item"><i class="fas fa-cube"></i> REDIS</div>
+            <div class="tech-item"><i class="fas fa-database"></i> POSTGRES</div>
+
+            <div class="tech-item"><i class="fab fa-react"></i> REACT</div>
+            <div class="tech-item"><i class="fab fa-python"></i> PYTHON</div>
+            <div class="tech-item"><i class="fab fa-aws"></i> AWS</div>
+            <div class="tech-item"><i class="fab fa-docker"></i> DOCKER</div>
+            <div class="tech-item"><i class="fab fa-node"></i> NODE.JS</div>
+            <div class="tech-item"><i class="fas fa-cube"></i> REDIS</div>
+            <div class="tech-item"><i class="fas fa-database"></i> POSTGRES</div>
+        </div>
     </div>
 
-    <div class="content-wrapper">
-        <header class="main-header">
-            <h1>DRUMIL</h1>
-            <p>Engineering & Design Nexus</p>
-        </header>
+    <!-- The Blueprint (Methodology) - Selling Process -->
+    <section id="methodology" class="section">
+        <div class="container">
+            <div style="margin-bottom: 80px;">
+                <h2>The Blueprint.</h2>
+                <p>We don't guess. We follow a rigorous engineering protocol to ensure ROI.</p>
+            </div>
 
-        <main class="cards-container">
-            <!-- Portfolio -->
-            <a href="Portfolio/index.html" class="glass-card">
-                <div class="card-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
+            <div class="process-list">
+                <div class="process-step">
+                    <span class="step-number">01</span>
+                    <h3 class="step-title">Diagnostic Audit</h3>
+                    <p>We analyze your current bottlenecks, data silos, and manual inefficiencies. We identify exactly
+                        where technology can recover lost revenue.</p>
                 </div>
-                <h2>Portfolio</h2>
-                <p>The central hub of my professional identity. Explore my skills, experience, and journey.</p>
-                <div class="card-arrow">➝</div>
-            </a>
-
-            <!-- Business Analytics Pro -->
-            <a href="businessanalyticspro/Dashboard/frontend/dist/index.html" class="glass-card" target="_blank">
-                <div class="card-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="18" y1="20" x2="18" y2="10"></line>
-                        <line x1="12" y1="20" x2="12" y2="4"></line>
-                        <line x1="6" y1="20" x2="6" y2="14"></line>
-                    </svg>
+                <div class="process-step">
+                    <span class="step-number">02</span>
+                    <h3 class="step-title">Solutions Architecture</h3>
+                    <p>We design a system—not just a feature. We map out data flows, integration points, and scalability
+                        requirements before writing a single line of code.</p>
                 </div>
-                <h2>Business Analytics</h2>
-                <p>Data intelligence unit. (Production Build)</p>
-                <div class="card-arrow">➝</div>
-            </a>
-
-            <!-- Archshield -->
-            <a href="Archshield/frontend/out/index.html" class="glass-card" target="_blank">
-                <div class="card-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                    </svg>
+                <div class="process-step">
+                    <span class="step-number">03</span>
+                    <h3 class="step-title">Agile Execution</h3>
+                    <p>We build in rapid 2-week sprints. You see progress constantly. We deploy functional modules, test
+                        real-world impact, and iterate.</p>
                 </div>
-                <h2>Archshield</h2>
-                <p>Security Architecture. (Static Export)</p>
-                <div class="card-arrow">➝</div>
-            </a>
-        </main>
-    </div>
+                <div class="process-step">
+                    <span class="step-number">04</span>
+                    <h3 class="step-title">Automated Scale</h3>
+                    <p>Handover isn't the end. We set up automated monitoring, CI/CD pipelines, and documentation so
+                        your team can own the machine we built.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <script src="portal_assets/script.js"></script>
+    <!-- Capabilities (Services) -->
+    <section id="capabilities" class="section">
+        <div class="container">
+            <div style="margin-bottom: 80px; display: flex; justify-content: space-between; align-items: end;">
+                <div>
+                    <h2>Capabilities.</h2>
+                    <p>Enterprise-grade solutions for scaling businesses.</p>
+                </div>
+                <!-- Decoration Grid -->
+                <div style="display: flex; gap: 4px;">
+                    <div style="width: 10px; height: 10px; background: var(--accent-primary);"></div>
+                    <div style="width: 10px; height: 10px; background: rgba(255,255,255,0.1);"></div>
+                    <div style="width: 10px; height: 10px; background: rgba(255,255,255,0.1);"></div>
+                </div>
+            </div>
+
+            <div class="grid-cols-3">
+                <div class="service-card">
+                    <i class="fas fa-network-wired service-icon"></i>
+                    <h3>Process Automation</h3>
+                    <p>Replace manual data entry with intelligent scripts. Connect your CRM, ERP, and Billing
+                        seamlessly.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-layer-group service-icon"></i>
+                    <h3>SaaS Development</h3>
+                    <p>Custom web applications built on React & Python. Secure, fast, and owned completely by you.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-microchip service-icon"></i>
+                    <h3>AI Integration</h3>
+                    <p>Deploy LLMs to handle support, analysis, and content generation within your private
+                        infrastructure.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio / Projects -->
+    <section id="portfolio" class="section">
+        <div class="container">
+            <div style="margin-bottom: 80px;">
+                <h2>Selected Works.</h2>
+                <p>Engineering at scale. Most of our work is under strict NDA.</p>
+            </div>
+
+            <div class="grid-cols-2">
+                <!-- Project 1: Archshield -->
+                <a href="archshield.html" class="project-card">
+                    <span class="project-status">Security Infrastructure</span>
+                    <h3>Archshield</h3>
+                    <p>Enterprise IaC security analyzer. Parses Terraform configurations to detect vulnerabilities,
+                        estimate costs, and ensure compliance before deployment.</p>
+                    <div class="tech-tag-list">
+                        <span>Next.js 16</span><span>FastAPI</span><span>Python</span><span>Terraform</span>
+                    </div>
+                </a>
+                <!-- Project 2: BusinessAnalyticsPro -->
+                <a href="business_analytics_pro.html" class="project-card">
+                    <span class="project-status">Data Intelligence</span>
+                    <h3>BusinessAnalyticsPro</h3>
+                    <p>Comprehensive analytics dashboard with Neumorphic UI. Features real-time data profiling, cleaning
+                        pipelines, and interactive visualizations.</p>
+                    <div class="tech-tag-list">
+                        <span>React</span><span>FastAPI</span><span>Pandas</span><span>Tailwind</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing / Engagement -->
+    <section class="section">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 80px;">Engagement Models</h2>
+            <div class="grid-cols-2">
+                <div class="pricing-card">
+                    <h3>Project Sprint</h3>
+                    <span class="price">$5k+</span>
+                    <p style="margin: 0 auto 32px;">For specific builds & audits.</p>
+                    <ul
+                        style="text-align: left; margin-bottom: 32px; list-style: square; padding-left: 20px; color: var(--text-secondary);">
+                        <li>Scope-locked Delivery</li>
+                        <li>Rapid Turnaround</li>
+                        <li>Full IP Ownership</li>
+                    </ul>
+                    <a href="#contact" class="btn">Define Scope</a>
+                </div>
+                <div class="pricing-card" style="border-color: var(--accent-primary);">
+                    <h3 style="color: var(--accent-primary);">Growth Partner</h3>
+                    <span class="price">$4k<span style="font-size: 1rem;">/mo</span></span>
+                    <p style="margin: 0 auto 32px;">Fractional CTO & Dev Team.</p>
+                    <ul
+                        style="text-align: left; margin-bottom: 32px; list-style: square; padding-left: 20px; color: var(--text-secondary);">
+                        <li>Dedicated Engineering Hours</li>
+                        <li>Strategic Roadmap</li>
+                        <li>Priority Support</li>
+                    </ul>
+                    <a href="#contact" class="btn"
+                        style="background: var(--accent-primary); color:white; border:none;">Apply for Partner</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-cta">
+                    <span class="hero-label">Ready to Scale?</span>
+                    <h2>Let's build your<br>infrastructure.</h2>
+                </div>
+                <a href="mailto:hello@timmmm.com" class="btn">hello@timmmm.com</a>
+            </div>
+            <div
+                style="border-top: 1px solid var(--border-light); padding-top: 24px; display: flex; justify-content: space-between; color: var(--text-dim); font-size: 0.8rem;">
+                <div>&copy; 2026 timmmm Consultancy.</div>
+                <div>Designed for Authority.</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archshield | Infrastructure Security</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Archshield Specific Overrides */
+        :root {
+            --accent-primary: #10b981;
+            /* Emerald/Security Green */
+            --bg-dark: #020408;
+        }
+
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .stat-card {
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 32px;
+            border-radius: 4px;
+        }
+
+        .stat-number {
+            font-family: 'Space Grotesk';
+            font-size: 3rem;
+            color: var(--accent-primary);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .code-block {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            padding: 24px;
+            font-family: 'Courier New', monospace;
+            color: #e2e8f0;
+            overflow-x: auto;
+            border-radius: 8px;
+            margin: 40px 0;
+        }
+
+        .keyword {
+            color: #c084fc;
+        }
+
+        .string {
+            color: #10b981;
+        }
+
+        .comment {
+            color: #64748b;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo"><a href="index.html" style="text-decoration:none; color:white;">timmmm_</a> /
+                    archshield</div>
+                <div class="nav-links">
+                    <a href="index.html">Back to Portfolio</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" style="min-height: 60vh; padding-top: 120px;">
+        <div class="container">
+            <span class="hero-label" style="color: var(--accent-primary);">Enterprise Security</span>
+            <h1>Infrastructure as Code<br><span style="color: var(--accent-primary);">Vulnerability Scanner.</span></h1>
+            <p style="max-width: 600px; margin-top: 24px;">
+                Archshield analyzes Terraform configurations to detect security risks, estimate cloud costs, and enforce
+                compliance policies before deployment.
+            </p>
+
+            <div class="tech-tag-list" style="margin-top: 40px;">
+                <span style="border-color: var(--accent-primary); color: var(--accent-primary);">Next.js 16</span>
+                <span style="border-color: var(--accent-primary); color: var(--accent-primary);">FastAPI</span>
+                <span style="border-color: var(--accent-primary); color: var(--accent-primary);">Python Analysis</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2>The Challenge.</h2>
+            <div class="process-step" style="border: none;">
+                <p style="max-width: 800px; font-size: 1.1rem; color: var(--text-dim);">
+                    Cloud misconfigurations cause 80% of data breaches. Manual code reviews are slow and error-prone.
+                    We needed a solution that parses Terraform files (HCL) statically, identifies open ports,
+                    unencrypted buckets, and IAM privileges,
+                    and provides actionable remediation steps instantly.
+                </p>
+            </div>
+
+            <div class="security-grid">
+                <div class="stat-card">
+                    <span class="stat-number">0.4s</span>
+                    <h3>Analysis Time</h3>
+                    <p>Average time to parse and scan a 2000-line Terraform module.</p>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">120+</span>
+                    <h3>Security Rules</h3>
+                    <p>Pre-defined checks for AWS, Azure, and GCP compliance (CIS, NIST).</p>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">100%</span>
+                    <h3>Local Execution</h3>
+                    <p>Code never leaves your infrastructure. Full privacy compliance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: rgba(255,255,255,0.02);">
+        <div class="container">
+            <h2>Technical Architecture.</h2>
+            <p>Hexagonal Architecture separating core business logic from outer API layers.</p>
+
+            <div class="grid-cols-2" style="margin-top: 60px; align-items: center;">
+                <div>
+                    <h3>Backend Logic (Python)</h3>
+                    <ul style="list-style: none; padding: 0; margin-top: 24px; color: var(--text-dim);">
+                        <li style="margin-bottom: 16px; display:flex; gap:12px;"><i class="fas fa-check"
+                                style="color:var(--accent-primary); margin-top:4px;"></i> <span><strong>FastAPI</strong>
+                                for high-performance Async I/O.</span></li>
+                        <li style="margin-bottom: 16px; display:flex; gap:12px;"><i class="fas fa-check"
+                                style="color:var(--accent-primary); margin-top:4px;"></i>
+                            <span><strong>Pydantic</strong> for rigid data validation and schema enforcement.</span>
+                        </li>
+                        <li style="margin-bottom: 16px; display:flex; gap:12px;"><i class="fas fa-check"
+                                style="color:var(--accent-primary); margin-top:4px;"></i>
+                            <span><strong>SQLAlchemy</strong> ORM with PostgreSQL for persistent storage.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="code-block">
+                    <span class="keyword">class</span> <span class="string">ArchitectureParser</span>:
+                    <span class="keyword">def</span> <span class="string">scan_resource</span>(self, resource):
+                    <span class="comment"># Check for unencrypted S3 buckets</span>
+                    <span class="keyword">if</span> resource.type == <span class="string">"aws_s3_bucket"</span>:
+                    <span class="keyword">if</span> <span class="keyword">not</span> resource.server_side_encryption:
+                    <span class="keyword">return</span> <span class="string">"CRITICAL: Bucket missing
+                        encryption"</span>
+
+                    <span class="comment"># Check for open security groups</span>
+                    <span class="keyword">if</span> resource.ingress.cidr == <span class="string">"0.0.0.0/0"</span>:
+                    <span class="keyword">return</span> <span class="string">"WARNING: Port open to world"</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-cta">
+                    <span class="hero-label">Interested in Archshield?</span>
+                    <h2>Secure your<br>infrastructure.</h2>
+                </div>
+                <a href="http://localhost:8080/Archshield" class="btn">View Project</a>
+            </div>
+            <div
+                style="border-top: 1px solid var(--border-light); padding-top: 24px; display: flex; justify-content: space-between; color: var(--text-dim); font-size: 0.8rem;">
+                <div>&copy; 2026 timmmm Consultancy.</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
