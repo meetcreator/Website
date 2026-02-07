@@ -217,8 +217,9 @@ nav {
 .logo {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: -1px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 20px;
 }
 
 .nav-links {
