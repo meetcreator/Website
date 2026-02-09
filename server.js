@@ -16,7 +16,7 @@ const PROJECTS = {
         backendCommand: path.join(__dirname, 'Archshield/backend/venv/Scripts/python.exe'),
         backendArgs: ['-m', 'uvicorn', 'app.main:app', '--host', '0.0.0.0', '--port', '8001'],
         // No separate frontend server needed - static files are served by main server
-        redirectUrl: '/Archshield/frontend/out/index.html'
+        redirectUrl: '/Archshield/'
     },
     '/businessanalyticspro': {
         name: 'BusinessAnalyticsPro',
@@ -28,7 +28,7 @@ const PROJECTS = {
         backendCommand: path.join(__dirname, 'businessanalyticspro/Dashboard/backend/venv/Scripts/python.exe'),
         backendArgs: ['-m', 'uvicorn', 'main:app', '--host', '0.0.0.0', '--port', '8002'],
         // No separate frontend server needed - static files are served by main server
-        redirectUrl: '/businessanalyticspro/Dashboard/frontend/dist/index.html'
+        redirectUrl: '/businessanalyticspro/'
     }
 };
 
@@ -64,10 +64,30 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    // 2. Serve Static Files (timmmm website)
-    // Default to index.html
-    let filePath = '.' + req.url;
-    if (filePath === './') filePath = './index.html';
+    // 2. Resolve File Path
+    let filePath;
+    const url = req.url.split('?')[0]; // Ignore query strings
+
+    if (url.startsWith('/Archshield')) {
+        const subPath = url.substring('/Archshield'.length);
+        const baseDir = path.join(__dirname, 'Archshield/frontend/out');
+        filePath = path.join(baseDir, subPath === '' || subPath === '/' ? 'index.html' : subPath);
+
+        // Handle Next.js clean URLs (e.g., /login -> /login.html or /login/index.html)
+        if (!path.extname(filePath) && !fs.existsSync(filePath)) {
+            if (fs.existsSync(filePath + '.html')) {
+                filePath += '.html';
+            } else if (fs.existsSync(path.join(filePath, 'index.html'))) {
+                filePath = path.join(filePath, 'index.html');
+            }
+        }
+    } else if (url.startsWith('/businessanalyticspro')) {
+        const subPath = url.substring('/businessanalyticspro'.length);
+        const baseDir = path.join(__dirname, 'businessanalyticspro/Dashboard/frontend/dist');
+        filePath = path.join(baseDir, subPath === '' || subPath === '/' ? 'index.html' : subPath);
+    } else {
+        filePath = path.join(__dirname, url === '/' ? 'index.html' : url);
+    }
 
     const extname = path.extname(filePath);
     let contentType = 'text/html';
@@ -79,7 +99,8 @@ const server = http.createServer((req, res) => {
         case '.png': contentType = 'image/png'; break;
         case '.jpg': contentType = 'image/jpg'; break;
         case '.svg': contentType = 'image/svg+xml'; break;
-        case '.woff2': contentType = 'font/woff2'; break; // Added for fonts
+        case '.woff2': contentType = 'font/woff2'; break;
+        case '.ico': contentType = 'image/x-icon'; break;
     }
 
     fs.readFile(filePath, (error, content) => {
@@ -93,7 +114,6 @@ const server = http.createServer((req, res) => {
                 res.end('Sorry, check with the site admin for error: ' + error.code + ' ..\n');
             }
         } else {
-            // console.log(`[STATIC-OK] ${req.url} -> ${contentType}`);
             res.writeHead(200, { 'Content-Type': contentType });
             res.end(content, 'utf-8');
         }
