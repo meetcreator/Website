@@ -7,7 +7,7 @@ export default defineConfig({
     port: 5173,
     host: true,
   },
-  base: './',
+  base: '/businessanalyticspro/Dashboard/frontend/dist/',
   build: {
     outDir: 'dist',
     sourcemap: false,

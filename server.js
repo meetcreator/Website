@@ -20,15 +20,15 @@ const PROJECTS = {
     },
     '/businessanalyticspro': {
         name: 'BusinessAnalyticsPro',
-        frontendPort: 5173,
+        // No frontend port - served statically via 8080
         backendPort: 8002,
         frontendPath: 'businessanalyticspro/Dashboard/frontend',
         backendPath: 'businessanalyticspro/Dashboard/backend',
         // Use venv python
         backendCommand: path.join(__dirname, 'businessanalyticspro/Dashboard/backend/venv/Scripts/python.exe'),
         backendArgs: ['-m', 'uvicorn', 'main:app', '--host', '0.0.0.0', '--port', '8002'],
-        frontendCommand: 'npm.cmd', // Use npm.cmd for Windows
-        frontendArgs: ['run', 'dev', '--', '--port', '5173']
+        // No separate frontend server needed - static files are served by main server
+        redirectUrl: '/businessanalyticspro/Dashboard/frontend/dist/index.html'
     }
 };
 
