@@ -165,7 +165,7 @@ function launchProject(config, res) {
 
     // Default: Check if the target port (frontend or backend) is ready before redirecting
     const targetPort = config.frontendPort || config.backendPort;
-    const finalUrl = config.redirectUrl || `http://localhost:${config.frontendPort}`;
+    const finalUrl = config.redirectUrl || `/${config.name.toLowerCase()}`;
 
     checkPort(targetPort, (isOpen) => {
         if (isOpen) {
