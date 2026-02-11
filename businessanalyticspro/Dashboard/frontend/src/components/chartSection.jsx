@@ -50,7 +50,7 @@ export default function ChartSection() {
     } else {
       // Fetch from business API
       import("axios").then(axios => {
-        const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+        const API_URL = import.meta.env.VITE_API_URL || "https://website-zw0o.onrender.com";
         axios.default.get(`${API_URL}/business/${source}`)
           .then(res => {
             if (res.data.length > 0) {

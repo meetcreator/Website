@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL ||
-  (typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.hostname}:8002` : "http://localhost:8002");
+const API_BASE_URL = import.meta.env.VITE_API_URL || "https://website-zw0o.onrender.com";
 
 export const api = axios.create({
   baseURL: API_BASE_URL,

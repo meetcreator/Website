@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Plus, Trash2, Search, X, RefreshCw } from "lucide-react";
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API_URL = import.meta.env.VITE_API_URL || "https://website-zw0o.onrender.com";
 
 export default function BusinessManager({ category, title, idField }) {
     const [items, setItems] = useState([]);
