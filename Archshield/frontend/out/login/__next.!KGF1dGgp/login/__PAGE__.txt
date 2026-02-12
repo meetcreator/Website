@@ -1,0 +1,9 @@
+1:"$Sreact.fragment"
+2:I[35732,["/Archshield/frontend/out/_next/static/chunks/d2666459e459d51a.js","/Archshield/frontend/out/_next/static/chunks/12b2c2830779e7ea.js"],"ClientPageRoot"]
+3:I[78029,["/Archshield/frontend/out/_next/static/chunks/16c0fa3990b8d1cf.js","/Archshield/frontend/out/_next/static/chunks/c156978230c5c685.js","/Archshield/frontend/out/_next/static/chunks/fadaa12cd4c4b5a4.js","/Archshield/frontend/out/_next/static/chunks/e37cd34116d55fab.js","/Archshield/frontend/out/_next/static/chunks/89b653899b97af3f.js"],"default"]
+6:I[58278,["/Archshield/frontend/out/_next/static/chunks/d2666459e459d51a.js","/Archshield/frontend/out/_next/static/chunks/12b2c2830779e7ea.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+0:{"buildId":"mGOZsaB69OjV68-ZGJTU_","rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/Archshield/frontend/out/_next/static/chunks/fadaa12cd4c4b5a4.js","async":true}],["$","script","script-1",{"src":"/Archshield/frontend/out/_next/static/chunks/e37cd34116d55fab.js","async":true}],["$","script","script-2",{"src":"/Archshield/frontend/out/_next/static/chunks/89b653899b97af3f.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+4:{}
+5:{}
+8:null
