@@ -3,15 +3,23 @@
     "rewrites": [
         {
             "source": "/Archshield",
-            "destination": "/Archshield/frontend/out/index.html"
+            "destination": "/archshield/frontend/out/index.html"
         },
         {
             "source": "/Archshield/",
-            "destination": "/Archshield/frontend/out/index.html"
+            "destination": "/archshield/frontend/out/index.html"
         },
         {
             "source": "/Archshield/:path*",
-            "destination": "/Archshield/frontend/out/:path*"
+            "destination": "/archshield/frontend/out/:path*"
+        },
+        {
+            "source": "/archshield-app",
+            "destination": "/archshield/frontend/out/index.html"
+        },
+        {
+            "source": "/archshield-app/:path*",
+            "destination": "/archshield/frontend/out/:path*"
         },
         {
             "source": "/businessanalyticspro",
