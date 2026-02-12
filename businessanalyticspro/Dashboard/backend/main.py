@@ -36,6 +36,11 @@ DATAFRAME = None
 ORIGINAL_DATAFRAME = None
 CURRENT_FILE_NAME = None
 
+@app.get("/")
+async def root():
+    """Root endpoint"""
+    return {"message": "Welcome to TINMCO Business API", "docs": "/docs"}
+
 @app.get("/health")
 async def health_check():
     """Health check endpoint"""

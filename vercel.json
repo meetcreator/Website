@@ -2,12 +2,20 @@
     "cleanUrls": true,
     "rewrites": [
         {
+            "source": "/Archshield/",
+            "destination": "/Archshield/frontend/out/index.html"
+        },
+        {
             "source": "/Archshield",
             "destination": "/Archshield/frontend/out/index.html"
         },
         {
             "source": "/Archshield/(.*)",
             "destination": "/Archshield/frontend/out/$1"
+        },
+        {
+            "source": "/businessanalyticspro/",
+            "destination": "/businessanalyticspro/Dashboard/frontend/dist/index.html"
         },
         {
             "source": "/businessanalyticspro",
