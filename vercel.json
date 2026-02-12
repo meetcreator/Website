@@ -2,28 +2,28 @@
     "cleanUrls": true,
     "rewrites": [
         {
-            "source": "/Archshield/",
-            "destination": "/Archshield/frontend/out/index.html"
-        },
-        {
             "source": "/Archshield",
             "destination": "/Archshield/frontend/out/index.html"
         },
         {
-            "source": "/Archshield/(.*)",
-            "destination": "/Archshield/frontend/out/$1"
+            "source": "/Archshield/",
+            "destination": "/Archshield/frontend/out/index.html"
         },
         {
-            "source": "/businessanalyticspro/",
-            "destination": "/businessanalyticspro/Dashboard/frontend/dist/index.html"
+            "source": "/Archshield/:path*",
+            "destination": "/Archshield/frontend/out/:path*"
         },
         {
             "source": "/businessanalyticspro",
             "destination": "/businessanalyticspro/Dashboard/frontend/dist/index.html"
         },
         {
-            "source": "/businessanalyticspro/(.*)",
-            "destination": "/businessanalyticspro/Dashboard/frontend/dist/$1"
+            "source": "/businessanalyticspro/",
+            "destination": "/businessanalyticspro/Dashboard/frontend/dist/index.html"
+        },
+        {
+            "source": "/businessanalyticspro/:path*",
+            "destination": "/businessanalyticspro/Dashboard/frontend/dist/:path*"
         }
     ]
 }
