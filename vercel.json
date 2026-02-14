@@ -1,13 +1,8 @@
 {
     "cleanUrls": true,
-    "trailingSlash": false,
     "rewrites": [
         {
             "source": "/Archshield",
-            "destination": "/archshield-app/frontend/out/index.html"
-        },
-        {
-            "source": "/Archshield/",
             "destination": "/archshield-app/frontend/out/index.html"
         },
         {
@@ -16,10 +11,6 @@
         },
         {
             "source": "/businessanalyticspro",
-            "destination": "/businessanalyticspro/Dashboard/frontend/dist/index.html"
-        },
-        {
-            "source": "/businessanalyticspro/",
             "destination": "/businessanalyticspro/Dashboard/frontend/dist/index.html"
         },
         {
