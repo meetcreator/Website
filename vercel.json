@@ -61,6 +61,10 @@
         {
             "source": "/businessanalyticspro/assets/:path*",
             "destination": "/businessanalyticspro/Dashboard/frontend/dist/assets/:path*"
+        },
+        {
+            "source": "/businessanalyticspro/:path*",
+            "destination": "/businessanalyticspro/Dashboard/frontend/dist/index.html"
         }
     ]
 }
