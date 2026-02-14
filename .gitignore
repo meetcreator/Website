@@ -7,15 +7,13 @@ jspm_packages/
 
 # Next.js Build
 .next/
-# out/
-# build/
-# dist/
-# whitelist specific build folders for Vercel static monorepo
-!archshield-app/frontend/out/
-!businessanalyticspro/Dashboard/frontend/dist/
 **/dist/
 **/out/
 **/.next/
+
+# whitelist specific build folders for Vercel static monorepo
+!archshield-app/frontend/out/
+!businessanalyticspro/Dashboard/frontend/dist/
 
 # Python / FastAPI
 __pycache__/
