@@ -19,8 +19,16 @@
             "destination": "/archshield-app/frontend/out/login.html"
         },
         {
+            "source": "/Archshield/login/:path+",
+            "destination": "/archshield-app/frontend/out/login/:path+"
+        },
+        {
             "source": "/Archshield/signup",
             "destination": "/archshield-app/frontend/out/signup.html"
+        },
+        {
+            "source": "/Archshield/signup/:path+",
+            "destination": "/archshield-app/frontend/out/signup/:path+"
         },
         {
             "source": "/Archshield/dashboard/:path*",
