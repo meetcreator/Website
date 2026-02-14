@@ -1,5 +1,5 @@
 {
-    "cleanUrls": true,
+    "cleanUrls": false,
     "trailingSlash": false,
     "rewrites": [
         {
@@ -7,7 +7,31 @@
             "destination": "/archshield-app/frontend/out/index.html"
         },
         {
-            "source": "/Archshield/:path*",
+            "source": "/Archshield/",
+            "destination": "/archshield-app/frontend/out/index.html"
+        },
+        {
+            "source": "/Archshield/_next/:path*",
+            "destination": "/archshield-app/frontend/out/_next/:path*"
+        },
+        {
+            "source": "/Archshield/login",
+            "destination": "/archshield-app/frontend/out/login.html"
+        },
+        {
+            "source": "/Archshield/signup",
+            "destination": "/archshield-app/frontend/out/signup.html"
+        },
+        {
+            "source": "/Archshield/dashboard/:path*",
+            "destination": "/archshield-app/frontend/out/dashboard/:path*.html"
+        },
+        {
+            "source": "/Archshield/dashboard",
+            "destination": "/archshield-app/frontend/out/dashboard.html"
+        },
+        {
+            "source": "/archshield-app/frontend/out/:path*",
             "destination": "/archshield-app/frontend/out/:path*"
         },
         {
@@ -15,8 +39,12 @@
             "destination": "/businessanalyticspro/Dashboard/frontend/dist/index.html"
         },
         {
-            "source": "/businessanalyticspro/:path*",
-            "destination": "/businessanalyticspro/Dashboard/frontend/dist/:path*"
+            "source": "/businessanalyticspro/",
+            "destination": "/businessanalyticspro/Dashboard/frontend/dist/index.html"
+        },
+        {
+            "source": "/businessanalyticspro/assets/:path*",
+            "destination": "/businessanalyticspro/Dashboard/frontend/dist/assets/:path*"
         }
     ]
 }
