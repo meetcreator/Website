@@ -1,31 +1,26 @@
 {
-    "cleanUrls": false,
-    "redirects": [
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "rewrites": [
         {
             "source": "/Archshield",
-            "destination": "/archshield-app/frontend/out/index.html",
-            "permanent": false
+            "destination": "/archshield-app/frontend/out/index.html"
         },
         {
             "source": "/Archshield/",
-            "destination": "/archshield-app/frontend/out/index.html",
-            "permanent": false
+            "destination": "/archshield-app/frontend/out/index.html"
         },
-        {
-            "source": "/businessanalyticspro",
-            "destination": "/businessanalyticspro/Dashboard/frontend/dist/index.html",
-            "permanent": false
-        },
-        {
-            "source": "/businessanalyticspro/",
-            "destination": "/businessanalyticspro/Dashboard/frontend/dist/index.html",
-            "permanent": false
-        }
-    ],
-    "rewrites": [
         {
             "source": "/Archshield/:path*",
             "destination": "/archshield-app/frontend/out/:path*"
+        },
+        {
+            "source": "/businessanalyticspro",
+            "destination": "/businessanalyticspro/Dashboard/frontend/dist/index.html"
+        },
+        {
+            "source": "/businessanalyticspro/",
+            "destination": "/businessanalyticspro/Dashboard/frontend/dist/index.html"
         },
         {
             "source": "/businessanalyticspro/:path*",
