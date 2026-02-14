@@ -27,6 +27,10 @@
             "destination": "/archshield-app/frontend/out/dashboard/:path*.html"
         },
         {
+            "source": "/Archshield/:path*/:file(.+\\..+)",
+            "destination": "/archshield-app/frontend/out/:path*/:file"
+        },
+        {
             "source": "/Archshield/dashboard",
             "destination": "/archshield-app/frontend/out/dashboard.html"
         },
