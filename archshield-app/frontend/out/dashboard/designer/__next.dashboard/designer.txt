@@ -1,4 +1,4 @@
 1:"$Sreact.fragment"
-2:I[357,["/Archshield/frontend/out/_next/static/chunks/d2666459e459d51a.js","/Archshield/frontend/out/_next/static/chunks/12b2c2830779e7ea.js"],"default"]
-3:I[91001,["/Archshield/frontend/out/_next/static/chunks/d2666459e459d51a.js","/Archshield/frontend/out/_next/static/chunks/12b2c2830779e7ea.js"],"default"]
-0:{"buildId":"mGOZsaB69OjV68-ZGJTU_","rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"loading":null,"isPartial":false}
+2:I[58577,["/Archshield/_next/static/chunks/7c4f221a3e515f86.js","/Archshield/_next/static/chunks/21d55028646bf6a6.js"],"default"]
+3:I[64091,["/Archshield/_next/static/chunks/7c4f221a3e515f86.js","/Archshield/_next/static/chunks/21d55028646bf6a6.js"],"default"]
+0:{"buildId":"4d2m7oZxBSJLMZJpdqWo_","rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"loading":null,"isPartial":false}

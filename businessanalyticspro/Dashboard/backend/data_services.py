@@ -251,19 +251,19 @@ def clean_dataframe(df: pd.DataFrame, action: str, column: str = None) -> pd.Dat
     
     elif action == "fill_nulls_mean" and column:
         if pd.api.types.is_numeric_dtype(df[column]):
-            df[column].fillna(df[column].mean(), inplace=True)
+            df[column] = df[column].fillna(df[column].mean())
         return df
     
     elif action == "fill_nulls_median" and column:
         if pd.api.types.is_numeric_dtype(df[column]):
-            df[column].fillna(df[column].median(), inplace=True)
+            df[column] = df[column].fillna(df[column].median())
         return df
     
     elif action == "fill_nulls_forward":
-        return df.fillna(method='ffill')
+        return df.ffill()
     
     elif action == "fill_nulls_backward":
-        return df.fillna(method='bfill')
+        return df.bfill()
     
     elif action == "fill_nulls_zero":
         return df.fillna(0)
