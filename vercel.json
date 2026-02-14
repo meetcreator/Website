@@ -6,11 +6,31 @@
             "destination": "/archshield-app/frontend/out/index.html"
         },
         {
+            "source": "/Archshield/",
+            "destination": "/archshield-app/frontend/out/index.html"
+        },
+        {
+            "source": "/archshield",
+            "destination": "/archshield-app/frontend/out/index.html"
+        },
+        {
+            "source": "/archshield/",
+            "destination": "/archshield-app/frontend/out/index.html"
+        },
+        {
             "source": "/Archshield/:path*",
             "destination": "/archshield-app/frontend/out/:path*"
         },
         {
+            "source": "/archshield/:path*",
+            "destination": "/archshield-app/frontend/out/:path*"
+        },
+        {
             "source": "/businessanalyticspro",
+            "destination": "/businessanalyticspro/Dashboard/frontend/dist/index.html"
+        },
+        {
+            "source": "/businessanalyticspro/",
             "destination": "/businessanalyticspro/Dashboard/frontend/dist/index.html"
         },
         {
