@@ -31,6 +31,7 @@
             "destination": "/archshield-app/frontend/out/signup/:path+"
         },
         {
+            "source": "/Archshield/dashboard/:path*",
             "destination": "/archshield-app/frontend/out/dashboard/:path*.html"
         },
         {
