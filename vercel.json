@@ -3,6 +3,18 @@
     "trailingSlash": false,
     "rewrites": [
         {
+            "source": "/Archshield/:path*/__next.:buildId([^.]+).:name([^.]+).__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/:path*/__next.:buildId/:name/__PAGE__.txt"
+        },
+        {
+            "source": "/Archshield/:path*/__next.:buildId([^.]+).:name([^.]+).txt",
+            "destination": "/archshield-app/frontend/out/:path*/__next.:buildId/:name.txt"
+        },
+        {
+            "source": "/Archshield/:path*/__next:suffix(.*)",
+            "destination": "/archshield-app/frontend/out/:path*/__next:suffix"
+        },
+        {
             "source": "/Archshield",
             "destination": "/archshield-app/frontend/out/index.html"
         },
@@ -33,18 +45,6 @@
         {
             "source": "/Archshield/dashboard/:path*",
             "destination": "/archshield-app/frontend/out/dashboard/:path*.html"
-        },
-        {
-            "source": "/Archshield/:path*/__next.:buildId([^.]+).:name([^.]+).__PAGE__.txt",
-            "destination": "/archshield-app/frontend/out/:path*/__next.:buildId/:name/__PAGE__.txt"
-        },
-        {
-            "source": "/Archshield/:path*/__next.:buildId([^.]+).:name([^.]+).txt",
-            "destination": "/archshield-app/frontend/out/:path*/__next.:buildId/:name.txt"
-        },
-        {
-            "source": "/Archshield/:path*/__next:suffix(.*)",
-            "destination": "/archshield-app/frontend/out/:path*/__next:suffix"
         },
         {
             "source": "/Archshield/:path*/:file(.+\\..+)",
