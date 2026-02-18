@@ -27,13 +27,7 @@ async def upload_architecture(
     
     # Read file content
     content = await file.read()
-    try:
-        content_str = content.decode("utf-8")
-    except UnicodeDecodeError:
-        try:
-            content_str = content.decode("latin-1")
-        except UnicodeDecodeError:
-             raise HTTPException(status_code=400, detail="Could not decode file. Please use UTF-8 encoding.")
+    content_str = content.decode("utf-8")
     
     # Parse the file
     parsed_data = ArchitectureParser.parse_terraform(content_str)

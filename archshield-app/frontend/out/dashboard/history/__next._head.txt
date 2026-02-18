@@ -1,5 +1,0 @@
-1:"$Sreact.fragment"
-2:I[39959,["/Archshield/_next/static/chunks/7c4f221a3e515f86.js","/Archshield/_next/static/chunks/21d55028646bf6a6.js"],"ViewportBoundary"]
-3:I[39959,["/Archshield/_next/static/chunks/7c4f221a3e515f86.js","/Archshield/_next/static/chunks/21d55028646bf6a6.js"],"MetadataBoundary"]
-4:"$Sreact.suspense"
-0:{"buildId":"4d2m7oZxBSJLMZJpdqWo_","rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L3",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"ArchShield - Infrastructure Security Analysis"}],["$","meta","1",{"name":"description","content":"Enterprise IaC security analyzer for Terraform configurations."}]]}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"loading":null,"isPartial":false}

@@ -4,10 +4,24 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || "https://business-analytics
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
+  timeout: 30000, // 30 second timeout
   headers: {
     "Content-Type": "application/json",
   },
 });
+
+// Add error logging
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.error("API Error Details:", {
+      message: error.message,
+      config: error.config,
+      response: error.response?.data
+    });
+    return Promise.reject(error);
+  }
+);
 
 // File Upload API
 export const uploadFile = async (file) => {

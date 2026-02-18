@@ -1,100 +1,115 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { PlusCircle, Search, Clock, ShieldCheck, AlertTriangle } from "lucide-react";
+
+"use client";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
 
 export default function DashboardPage() {
     return (
-        <div className="space-y-8 p-8">
-            <div className="flex items-center justify-between">
-                <div>
-                    <h2 className="text-3xl font-bold tracking-tight">Dashboard Overview</h2>
-                    <p className="text-slate-400">Manage your infrastructure analysis projects.</p>
-                </div>
-                <Button>
-                    <PlusCircle className="mr-2 h-4 w-4" />
-                    New Project
-                </Button>
-            </div>
+        <div className="p-8 space-y-8">
+            <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
 
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <Card>
+                <Card className="bg-slate-900 border-slate-800">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium text-slate-400">Total Projects</CardTitle>
-                        <Clock className="h-4 w-4 text-purple-500" />
+                        <CardTitle className="text-sm font-medium text-slate-200">Total Analyzed</CardTitle>
+                        <Activity className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">12</div>
+                        <div className="text-2xl font-bold text-white">12</div>
+                        <p className="text-xs text-muted-foreground">+2 from last month</p>
                     </CardContent>
                 </Card>
-                <Card>
+                <Card className="bg-slate-900 border-slate-800">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium text-slate-400">Total Analyses</CardTitle>
-                        <Search className="h-4 w-4 text-purple-500" />
+                        <CardTitle className="text-sm font-medium text-slate-200">Security Score</CardTitle>
+                        <ShieldIcon className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">48</div>
+                        <div className="text-2xl font-bold text-white">85%</div>
+                        <p className="text-xs text-muted-foreground">+5% improvement</p>
                     </CardContent>
                 </Card>
-                <Card>
+                <Card className="bg-slate-900 border-slate-800">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium text-slate-400">Clean Resources</CardTitle>
-                        <ShieldCheck className="h-4 w-4 text-green-500" />
+                        <CardTitle className="text-sm font-medium text-slate-200">Cost Savings</CardTitle>
+                        <DollarSign className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">342</div>
+                        <div className="text-2xl font-bold text-white">$1,200</div>
+                        <p className="text-xs text-muted-foreground">Est. monthly savings</p>
                     </CardContent>
                 </Card>
-                <Card>
+                <Card className="bg-slate-900 border-slate-800">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium text-slate-400">Vulnerabilities</CardTitle>
-                        <AlertTriangle className="h-4 w-4 text-amber-500" />
+                        <CardTitle className="text-sm font-medium text-slate-200">Active Projects</CardTitle>
+                        <Users className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">24</div>
+                        <div className="text-2xl font-bold text-white">4</div>
+                        <p className="text-xs text-muted-foreground">+1 new project</p>
                     </CardContent>
                 </Card>
             </div>
 
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-                <Card className="col-span-4">
+                <Card className="col-span-4 bg-slate-900 border-slate-800">
                     <CardHeader>
-                        <CardTitle>Recent Projects</CardTitle>
-                        <CardDescription className="text-slate-400">You have analyzed 5 projects this week.</CardDescription>
+                        <CardTitle className="text-white">Recent Analyses</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-8">
-                            {/* Mock Project List */}
+                            {/* Mock Recent Activity */}
                             {[1, 2, 3].map((i) => (
                                 <div key={i} className="flex items-center">
-                                    <div className="space-y-1">
-                                        <p className="text-sm font-medium leading-none">Cloud-Arch-Project-{i}</p>
-                                        <p className="text-sm text-slate-500">AWS • Last analyzed 2 days ago</p>
+                                    <div className="h-9 w-9 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
+                                        <Activity className="h-4 w-4 text-blue-500" />
                                     </div>
-                                    <div className="ml-auto font-medium text-purple-400">Score: 92/100</div>
+                                    <div className="ml-4 space-y-1">
+                                        <p className="text-sm font-medium leading-none text-white">Project Alpha Architecture</p>
+                                        <p className="text-sm text-muted-foreground">AWS • scanned 2 hours ago</p>
+                                    </div>
+                                    <div className="ml-auto font-medium text-emerald-500">Safe</div>
                                 </div>
                             ))}
                         </div>
                     </CardContent>
                 </Card>
-                <Card className="col-span-3">
+                <Card className="col-span-3 bg-slate-900 border-slate-800">
                     <CardHeader>
-                        <CardTitle>Recent Findings</CardTitle>
-                        <CardDescription className="text-slate-400">Security recommendations for your infra.</CardDescription>
+                        <CardTitle className="text-white">Quick Actions</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="space-y-4">
-                            <div className="flex items-start gap-2 text-sm text-amber-400 bg-amber-400/10 p-3 rounded-lg border border-amber-400/20">
-                                <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5" />
-                                <p>S3 Buckets should have public access blocked by default.</p>
-                            </div>
-                            <div className="flex items-start gap-2 text-sm text-amber-400 bg-amber-400/10 p-3 rounded-lg border border-amber-400/20">
-                                <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5" />
-                                <p>IAM Policies should follow the principle of least privilege.</p>
-                            </div>
+                        <div className="grid gap-2">
+                            <button className="w-full text-left px-4 py-3 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 text-sm font-medium transition-colors border border-blue-500/20">
+                                + New Analysis
+                            </button>
+                            <button className="w-full text-left px-4 py-3 rounded-lg bg-slate-800/50 hover:bg-slate-800 text-slate-300 text-sm font-medium transition-colors border border-slate-700">
+                                Open Designer
+                            </button>
                         </div>
                     </CardContent>
                 </Card>
             </div>
         </div>
     );
+}
+
+function ShieldIcon(props: any) {
+    return (
+        <svg
+            {...props}
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+        </svg>
+    )
 }

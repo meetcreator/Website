@@ -20,11 +20,11 @@ from business_manager import data_manager
 
 app = FastAPI(title="TINMCO Business API", version="1.0.0")
 
-# Configure CORS
+# Configure CORS - Note: allow_credentials=True cannot be used with allow_origins=["*"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -76,7 +76,7 @@ async def upload_file(file: UploadFile = File(...)):
         CURRENT_FILE_NAME = file.filename
         
         # Get initial profile
-        profile = get_profile_data()
+        profile = await get_profile_data()
         
         return {
             "status": "success",
@@ -309,4 +309,5 @@ async def delete_business_item(category: str, id_column: str, id_value: str):
 if __name__ == "__main__":
 
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)

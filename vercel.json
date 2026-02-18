@@ -59,6 +59,10 @@
             "destination": "/archshield-app/frontend/out/:path*"
         },
         {
+            "source": "/Archshield/frontend/out/:path*",
+            "destination": "/archshield-app/frontend/out/:path*"
+        },
+        {
             "source": "/businessanalyticspro",
             "destination": "/businessanalyticspro/Dashboard/frontend/dist/index.html"
         },
