@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Command Center | TINMCO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">TINMCO</a></div>
+                <div class="nav-links">
+                    <a href="index.html#methodology">Methodology</a>
+                    <a href="index.html#capabilities">Capabilities</a>
+                    <a href="index.html#portfolio">Portfolio</a>
+                    <a href="index.html#contact">Initiate</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="dashboard-header">
+            <div>
+                <span class="hero-label">Command Center v1.0</span>
+                <h1>Business <span style="color: var(--accent-primary);">Operations.</span></h1>
+            </div>
+            <div class="mode-toggle">
+                <button id="b2b-btn" class="toggle-btn active">B2B Mode</button>
+                <button id="b2c-btn" class="toggle-btn">B2C Mode</button>
+            </div>
+        </div>
+
+        <!-- Shared Features -->
+        <div class="dashboard-grid">
+            <div class="feature-card">
+                <div class="feature-meta">System Integrity</div>
+                <h3>Health Monitor</h3>
+                <div class="health-gauge"></div>
+                <div class="feature-value">99.98%</div>
+                <p>Real-time infrastructure stability across all clusters.</p>
+            </div>
+
+            <div class="feature-card" style="grid-column: span 2;">
+                <div class="feature-meta">Project Trajectory</div>
+                <h3>Development Roadmap</h3>
+                <div class="roadmap-container">
+                    <div
+                        style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-dim);">
+                        <span>Research</span><span>Execution</span><span>Audit</span>
+                    </div>
+                    <div class="roadmap-bar">
+                        <div class="roadmap-progress" style="width: 85%;"></div>
+                    </div>
+                    <div class="roadmap-bar">
+                        <div class="roadmap-progress" style="width: 40%;"></div>
+                    </div>
+                    <div class="roadmap-bar">
+                        <div class="roadmap-progress" style="width: 15%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- B2B Specific Features -->
+        <div id="b2b-features" class="dashboard-grid" data-mode="b2b">
+            <div class="feature-card">
+                <i class="fas fa-file-contract feature-icon"></i>
+                <div class="feature-meta">Enterprise</div>
+                <h3>SLA Compliance</h3>
+                <div class="feature-value">100%</div>
+                <p>Service Level Agreement uptime and response time tracking.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-truck-loading feature-icon"></i>
+                <div class="feature-meta">Supply Chain</div>
+                <h3>Vendor Portal</h3>
+                <div class="feature-value">12 Active</div>
+                <p>Managing upstream integrations and procurement APIs.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-shield-virus feature-icon"></i>
+                <div class="feature-meta">Security</div>
+                <h3>Compliance Monitor</h3>
+                <div class="feature-value">SOC2 Type II</div>
+                <p>Continuous regulatory alignment and automated audits.</p>
+            </div>
+        </div>
+
+        <!-- B2C Specific Features -->
+        <div id="b2c-features" class="dashboard-grid mode-hidden" data-mode="b2c">
+            <div class="feature-card">
+                <i class="fas fa-chart-line feature-icon"></i>
+                <div class="feature-meta">Growth</div>
+                <h3>CLV Analytics</h3>
+                <div class="feature-value">$1,240</div>
+                <p>Average Customer Lifetime Value across all segments.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-user-check feature-icon"></i>
+                <div class="feature-meta">Experience</div>
+                <h3>CRO Heatmaps</h3>
+                <div class="feature-value">+14.2%</div>
+                <p>Conversion rate optimization performance indicators.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-heart feature-icon"></i>
+                <div class="feature-meta">Retention</div>
+                <h3>Loyalty Engine</h3>
+                <div class="feature-value">45k Users</div>
+                <p>Direct-to-consumer reward program and engagement metrics.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer id="contact">
+        <div class="container">
+            <div
+                style="border-top: 1px solid var(--border-light); padding-top: 24px; display: flex; justify-content: space-between; color: var(--text-dim); font-size: 0.8rem;">
+                <div>&copy; 2026 TINMCO Consultancy.</div>
+                <div>Operational Excellence Dashboard.</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Inline dashboard logic for immediate feedback, though we'll also update script.js
+        const b2bBtn = document.getElementById('b2b-btn');
+        const b2cBtn = document.getElementById('b2c-btn');
+        const b2bFeatures = document.getElementById('b2b-features');
+        const b2cFeatures = document.getElementById('b2c-features');
+
+        b2bBtn.addEventListener('click', () => {
+            b2bBtn.classList.add('active');
+            b2cBtn.classList.remove('active');
+            b2bFeatures.classList.remove('mode-hidden');
+            b2cFeatures.classList.add('mode-hidden');
+        });
+
+        b2cBtn.addEventListener('click', () => {
+            b2cBtn.classList.add('active');
+            b2bBtn.classList.remove('active');
+            b2cFeatures.classList.remove('mode-hidden');
+            b2bFeatures.classList.add('mode-hidden');
+        });
+    </script>
+</body>
+
+</html>

@@ -96,4 +96,54 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         animate();
     }
+
+    // --- Dashboard Specific Logic ---
+    const b2bBtn = document.getElementById('b2b-btn');
+    const b2cBtn = document.getElementById('b2c-btn');
+    const b2bFeatures = document.getElementById('b2b-features');
+    const b2cFeatures = document.getElementById('b2c-features');
+
+    if (b2bBtn && b2cBtn) {
+        b2bBtn.addEventListener('click', () => {
+            b2bBtn.classList.add('active');
+            b2cBtn.classList.remove('active');
+            b2bFeatures.classList.remove('mode-hidden');
+            b2cFeatures.classList.add('mode-hidden');
+
+            // Re-trigger roadmap animations
+            document.querySelectorAll('.roadmap-progress').forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => bar.style.width = width, 50);
+            });
+        });
+
+        b2cBtn.addEventListener('click', () => {
+            b2cBtn.classList.add('active');
+            b2bBtn.classList.remove('active');
+            b2cFeatures.classList.remove('mode-hidden');
+            b2bFeatures.classList.add('mode-hidden');
+
+            // Re-trigger roadmap animations
+            document.querySelectorAll('.roadmap-progress').forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => bar.style.width = width, 50);
+            });
+        });
+    }
+
+    // Update hover effects to include new cards
+    document.querySelectorAll('.feature-card, .toggle-btn').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursorOutline.style.width = '60px';
+            cursorOutline.style.height = '60px';
+            cursorOutline.style.backgroundColor = 'rgba(255,255,255,0.1)';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursorOutline.style.width = '40px';
+            cursorOutline.style.height = '40px';
+            cursorOutline.style.backgroundColor = 'transparent';
+        });
+    });
 });
