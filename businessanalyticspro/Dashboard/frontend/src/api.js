@@ -2,9 +2,11 @@ import axios from "axios";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || "https://business-analytics-backend.onrender.com";
 
+console.log("Current API_BASE_URL:", API_BASE_URL);
+
 export const api = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 30000, // 30 second timeout
+  timeout: 60000, // Increased to 60 seconds
   headers: {
     "Content-Type": "application/json",
   },

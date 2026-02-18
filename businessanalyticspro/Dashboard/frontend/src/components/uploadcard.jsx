@@ -31,16 +31,21 @@ export default function UploadCard({ onUploadSuccess }) {
     setSuccess(null);
 
     try {
+      console.log("DEBUG: Starting file upload for:", file.name);
       const uploadResponse = await uploadFile(file);
+      console.log("DEBUG: Upload response received:", uploadResponse.data);
 
       if (uploadResponse.data.status === "success") {
         setSuccess("File uploaded successfully! Analyzing data...");
 
+        console.log("DEBUG: Fetching profile data...");
         // Fetch profile data
         const profileResponse = await getDataProfile();
+        console.log("DEBUG: Profile data received:", profileResponse.data);
         onUploadSuccess(profileResponse.data);
       }
     } catch (error) {
+      console.error("DEBUG: Upload/Profile Error:", error);
       const errorMessage = error.response?.data?.detail || error.message || "Upload failed";
       setError(`Error: ${errorMessage}`);
     } finally {
@@ -82,8 +87,8 @@ export default function UploadCard({ onUploadSuccess }) {
         onDragOver={handleDrag}
         onDrop={handleDrop}
         className={`relative bg-white dark:bg-gray-800 rounded-lg p-6 border-2 border-dashed transition-all duration-300 ${dragActive
-            ? "border-purple-500 bg-purple-50 dark:bg-purple-950/20"
-            : "border-gray-300 dark:border-gray-600"
+          ? "border-purple-500 bg-purple-50 dark:bg-purple-950/20"
+          : "border-gray-300 dark:border-gray-600"
           }`}
       >
         <input
