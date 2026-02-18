@@ -6,33 +6,66 @@ import json
 
 def profile_dataframe(df: pd.DataFrame) -> dict:
     """Generate comprehensive statistical profile of dataframe"""
+    if df.empty:
+        return {}
+        
     stats = {}
     
+    # Vectorized operations for common counts
+    counts = df.count().to_dict()
+    null_counts = df.isnull().sum().to_dict()
+    nunique = df.nunique().to_dict()
+    dtypes = df.dtypes.astype(str).to_dict()
+    
+    # Get basic descriptive stats for numeric columns in one go
+    numeric_df = df.select_dtypes(include=[np.number])
+    numeric_stats = {}
+    if not numeric_df.empty:
+        desc = numeric_df.describe(percentiles=[.25, .5, .75]).to_dict()
+        medians = numeric_df.median().to_dict()
+        variances = numeric_df.var().to_dict()
+        
+        for col in numeric_df.columns:
+            col_desc = desc.get(col, {})
+            numeric_stats[col] = {
+                "mean": float(col_desc.get("mean")) if pd.notna(col_desc.get("mean")) else None,
+                "median": float(medians.get(col)) if pd.notna(medians.get(col)) else None,
+                "min": float(col_desc.get("min")) if pd.notna(col_desc.get("min")) else None,
+                "max": float(col_desc.get("max")) if pd.notna(col_desc.get("max")) else None,
+                "std": float(col_desc.get("std")) if pd.notna(col_desc.get("std")) else None,
+                "variance": float(variances.get(col)) if pd.notna(variances.get(col)) else None,
+                "q25": float(col_desc.get("25%")) if pd.notna(col_desc.get("25%")) else None,
+                "q75": float(col_desc.get("75%")) if pd.notna(col_desc.get("75%")) else None,
+            }
+
+    # Process all columns
     for col in df.columns:
         col_data = {
-            "dtype": str(df[col].dtype),
-            "non_null_count": int(df[col].count()),
-            "null_count": int(df[col].isnull().sum()),
-            "unique_values": int(df[col].nunique()),
+            "dtype": dtypes[col],
+            "non_null_count": int(counts[col]),
+            "null_count": int(null_counts[col]),
+            "unique_values": int(nunique[col]),
         }
         
-        if pd.api.types.is_numeric_dtype(df[col]):
-            col_data["statistics"] = {
-                "mean": float(df[col].mean()) if not pd.isna(df[col].mean()) else None,
-                "median": float(df[col].median()) if not pd.isna(df[col].median()) else None,
-                "mode": float(df[col].mode().iloc[0]) if not df[col].mode().empty else None,
-                "min": float(df[col].min()) if not pd.isna(df[col].min()) else None,
-                "max": float(df[col].max()) if not pd.isna(df[col].max()) else None,
-                "std": float(df[col].std()) if not pd.isna(df[col].std()) else None,
-                "variance": float(df[col].var()) if not pd.isna(df[col].var()) else None,
-                "q25": float(df[col].quantile(0.25)) if not pd.isna(df[col].quantile(0.25)) else None,
-                "q75": float(df[col].quantile(0.75)) if not pd.isna(df[col].quantile(0.75)) else None,
-            }
+        if col in numeric_stats:
+            col_data["statistics"] = numeric_stats[col]
+            # Mode can be expensive, only calculate if nunique is reasonable or it's a small DF
+            if nunique[col] < 1000 or len(df) < 100000:
+                modes = df[col].mode()
+                col_data["statistics"]["mode"] = float(modes.iloc[0]) if not modes.empty else None
+            else:
+                col_data["statistics"]["mode"] = "Skipped (too many unique values)"
         else:
-            col_data["statistics"] = {
-                "mode": df[col].mode().iloc[0] if not df[col].mode().empty else None,
-                "most_common_count": int(df[col].value_counts().iloc[0]) if not df[col].value_counts().empty else 0,
-            }
+            # For non-numeric, get mode and top value count
+            col_data["statistics"] = {}
+            if nunique[col] < 1000 or len(df) < 100000:
+                value_counts = df[col].value_counts()
+                if not value_counts.empty:
+                    col_data["statistics"]["mode"] = str(value_counts.index[0])
+                    col_data["statistics"]["most_common_count"] = int(value_counts.iloc[0])
+            else:
+                col_data["statistics"]["mode"] = "Skipped"
+                col_data["statistics"]["most_common_count"] = 0
         
         stats[col] = col_data
     

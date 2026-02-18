@@ -79,9 +79,6 @@ async def upload_file(file: UploadFile = File(...)):
         ORIGINAL_DATAFRAME = DATAFRAME.copy()
         CURRENT_FILE_NAME = file.filename
         
-        # Get initial profile
-        profile = await get_profile_data()
-        
         return {
             "status": "success",
             "filename": file.filename,
