@@ -214,7 +214,7 @@ export default function ChartSection() {
         <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
           Chart Visualization
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {/* Data Source */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -285,7 +285,7 @@ export default function ChartSection() {
           <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">
             📊 Statistical Summary
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             <div className="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg border-l-4 border-blue-500">
               <p className="text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">Count</p>
               <p className="text-2xl font-bold text-blue-600 dark:text-blue-400 mt-2">{chartStats.count}</p>

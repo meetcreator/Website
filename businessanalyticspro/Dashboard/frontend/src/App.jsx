@@ -17,6 +17,9 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [activeTab, setActiveTab] = useState("overview");
   const [dataProfile, setDataProfile] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const [dataProfile, setDataProfile] = useState(null);
 
   useEffect(() => {
     // Apply dark mode class to root immediately
@@ -41,11 +44,21 @@ export default function App() {
   };
 
   return (
-    <div className="w-full h-full flex">
-      <Sidebar darkMode={darkMode} activeTab={activeTab} setActiveTab={setActiveTab} />
+    <div className="w-full h-full flex overflow-hidden">
+      <Sidebar
+        darkMode={darkMode}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        isOpen={isMobileMenuOpen}
+        setIsOpen={setIsMobileMenuOpen}
+      />
 
-      <div className="flex flex-col flex-1 w-full overflow-hidden bg-white dark:bg-gray-900 transition-colors duration-200">
-        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+      <div className="flex flex-col flex-1 w-full overflow-hidden bg-white dark:bg-gray-900 transition-colors duration-200 min-w-0">
+        <Navbar
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+          toggleMobileMenu={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        />
 
         {/* Content Area */}
         <div className="flex-1 p-6 overflow-auto bg-gray-50 dark:bg-gray-900">
