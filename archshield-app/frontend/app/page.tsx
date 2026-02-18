@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <main>
       {/* Hero Section */}
-      <section id="hero" className="pt-32 pb-20 px-6">
+      <section id="hero" className="pb-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center space-y-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-sm">
@@ -59,7 +59,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 px-6 bg-slate-900/50">
+      <section id="features" className="py-20 px-6 border-b border-white/5">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -120,7 +120,7 @@ export default function Home() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-20 px-6 bg-slate-900/50">
+      <section id="pricing" className="py-20 px-6 border-b border-white/5">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -147,7 +147,7 @@ export default function Home() {
             </div>
 
             {/* Professional Plan */}
-            <div className="rounded-xl border shadow-sm p-8 bg-slate-900 flex flex-col border-blue-500/50 ring-1 ring-blue-500/50 scale-105 z-10">
+            <div className="rounded-xl border shadow-sm p-8 bg-black/40 flex flex-col border-blue-500/50 ring-1 ring-blue-500/50 scale-105 z-10 transition-all">
               <h3 className="text-xl font-bold text-white mb-2">Professional</h3>
               <div className="text-3xl font-bold text-white mb-4">$49<span className="text-sm font-normal text-slate-500">/mo</span></div>
               <ul className="space-y-3 mb-8 flex-1">

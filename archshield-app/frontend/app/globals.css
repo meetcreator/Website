@@ -49,8 +49,12 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: #030305;
+  --foreground: #ffffff;
+  --accent-primary: #3b82f6;
+  --text-secondary: #a1a1aa;
+  --text-dim: #52525b;
+  /* ... shadcn defaults ... */
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -120,6 +124,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }

@@ -1,60 +1,40 @@
-document.addEventListener('DOMContentLoaded', () => {
+"use client";
 
-    // --- Custom Cursor Logic ---
-    const cursorDot = document.querySelector('.cursor-dot');
-    const cursorOutline = document.querySelector('.cursor-outline');
+import React, { useEffect, useRef } from 'react';
 
-    window.addEventListener('mousemove', (e) => {
-        const posX = e.clientX;
-        const posY = e.clientY;
+const HeroCanvas = () => {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
 
-        // Dot follows instantly
-        cursorDot.style.left = `${posX}px`;
-        cursorDot.style.top = `${posY}px`;
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
 
-        // Outline follows with lag (handled by CSS transition, just update pos)
-        cursorOutline.animate({
-            left: `${posX}px`,
-            top: `${posY}px`
-        }, { duration: 500, fill: "forwards" });
-    });
-
-    // Hover effects for cursor
-    document.querySelectorAll('a, button, .process-step').forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursorOutline.style.width = '60px';
-            cursorOutline.style.height = '60px';
-            cursorOutline.style.backgroundColor = 'rgba(255,255,255,0.1)';
-        });
-        el.addEventListener('mouseleave', () => {
-            cursorOutline.style.width = '40px';
-            cursorOutline.style.height = '40px';
-            cursorOutline.style.backgroundColor = 'transparent';
-        });
-    });
-
-    // --- Canvas Visual (Constellation) ---
-    const canvas = document.getElementById('hero-canvas');
-    if (canvas) {
         const ctx = canvas.getContext('2d');
-        let width, height;
-        let particles = [];
+        if (!ctx) return;
+
+        let width: number, height: number;
+        let particles: Particle[] = [];
 
         const resize = () => {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
         };
-        window.addEventListener('resize', resize);
-        resize();
 
         class Particle {
+            x: number;
+            y: number;
+            vx: number;
+            vy: number;
+            val: number;
+
             constructor() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
                 this.vx = (Math.random() - 0.5) * 0.5;
                 this.vy = (Math.random() - 0.5) * 0.5;
-                this.val = Math.random() * 0.5 + 0.5; // Brightness
+                this.val = Math.random() * 0.5 + 0.5;
             }
+
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
@@ -63,7 +43,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        for (let i = 0; i < 50; i++) particles.push(new Particle());
+        const init = () => {
+            resize();
+            particles = [];
+            for (let i = 0; i < 50; i++) {
+                particles.push(new Particle());
+            }
+        };
 
         const animate = () => {
             ctx.clearRect(0, 0, width, height);
@@ -94,6 +80,31 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             requestAnimationFrame(animate);
         };
+
+        window.addEventListener('resize', resize);
+        init();
         animate();
-    }
-});
+
+        return () => {
+            window.removeEventListener('resize', resize);
+        };
+    }, []);
+
+    return (
+        <canvas
+            ref={canvasRef}
+            style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                zIndex: -1,
+                opacity: 0.4,
+                pointerEvents: 'none'
+            }}
+        />
+    );
+};
+
+export default HeroCanvas;

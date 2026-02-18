@@ -10,10 +10,10 @@ const PROJECTS = {
         name: 'Archshield',
         // No frontend port - served statically via 8080
         backendPort: 8001,
-        frontendPath: 'Archshield/frontend',
-        backendPath: 'Archshield/backend',
+        frontendPath: 'archshield-app/frontend',
+        backendPath: 'archshield-app/backend',
         // Use venv python
-        backendCommand: path.join(__dirname, 'Archshield/backend/venv/Scripts/python.exe'),
+        backendCommand: path.join(__dirname, 'archshield-app/backend/venv/Scripts/python.exe'),
         backendArgs: ['-m', 'uvicorn', 'app.main:app', '--host', '0.0.0.0', '--port', '8001'],
         // No separate frontend server needed - static files are served by main server
         redirectUrl: '/Archshield/'
@@ -70,7 +70,7 @@ const server = http.createServer((req, res) => {
 
     if (url.startsWith('/Archshield')) {
         const subPath = url.substring('/Archshield'.length);
-        const baseDir = path.join(__dirname, 'Archshield/frontend/out');
+        const baseDir = path.join(__dirname, 'archshield-app/frontend/out');
         filePath = path.join(baseDir, subPath === '' || subPath === '/' ? 'index.html' : subPath);
 
         // Handle Next.js clean URLs (e.g., /login -> /login.html or /login/index.html)

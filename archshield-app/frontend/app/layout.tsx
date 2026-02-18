@@ -2,8 +2,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
+import Header from "@/components/branding/Header";
+import Footer from "@/components/branding/Footer";
+import HeroCanvas from "@/components/branding/HeroCanvas";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,10 +29,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-slate-200 font-sans`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-[#030305] text-[#ffffff] font-sans relative overflow-x-hidden`}
       >
-        <Navbar />
-        {children}
+        <HeroCanvas />
+        <Header />
+        <main className="relative z-10 pt-[80px]">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

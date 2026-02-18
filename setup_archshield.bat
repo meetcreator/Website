@@ -1,6 +1,6 @@
 @echo off
 echo Setting up Archshield Backend Environment...
-cd Archshield\backend
+cd archshield-app\backend
 if not exist venv (
     echo Creating venv...
     python -m venv venv
