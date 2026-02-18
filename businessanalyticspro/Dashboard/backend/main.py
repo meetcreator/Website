@@ -18,6 +18,10 @@ from schemas import FileUploadResponse, ProfileResponse, ChartDataResponse
 from business_manager import data_manager
 
 
+# Ensure upload directory exists
+if not os.path.exists(config.UPLOAD_DIR):
+    os.makedirs(config.UPLOAD_DIR)
+
 app = FastAPI(title="TINMCO Business API", version="1.0.0")
 
 # Configure CORS - Note: allow_credentials=True cannot be used with allow_origins=["*"]
