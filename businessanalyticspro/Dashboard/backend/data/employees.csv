@@ -1,5 +1,0 @@
-employee_id,name,role,department,email,salary,hire_date,status
-E001,Alice Johnson,Manager,Sales,alice@company.com,75000,2022-03-15,Active
-E002,Bob Williams,Developer,IT,bob@company.com,85000,2022-06-01,Active
-E003,Charlie Brown,Analyst,Finance,charlie@company.com,65000,2023-01-10,Active
-E004,Diana Prince,HR Specialist,HR,diana@company.com,60000,2023-02-20,Active

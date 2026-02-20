@@ -1,6 +1,19 @@
 {
     "cleanUrls": false,
     "trailingSlash": false,
+    "redirects": [
+        {
+            "source": "/(.*)",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "www.tinmco.com"
+                }
+            ],
+            "destination": "https://tinmco.com/$1",
+            "statusCode": 301
+        }
+    ],
     "rewrites": [
         {
             "source": "/Archshield/:path*/__next.:buildId([^.]+).:name([^.]+).__PAGE__.txt",
