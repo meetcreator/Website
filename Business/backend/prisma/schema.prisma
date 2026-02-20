@@ -1,0 +1,157 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  USER
+  VIEWER
+}
+
+model Tenant {
+  id        String     @id @default(cuid())
+  name      String
+  email     String?
+  users     User[]
+  products    Product[]
+  orders      Order[]
+  customers   Customer[]
+  clients     StrategicClient[]
+  campaigns   Campaign[]
+  integrations Integration[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      Role     @default(USER)
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Product {
+  id          String      @id @default(cuid())
+  sku         String
+  name        String
+  category    String?
+  price       Float
+  cost        Float
+  inventory   Inventory?
+  orders      OrderItem[]
+  tenantId    String
+  tenant      Tenant      @relation(fields: [tenantId], references: [id])
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@unique([sku, tenantId])
+}
+
+model Inventory {
+  id           String   @id @default(cuid())
+  productId    String   @unique
+  product      Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantity     Int      @default(0)
+  minThreshold Int      @default(10)
+  warehouseId  String?
+  updatedAt    DateTime @updatedAt
+}
+
+model StrategicClient {
+  id        String   @id @default(cuid())
+  name      String
+  value     Float
+  growth    String
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Campaign {
+  id        String   @id @default(cuid())
+  name      String
+  segment   String
+  status    String   @default("DEPLOYED")
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Customer {
+  id        String   @id @default(cuid())
+  email     String?
+  name      String
+  orders    Order[]
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  orderNumber String
+  customerId  String
+  customer    Customer    @relation(fields: [customerId], references: [id])
+  items       OrderItem[]
+  totalAmount Float
+  totalCost   Float
+  revenue     Float
+  profit      Float
+  status      String      @default("COMPLETED")
+  tenantId    String
+  tenant      Tenant      @relation(fields: [tenantId], references: [id])
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Float
+  cost      Float
+}
+
+model Forecast {
+  id         String   @id @default(cuid())
+  tenantId   String
+  period     String
+  value      Float
+  confidence Float
+  createdAt  DateTime @default(now())
+}
+
+enum IntegrationType {
+  SHOPIFY
+  AMAZON
+}
+
+model Integration {
+  id              String          @id @default(cuid())
+  tenantId        String
+  tenant          Tenant          @relation(fields: [tenantId], references: [id])
+  type            IntegrationType
+  status          String          @default("ACTIVE")
+  credentials     String          // JSON stringified credentials (should be encrypted in production)
+  lastSyncAt      DateTime?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  @@unique([tenantId, type])
+}
