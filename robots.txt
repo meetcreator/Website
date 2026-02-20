@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /Archshield/backend/
-Disallow: /businessanalyticspro/Dashboard/backend/
+Disallow: /business/backend/
 Disallow: /*.json$
 Disallow: /node_modules/
 

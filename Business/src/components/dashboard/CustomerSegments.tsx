@@ -12,7 +12,7 @@ export default function CustomerSegments() {
 
     const handleDeployCampaign = async () => {
         try {
-            await api.analytics.deployCampaign("Churn Reduction", "At Risk Cohort");
+            await api.analytics.deployCampaign({ name: "Churn Reduction", segment: "At Risk Cohort" });
             setCampaignSent(true);
             setTimeout(() => setCampaignSent(false), 3000);
         } catch (e) { console.error(e); }

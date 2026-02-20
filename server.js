@@ -18,17 +18,17 @@ const PROJECTS = {
         // No separate frontend server needed - static files are served by main server
         redirectUrl: '/Archshield/'
     },
-    '/businessanalyticspro': {
-        name: 'BusinessAnalyticsPro',
+    '/Business': {
+        name: 'Business',
         // No frontend port - served statically via 8080
         backendPort: 8002,
-        frontendPath: 'businessanalyticspro/Dashboard/frontend',
-        backendPath: 'businessanalyticspro/Dashboard/backend',
+        frontendPath: 'business',
+        backendPath: 'business/backend',
         // Use venv python
-        backendCommand: path.join(__dirname, 'businessanalyticspro/Dashboard/backend/venv/Scripts/python.exe'),
+        backendCommand: path.join(__dirname, 'business/backend/venv/Scripts/python.exe'),
         backendArgs: ['-m', 'uvicorn', 'main:app', '--host', '0.0.0.0', '--port', '8002'],
         // No separate frontend server needed - static files are served by main server
-        redirectUrl: '/businessanalyticspro/'
+        redirectUrl: '/Business/'
     }
 };
 
@@ -81,10 +81,19 @@ const server = http.createServer((req, res) => {
                 filePath = path.join(filePath, 'index.html');
             }
         }
-    } else if (url.startsWith('/businessanalyticspro')) {
-        const subPath = url.substring('/businessanalyticspro'.length);
-        const baseDir = path.join(__dirname, 'businessanalyticspro/Dashboard/frontend/dist');
+    } else if (url.startsWith('/Business')) {
+        const subPath = url.substring('/Business'.length);
+        const baseDir = path.join(__dirname, 'business/out');
         filePath = path.join(baseDir, subPath === '' || subPath === '/' ? 'index.html' : subPath);
+
+        // Handle Next.js clean URLs
+        if (!path.extname(filePath) && !fs.existsSync(filePath)) {
+            if (fs.existsSync(filePath + '.html')) {
+                filePath += '.html';
+            } else if (fs.existsSync(path.join(filePath, 'index.html'))) {
+                filePath = path.join(filePath, 'index.html');
+            }
+        }
     } else {
         filePath = path.join(__dirname, url === '/' ? 'index.html' : url);
     }

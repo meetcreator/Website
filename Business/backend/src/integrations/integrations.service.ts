@@ -62,7 +62,7 @@ export class IntegrationsService {
             where: { tenantId, status: 'ACTIVE' },
         });
 
-        const results = [];
+        const results: any[] = [];
         for (const integration of integrations) {
             const credentials = JSON.parse(integration.credentials);
             let syncResult;

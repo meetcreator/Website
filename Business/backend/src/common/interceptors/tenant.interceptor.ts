@@ -5,7 +5,7 @@ import {
     CallHandler,
     BadRequestException,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
+import { Observable } from '../../../node_modules/rxjs/dist/types';
 
 @Injectable()
 export class TenantInterceptor implements NestInterceptor {

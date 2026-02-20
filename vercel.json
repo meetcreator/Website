@@ -76,20 +76,24 @@
             "destination": "/archshield-app/frontend/out/:path*"
         },
         {
-            "source": "/businessanalyticspro",
-            "destination": "/businessanalyticspro/Dashboard/frontend/dist/index.html"
+            "source": "/Business",
+            "destination": "/business/out/index.html"
         },
         {
-            "source": "/businessanalyticspro/",
-            "destination": "/businessanalyticspro/Dashboard/frontend/dist/index.html"
+            "source": "/Business/",
+            "destination": "/business/out/index.html"
         },
         {
-            "source": "/businessanalyticspro/assets/:path*",
-            "destination": "/businessanalyticspro/Dashboard/frontend/dist/assets/:path*"
+            "source": "/Business/_next/:path*",
+            "destination": "/business/out/_next/:path*"
         },
         {
-            "source": "/businessanalyticspro/:path*",
-            "destination": "/businessanalyticspro/Dashboard/frontend/dist/index.html"
+            "source": "/Business/:path*",
+            "destination": "/business/out/:path*.html"
+        },
+        {
+            "source": "/Business/:path*/:file(.+\\..+)",
+            "destination": "/business/out/:path*/:file"
         }
     ]
 }
