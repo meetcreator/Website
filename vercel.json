@@ -1,5 +1,5 @@
 {
-    "cleanUrls": false,
+    "cleanUrls": true,
     "trailingSlash": false,
     "redirects": [
         {
@@ -16,84 +16,36 @@
     ],
     "rewrites": [
         {
-            "source": "/Archshield/:path*/__next.:buildId([^.]+).:name([^.]+).__PAGE__.txt",
-            "destination": "/archshield-app/frontend/out/:path*/__next.:buildId/:name/__PAGE__.txt"
-        },
-        {
-            "source": "/Archshield/:path*/__next.:buildId([^.]+).:name([^.]+).txt",
-            "destination": "/archshield-app/frontend/out/:path*/__next.:buildId/:name.txt"
-        },
-        {
-            "source": "/Archshield/:path*/__next:suffix(.*)",
-            "destination": "/archshield-app/frontend/out/:path*/__next:suffix"
-        },
-        {
-            "source": "/Archshield",
-            "destination": "/archshield-app/frontend/out/index.html"
-        },
-        {
-            "source": "/Archshield/",
-            "destination": "/archshield-app/frontend/out/index.html"
-        },
-        {
             "source": "/Archshield/_next/:path*",
             "destination": "/archshield-app/frontend/out/_next/:path*"
         },
         {
-            "source": "/Archshield/login",
-            "destination": "/archshield-app/frontend/out/login.html"
+            "source": "/archshield/_next/:path*",
+            "destination": "/archshield-app/frontend/out/_next/:path*"
         },
         {
-            "source": "/Archshield/login/:path+",
-            "destination": "/archshield-app/frontend/out/login/:path+"
-        },
-        {
-            "source": "/Archshield/signup",
-            "destination": "/archshield-app/frontend/out/signup.html"
-        },
-        {
-            "source": "/Archshield/signup/:path+",
-            "destination": "/archshield-app/frontend/out/signup/:path+"
-        },
-        {
-            "source": "/Archshield/dashboard/:path*",
-            "destination": "/archshield-app/frontend/out/dashboard/:path*.html"
-        },
-        {
-            "source": "/Archshield/:path*/:file(.+\\..+)",
-            "destination": "/archshield-app/frontend/out/:path*/:file"
-        },
-        {
-            "source": "/Archshield/dashboard",
-            "destination": "/archshield-app/frontend/out/dashboard.html"
-        },
-        {
-            "source": "/archshield-app/frontend/out/:path*",
+            "source": "/Archshield/:path*",
             "destination": "/archshield-app/frontend/out/:path*"
         },
         {
-            "source": "/Archshield/frontend/out/:path*",
+            "source": "/archshield/:path*",
             "destination": "/archshield-app/frontend/out/:path*"
-        },
-        {
-            "source": "/Business",
-            "destination": "/business/out/index.html"
-        },
-        {
-            "source": "/Business/",
-            "destination": "/business/out/index.html"
         },
         {
             "source": "/Business/_next/:path*",
             "destination": "/business/out/_next/:path*"
         },
         {
-            "source": "/Business/:path*",
-            "destination": "/business/out/:path*.html"
+            "source": "/business/_next/:path*",
+            "destination": "/business/out/_next/:path*"
         },
         {
-            "source": "/Business/:path*/:file(.+\\..+)",
-            "destination": "/business/out/:path*/:file"
+            "source": "/Business/:path*",
+            "destination": "/business/out/:path*"
+        },
+        {
+            "source": "/business/:path*",
+            "destination": "/business/out/:path*"
         }
     ]
 }
