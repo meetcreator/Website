@@ -1,0 +1,5 @@
+1:"$Sreact.fragment"
+2:I[84941,["/archshield/_next/static/chunks/28fcf585db6274e9.js","/archshield/_next/static/chunks/b79174a7d992b087.js","/archshield/_next/static/chunks/65552189bbeef329.js"],"Sidebar"]
+3:I[58577,["/archshield/_next/static/chunks/7c4f221a3e515f86.js","/archshield/_next/static/chunks/3b9fbdd03e083928.js"],"default"]
+4:I[64091,["/archshield/_next/static/chunks/7c4f221a3e515f86.js","/archshield/_next/static/chunks/3b9fbdd03e083928.js"],"default"]
+0:{"buildId":"KQBQBLwm1FjfhTUQQlF29","rsc":["$","$1","c",{"children":[[["$","script","script-0",{"src":"/archshield/_next/static/chunks/b79174a7d992b087.js","async":true}],["$","script","script-1",{"src":"/archshield/_next/static/chunks/65552189bbeef329.js","async":true}]],["$","div",null,{"className":"h-full relative","children":[["$","div",null,{"className":"hidden h-full md:flex md:w-72 md:flex-col md:fixed md:inset-y-0 z-[80] bg-gray-900","children":["$","$L2",null,{}]}],["$","main",null,{"className":"md:pl-72","children":["$","$L3",null,{"parallelRouterKey":"children","template":["$","$L4",null,{}]}]}]]}]]}],"loading":null,"isPartial":false}
