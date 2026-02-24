@@ -4,10 +4,16 @@ services:
     env: node
     plan: free
     rootDir: business/backend
-    buildCommand: npm install && npm run build
+    buildCommand: npm install && npx prisma generate && npm run build
     startCommand: npm run start:prod
     envVars:
       - key: NODE_VERSION
         value: 18
       - key: PORT
         value: 3001
+      - key: DATABASE_URL
+        value: file:/var/data/dev.db
+      - key: JWT_SECRET
+        value: change-this-to-a-secure-random-string-in-render-dashboard
+      - key: FRONTEND_URL
+        value: https://tinmco.com
