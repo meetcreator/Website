@@ -13,7 +13,7 @@ jspm_packages/
 
 # whitelist specific build folders for Vercel static monorepo
 !archshield-app/frontend/out/
-!businessanalyticspro/Dashboard/frontend/dist/
+!business/out/
 
 # Python / FastAPI
 __pycache__/

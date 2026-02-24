@@ -132,27 +132,6 @@
     </footer>
 
     <script src="script.js"></script>
-    <script>
-        // Inline dashboard logic for immediate feedback, though we'll also update script.js
-        const b2bBtn = document.getElementById('b2b-btn');
-        const b2cBtn = document.getElementById('b2c-btn');
-        const b2bFeatures = document.getElementById('b2b-features');
-        const b2cFeatures = document.getElementById('b2c-features');
-
-        b2bBtn.addEventListener('click', () => {
-            b2bBtn.classList.add('active');
-            b2cBtn.classList.remove('active');
-            b2bFeatures.classList.remove('mode-hidden');
-            b2cFeatures.classList.add('mode-hidden');
-        });
-
-        b2cBtn.addEventListener('click', () => {
-            b2cBtn.classList.add('active');
-            b2bBtn.classList.remove('active');
-            b2cFeatures.classList.remove('mode-hidden');
-            b2bFeatures.classList.add('mode-hidden');
-        });
-    </script>
 </body>
 
 </html>

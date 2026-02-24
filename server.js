@@ -24,9 +24,9 @@ const PROJECTS = {
         backendPort: 8002,
         frontendPath: 'business',
         backendPath: 'business/backend',
-        // Use venv python
-        backendCommand: path.join(__dirname, 'business/backend/venv/Scripts/python.exe'),
-        backendArgs: ['-m', 'uvicorn', 'main:app', '--host', '0.0.0.0', '--port', '8002'],
+        // Use Node/NPM for NestJS backend
+        backendCommand: 'npm',
+        backendArgs: ['run', 'start:prod'],
         // No separate frontend server needed - static files are served by main server
         redirectUrl: '/Business/'
     }

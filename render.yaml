@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: business-backend
+    env: node
+    plan: free
+    rootDir: business/backend
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:prod
+    envVars:
+      - key: NODE_VERSION
+        value: 18
+      - key: PORT
+        value: 3001
