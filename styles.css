@@ -194,7 +194,7 @@ header {
     width: 100%;
     height: var(--header-height);
     z-index: 1000;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(4px);
     border-bottom: 1px solid var(--border-light);
     display: flex;
     align-items: center;
@@ -210,7 +210,7 @@ nav {
 
 .logo {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 600;
     letter-spacing: 1px;
     padding: 20px;

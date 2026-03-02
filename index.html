@@ -130,13 +130,9 @@
         <div class="container">
             <nav>
                 <div class="logo">TINMCO </div>
-                <div class="nav-links">
-                    <a href="#methodology">Methodology</a>
-                    <a href="#capabilities">Capabilities</a>
-                    <a href="#portfolio">Portfolio</a>
-                    <a href="dashboard.html" class="nav-accent">Command Center</a>
-                    <a href="#contact">Initiate</a>
-                </div>
+                <span
+                    style="font-size: 0.9rem; opacity: 0.7; margin-left: 3px; vertical-align: middle; font-weight: 400;">By
+                    Drumil Patel</span>
             </nav>
         </div>
     </header>
@@ -151,7 +147,8 @@
                 Specialized consulting for founders who need scalable technical infrastructure, not just a website.
                 We build the engine that drives your business growth.
             </p>
-            <a href="#contact" class="btn">Initialize Project</a>
+            <a href="#contact" class="btn" style="margin-right: 10px;">Initialize Project</a>
+            <a href="#portfolio" class="btn">View Projects</a>
         </div>
     </section>
 
@@ -159,21 +156,29 @@
     <div class="marquee-section">
         <div class="marquee-content">
             <!-- Duplicated for infinite loop illusion -->
+            <div class="tech-item"><i class="fas fa-brain"></i> ARTIFICIAL INTELLIGENCE</div>
+            <div class="tech-item"><i class="fas fa-robot"></i> MACHINE LEARNING</div>
             <div class="tech-item"><i class="fab fa-react"></i> REACT</div>
-            <div class="tech-item"><i class="fab fa-python"></i> PYTHON</div>
-            <div class="tech-item"><i class="fab fa-aws"></i> AWS</div>
+            <div class="tech-item"><i class="fab fa-node-js"></i> NODE.JS</div>
+            <div class="tech-item"><i class="fas fa-database"></i> DATABASE DESIGN</div>
+            <div class="tech-item"><i class="fas fa-cloud"></i> CLOUD COMPUTING</div>
             <div class="tech-item"><i class="fab fa-docker"></i> DOCKER</div>
-            <div class="tech-item"><i class="fab fa-node"></i> NODE.JS</div>
-            <div class="tech-item"><i class="fas fa-cube"></i> REDIS</div>
-            <div class="tech-item"><i class="fas fa-database"></i> POSTGRES</div>
+            <div class="tech-item"><i class="fas fa-infinity"></i> DEVOPS</div>
+            <div class="tech-item"><i class="fas fa-chart-line"></i> DATA ANALYTICS</div>
+            <div class="tech-item"><i class="fas fa-square-binary"></i> DSA</div>
+            <div class="tech-item"><i class="fas fa-database"></i> SQL</div>
 
+            <div class="tech-item"><i class="fas fa-brain"></i> ARTIFICIAL INTELLIGENCE</div>
+            <div class="tech-item"><i class="fas fa-robot"></i> MACHINE LEARNING</div>
             <div class="tech-item"><i class="fab fa-react"></i> REACT</div>
-            <div class="tech-item"><i class="fab fa-python"></i> PYTHON</div>
-            <div class="tech-item"><i class="fab fa-aws"></i> AWS</div>
+            <div class="tech-item"><i class="fab fa-node-js"></i> NODE.JS</div>
+            <div class="tech-item"><i class="fas fa-database"></i> DATABASE DESIGN</div>
+            <div class="tech-item"><i class="fas fa-cloud"></i> CLOUD COMPUTING</div>
             <div class="tech-item"><i class="fab fa-docker"></i> DOCKER</div>
-            <div class="tech-item"><i class="fab fa-node"></i> NODE.JS</div>
-            <div class="tech-item"><i class="fas fa-cube"></i> REDIS</div>
-            <div class="tech-item"><i class="fas fa-database"></i> POSTGRES</div>
+            <div class="tech-item"><i class="fas fa-infinity"></i> DEVOPS</div>
+            <div class="tech-item"><i class="fas fa-chart-line"></i> DATA ANALYTICS</div>
+            <div class="tech-item"><i class="fas fa-square-binary"></i> DSA</div>
+            <div class="tech-item"><i class="fas fa-database"></i> SQL</div>
         </div>
     </div>
 
@@ -263,7 +268,7 @@
 
             <div class="grid-cols-2">
                 <!-- Project 1: Archshield -->
-                <a href="archshield-info.html" class="project-card">
+                <div class="project-card">
                     <span class="project-status">Security Infrastructure</span>
                     <h3>Archshield</h3>
                     <p>Enterprise IaC security analyzer. Parses Terraform configurations to detect vulnerabilities,
@@ -271,9 +276,14 @@
                     <div class="tech-tag-list">
                         <span>Next.js 16</span><span>FastAPI</span><span>Python</span><span>Terraform</span>
                     </div>
-                </a>
+                    <div style="margin-top: 32px; display: flex; gap: 16px;">
+                        <a href="/archshield" class="btn" style="padding: 12px 24px;">Visit</a>
+                        <a href="archshield-info.html" class="btn"
+                            style="padding: 12px 24px; border-color: var(--border-light);">View Details</a>
+                    </div>
+                </div>
                 <!-- Project 2: BusinessAnalyticsPro -->
-                <a href="business-analytics-info.html" class="project-card">
+                <div class="project-card">
                     <span class="project-status">Data Intelligence</span>
                     <h3>BusinessAnalyticsPro</h3>
                     <p>Comprehensive analytics dashboard with Neumorphic UI. Features real-time data profiling, cleaning
@@ -281,23 +291,13 @@
                     <div class="tech-tag-list">
                         <span>React</span><span>FastAPI</span><span>Pandas</span><span>Tailwind</span>
                     </div>
-                </a>
+                    <div style="margin-top: 32px; display: flex; gap: 16px;">
+                        <a href="/business" class="btn" style="padding: 12px 24px;">Visit</a>
+                        <a href="business-analytics-info.html" class="btn"
+                            style="padding: 12px 24px; border-color: var(--border-light);">View Details</a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Command Center CTA -->
-    <section class="section"
-        style="background: linear-gradient(to bottom, transparent, rgba(59, 130, 246, 0.05)); border-top: 1px solid var(--border-light);">
-        <div class="container" style="text-align: center;">
-            <span class="hero-label">Centralized Efficiency</span>
-            <h2 style="margin-bottom: 24px;">The Client Command Center.</h2>
-            <p style="margin: 0 auto 40px; text-align: center;">
-                Real-time visibility into your project's health, roadmap, and business-specific
-                intelligence.
-                Whether you're B2B or B2C, we provide the tools to manage your growth.
-            </p>
-            <a href="dashboard.html" class="btn">Access Portal</a>
         </div>
     </section>
 
