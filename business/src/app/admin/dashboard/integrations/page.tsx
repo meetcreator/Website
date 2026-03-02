@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useSocket, SocketProvider } from '@/context/SocketContext';
 import { TrendingUp, Box, Users, Activity, ShoppingCart, Globe, RefreshCw, Trash2, Plus, CheckCircle2, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
+import { API_BASE_URL } from '@/lib/api';
 
 function IntegrationsContent() {
     const router = useRouter();
@@ -22,7 +23,7 @@ function IntegrationsContent() {
     const fetchIntegrations = async () => {
         try {
             const token = localStorage.getItem('accessToken');
-            const res = await fetch('http://localhost:3001/integrations', {
+            const res = await fetch(`${API_BASE_URL}/integrations`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             const data = await res.json();
@@ -38,7 +39,7 @@ function IntegrationsContent() {
         e.preventDefault();
         try {
             const token = localStorage.getItem('accessToken');
-            await fetch('http://localhost:3001/integrations/connect', {
+            await fetch(`${API_BASE_URL}/integrations/connect`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -58,7 +59,7 @@ function IntegrationsContent() {
         setSyncing(true);
         try {
             const token = localStorage.getItem('accessToken');
-            await fetch('http://localhost:3001/integrations/sync', {
+            await fetch(`${API_BASE_URL}/integrations/sync`, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -75,7 +76,7 @@ function IntegrationsContent() {
         if (!confirm('Are you sure you want to disconnect this store?')) return;
         try {
             const token = localStorage.getItem('accessToken');
-            await fetch(`http://localhost:3001/integrations/${id}`, {
+            await fetch(`${API_BASE_URL}/integrations/${id}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });

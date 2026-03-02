@@ -3,6 +3,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
+import { API_BASE_URL } from '@/lib/api';
 
 interface SocketContextType {
     socket: Socket | null;
@@ -21,9 +22,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     const [isConnected, setIsConnected] = useState(false);
 
     useEffect(() => {
-        // Assuming backend is on localhost:3000 or same host
-        // Adjust URL as needed
-        const socketInstance = io('http://localhost:3000', {
+        const socketInstance = io(API_BASE_URL, {
             transports: ['websocket'],
             autoConnect: true,
         });
