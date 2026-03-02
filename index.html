@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO Meta Tags -->
-    <title>TINMCO | ROI-Driven Custom Software Solutions</title>
+    <title>TINMCO | ROI-Driven Custom Software Engineering Solutions</title>
     <meta name="description"
-        content="TINMCO engineers scalable infrastructure, process automation, and ROI-driven custom software solutions to accelerate your business growth.">
+        content="TINMCO engineers scalable infrastructure, automation, and continuous ROI-driven custom software to dramatically accelerate growth.">
     <meta name="keywords"
         content="technology consulting, software engineering, process automation, SaaS development, AI integration, React development, Python development, AWS infrastructure, custom software, fractional CTO">
     <meta name="author" content="TINMCO Consultancy">
@@ -18,24 +18,25 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-    <!-- Canonical URL -->
+    <!-- Canonical & Hreflang URL -->
     <link rel="canonical" href="https://tinmco.com/">
+    <link rel="alternate" hreflang="en" href="https://tinmco.com/">
 
     <!-- Open Graph Tags -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tinmco.com/">
-    <meta property="og:title" content="TINMCO | ROI-Driven Custom Software Solutions">
+    <meta property="og:title" content="TINMCO | ROI-Driven Custom Software Engineering Solutions">
     <meta property="og:description"
-        content="TINMCO engineers scalable infrastructure, process automation, and ROI-driven custom software solutions to accelerate your business growth.">
+        content="TINMCO engineers scalable infrastructure, automation, and continuous ROI-driven custom software to dramatically accelerate growth.">
     <meta property="og:image" content="https://tinmco.com/og-image.jpg">
     <meta property="og:site_name" content="TINMCO Consultancy">
 
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://tinmco.com/">
-    <meta name="twitter:title" content="TINMCO | ROI-Driven Custom Software Solutions">
+    <meta name="twitter:title" content="TINMCO | ROI-Driven Custom Software Engineering Solutions">
     <meta name="twitter:description"
-        content="TINMCO engineers scalable infrastructure, process automation, and ROI-driven custom software solutions to accelerate your business growth.">
+        content="TINMCO engineers scalable infrastructure, automation, and continuous ROI-driven custom software to dramatically accelerate growth.">
     <meta name="twitter:image" content="https://tinmco.com/og-image.jpg">
 
     <!-- Preconnect for Performance -->
@@ -43,8 +44,21 @@
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </noscript>
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
 
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
@@ -410,23 +424,29 @@
                 <div class="footer-cta">
                     <span class="hero-label">Ready to Scale?</span>
                     <h2>Let's build your<br>infrastructure.</h2>
-                    <div class="social-share" style="margin-top: 24px; display: flex; gap: 16px; align-items: center;">
-                        <span style="color: var(--text-dim); font-size: 0.9rem;">Share this page:</span>
-                        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftinmco.com&text=ROI-Driven%20Custom%20Software%20Solutions"
-                            target="_blank" rel="noopener noreferrer"
+                    <div class="social-share"
+                        style="margin-top: 24px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+                        <span style="color: var(--text-dim); font-size: 0.9rem;">Follow us:</span>
+                        <a href="https://x.com/tinmco" target="_blank" rel="noopener noreferrer"
                             style="color: var(--accent-primary); font-size: 1.2rem; transition: opacity 0.3s;"
                             onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"
-                            aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Ftinmco.com"
-                            target="_blank" rel="noopener noreferrer"
+                            aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://linkedin.com/company/tinmco" target="_blank" rel="noopener noreferrer"
                             style="color: var(--accent-primary); font-size: 1.2rem; transition: opacity 0.3s;"
                             onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"
-                            aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftinmco.com" target="_blank"
-                            rel="noopener noreferrer"
+                            aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://youtube.com/@tinmco" target="_blank" rel="noopener noreferrer"
                             style="color: var(--accent-primary); font-size: 1.2rem; transition: opacity 0.3s;"
                             onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"
-                            aria-label="Share on Facebook"><i class="fab fa-facebook"></i></a>
+                            aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://instagram.com/tinmco" target="_blank" rel="noopener noreferrer"
+                            style="color: var(--accent-primary); font-size: 1.2rem; transition: opacity 0.3s;"
+                            onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"
+                            aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://facebook.com/tinmco" target="_blank" rel="noopener noreferrer"
+                            style="color: var(--accent-primary); font-size: 1.2rem; transition: opacity 0.3s;"
+                            onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"
+                            aria-label="Facebook"><i class="fab fa-facebook"></i></a>
                     </div>
                 </div>
                 <a href="mailto:404notfoundany@gmail.com" class="btn" style="white-space: nowrap;">Contact</a>
@@ -439,7 +459,7 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 
 </html>

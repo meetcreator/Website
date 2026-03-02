@@ -381,6 +381,19 @@ footer {
 
 /* Mobile */
 @media (max-width: 768px) {
+    .container {
+        padding: 0 24px;
+    }
+
+    button,
+    .btn,
+    a,
+    input,
+    select {
+        min-height: 48px;
+        min-width: 48px;
+    }
+
     h1 {
         font-size: 3rem;
     }
