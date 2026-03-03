@@ -26,6 +26,70 @@
     ],
     "rewrites": [
         {
+            "source": "/archshield/_not-found/__next._not-found.__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/_not-found/__next._not-found/__PAGE__.txt"
+        },
+        {
+            "source": "/archshield/signup/__next.signup.__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/signup/__next.signup/__PAGE__.txt"
+        },
+        {
+            "source": "/archshield/login/__next.login.__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/login/__next.login/__PAGE__.txt"
+        },
+        {
+            "source": "/archshield/dashboard/__next.dashboard.__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/__next.dashboard/__PAGE__.txt"
+        },
+        {
+            "source": "/archshield/dashboard/settings/__next.dashboard.settings.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/settings/__next.dashboard/settings.txt"
+        },
+        {
+            "source": "/archshield/dashboard/settings/__next.dashboard.settings.__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/settings/__next.dashboard/settings/__PAGE__.txt"
+        },
+        {
+            "source": "/archshield/dashboard/recommendations/__next.dashboard.recommendations.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/recommendations/__next.dashboard/recommendations.txt"
+        },
+        {
+            "source": "/archshield/dashboard/recommendations/__next.dashboard.recommendations.__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/recommendations/__next.dashboard/recommendations/__PAGE__.txt"
+        },
+        {
+            "source": "/archshield/dashboard/history/__next.dashboard.history.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/history/__next.dashboard/history.txt"
+        },
+        {
+            "source": "/archshield/dashboard/history/__next.dashboard.history.__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/history/__next.dashboard/history/__PAGE__.txt"
+        },
+        {
+            "source": "/archshield/dashboard/help/__next.dashboard.help.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/help/__next.dashboard/help.txt"
+        },
+        {
+            "source": "/archshield/dashboard/help/__next.dashboard.help.__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/help/__next.dashboard/help/__PAGE__.txt"
+        },
+        {
+            "source": "/archshield/dashboard/designer/__next.dashboard.designer.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/designer/__next.dashboard/designer.txt"
+        },
+        {
+            "source": "/archshield/dashboard/designer/__next.dashboard.designer.__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/designer/__next.dashboard/designer/__PAGE__.txt"
+        },
+        {
+            "source": "/archshield/dashboard/analyze/__next.dashboard.analyze.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/analyze/__next.dashboard/analyze.txt"
+        },
+        {
+            "source": "/archshield/dashboard/analyze/__next.dashboard.analyze.__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/analyze/__next.dashboard/analyze/__PAGE__.txt"
+        },
+        {
             "source": "/archshield/_next/:path*",
             "destination": "/archshield-app/frontend/out/_next/:path*"
         },
