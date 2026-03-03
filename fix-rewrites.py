@@ -9,6 +9,7 @@ with open(vercel_json_path, 'r', encoding='utf-8') as f:
     vercel = json.load(f)
 
 new_rewrites = []
+txt_files = list(base_dir.rglob("*.txt"))
 
 for f in txt_files:
     rel = f.relative_to(base_dir).as_posix()
