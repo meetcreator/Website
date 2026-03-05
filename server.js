@@ -67,31 +67,42 @@ const server = http.createServer((req, res) => {
     // 2. Resolve File Path
     let filePath;
     const url = req.url.split('?')[0]; // Ignore query strings
+    const lowerUrl = url.toLowerCase();
 
-    if (url.startsWith('/Archshield')) {
-        const subPath = url.substring('/Archshield'.length);
+    if (lowerUrl.startsWith('/archshield')) {
+        const subPath = url.substring(11); // '/archshield'.length
         const baseDir = path.join(__dirname, 'archshield-app/frontend/out');
         filePath = path.join(baseDir, subPath === '' || subPath === '/' ? 'index.html' : subPath);
 
         // Handle Next.js clean URLs (e.g., /login -> /login.html or /login/index.html)
-        if (!path.extname(filePath) && !fs.existsSync(filePath)) {
-            if (fs.existsSync(filePath + '.html')) {
-                filePath += '.html';
-            } else if (fs.existsSync(path.join(filePath, 'index.html'))) {
-                filePath = path.join(filePath, 'index.html');
+        if (!path.extname(filePath)) {
+            let isDir = false;
+            try { isDir = fs.statSync(filePath).isDirectory(); } catch (e) { }
+
+            if (!fs.existsSync(filePath) || isDir) {
+                if (fs.existsSync(filePath + '.html')) {
+                    filePath += '.html';
+                } else if (fs.existsSync(path.join(filePath, 'index.html'))) {
+                    filePath = path.join(filePath, 'index.html');
+                }
             }
         }
-    } else if (url.startsWith('/Business')) {
-        const subPath = url.substring('/Business'.length);
+    } else if (lowerUrl.startsWith('/business')) {
+        const subPath = url.substring(9); // '/business'.length
         const baseDir = path.join(__dirname, 'business/out');
         filePath = path.join(baseDir, subPath === '' || subPath === '/' ? 'index.html' : subPath);
 
         // Handle Next.js clean URLs
-        if (!path.extname(filePath) && !fs.existsSync(filePath)) {
-            if (fs.existsSync(filePath + '.html')) {
-                filePath += '.html';
-            } else if (fs.existsSync(path.join(filePath, 'index.html'))) {
-                filePath = path.join(filePath, 'index.html');
+        if (!path.extname(filePath)) {
+            let isDir = false;
+            try { isDir = fs.statSync(filePath).isDirectory(); } catch (e) { }
+
+            if (!fs.existsSync(filePath) || isDir) {
+                if (fs.existsSync(filePath + '.html')) {
+                    filePath += '.html';
+                } else if (fs.existsSync(path.join(filePath, 'index.html'))) {
+                    filePath = path.join(filePath, 'index.html');
+                }
             }
         }
     } else {
@@ -110,6 +121,7 @@ const server = http.createServer((req, res) => {
         case '.svg': contentType = 'image/svg+xml'; break;
         case '.woff2': contentType = 'font/woff2'; break;
         case '.ico': contentType = 'image/x-icon'; break;
+        case '.txt': contentType = 'text/plain'; break;
     }
 
     fs.readFile(filePath, (error, content) => {

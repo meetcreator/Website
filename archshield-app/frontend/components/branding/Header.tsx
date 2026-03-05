@@ -9,13 +9,13 @@ const Header = () => {
             <div className="container mx-auto px-10 max-w-[1400px]">
                 <nav className="flex justify-between items-center w-full">
                     <div className="logo font-['Space_Grotesk'] text-[1.5rem] font-semibold tracking-[1px]">
-                        <Link href="/" className="text-white">TINMCO</Link>
+                        <a href="/" className="text-white">TINMCO</a>
                     </div>
                     <div className="nav-links flex gap-[40px]">
-                        <Link href="/#methodology" className="text-[0.85rem] uppercase tracking-[1px] text-[#a1a1aa] hover:text-white transition-colors">Methodology</Link>
-                        <Link href="/#capabilities" className="text-[0.85rem] uppercase tracking-[1px] text-[#a1a1aa] hover:text-white transition-colors">Capabilities</Link>
-                        <Link href="/#portfolio" className="text-[0.85rem] uppercase tracking-[1px] text-[#a1a1aa] hover:text-white transition-colors">Portfolio</Link>
-                        <Link href="/#contact" className="text-[0.85rem] uppercase tracking-[1px] text-[#a1a1aa] hover:text-white transition-colors">Initiate</Link>
+                        <a href="/#methodology" className="text-[0.85rem] uppercase tracking-[1px] text-[#a1a1aa] hover:text-white transition-colors">Methodology</a>
+                        <a href="/#capabilities" className="text-[0.85rem] uppercase tracking-[1px] text-[#a1a1aa] hover:text-white transition-colors">Capabilities</a>
+                        <a href="/#portfolio" className="text-[0.85rem] uppercase tracking-[1px] text-[#a1a1aa] hover:text-white transition-colors">Portfolio</a>
+                        <a href="/#contact" className="text-[0.85rem] uppercase tracking-[1px] text-[#a1a1aa] hover:text-white transition-colors">Initiate</a>
                     </div>
                 </nav>
             </div>
