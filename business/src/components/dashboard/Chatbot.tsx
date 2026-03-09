@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Send, MessageSquare, X, Bot } from "lucide-react";
-import { api } from "@/lib/api";
+import { api, API_BASE_URL } from "@/lib/api";
 
 export default function Chatbot() {
     const [isOpen, setIsOpen] = useState(false);
@@ -35,9 +35,19 @@ export default function Chatbot() {
             }
 
             setMessages(prev => [...prev, { role: 'ai', text: responseText }]);
-        } catch (err) {
-            console.error("AI Chat Error:", err);
-            setMessages(prev => [...prev, { role: 'ai', text: "I'm currently unable to process your request. Please check your database connection." }]);
+        } catch (err: any) {
+            console.error("AI Chat Error Detail:", {
+                message: err.message,
+                url: `${API_BASE_URL}/ai/chat`,
+                error: err
+            });
+
+            const isNetworkError = err.message?.includes('failed') || err.message?.includes('Network');
+            const errorMessage = isNetworkError
+                ? "I'm having trouble connecting to the Archshield core. Please check if the backend service is online."
+                : "I'm currently unable to process your request. Please check your database connection.";
+
+            setMessages(prev => [...prev, { role: 'ai', text: errorMessage }]);
         } finally {
             setLoading(false);
         }
