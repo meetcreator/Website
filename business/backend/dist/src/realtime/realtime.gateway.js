@@ -65,7 +65,11 @@ __decorate([
 exports.RealtimeGateway = RealtimeGateway = __decorate([
     (0, websockets_1.WebSocketGateway)({
         cors: {
-            origin: [process.env.FRONTEND_URL || 'http://localhost:3000'],
+            origin: [
+                process.env.FRONTEND_URL || 'http://localhost:3000',
+                'https://tinmco.com',
+                'https://www.tinmco.com'
+            ],
             credentials: true,
         },
     }),
