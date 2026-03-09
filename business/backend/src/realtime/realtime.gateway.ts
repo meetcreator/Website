@@ -5,7 +5,11 @@ import { PrismaService } from '../prisma/prisma.service';
 
 @WebSocketGateway({
     cors: {
-        origin: [process.env.FRONTEND_URL || 'http://localhost:3000'],
+        origin: [
+            process.env.FRONTEND_URL || 'http://localhost:3000',
+            'https://tinmco.com',
+            'https://www.tinmco.com'
+        ],
         credentials: true,
     },
 })
