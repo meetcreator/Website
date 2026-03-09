@@ -90,7 +90,24 @@ export default function Chatbot() {
                                     ? 'bg-blue-600 text-white rounded-tr-sm shadow-lg shadow-blue-600/20'
                                     : 'bg-slate-800/80 text-slate-200 border border-slate-700/50 rounded-tl-sm text-white'
                                     }`}>
-                                    {m.text}
+                                    {m.role === 'ai' ? (
+                                        <div className="space-y-1">
+                                            {m.text.split('\n').map((line, lineIdx) => {
+                                                if (!line.trim()) return <div key={lineIdx} className="h-1" />;
+                                                // Bold: **text**
+                                                const parts = line.split(/(\*\*[^*]+\*\*)/g);
+                                                return (
+                                                    <p key={lineIdx} className={line.startsWith('- ') || line.startsWith('• ') ? 'pl-3 border-l-2 border-blue-500/40' : ''}>
+                                                        {parts.map((part, pi) =>
+                                                            part.startsWith('**') && part.endsWith('**')
+                                                                ? <strong key={pi} className="text-white font-semibold">{part.slice(2, -2)}</strong>
+                                                                : <span key={pi}>{part}</span>
+                                                        )}
+                                                    </p>
+                                                );
+                                            })}
+                                        </div>
+                                    ) : m.text}
                                 </div>
                             </div>
                         ))}
