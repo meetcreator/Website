@@ -19,6 +19,6 @@ async function bootstrap() {
   // Use PORT from environment (Railway/Render sets this automatically)
   const port = process.env.PORT ?? 3001;
   await app.listen(port);
-  console.log(`🚀 Archshield API running on port ${port}`);
+  console.log(`Archshield API running on port ${port}`);
 }
 bootstrap();
