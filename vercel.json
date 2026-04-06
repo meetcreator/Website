@@ -240,6 +240,86 @@
         {
             "source": "/__next:path*",
             "destination": "/archshield-app/frontend/out/__next:path*"
+        },
+        {
+            "source": "/signup/__next.!KGF1dGgp.signup.txt",
+            "destination": "/archshield-app/frontend/out/signup/__next.!KGF1dGgp/signup.txt"
+        },
+        {
+            "source": "/signup/__next.!KGF1dGgp.signup.__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/signup/__next.!KGF1dGgp/signup/__PAGE__.txt"
+        },
+        {
+            "source": "/login/__next.!KGF1dGgp.login.txt",
+            "destination": "/archshield-app/frontend/out/login/__next.!KGF1dGgp/login.txt"
+        },
+        {
+            "source": "/login/__next.!KGF1dGgp.login.__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/login/__next.!KGF1dGgp/login/__PAGE__.txt"
+        },
+        {
+            "source": "/_not-found/__next._not-found.__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/_not-found/__next._not-found/__PAGE__.txt"
+        },
+        {
+            "source": "/signup/__next.signup.__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/signup/__next.signup/__PAGE__.txt"
+        },
+        {
+            "source": "/login/__next.login.__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/login/__next.login/__PAGE__.txt"
+        },
+        {
+            "source": "/dashboard/__next.dashboard.__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/__next.dashboard/__PAGE__.txt"
+        },
+        {
+            "source": "/dashboard/settings/__next.dashboard.settings.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/settings/__next.dashboard/settings.txt"
+        },
+        {
+            "source": "/dashboard/settings/__next.dashboard.settings.__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/settings/__next.dashboard/settings/__PAGE__.txt"
+        },
+        {
+            "source": "/dashboard/recommendations/__next.dashboard.recommendations.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/recommendations/__next.dashboard/recommendations.txt"
+        },
+        {
+            "source": "/dashboard/recommendations/__next.dashboard.recommendations.__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/recommendations/__next.dashboard/recommendations/__PAGE__.txt"
+        },
+        {
+            "source": "/dashboard/history/__next.dashboard.history.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/history/__next.dashboard/history.txt"
+        },
+        {
+            "source": "/dashboard/history/__next.dashboard.history.__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/history/__next.dashboard/history/__PAGE__.txt"
+        },
+        {
+            "source": "/dashboard/help/__next.dashboard.help.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/help/__next.dashboard/help.txt"
+        },
+        {
+            "source": "/dashboard/help/__next.dashboard.help.__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/help/__next.dashboard/help/__PAGE__.txt"
+        },
+        {
+            "source": "/dashboard/designer/__next.dashboard.designer.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/designer/__next.dashboard/designer.txt"
+        },
+        {
+            "source": "/dashboard/designer/__next.dashboard.designer.__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/designer/__next.dashboard/designer/__PAGE__.txt"
+        },
+        {
+            "source": "/dashboard/analyze/__next.dashboard.analyze.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/analyze/__next.dashboard/analyze.txt"
+        },
+        {
+            "source": "/dashboard/analyze/__next.dashboard.analyze.__PAGE__.txt",
+            "destination": "/archshield-app/frontend/out/dashboard/analyze/__next.dashboard/analyze/__PAGE__.txt"
         }
     ]
 }
