@@ -90,6 +90,14 @@
             "destination": "/archshield-app/frontend/out/dashboard/analyze/__next.dashboard/analyze/__PAGE__.txt"
         },
         {
+            "source": "/_next/static/:path*",
+            "destination": "/archshield-app/frontend/out/_next/static/:path*"
+        },
+        {
+            "source": "/favicon.ico",
+            "destination": "/archshield-app/frontend/out/favicon.ico"
+        },
+        {
             "source": "/archshield/_next/:path*",
             "destination": "/archshield-app/frontend/out/_next/:path*"
         },
