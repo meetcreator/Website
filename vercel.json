@@ -224,6 +224,22 @@
         {
             "source": "/business/:path*",
             "destination": "/business/out/:path*"
+        },
+        {
+            "source": "/dashboard/:path*",
+            "destination": "/archshield-app/frontend/out/dashboard/:path*"
+        },
+        {
+            "source": "/login/:path*",
+            "destination": "/archshield-app/frontend/out/login/:path*"
+        },
+        {
+            "source": "/signup/:path*",
+            "destination": "/archshield-app/frontend/out/signup/:path*"
+        },
+        {
+            "source": "/__next:path*",
+            "destination": "/archshield-app/frontend/out/__next:path*"
         }
     ]
 }
