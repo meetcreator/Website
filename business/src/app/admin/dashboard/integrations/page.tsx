@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSocket, SocketProvider } from '@/context/SocketContext';
-import { TrendingUp, Box, Users, Activity, ShoppingCart, Globe, RefreshCw, Trash2, Plus, CheckCircle2, AlertCircle } from 'lucide-react';
+import { TrendingUp, Box, Users, Activity, ShoppingCart, Globe, RefreshCw, Trash2, Plus, CheckCircle2, AlertCircle, Zap, LayoutDashboard } from 'lucide-react';
 import Link from 'next/link';
 import { API_BASE_URL } from '@/lib/api';
 
@@ -93,48 +93,53 @@ function IntegrationsContent() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-900 text-white font-sans">
-            {/* Sidebar */}
-            <nav className="fixed top-0 left-0 h-full w-64 bg-gray-800 border-r border-gray-700 p-6 hidden md:block">
-                <div className="flex items-center space-x-3 mb-10">
-                    <div className="h-8 w-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                        <TrendingUp className="h-5 w-5 text-white" />
+        <div className="min-h-screen bg-slate-950 text-white font-sans flex">
+            {/* Sidebar (Desktop) */}
+            <aside className="w-64 border-r border-slate-900 p-6 hidden md:flex flex-col gap-10 bg-slate-950/50 backdrop-blur-xl sticky top-0 h-screen font-sans">
+                <div className="flex items-center gap-3 px-2">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-600/20">
+                        <Zap size={24} className="fill-white" />
                     </div>
-                    <span className="text-xl font-bold">Admin Panel</span>
+                    <span className="font-black text-xl tracking-tighter italic">ARCHSHIELD</span>
                 </div>
 
-                <div className="space-y-4">
-                    <Link href="/admin/dashboard" className="flex items-center space-x-3 w-full p-3 hover:bg-gray-700/30 text-gray-400 rounded-lg transition">
-                        <Box className="h-5 w-5" />
-                        <span>Dashboard</span>
-                    </Link>
-                    <button className="flex items-center space-x-3 w-full p-3 bg-gray-700/50 text-blue-400 rounded-lg">
-                        <ShoppingCart className="h-5 w-5" />
-                        <span>Integrations</span>
+                <nav className="flex flex-col gap-2">
+                    <button onClick={() => router.push('/admin/dashboard')} className="flex items-center gap-4 px-4 py-3.5 rounded-2xl cursor-pointer transition-all text-slate-500 hover:text-white w-full text-left">
+                        <LayoutDashboard size={20} />
+                        <span className="font-bold text-sm tracking-tight">Dashboard</span>
                     </button>
-                    <button className="flex items-center space-x-3 w-full p-3 hover:bg-gray-700/30 text-gray-400 rounded-lg transition">
-                        <Users className="h-5 w-5" />
-                        <span>Users</span>
+                    <button onClick={() => router.push('/admin/dashboard/integrations')} className="flex items-center gap-4 px-4 py-3.5 rounded-2xl cursor-pointer transition-all bg-white text-slate-950 shadow-xl shadow-white/5 w-full text-left">
+                        <ShoppingCart size={20} />
+                        <span className="font-bold text-sm tracking-tight">Integrations</span>
                     </button>
-                    <button className="flex items-center space-x-3 w-full p-3 hover:bg-gray-700/30 text-gray-400 rounded-lg transition">
-                        <Activity className="h-5 w-5" />
-                        <span>Activity</span>
+                    <button className="flex items-center gap-4 px-4 py-3.5 rounded-2xl cursor-pointer transition-all text-slate-500 hover:text-white w-full text-left">
+                        <Users size={20} />
+                        <span className="font-bold text-sm tracking-tight">Users</span>
                     </button>
-                </div>
+                    <button className="flex items-center gap-4 px-4 py-3.5 rounded-2xl cursor-pointer transition-all text-slate-500 hover:text-white w-full text-left">
+                        <Activity size={20} />
+                        <span className="font-bold text-sm tracking-tight">Activity</span>
+                    </button>
+                </nav>
 
-                <div className="absolute bottom-6 left-6 right-6">
-                    <div className="flex items-center space-x-2 mb-4">
-                        <div className={`h-2.5 w-2.5 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'} animate-pulse`} />
-                        <span className="text-sm text-gray-400">{isConnected ? 'System Online' : 'Connecting...'}</span>
+                <div className="mt-auto p-6 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 relative overflow-hidden group">
+                    <div className="relative z-10 flex items-center gap-3 mb-4">
+                        <div className={`h-2.5 w-2.5 rounded-full ${isConnected ? 'bg-emerald-500' : 'bg-rose-500'} animate-pulse`} />
+                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">{isConnected ? 'System Online' : 'Connecting...'}</span>
                     </div>
-                    <button onClick={handleLogout} className="w-full py-2 bg-red-600/10 text-red-400 hover:bg-red-600/20 rounded-lg transition">
-                        Logout
-                    </button>
+                    <div className="relative z-10">
+                        <button onClick={handleLogout} className="text-[10px] font-black text-rose-500 hover:text-white uppercase tracking-widest transition-colors w-full text-left">
+                            Disconnect
+                        </button>
+                    </div>
+                    <div className="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                        <Zap size={80} />
+                    </div>
                 </div>
-            </nav>
+            </aside>
 
             {/* Main Content */}
-            <main className="md:ml-64 p-8">
+            <main className="flex-1 p-8 overflow-y-auto">
                 <header className="flex justify-between items-center mb-12">
                     <div>
                         <h2 className="text-3xl font-bold mb-2">Store Integrations</h2>
