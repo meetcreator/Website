@@ -138,6 +138,10 @@
             "destination": "/business/out"
         },
         {
+            "source": "/olympiad",
+            "destination": "/website mock/out"
+        },
+        {
             "source": "/archshield/_not-found/__next._not-found.__PAGE__.txt",
             "destination": "/archshield-app/frontend/out/_not-found/__next._not-found/__PAGE__.txt"
         },
@@ -224,6 +228,10 @@
         {
             "source": "/business/:path*",
             "destination": "/business/out/:path*"
+        },
+        {
+            "source": "/olympiad/:path*",
+            "destination": "/website mock/out/:path*"
         },
         {
             "source": "/dashboard/:path*",
