@@ -206,6 +206,30 @@
             "destination": "/archshield-app/frontend/out/dashboard/analyze/__next.dashboard/analyze/__PAGE__.txt"
         },
         {
+            "source": "/olympiad/register/__next.register.__PAGE__.txt",
+            "destination": "/website-mock/out/register/__next.register/__PAGE__.txt"
+        },
+        {
+            "source": "/olympiad/login/__next.login.__PAGE__.txt",
+            "destination": "/website-mock/out/login/__next.login/__PAGE__.txt"
+        },
+        {
+            "source": "/olympiad/dashboard/__next.dashboard.__PAGE__.txt",
+            "destination": "/website-mock/out/dashboard/__next.dashboard/__PAGE__.txt"
+        },
+        {
+            "source": "/olympiad/gallery/__next.gallery.__PAGE__.txt",
+            "destination": "/website-mock/out/gallery/__next.gallery/__PAGE__.txt"
+        },
+        {
+            "source": "/olympiad/dashboard/analyze/__next.dashboard.analyze.txt",
+            "destination": "/website-mock/out/dashboard/analyze/__next.dashboard/analyze.txt"
+        },
+        {
+            "source": "/olympiad/dashboard/analyze/__next.dashboard.analyze.__PAGE__.txt",
+            "destination": "/website-mock/out/dashboard/analyze/__next.dashboard/analyze/__PAGE__.txt"
+        },
+        {
             "source": "/_next/static/:path*",
             "destination": "/archshield-app/frontend/out/_next/static/:path*"
         },

@@ -7,17 +7,17 @@ import Link from "next/link";
 
 const slides = [
   {
-    image: "/GALLERY/ChildrenExam.jpg",
+    image: "/olympiad/GALLERY/ChildrenExam.jpg",
     title: "Unlock Your Child’s True Potential",
     subtitle: "Participate in internationally recognized Olympiads in Math, Science & English.",
   },
   {
-    image: "/GALLERY/childrenAwards.jpg",
+    image: "/olympiad/GALLERY/childrenAwards.jpg",
     title: "Global Recognition & Awards",
     subtitle: "Compete with students worldwide and celebrate academic excellence.",
   },
   {
-    image: "/GALLERY/ChildAward2.jpg",
+    image: "/olympiad/GALLERY/ChildAward2.jpg",
     title: "Building Confidence & Skills",
     subtitle: "Designed to help students develop problem-solving mindsets.",
   },

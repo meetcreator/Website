@@ -5,18 +5,18 @@ import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 
 const images = [
-  { src: "/GALLERY/childrenAwards.jpg", title: "Global Recognition" },
-  { src: "/GALLERY/ChildrenExam.jpg", title: "Concentration & Focus" },
-  { src: "/GALLERY/childAward.jpg", title: "Top Performers" },
-  { src: "/GALLERY/childAward1.jpg", title: "Future Leaders" },
-  { src: "/GALLERY/childrenAward.jpg", title: "International Honors" },
-  { src: "/GALLERY/childrenAward1.jpg", title: "Success Stories" },
-  { src: "/GALLERY/ChildAward2.jpg", title: "Award Ceremony" },
-  { src: "/GALLERY/ChildAward3.jpg", title: "Young Achievers" },
-  { src: "/GALLERY/childrenCongo.jpg", title: "Congratulations" },
-  { src: "/GALLERY/InviteInterChampionship.jpg", title: "Championship Invite" },
-  { src: "/GALLERY/ParentsChildren.jpg", title: "Parental Pride" },
-  { src: "/GALLERY/TeenAward.jpg", title: "Teen Excellence" },
+  { src: "/olympiad/GALLERY/childrenAwards.jpg", title: "Global Recognition" },
+  { src: "/olympiad/GALLERY/ChildrenExam.jpg", title: "Concentration & Focus" },
+  { src: "/olympiad/GALLERY/childAward.jpg", title: "Top Performers" },
+  { src: "/olympiad/GALLERY/childAward1.jpg", title: "Future Leaders" },
+  { src: "/olympiad/GALLERY/childrenAward.jpg", title: "International Honors" },
+  { src: "/olympiad/GALLERY/childrenAward1.jpg", title: "Success Stories" },
+  { src: "/olympiad/GALLERY/ChildAward2.jpg", title: "Award Ceremony" },
+  { src: "/olympiad/GALLERY/ChildAward3.jpg", title: "Young Achievers" },
+  { src: "/olympiad/GALLERY/childrenCongo.jpg", title: "Congratulations" },
+  { src: "/olympiad/GALLERY/InviteInterChampionship.jpg", title: "Championship Invite" },
+  { src: "/olympiad/GALLERY/ParentsChildren.jpg", title: "Parental Pride" },
+  { src: "/olympiad/GALLERY/TeenAward.jpg", title: "Teen Excellence" },
 ];
 
 export default function GalleryPage() {

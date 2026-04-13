@@ -54,7 +54,7 @@ export default function Navbar() {
         <div className="absolute left-1/2 -translate-x-1/2">
           <Link href="/" className="flex items-center gap-3">
             <img 
-              src="/GALLERY/logo.png" 
+              src="/olympiad/GALLERY/logo.png" 
               alt="CREST & G Sun Logo" 
               className="h-12 md:h-16 w-auto object-contain transition-transform hover:scale-105"
             />
