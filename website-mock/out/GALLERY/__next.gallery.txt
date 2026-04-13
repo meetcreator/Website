@@ -1,5 +1,0 @@
-1:"$Sreact.fragment"
-2:I[36206,["/olympiad/_next/static/chunks/0_w_u_pfvkj87.js","/olympiad/_next/static/chunks/05oe-erh..c~a.js"],"default"]
-3:I[32791,["/olympiad/_next/static/chunks/0_w_u_pfvkj87.js","/olympiad/_next/static/chunks/05oe-erh..c~a.js"],"default"]
-4:[]
-0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"MoeSBB03f2oE9JrmbV2N_"}
