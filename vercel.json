@@ -139,7 +139,7 @@
         },
         {
             "source": "/olympiad",
-            "destination": "/website mock/out"
+            "destination": "/website-mock/out"
         },
         {
             "source": "/archshield/_not-found/__next._not-found.__PAGE__.txt",
@@ -231,7 +231,7 @@
         },
         {
             "source": "/olympiad/:path*",
-            "destination": "/website mock/out/:path*"
+            "destination": "/website-mock/out/:path*"
         },
         {
             "source": "/dashboard/:path*",
