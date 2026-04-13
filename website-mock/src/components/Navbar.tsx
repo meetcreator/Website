@@ -23,7 +23,7 @@ const navLinks = [
     ],
   },
   { name: "Exam Details", href: "#exams", dropdown: false },
-  { name: "Awards", href: "#awards", dropdown: false },
+  { name: "GALLERY", href: "#awards", dropdown: false },
   { name: "Study Material", href: "#study", dropdown: false },
   { name: "Register", href: "/register", dropdown: false },
   { name: "Contact", href: "#contact", dropdown: false },
@@ -53,14 +53,14 @@ export default function Navbar() {
 
         <div className="absolute left-1/2 -translate-x-1/2">
           <Link href="/" className="flex items-center gap-3">
-            <img 
-              src="/olympiad/GALLERY/logo.png" 
-              alt="CREST & G Sun Logo" 
+            <img
+              src="/olympiad/GALLERY/logo.png"
+              alt="CREST & G Sun Logo"
               className="h-12 md:h-16 w-auto object-contain transition-transform hover:scale-105"
             />
             <div className="flex flex-col">
-                <span className="text-lg font-black text-[#002d5b] tracking-tighter leading-none italic uppercase">CREST & G Sun</span>
-                <span className="text-[9px] font-bold text-red-600 tracking-[0.2em] leading-none text-center">OLYMPIADS</span>
+              <span className="text-lg font-black text-[#002d5b] tracking-tighter leading-none italic uppercase">CREST & G Sun</span>
+              <span className="text-[9px] font-bold text-red-600 tracking-[0.2em] leading-none text-center">OLYMPIADS</span>
             </div>
           </Link>
         </div>
