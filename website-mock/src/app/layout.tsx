@@ -5,9 +5,13 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "OlympiadPro | Compete Globally, Excel Academically",
+  title: "CREST & G Sun Olympiad | Compete Globally, Excel Academically",
   description: "The premier international Olympiad platform for student and school registrations, mock tests, and global rankings in Math, Science, and more.",
   keywords: "olympiad, international exams, student registration, school registration, competitive exams, math olympiad, science olympiad",
+  icons: {
+    icon: "/GALLERY/logo.png",
+    apple: "/GALLERY/logo.png",
+  },
 };
 
 export default function RootLayout({
