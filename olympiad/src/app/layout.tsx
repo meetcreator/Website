@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { BASE_PATH } from "@/lib/basePath";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -9,8 +10,8 @@ export const metadata: Metadata = {
   description: "The premier international Olympiad platform for student and school registrations, mock tests, and global rankings in Math, Science, and more.",
   keywords: "olympiad, international exams, student registration, school registration, competitive exams, math olympiad, science olympiad",
   icons: {
-    icon: "/olympiad/logo.png",
-    apple: "/olympiad/logo.png",
+    icon: `${BASE_PATH}/logo.png`,
+    apple: `${BASE_PATH}/logo.png`,
   },
 };
 

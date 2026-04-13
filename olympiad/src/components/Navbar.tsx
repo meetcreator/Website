@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Globe, User, Share2, ChevronDown, Camera } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import { assetPath } from "@/lib/basePath";
 
 const navLinks = [
   { name: "Home", href: "/", dropdown: false },
@@ -22,9 +23,17 @@ const navLinks = [
       { name: "Spell Bee (CSBW)", href: "#" },
     ],
   },
-  { name: "Exam Details", href: "#exams", dropdown: false },
+  {
+    name: "Programs",
+    href: "#programs",
+    dropdown: true,
+    items: [
+      { name: "GCO PRE WRITING SKILLS", href: "#" },
+      { name: "SHIGHER ORDER THINKING SKILLS (HOTS)", href: "#" },
+      { name: "Global Little Life Skills Olympiad", href: "#" },
+    ],
+  },
   { name: "GALLERY", href: "#awards", dropdown: false },
-  { name: "Study Material", href: "#study", dropdown: false },
   { name: "Register", href: "/register", dropdown: false },
   { name: "Contact", href: "#contact", dropdown: false },
 ];
@@ -54,7 +63,7 @@ export default function Navbar() {
         <div className="absolute left-1/2 -translate-x-1/2">
           <Link href="/" className="flex items-center gap-3">
             <img
-              src="/olympiad/logo.png"
+              src={assetPath('/logo.png')}
               alt="CREST & G Sun Logo"
               className="h-12 md:h-16 w-auto object-contain transition-transform hover:scale-105"
             />
@@ -66,19 +75,8 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-4 lg:w-1/4 justify-end">
-          <a href="#" className="hover:text-secondary text-primary transition-colors">
-            <div className="w-6 h-6 bg-[#002d5b] rounded-sm flex items-center justify-center text-white p-1">
-              <Share2 size={14} fill="white" />
-            </div>
-          </a>
-          <a href="#" className="hover:text-secondary text-primary transition-colors">
-            <div className="w-6 h-6 bg-[#002d5b] rounded-sm flex items-center justify-center text-white p-1">
-              <Camera size={14} />
-            </div>
-          </a>
-
           <button
-            className="lg:hidden text-foreground ml-4"
+            className="lg:hidden text-foreground"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X /> : <Menu />}

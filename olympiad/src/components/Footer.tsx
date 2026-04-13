@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Mail, Phone, Globe, Camera, MessageCircle, Share2, MapPin } from "lucide-react";
+import { assetPath } from "@/lib/basePath";
 
 export default function Footer() {
   return (
@@ -21,7 +22,7 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-8">
               <img 
-                src="/olympiad/logo.png" 
+                src={assetPath('/logo.png')} 
                 alt="CREST & G Sun Logo" 
                 className="h-12 w-auto object-contain brightness-0 invert" 
               />

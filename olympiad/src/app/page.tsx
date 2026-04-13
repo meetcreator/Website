@@ -7,7 +7,6 @@ import AwardsAndFees from "@/components/AwardsAndFees";
 import StudyMaterial from "@/components/StudyMaterial";
 import RegistrationBanner from "@/components/RegistrationBanner";
 import Footer from "@/components/Footer";
-import { WhatsAppButton } from "@/components/Announcement";
 
 export default function Home() {
   return (
@@ -21,7 +20,6 @@ export default function Home() {
       <StudyMaterial />
       <RegistrationBanner />
       <Footer />
-      <WhatsAppButton />
     </main>
   );
 }

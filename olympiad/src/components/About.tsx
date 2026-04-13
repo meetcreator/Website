@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { CheckCircle2, Monitor, Languages, ShieldAlert, Target, Brain, Trophy, Zap } from "lucide-react";
+import { assetPath } from "@/lib/basePath";
 
 const aims = [
   { text: "Develop conceptual understanding", icon: <Brain className="text-purple-500" /> },
@@ -74,7 +75,7 @@ export default function About() {
           >
             <div className="aspect-[4/5] bg-[#2da3c2]/10 rounded-[4rem] p-4 relative overflow-hidden">
                <img 
-                 src="/olympiad/GALLERY/childAward.jpg" 
+                 src={assetPath('/GALLERY/childAward.jpg')} 
                  alt="Olympiad Success" 
                  className="w-full h-full object-cover rounded-[3rem] shadow-2xl"
                />

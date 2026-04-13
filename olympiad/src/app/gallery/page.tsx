@@ -3,20 +3,21 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
+import { assetPath } from "@/lib/basePath";
 
 const images = [
-  { src: "/olympiad/GALLERY/childrenAwards.jpg", title: "Global Recognition" },
-  { src: "/olympiad/GALLERY/ChildrenExam.jpg", title: "Concentration & Focus" },
-  { src: "/olympiad/GALLERY/childAward.jpg", title: "Top Performers" },
-  { src: "/olympiad/GALLERY/childAward1.jpg", title: "Future Leaders" },
-  { src: "/olympiad/GALLERY/childrenAward.jpg", title: "International Honors" },
-  { src: "/olympiad/GALLERY/childrenAward1.jpg", title: "Success Stories" },
-  { src: "/olympiad/GALLERY/ChildAward2.jpg", title: "Award Ceremony" },
-  { src: "/olympiad/GALLERY/ChildAward3.jpg", title: "Young Achievers" },
-  { src: "/olympiad/GALLERY/childrenCongo.jpg", title: "Congratulations" },
-  { src: "/olympiad/GALLERY/InviteInterChampionship.jpg", title: "Championship Invite" },
-  { src: "/olympiad/GALLERY/ParentsChildren.jpg", title: "Parental Pride" },
-  { src: "/olympiad/GALLERY/TeenAward.jpg", title: "Teen Excellence" },
+  { src: assetPath('/GALLERY/childrenAwards.jpg'), title: "Global Recognition" },
+  { src: assetPath('/GALLERY/ChildrenExam.jpg'), title: "Concentration & Focus" },
+  { src: assetPath('/GALLERY/childAward.jpg'), title: "Top Performers" },
+  { src: assetPath('/GALLERY/childAward1.jpg'), title: "Future Leaders" },
+  { src: assetPath('/GALLERY/childrenAward.jpg'), title: "International Honors" },
+  { src: assetPath('/GALLERY/childrenAward1.jpg'), title: "Success Stories" },
+  { src: assetPath('/GALLERY/ChildAward2.jpg'), title: "Award Ceremony" },
+  { src: assetPath('/GALLERY/ChildAward3.jpg'), title: "Young Achievers" },
+  { src: assetPath('/GALLERY/childrenCongo.jpg'), title: "Congratulations" },
+  { src: assetPath('/GALLERY/InviteInterChampionship.jpg'), title: "Championship Invite" },
+  { src: assetPath('/GALLERY/ParentsChildren.jpg'), title: "Parental Pride" },
+  { src: assetPath('/GALLERY/TeenAward.jpg'), title: "Teen Excellence" },
 ];
 
 export default function GalleryPage() {
