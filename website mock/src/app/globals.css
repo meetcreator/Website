@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: #002d5b; /* Dark Blue */
+  --color-secondary: #2da3c2; /* Teal */
+  --color-accent: #69cc63; /* Green */
+  --color-highlight: #ff9800; /* Orange */
+  
+  --background-image-gradient-olympiad: linear-gradient(to right, #2da3c2, #002d5b);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #002d5b;
+  --card: #ffffff;
+  --primary: #002d5b;
+  --secondary: #2da3c2;
+  --accent: #69cc63;
+  --highlight: #ff9800;
+  --border: #e2e8f0;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', system-ui, sans-serif;
+  scroll-behavior: smooth;
+}
+
+.stats-bg {
+  background-color: #2da3c2;
+}
+
+.announce-bg {
+  background-color: #69cc63;
+}
+
+.nav-link {
+  @apply text-[11px] font-bold uppercase tracking-tight hover:text-secondary px-2 flex items-center gap-1;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', system-ui, sans-serif;
+  scroll-behavior: smooth;
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.05) 0%, rgba(37, 99, 235, 0.05) 100%);
+}
+
+.feature-card {
+  @apply bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all;
+}
+
+.btn-orange {
+  @apply bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-xl transition-all shadow-lg hover:shadow-orange-500/30 active:scale-95;
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  scroll-behavior: smooth;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
