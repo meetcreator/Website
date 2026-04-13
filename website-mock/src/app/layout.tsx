@@ -9,8 +9,8 @@ export const metadata: Metadata = {
   description: "The premier international Olympiad platform for student and school registrations, mock tests, and global rankings in Math, Science, and more.",
   keywords: "olympiad, international exams, student registration, school registration, competitive exams, math olympiad, science olympiad",
   icons: {
-    icon: "/olympiad/GALLERY/logo.png",
-    apple: "/olympiad/GALLERY/logo.png",
+    icon: "/olympiad/logo.png",
+    apple: "/olympiad/logo.png",
   },
 };
 

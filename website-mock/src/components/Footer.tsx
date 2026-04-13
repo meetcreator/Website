@@ -21,7 +21,7 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-8">
               <img 
-                src="/olympiad/GALLERY/logo.png" 
+                src="/olympiad/logo.png" 
                 alt="CREST & G Sun Logo" 
                 className="h-12 w-auto object-contain brightness-0 invert" 
               />
