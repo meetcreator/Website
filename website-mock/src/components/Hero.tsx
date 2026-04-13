@@ -17,7 +17,7 @@ const slides = [
     subtitle: "Compete with students worldwide and celebrate academic excellence.",
   },
   {
-    image: "/olympiad/GALLERY/ChildAward2.jpg",
+    image: "/olympiad/GALLERY/childrenAward.jpg",
     title: "Building Confidence & Skills",
     subtitle: "Designed to help students develop problem-solving mindsets.",
   },
@@ -57,8 +57,8 @@ export default function Hero() {
             className="absolute inset-0"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-[#002d5b]/90 via-[#002d5b]/40 to-transparent z-10" />
-            <img 
-              src={slides[current].image} 
+            <img
+              src={slides[current].image}
               alt="Olympiad Slide"
               className="w-full h-full object-cover"
             />
@@ -67,7 +67,7 @@ export default function Hero() {
 
         {/* Content Overlay */}
         <div className="absolute inset-y-0 left-0 p-8 lg:p-20 z-20 flex flex-col justify-center">
-          <motion.div 
+          <motion.div
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
@@ -78,13 +78,13 @@ export default function Hero() {
               <span className="text-[#ff9c00]">True Potential</span>
             </h1>
             <p className="text-white/90 text-xl mb-10 font-bold leading-relaxed max-w-xl">
-              Participate in internationally recognized Olympiads in Math, Science & English 
+              Participate in internationally recognized Olympiads in Math, Science & English
               designed to build confidence, skills, and academic excellence.
             </p>
-            
+
             <div className="flex flex-wrap gap-6 mb-12">
-              <Link 
-                href="/register" 
+              <Link
+                href="/register"
                 className="bg-[#ff9c00] text-[#002d5b] px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl hover:scale-105 transition-all inline-flex items-center gap-3"
               >
                 Register Now <ChevronRight size={20} strokeWidth={3} />
@@ -96,14 +96,14 @@ export default function Hero() {
 
             {/* Badges */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-               {badges.map((badge, idx) => (
-                 <div key={idx} className="flex flex-col gap-2 p-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl">
-                    <div className="text-[#ff9c00]">{badge.icon}</div>
-                    <p className="text-[10px] font-black uppercase text-white tracking-widest leading-tight">
-                      {badge.text}
-                    </p>
-                 </div>
-               ))}
+              {badges.map((badge, idx) => (
+                <div key={idx} className="flex flex-col gap-2 p-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl">
+                  <div className="text-[#ff9c00]">{badge.icon}</div>
+                  <p className="text-[10px] font-black uppercase text-white tracking-widest leading-tight">
+                    {badge.text}
+                  </p>
+                </div>
+              ))}
             </div>
           </motion.div>
         </div>
