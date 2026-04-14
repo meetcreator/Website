@@ -6,8 +6,7 @@
  *   import { assetPath } from '@/lib/basePath';
  *   <img src={assetPath('/logo.png')} />
  */
-export const BASE_PATH =
-  process.env.NODE_ENV === 'production' ? '/olympiad' : '';
+export const BASE_PATH = '/olympiad';
 
 export function assetPath(path: string): string {
   // Ensure path always starts with /
