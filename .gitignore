@@ -15,7 +15,7 @@ jspm_packages/
 !archshield-app/frontend/out/
 !business/out/
 !business/backend/dist/
-!website-mock/out/
+!olympiad/out/
 
 # Python / FastAPI
 __pycache__/

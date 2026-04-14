@@ -15,7 +15,8 @@
 
 # next.js
 /.next/
-/out/
+# /out/ (whitelisted in root)
+!/out/
 
 # production
 /build
