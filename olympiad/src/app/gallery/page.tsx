@@ -7,41 +7,58 @@ import { assetPath } from "@/lib/basePath";
 
 const images = [
   { src: assetPath('/GALLERY/childrenAwards.jpg'), title: "Global Recognition" },
+  { src: assetPath('/GALLERY/InviteInterChampionship.jpg'), title: "Championship Invite" },
   { src: assetPath('/GALLERY/ChildrenExam.jpg'), title: "Concentration & Focus" },
   { src: assetPath('/GALLERY/childAward.jpg'), title: "Top Performers" },
   { src: assetPath('/GALLERY/childAward1.jpg'), title: "Future Leaders" },
-  { src: assetPath('/GALLERY/childrenAward.jpg'), title: "International Honors" },
   { src: assetPath('/GALLERY/childrenAward1.jpg'), title: "Success Stories" },
   { src: assetPath('/GALLERY/ChildAward2.jpg'), title: "Award Ceremony" },
   { src: assetPath('/GALLERY/ChildAward3.jpg'), title: "Young Achievers" },
   { src: assetPath('/GALLERY/childrenCongo.jpg'), title: "Congratulations" },
-  { src: assetPath('/GALLERY/InviteInterChampionship.jpg'), title: "Championship Invite" },
   { src: assetPath('/GALLERY/ParentsChildren.jpg'), title: "Parental Pride" },
+  { src: assetPath('/GALLERY/childrenAward.jpg'), title: "International Honors" },
   { src: assetPath('/GALLERY/TeenAward.jpg'), title: "Teen Excellence" },
+  { src: assetPath('/GALLERY/childaward.jpeg'), title: "Achievement Award" },
+  { src: assetPath('/GALLERY/childaward1.jpeg'), title: "Academic Excellence" },
+  { src: assetPath('/GALLERY/childaward2.jpeg'), title: "Competition Winner" },
+  { src: assetPath('/GALLERY/childaward3.jpeg'), title: "Gold Medalist" },
+  { src: assetPath('/GALLERY/childaward4.jpeg'), title: "School Honors" },
+  { src: assetPath('/GALLERY/childaward5.jpeg'), title: "Olympiad Success" },
+  { src: assetPath('/GALLERY/childaward6.jpeg'), title: "Young Talent" },
+  { src: assetPath('/GALLERY/childaward7.jpeg'), title: "Global Ranking" },
+  { src: assetPath('/GALLERY/childaward8.jpeg'), title: "Excellence Certificate" },
+  { src: assetPath('/GALLERY/childaward9.jpeg'), title: "Top Score" },
+  { src: assetPath('/GALLERY/childaward10.jpeg'), title: "Proud Moment" },
+  { src: assetPath('/GALLERY/childrenawards.jpeg'), title: "Group Celebration" },
+  { src: assetPath('/GALLERY/childrenawards1.jpeg'), title: "Event Highlights" },
+  { src: assetPath('/GALLERY/childrenawards2.jpeg'), title: "Global Stage" },
+  { src: assetPath('/GALLERY/childrenawards3.jpeg'), title: "Award Night" },
+  { src: assetPath('/GALLERY/childrenawards4.jpeg'), title: "Victory Pose" },
+  { src: assetPath('/GALLERY/childrenawards5.jpeg'), title: "Medal Ceremony" },
 ];
 
 export default function GalleryPage() {
   return (
     <main className="min-h-screen bg-slate-50">
       <Navbar />
-      
+
       {/* Gallery Hero */}
       <section className="pt-48 pb-12 text-center">
         <div className="max-w-7xl mx-auto px-6">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-5xl font-black text-[#002d5b] mb-4"
           >
             Achievements <span className="text-[#2da3c2]">&</span> Moments
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="text-slate-500 max-w-2xl mx-auto text-lg"
           >
-            A visual journey through our global competitions, award ceremonies, 
+            A visual journey through our global competitions, award ceremonies,
             and the brilliant students who make it all happen.
           </motion.p>
         </div>
@@ -60,8 +77,8 @@ export default function GalleryPage() {
                 transition={{ delay: idx * 0.05 }}
                 className="relative group rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all break-inside-avoid bg-white p-2"
               >
-                <img 
-                  src={image.src} 
+                <img
+                  src={image.src}
                   alt={image.title}
                   className="w-full h-auto rounded-2xl group-hover:scale-105 transition-transform duration-500"
                 />

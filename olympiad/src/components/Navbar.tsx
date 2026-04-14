@@ -9,10 +9,10 @@ import { assetPath } from "@/lib/basePath";
 
 const navLinks = [
   { name: "Home", href: "/", dropdown: false },
-  { name: "About", href: "#about", dropdown: false },
+  { name: "About", href: "/#about", dropdown: false },
   {
     name: "Olympiads",
-    href: "#olympiads",
+    href: "/#olympiads",
     dropdown: true,
     items: [
       { name: "Mathematics (CMO)", href: "#" },
@@ -25,7 +25,7 @@ const navLinks = [
   },
   {
     name: "Programs",
-    href: "#programs",
+    href: "/#study",
     dropdown: true,
     items: [
       { name: "GCO PRE WRITING SKILLS", href: "#" },
@@ -33,9 +33,9 @@ const navLinks = [
       { name: "Global Little Life Skills Olympiad", href: "#" },
     ],
   },
-  { name: "GALLERY", href: "#awards", dropdown: false },
+  { name: "GALLERY", href: "/gallery", dropdown: false },
   { name: "Register", href: "/register", dropdown: false },
-  { name: "Contact", href: "#contact", dropdown: false },
+  { name: "Contact", href: "/#contact", dropdown: false },
 ];
 
 export default function Navbar() {

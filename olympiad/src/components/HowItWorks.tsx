@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { UserPlus, Pencil, GraduationCap, Award, BarChart } from "lucide-react";
 
 const steps = [
-  { title: "Register", icon: <UserPlus />, desc: "Sign up as a student or school" },
+  { title: "Register", icon: <UserPlus />, desc: "Sign up as a school" },
   { title: "Practice", icon: <Pencil />, desc: "Access study materials & mocks" },
   { title: "Exam", icon: <GraduationCap />, desc: "Take the global Olympiad exam" },
   { title: "Results", icon: <BarChart />, desc: "Get detailed performance report" },

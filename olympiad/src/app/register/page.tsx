@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { User, School, ArrowRight, CheckCircle2, ChevronDown } from "lucide-react";
+import { School, ArrowRight, CheckCircle2, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export default function RegisterPage() {
-  const [mode, setMode] = useState<"student" | "school">("student");
   const [subject, setSubject] = useState("Mathematics");
 
   return (
@@ -32,33 +31,17 @@ export default function RegisterPage() {
           </motion.div>
 
           <div className="bg-white rounded-[3rem] border border-slate-100 shadow-2xl p-8 md:p-12">
-            {/* Toggle Mode */}
-            <div className="flex bg-slate-50 p-2 rounded-2xl mb-10">
-              <button
-                onClick={() => setMode("student")}
-                className={cn(
-                  "flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all",
-                  mode === "student" ? "bg-white text-[#002d5b] shadow-lg" : "text-slate-400 hover:text-slate-600"
-                )}
-              >
-                <User size={16} /> Student
-              </button>
-              <button
-                onClick={() => setMode("school")}
-                className={cn(
-                  "flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all",
-                  mode === "school" ? "bg-white text-[#002d5b] shadow-lg" : "text-slate-400 hover:text-slate-600"
-                )}
-              >
-                <School size={16} /> School
-              </button>
+            <div className="mb-10 text-center">
+              <div className="inline-flex items-center justify-center gap-2 py-3 px-8 bg-slate-50 rounded-xl font-black text-xs uppercase tracking-widest text-[#002d5b]">
+                <School size={16} /> School Registration
+              </div>
             </div>
 
             <form className="space-y-6">
               <div>
                 <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 ml-2">Full Name</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   placeholder="Your Name"
                   className="w-full bg-slate-50 border border-slate-100 p-5 rounded-2xl font-bold text-sm focus:outline-none focus:ring-2 focus:ring-[#2da3c2] focus:bg-white transition-all text-[#002d5b]"
                 />
@@ -66,8 +49,8 @@ export default function RegisterPage() {
 
               <div>
                 <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 ml-2">Email Address</label>
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   placeholder="email@example.com"
                   className="w-full bg-slate-50 border border-slate-100 p-5 rounded-2xl font-bold text-sm focus:outline-none focus:ring-2 focus:ring-[#2da3c2] focus:bg-white transition-all text-[#002d5b]"
                 />
@@ -75,11 +58,12 @@ export default function RegisterPage() {
 
               <div className="relative">
                 <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 ml-2">Subject Preference</label>
-                <select 
+                <select
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                   className="w-full bg-slate-50 border border-slate-100 p-5 rounded-2xl font-bold text-sm focus:outline-none focus:ring-2 focus:ring-[#2da3c2] focus:bg-white transition-all appearance-none text-[#002d5b]"
                 >
+                  <option>ALL SUBJECTS</option>
                   <option>Mathematics</option>
                   <option>Science</option>
                   <option>English</option>
@@ -90,7 +74,7 @@ export default function RegisterPage() {
               </div>
 
               <button className="w-full bg-[#ff9c00] text-[#002d5b] py-5 rounded-3xl font-black text-sm uppercase tracking-[0.2em] shadow-xl hover:shadow-[#ff9c00]/30 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3">
-                Continue to Payment <ArrowRight size={20} strokeWidth={3} />
+                REGISTER <ArrowRight size={20} strokeWidth={3} />
               </button>
             </form>
 
