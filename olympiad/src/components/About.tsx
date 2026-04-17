@@ -73,7 +73,7 @@ export default function About() {
           >
             <div className="aspect-[4/5] bg-[#2da3c2]/10 rounded-[4rem] p-4 relative overflow-hidden">
                <img 
-                 src={assetPath('/GALLERY/childAward.jpg')} 
+                 src={assetPath('/gallery/childAward.jpg')} 
                  alt="Olympiad Success" 
                  className="w-full h-full object-cover rounded-[3rem] shadow-2xl"
                />

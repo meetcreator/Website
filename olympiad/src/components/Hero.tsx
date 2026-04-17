@@ -8,27 +8,27 @@ import { assetPath } from "@/lib/basePath";
 
 const slides = [
   {
-    image: assetPath('/GALLERY/ChildrenExam.jpg'),
+    image: assetPath('/gallery/ChildrenExam.jpg'),
     title: "Global Competency Olympiad",
     subtitle: "A comprehensive platform to build strong foundations in Literacy, Numeracy, and Science for young learners.",
   },
   {
-    image: assetPath('/GALLERY/childrenawards4.jpeg'),
+    image: assetPath('/gallery/childrenawards4.jpeg'),
     title: "International Benchmarking",
     subtitle: "Providing world-class assessments to measure and nurture the potential of every child.",
   },
   {
-    image: assetPath('/GALLERY/childrenAwards.jpg'),
+    image: assetPath('/gallery/childrenAwards.jpg'),
     title: "Early Skill Development",
     subtitle: "Designed for Nursery, Junior KG, and Senior KG to develop creativity and critical thinking.",
   },
   {
-    image: assetPath('/GALLERY/childrenawards1.jpeg'),
+    image: assetPath('/gallery/childrenawards1.jpeg'),
     title: "Celebrating Excellence",
     subtitle: "Every child is recognized and rewarded for their unique learning journey and achievements.",
   },
   {
-    image: assetPath('/GALLERY/childAward.jpg'),
+    image: assetPath('/gallery/childAward.jpg'),
     title: "Essential Real-World Skills",
     subtitle: "Nurturing curiosity and problem-solving through engaging and effective assessments.",
   },

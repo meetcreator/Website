@@ -26,7 +26,7 @@ const navLinks = [
     href: "/#schools",
     dropdown: false,
   },
-  { name: "GALLERY", href: "/gallery", dropdown: false },
+  { name: "Gallery", href: "/gallery", dropdown: false },
   { name: "Contact", href: "/#contact", dropdown: false },
 ];
 
