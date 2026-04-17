@@ -30,7 +30,7 @@ const subjects = [
     icon: <Beaker />, 
     color: "bg-emerald-500",
     description: "Encourages scientific thinking through conceptual understanding and inquiry-based learning.",
-    features: ["Conceptual understanding", "Analytical reasoning", "Experimentation", "Inquiry-based"]
+    features: ["Scientific curiosity", "Conceptual understanding", "Analytical reasoning", "Experimentation"]
   },
 ];
 

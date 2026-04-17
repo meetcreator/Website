@@ -13,12 +13,22 @@ const slides = [
     subtitle: "A comprehensive platform to build strong foundations in Literacy, Numeracy, and Science for young learners.",
   },
   {
+    image: assetPath('/GALLERY/childrenawards4.jpeg'),
+    title: "International Benchmarking",
+    subtitle: "Providing world-class assessments to measure and nurture the potential of every child.",
+  },
+  {
     image: assetPath('/GALLERY/childrenAwards.jpg'),
     title: "Early Skill Development",
     subtitle: "Designed for Nursery, Junior KG, and Senior KG to develop creativity and critical thinking.",
   },
   {
-    image: assetPath('/GALLERY/childrenAward.jpg'),
+    image: assetPath('/GALLERY/childrenawards1.jpeg'),
+    title: "Celebrating Excellence",
+    subtitle: "Every child is recognized and rewarded for their unique learning journey and achievements.",
+  },
+  {
+    image: assetPath('/GALLERY/childAward.jpg'),
     title: "Essential Real-World Skills",
     subtitle: "Nurturing curiosity and problem-solving through engaging and effective assessments.",
   },
@@ -45,20 +55,23 @@ export default function Hero() {
   const prevSlide = () => setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
 
   return (
-    <section className="pt-48 pb-12 bg-white flex flex-col items-center px-4">
+    <section className="pt-6 pb-12 bg-white flex flex-col items-center px-2 md:px-0">
       {/* Slideshow Container */}
-      <div className="max-w-7xl w-full h-[500px] md:h-[650px] rounded-[3rem] shadow-2xl overflow-hidden relative group">
+      <div className="max-w-[100%] md:max-w-[96%] w-full h-[75vh] md:h-[88vh] rounded-[2rem] md:rounded-[4rem] shadow-2xl overflow-hidden relative group">
         <AnimatePresence mode="wait">
           <motion.div
             key={current}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
             className="absolute inset-0"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-[#002d5b]/90 via-[#002d5b]/40 to-transparent z-10" />
-            <img
+            <div className="absolute inset-0 bg-gradient-to-r from-[#002d5b]/95 via-[#002d5b]/40 to-transparent z-10" />
+            <motion.img
+              initial={{ scale: 1.2 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 10, ease: "linear" }}
               src={slides[current].image}
               alt="Olympiad Slide"
               className="w-full h-full object-cover"
@@ -89,7 +102,7 @@ export default function Hero() {
                   href="/register"
                   className="bg-[#ff9c00] text-[#002d5b] px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl hover:scale-105 transition-all inline-flex items-center gap-3"
                 >
-                  Register Now <ChevronRight size={20} strokeWidth={3} />
+                  School Registration <ChevronRight size={20} strokeWidth={3} />
                 </Link>
                 <button className="bg-white/10 backdrop-blur-md text-white border border-white/20 px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-white hover:text-[#002d5b] transition-all inline-flex items-center gap-3">
                   Interested? Call Us <ChevronRight size={20} />

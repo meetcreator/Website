@@ -80,7 +80,7 @@ export default function About() {
                
                {/* Decorative floating card */}
                <div className="absolute top-10 right-10 bg-white p-6 rounded-3xl shadow-2xl border border-slate-100">
-                  <p className="text-4xl font-black text-[#ff9c00] mb-1">N-UKG</p>
+                  <p className="text-4xl font-black text-[#ff9c00] mb-1">N - Sr. KG</p>
                   <p className="text-[10px] font-black uppercase tracking-widest text-[#002d5b]">Target Grades</p>
                </div>
                

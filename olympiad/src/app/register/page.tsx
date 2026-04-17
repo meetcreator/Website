@@ -1,98 +1,126 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { School, ArrowRight, CheckCircle2, ChevronDown, UserCircle } from "lucide-react";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+import { School, ArrowRight, UserCircle, MapPin, Mail, Phone, Users } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-export default function RegisterPage() {
-  const [subject, setSubject] = useState("Literacy (GCLO)");
-
+export default function SchoolRegisterPage() {
   return (
     <main className="min-h-screen bg-white">
       <Navbar />
 
-      <section className="pt-56 pb-24 px-6">
-        <div className="max-w-xl mx-auto">
+      <section className="pt-56 pb-24 px-6 bg-slate-50">
+        <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
-            <h1 className="text-4xl md:text-5xl font-black text-[#002d5b] italic uppercase tracking-tighter mb-4">
-              Enroll Your <span className="text-[#2da3c2]">Child</span>
+            <span className="text-[#2da3c2] font-black text-[10px] uppercase tracking-[0.3em] mb-4 block">Institutional Enrollment</span>
+            <h1 className="text-5xl md:text-7xl font-black text-[#002d5b] italic uppercase tracking-tighter mb-8 leading-tight">
+              School <span className="text-[#ff9c00]">Registration</span>
             </h1>
-            <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">
-              Join the Global Competency Olympiad journey today.
+            <p className="text-slate-500 font-bold text-xs md:text-sm max-w-2xl mx-auto uppercase tracking-widest leading-relaxed">
+              Register your institution to bring the Global Competency Olympiad to your students. 
+              Note: Individual student registrations are not accepted.
             </p>
           </motion.div>
 
-          <div className="bg-white rounded-[3rem] border border-slate-100 shadow-2xl p-8 md:p-12 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-[#2da3c2]/5 -translate-y-1/2 translate-x-1/2 rounded-full" />
+          <div className="bg-white rounded-[4rem] border border-slate-100 shadow-2xl p-8 md:p-16 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#2da3c2]/5 -translate-y-1/2 translate-x-1/2 rounded-full" />
             
-            <div className="mb-10 text-center relative z-10">
-              <div className="inline-flex items-center justify-center gap-2 py-3 px-8 bg-[#002d5b] rounded-xl font-black text-[10px] uppercase tracking-widest text-white shadow-xl">
-                <UserCircle size={14} /> Student Enrollment
-              </div>
-            </div>
+            <form className="space-y-10 relative z-10">
+              <div className="grid md:grid-cols-2 gap-10">
+                <div className="space-y-6">
+                  <h3 className="text-[#002d5b] font-black text-xs uppercase tracking-[0.2em] flex items-center gap-2 mb-8">
+                    <School size={16} className="text-[#2da3c2]" /> School Information
+                  </h3>
+                  
+                  <div>
+                    <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 ml-2">Official School Name</label>
+                    <input
+                      type="text"
+                      placeholder="Enter Full School Name"
+                      className="w-full bg-slate-50 border border-slate-100 p-5 rounded-2xl font-bold text-sm focus:outline-none focus:ring-2 focus:ring-[#2da3c2] focus:bg-white transition-all text-[#002d5b]"
+                    />
+                  </div>
 
-            <form className="space-y-6 relative z-10">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 ml-2">Child's Name</label>
-                  <input
-                    type="text"
-                    placeholder="Full Name"
-                    className="w-full bg-slate-50 border border-slate-100 p-5 rounded-2xl font-bold text-sm focus:outline-none focus:ring-2 focus:ring-[#2da3c2] focus:bg-white transition-all text-[#002d5b]"
-                  />
+                  <div>
+                    <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 ml-2">School Address</label>
+                    <textarea
+                      placeholder="City, State, Country"
+                      rows={3}
+                      className="w-full bg-slate-50 border border-slate-100 p-5 rounded-2xl font-bold text-sm focus:outline-none focus:ring-2 focus:ring-[#2da3c2] focus:bg-white transition-all text-[#002d5b] resize-none"
+                    />
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 ml-2">Grade / Level</label>
-                  <select
-                    className="w-full bg-slate-50 border border-slate-100 p-5 rounded-2xl font-bold text-sm focus:outline-none focus:ring-2 focus:ring-[#2da3c2] focus:bg-white transition-all appearance-none text-[#002d5b]"
-                  >
-                    <option>Nursery</option>
-                    <option>Junior KG</option>
-                    <option>Senior KG</option>
-                  </select>
+
+                <div className="space-y-6">
+                  <h3 className="text-[#002d5b] font-black text-xs uppercase tracking-[0.2em] flex items-center gap-2 mb-8">
+                    <UserCircle size={16} className="text-[#ff9c00]" /> Contact Person
+                  </h3>
+
+                  <div>
+                    <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 ml-2">Coordinator Name</label>
+                    <input
+                      type="text"
+                      placeholder="Principal or HOD Name"
+                      className="w-full bg-slate-50 border border-slate-100 p-5 rounded-2xl font-bold text-sm focus:outline-none focus:ring-2 focus:ring-[#2da3c2] focus:bg-white transition-all text-[#002d5b]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 ml-2">Contact Number</label>
+                    <input
+                      type="tel"
+                      placeholder="+91 XXXXX XXXXX"
+                      className="w-full bg-slate-50 border border-slate-100 p-5 rounded-2xl font-bold text-sm focus:outline-none focus:ring-2 focus:ring-[#2da3c2] focus:bg-white transition-all text-[#002d5b]"
+                    />
+                  </div>
                 </div>
               </div>
 
-              <div>
-                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 ml-2">Parent's Email</label>
-                <input
-                  type="email"
-                  placeholder="email@example.com"
-                  className="w-full bg-slate-50 border border-slate-100 p-5 rounded-2xl font-bold text-sm focus:outline-none focus:ring-2 focus:ring-[#2da3c2] focus:bg-white transition-all text-[#002d5b]"
-                />
+              <div className="grid md:grid-cols-2 gap-10 pt-6 border-t border-slate-50">
+                <div>
+                  <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 ml-2">Official Email Address</label>
+                  <div className="relative">
+                    <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300" size={18} />
+                    <input
+                      type="email"
+                      placeholder="school@example.com"
+                      className="w-full bg-slate-50 border border-slate-100 py-5 pl-14 pr-5 rounded-2xl font-bold text-sm focus:outline-none focus:ring-2 focus:ring-[#2da3c2] focus:bg-white transition-all text-[#002d5b]"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 ml-2">Approx. Participation</label>
+                  <div className="relative">
+                    <Users className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300" size={18} />
+                    <select
+                      className="w-full bg-slate-50 border border-slate-100 py-5 pl-14 pr-5 rounded-2xl font-bold text-sm focus:outline-none focus:ring-2 focus:ring-[#2da3c2] focus:bg-white transition-all appearance-none text-[#002d5b]"
+                    >
+                      <option>Less than 50 Students</option>
+                      <option>50 - 200 Students</option>
+                      <option>200 - 500 Students</option>
+                      <option>500+ Students</option>
+                    </select>
+                  </div>
+                </div>
               </div>
 
-              <div className="relative">
-                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 ml-2">Choose Subject</label>
-                <select
-                  value={subject}
-                  onChange={(e) => setSubject(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-100 p-5 rounded-2xl font-bold text-sm focus:outline-none focus:ring-2 focus:ring-[#2da3c2] focus:bg-white transition-all appearance-none text-[#002d5b]"
-                >
-                  <option>Literacy (GCLO)</option>
-                  <option>Numeracy (GCNO)</option>
-                  <option>Science (GCSO)</option>
-                  <option>All Subjects</option>
-                </select>
-                <ChevronDown className="absolute right-5 bottom-5 text-slate-400 pointer-events-none" size={20} />
+              <div className="pt-6">
+                <button className="w-full bg-[#ff9c00] text-[#002d5b] py-6 rounded-3xl font-black text-sm uppercase tracking-[0.3em] shadow-2xl hover:shadow-[#ff9c00]/30 hover:scale-[1.01] active:scale-95 transition-all flex items-center justify-center gap-4">
+                  SUBMIT INSTITUTIONAL INQUIRY <ArrowRight size={20} strokeWidth={3} />
+                </button>
               </div>
-
-              <button className="w-full bg-[#ff9c00] text-[#002d5b] py-5 rounded-3xl font-black text-sm uppercase tracking-[0.2em] shadow-xl hover:shadow-[#ff9c00]/30 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 mt-4">
-                SUBMIT REGISTRATION <ArrowRight size={20} strokeWidth={3} />
-              </button>
             </form>
 
-            <div className="mt-8 text-center px-4">
-              <p className="text-[9px] font-bold text-slate-400 leading-relaxed uppercase tracking-widest">
-                By submitting, you agree to receive information about exam schedules and preparatory materials.
+            <div className="mt-12 text-center bg-slate-50 p-6 rounded-3xl border border-slate-100">
+              <p className="text-[9px] font-extrabold text-[#002d5b] leading-relaxed uppercase tracking-widest flex items-center justify-center gap-2">
+                <Info size={12} className="text-[#2da3c2]" /> 
+                Our team will contact you within 48 hours with the registration kit and examination manual.
               </p>
             </div>
           </div>
@@ -101,5 +129,25 @@ export default function RegisterPage() {
 
       <Footer />
     </main>
+  );
+}
+
+function Info({ size, className }: { size: number, className: string }) {
+  return (
+    <svg 
+      width={size} 
+      height={size} 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="3" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      className={className}
+    >
+      <circle cx="12" cy="12" r="10" />
+      <line x1="12" y1="16" x2="12" y2="12" />
+      <line x1="12" y1="8" x2="12.01" y2="8" />
+    </svg>
   );
 }

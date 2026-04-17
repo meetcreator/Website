@@ -11,13 +11,14 @@ const navLinks = [
   { name: "Home", href: "/", dropdown: false },
   { name: "About", href: "/#about", dropdown: false },
   {
-    name: "Olympiads",
-    href: "/#olympiads",
+    name: "Information",
+    href: "/exam-info",
     dropdown: true,
     items: [
-      { name: "Literacy (GCLO)", href: "/#olympiads" },
-      { name: "Numeracy (GCNO)", href: "/#olympiads" },
-      { name: "Science (GCSO)", href: "/#olympiads" },
+      { name: "Detailed Syllabus", href: "/syllabus" },
+      { name: "Exam Information", href: "/exam-info" },
+      { name: "Our Subjects", href: "/#olympiads" },
+      { name: "Prizes & Rewards", href: "/#awards" },
     ],
   },
   {
@@ -70,7 +71,7 @@ export default function Navbar() {
             href="/register" 
             className="hidden lg:block bg-[#002d5b] text-white px-6 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#2da3c2] transition-colors"
           >
-            Register
+            School Registration
           </Link>
           <button
             className="lg:hidden text-[#002d5b]"

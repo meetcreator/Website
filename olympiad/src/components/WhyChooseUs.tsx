@@ -93,7 +93,7 @@ export default function WhyChooseUs() {
               <div className="mt-12 pt-12 border-t border-white/10">
                 <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#ff9c00] mb-4">Questions about registration?</p>
                 <div className="flex flex-wrap gap-4">
-                  <button className="bg-white text-[#002d5b] px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-[#ff9c00] transition-colors">Download Forms</button>
+                  <a href="/register" className="bg-white text-[#002d5b] px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-[#ff9c00] transition-colors block text-center">School Registration</a>
                   <button className="bg-white/10 text-white border border-white/20 px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-white/20 transition-colors">School Portal</button>
                 </div>
               </div>

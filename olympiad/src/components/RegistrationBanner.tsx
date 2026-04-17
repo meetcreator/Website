@@ -31,7 +31,7 @@ export default function RegistrationBanner() {
                 <span className="text-[#ff9c00]">An Opportunity</span> to Shine
               </h2>
               <p className="text-white/70 text-lg mb-12 font-bold leading-relaxed max-w-xl">
-                Enroll your children today in the Global Competency Olympiad and build a strong foundation for their future success.
+                Register your school today in the Global Competency Olympiad and build a strong foundation for your students' future success.
               </p>
               
               <div className="flex flex-wrap gap-4 justify-center md:justify-start">
@@ -39,7 +39,7 @@ export default function RegistrationBanner() {
                   href="/register" 
                   className="bg-[#ff9c00] text-[#002d5b] font-black py-5 px-10 rounded-2xl text-sm uppercase tracking-widest transition-all shadow-xl hover:shadow-orange-500/30 flex items-center justify-center gap-3"
                 >
-                  Enroll Now <ArrowRight size={20} strokeWidth={3} />
+                  School Registration <ArrowRight size={20} strokeWidth={3} />
                 </Link>
                 <Link
                   href="/#contact"

@@ -17,7 +17,7 @@ const images = [
   { src: assetPath('/GALLERY/childrenCongo.jpg'), title: "Celebrating Success" },
   { src: assetPath('/GALLERY/ParentsChildren.jpg'), title: "Proud Moments with Parents" },
   { src: assetPath('/GALLERY/childrenAward.jpg'), title: "National Level Honors" },
-  { src: assetPath('/GALLERY/TeenAward.jpg'), title: "Middle School Excellence" },
+  { src: assetPath('/GALLERY/TeenAward.jpg'), title: "Early Learner Excellence" },
   { src: assetPath('/GALLERY/childaward.jpeg'), title: "Competency Award" },
   { src: assetPath('/GALLERY/childaward1.jpeg'), title: "Literacy Excellence" },
   { src: assetPath('/GALLERY/childaward2.jpeg'), title: "Numeracy Hero" },

@@ -15,26 +15,26 @@ const fees = [
 ];
 
 const timeline = [
-  { level: "School Level", duration: "June – November" },
-  { level: "Inter School Level", duration: "December – February" },
-  { level: "State Level", duration: "March – April" },
-  { level: "National Level", duration: "June" },
+  { level: "School Level", duration: "September – October" },
+  { level: "Inter School Level", duration: "February" },
+  { level: "State Level", duration: "April" },
+  { level: "National Level", duration: "May – June" },
 ];
 
 const prizes = [
   { 
     title: "Participation Rewards", 
-    items: ["Participation gift for every student", "Merit certificate for all participants"],
+    items: ["Special gift for every student", "Participation certificate for all"],
     icon: <Gift className="text-blue-500" />
   },
   { 
     title: "Achievement Awards", 
-    items: ["Medals for students scoring 80% and above", "Inter-school level recognition"],
+    items: ["Medals for Top 3 students at all levels", "Medals for students scoring above 80%"],
     icon: <Medal className="text-amber-500" />
   },
   { 
-    title: "Top Excellence", 
-    items: ["Trophy for top overall scorer", "Special prize for national rankers"],
+    title: "Highest Excellence", 
+    items: ["Special recognition at National level", "Institutional trophies for top schools"],
     icon: <Trophy className="text-[#ff9c00]" />
   },
 ];
