@@ -2,33 +2,33 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, ChevronLeft, Globe, School, Trophy, Monitor, Download } from "lucide-react";
+import { ChevronRight, ChevronLeft, Globe, School, Trophy, Monitor, Download, BookOpen, Calculator, Beaker } from "lucide-react";
 import Link from "next/link";
 import { assetPath } from "@/lib/basePath";
 
 const slides = [
   {
     image: assetPath('/GALLERY/ChildrenExam.jpg'),
-    title: "Unlock Your Child’s True Potential",
-    subtitle: "Participate in internationally recognized Olympiads in Math, Science & English.",
+    title: "Global Competency Olympiad",
+    subtitle: "A comprehensive platform to build strong foundations in Literacy, Numeracy, and Science for young learners.",
   },
   {
     image: assetPath('/GALLERY/childrenAwards.jpg'),
-    title: "Global Recognition & Awards",
-    subtitle: "Compete with students worldwide and celebrate academic excellence.",
+    title: "Early Skill Development",
+    subtitle: "Designed for Nursery, Junior KG, and Senior KG to develop creativity and critical thinking.",
   },
   {
     image: assetPath('/GALLERY/childrenAward.jpg'),
-    title: "Building Confidence & Skills",
-    subtitle: "Designed to help students develop problem-solving mindsets.",
+    title: "Essential Real-World Skills",
+    subtitle: "Nurturing curiosity and problem-solving through engaging and effective assessments.",
   },
 ];
 
 const badges = [
-  { text: "Students from 60+ Countries", icon: <Globe size={24} /> },
-  { text: "5000+ Schools Participation", icon: <School size={24} /> },
-  { text: "Thousands of Prizes to be Won", icon: <Trophy size={24} /> },
-  { text: "Fully Online / School-Based", icon: <Monitor size={24} /> },
+  { text: "Literacy (GCLO)", icon: <BookOpen size={24} /> },
+  { text: "Numeracy (GCNO)", icon: <Calculator size={24} /> },
+  { text: "Science (GCSO)", icon: <Beaker size={24} /> },
+  { text: "Ages: Nursery - Sr. KG", icon: <School size={24} /> },
 ];
 
 export default function Hero() {
@@ -92,7 +92,7 @@ export default function Hero() {
                   Register Now <ChevronRight size={20} strokeWidth={3} />
                 </Link>
                 <button className="bg-white/10 backdrop-blur-md text-white border border-white/20 px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-white hover:text-[#002d5b] transition-all inline-flex items-center gap-3">
-                  Download Sample Papers <Download size={20} />
+                  Interested? Call Us <ChevronRight size={20} />
                 </button>
               </div>
 

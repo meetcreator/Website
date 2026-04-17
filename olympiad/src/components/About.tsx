@@ -1,20 +1,20 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle2, Monitor, Languages, ShieldAlert, Target, Brain, Trophy, Zap } from "lucide-react";
+import { CheckCircle2, Languages, Target, Brain, Trophy, Zap, BookOpen, Calculator, Beaker } from "lucide-react";
 import { assetPath } from "@/lib/basePath";
 
 const aims = [
-  { text: "Develop conceptual understanding", icon: <Brain className="text-purple-500" /> },
-  { text: "Build problem-solving skills", icon: <Zap className="text-amber-500" /> },
-  { text: "Prepare for competitive environments", icon: <Target className="text-blue-500" /> },
-  { text: "Enhance academic performance", icon: <Trophy className="text-emerald-500" /> },
+  { text: "Language proficiency", icon: <Languages className="text-purple-500" /> },
+  { text: "Mathematical thinking", icon: <Calculator className="text-amber-500" /> },
+  { text: "Scientific curiosity", icon: <Beaker className="text-blue-500" /> },
+  { text: "Real-world skills", icon: <Target className="text-emerald-500" /> },
 ];
 
-const brochureFacts = [
-  { text: "Conducted Online", icon: <Monitor size={20} /> },
-  { text: "Available in English Only", icon: <Languages size={20} /> },
-  { text: "Webcam Proctored for fairness", icon: <ShieldAlert size={20} /> },
+const highlights = [
+  { text: "Structured problem-solving", icon: <Brain size={20} /> },
+  { text: "Early skill development", icon: <Zap size={20} /> },
+  { text: "Effective and enjoyable learning", icon: <CheckCircle2 size={20} /> },
 ];
 
 export default function About() {
@@ -29,16 +29,14 @@ export default function About() {
             viewport={{ once: true }}
             className="lg:w-1/2"
           >
-            <span className="text-secondary font-bold uppercase tracking-widest text-xs mb-4 block">About the Olympiads</span>
+            <span className="text-secondary font-bold uppercase tracking-widest text-xs mb-4 block">About the Olympiad</span>
             <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight italic text-[#002d5b]">
-              CREST & G Sun <br />
-              <span className="text-[#2da3c2]">International Exams</span>
+              The Global <br />
+              <span className="text-[#2da3c2]">Competency Olympiad</span>
             </h2>
             <p className="text-[#002d5b]/70 text-lg mb-8 leading-relaxed font-medium">
-              CREST and G Sun Olympiads are international-level competitive exams 
-              designed for students from **KG to Grade 12 (CREST)** and 
-              **Class 1 to 8 (G Sun)**. We aim to nurture the next generation 
-              of global thinkers and achievers.
+              Presented by **Inner Space Organization**, this unique initiative is focused on early skill development. 
+              It goes beyond traditional learning by nurturing core competencies in young learners.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-6 mb-12">
@@ -54,10 +52,10 @@ export default function About() {
 
             <div className="bg-[#002d5b] p-8 rounded-[2.5rem] text-white">
               <h4 className="flex items-center gap-2 font-black uppercase tracking-widest text-sm mb-6 text-[#ff9c00]">
-                💡 Important Feature Highlights
+                💡 Nurturing Future Ready Skills
               </h4>
               <div className="space-y-4">
-                {brochureFacts.map((fact, idx) => (
+                {highlights.map((fact, idx) => (
                   <div key={idx} className="flex items-center gap-4">
                     <div className="text-[#2da3c2] shrink-0">{fact.icon}</div>
                     <p className="font-bold text-sm tracking-wide">{fact.text}</p>
@@ -82,8 +80,8 @@ export default function About() {
                
                {/* Decorative floating card */}
                <div className="absolute top-10 right-10 bg-white p-6 rounded-3xl shadow-2xl border border-slate-100">
-                  <p className="text-4xl font-black text-[#ff9c00] mb-1">60+</p>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-[#002d5b]">Countries Participate</p>
+                  <p className="text-4xl font-black text-[#ff9c00] mb-1">N-UKG</p>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-[#002d5b]">Target Grades</p>
                </div>
                
                <div className="absolute bottom-10 left-10 bg-white p-6 rounded-3xl shadow-2xl border border-slate-100 flex items-center gap-4">
@@ -91,8 +89,8 @@ export default function About() {
                     <CheckCircle2 size={24} />
                   </div>
                   <div>
-                    <p className="text-lg font-black text-[#002d5b] leading-none mb-1">Global Standard</p>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Webcam Proctored</p>
+                    <p className="text-lg font-black text-[#002d5b] leading-none mb-1">Inner Space</p>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Organization</p>
                   </div>
                </div>
             </div>

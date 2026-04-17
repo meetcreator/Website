@@ -15,26 +15,17 @@ const navLinks = [
     href: "/#olympiads",
     dropdown: true,
     items: [
-      { name: "Mathematics (CMO)", href: "#" },
-      { name: "Science (CSO)", href: "#" },
-      { name: "English (CEO)", href: "#" },
-      { name: "Reasoning (CRO)", href: "#" },
-      { name: "Cyber (CCO)", href: "#" },
-      { name: "Spell Bee (CSBW)", href: "#" },
+      { name: "Literacy (GCLO)", href: "/#olympiads" },
+      { name: "Numeracy (GCNO)", href: "/#olympiads" },
+      { name: "Science (GCSO)", href: "/#olympiads" },
     ],
   },
   {
-    name: "Programs",
-    href: "/#study",
-    dropdown: true,
-    items: [
-      { name: "GCO PRE WRITING SKILLS", href: "#" },
-      { name: "SHIGHER ORDER THINKING SKILLS (HOTS)", href: "#" },
-      { name: "Global Little Life Skills Olympiad", href: "#" },
-    ],
+    name: "Schools",
+    href: "/#schools",
+    dropdown: false,
   },
   { name: "GALLERY", href: "/gallery", dropdown: false },
-  { name: "Register", href: "/register", dropdown: false },
   { name: "Contact", href: "/#contact", dropdown: false },
 ];
 
@@ -64,19 +55,25 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-3">
             <img
               src={assetPath('/logo.png')}
-              alt="CREST & G Sun Logo"
+              alt="Global Competency Olympiad Logo"
               className="h-12 md:h-16 w-auto object-contain transition-transform hover:scale-105"
             />
             <div className="flex flex-col">
-              <span className="text-lg font-black text-[#002d5b] tracking-tighter leading-none italic uppercase">CREST & G Sun</span>
-              <span className="text-[9px] font-bold text-red-600 tracking-[0.2em] leading-none text-center">OLYMPIADS</span>
+              <span className="text-lg font-black text-[#002d5b] tracking-tighter leading-none italic uppercase">GCO</span>
+              <span className="text-[9px] font-bold text-red-600 tracking-[0.2em] leading-none text-center">OLYMPIAD</span>
             </div>
           </Link>
         </div>
 
         <div className="flex items-center gap-4 lg:w-1/4 justify-end">
+          <Link 
+            href="/register" 
+            className="hidden lg:block bg-[#002d5b] text-white px-6 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#2da3c2] transition-colors"
+          >
+            Register
+          </Link>
           <button
-            className="lg:hidden text-foreground"
+            className="lg:hidden text-[#002d5b]"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X /> : <Menu />}
@@ -96,7 +93,7 @@ export default function Navbar() {
             >
               <Link
                 href={link.href}
-                className="nav-link text-[#002d5b] hover:text-[#2da3c2] text-[10px] font-black uppercase whitespace-nowrap px-3 py-2 flex items-center gap-1 transition-colors"
+                className="nav-link text-[#002d5b] hover:text-[#2da3c2] text-[10px] font-black uppercase whitespace-nowrap px-4 py-2 flex items-center gap-1 transition-colors"
               >
                 {link.name} {link.dropdown && <ChevronDown size={11} className={cn("text-slate-400 transition-transform", activeDropdown === link.name && "rotate-180")} />}
               </Link>
@@ -107,7 +104,7 @@ export default function Navbar() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50 min-w-[220px]"
+                    className="absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50 min-w-[200px]"
                   >
                     <div className="bg-white border border-slate-100 shadow-2xl rounded-2xl overflow-hidden p-2">
                       {link.items?.map((item) => (
@@ -174,6 +171,13 @@ export default function Navbar() {
                   )}
                 </div>
               ))}
+              <Link 
+                href="/register" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="bg-[#002d5b] text-white px-6 py-4 rounded-xl font-black text-xs uppercase tracking-widest text-center mt-4"
+              >
+                Register Now
+              </Link>
             </div>
           </motion.div>
         )}

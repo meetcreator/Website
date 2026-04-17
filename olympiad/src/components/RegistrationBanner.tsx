@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, BookOpen } from "lucide-react";
+import { ArrowRight, Sparkles, BookOpen, Star, Trophy, Users, Heart } from "lucide-react";
 import Link from "next/link";
 
 export default function RegistrationBanner() {
@@ -24,15 +24,14 @@ export default function RegistrationBanner() {
           <div className="relative z-10 text-center md:text-left flex flex-col md:flex-row gap-12 items-center">
             <div className="md:w-3/5">
               <span className="bg-[#2da3c2] text-white font-black text-[10px] uppercase tracking-[0.3em] px-6 py-2 rounded-full mb-8 inline-block">
-                Trusted by 5000+ Schools
+                Presented by Inner Space Organization
               </span>
               <h2 className="text-4xl md:text-6xl font-black text-white leading-tight mb-8 italic uppercase tracking-tighter">
-                Give Your Child a <br />
-                <span className="text-[#ff9c00]">Competitive Edge</span> Today
+                Give Your Little Ones <br />
+                <span className="text-[#ff9c00]">An Opportunity</span> to Shine
               </h2>
               <p className="text-white/70 text-lg mb-12 font-bold leading-relaxed max-w-xl">
-                Join thousands of students excelling globally through Olympiads. 
-                Start their journey towards international recognition.
+                Enroll your children today in the Global Competency Olympiad and build a strong foundation for their future success.
               </p>
               
               <div className="flex flex-wrap gap-4 justify-center md:justify-start">
@@ -40,25 +39,26 @@ export default function RegistrationBanner() {
                   href="/register" 
                   className="bg-[#ff9c00] text-[#002d5b] font-black py-5 px-10 rounded-2xl text-sm uppercase tracking-widest transition-all shadow-xl hover:shadow-orange-500/30 flex items-center justify-center gap-3"
                 >
-                  Register Now <ArrowRight size={20} strokeWidth={3} />
+                  Enroll Now <ArrowRight size={20} strokeWidth={3} />
                 </Link>
-                <button 
+                <Link
+                  href="/#contact"
                   className="bg-white/10 hover:bg-white/20 text-white font-black py-5 px-10 rounded-2xl text-sm uppercase tracking-widest transition-all flex items-center justify-center border border-white/10"
                 >
                   Contact Us
-                </button>
+                </Link>
               </div>
             </div>
 
             <div className="md:w-2/5 grid grid-cols-2 gap-4">
                {[
-                 { label: "Awards Won", value: "15k+" },
-                 { label: "International", value: "60+ Countries" },
-                 { label: "Schools", value: "5000+" },
-                 { label: "Participation", value: "600k+" },
+                 { label: "Confidence", value: <Star className="text-[#ff9c00] mx-auto" /> },
+                 { label: "Creativity", value: <Heart className="text-[#ff9c00] mx-auto" /> },
+                 { label: "Recognition", value: <Trophy className="text-[#ff9c00] mx-auto" /> },
+                 { label: "Real Skills", value: <Users className="text-[#ff9c00] mx-auto" /> },
                ].map((stat, i) => (
-                 <div key={i} className="bg-white/5 p-8 rounded-[2rem] border border-white/10 text-center">
-                    <p className="text-2xl font-black text-[#ff9c00] mb-1">{stat.value}</p>
+                 <div key={i} className="bg-white/5 p-8 rounded-[2rem] border border-white/10 text-center flex flex-col items-center justify-center">
+                    <div className="mb-2">{stat.value}</div>
                     <p className="text-[10px] font-black uppercase tracking-widest text-white/40">{stat.label}</p>
                  </div>
                ))}
