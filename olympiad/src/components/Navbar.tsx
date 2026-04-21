@@ -11,15 +11,35 @@ const navLinks = [
   { name: "Home", href: "/", dropdown: false },
   { name: "About", href: "/#about", dropdown: false },
   {
-    name: "Information",
-    href: "/exam-info",
+    name: "Programs",
+    href: "/#programs",
     dropdown: true,
-    items: [
-      { name: "Detailed Syllabus", href: "/syllabus" },
-      { name: "Exam Information", href: "/exam-info" },
-      { name: "Our Subjects", href: "/#olympiads" },
-      { name: "Prizes & Rewards", href: "/#awards" },
-    ],
+    mega: true,
+    sections: [
+      {
+        title: "GCO",
+        items: [
+          { name: "English", href: "/programs/gco/english" },
+          { name: "Mathematics", href: "/programs/gco/math" },
+          { name: "Science", href: "/programs/gco/science" },
+        ]
+      },
+      {
+        title: "HOTS Preschool",
+        items: [
+          { name: "Assignment Programs", href: "/programs/hots/preschool" },
+        ]
+      },
+      {
+        title: "HOTS (Grade 1-8)",
+        isGrades: true,
+        items: [1, 2, 3, 4, 5, 6, 7, 8].map(g => ({
+          name: `Grade ${g}`,
+          syllabus: `/programs/hots/grade-${g}/syllabus`,
+          papers: `/programs/hots/grade-${g}/papers`
+        }))
+      }
+    ]
   },
   {
     name: "Schools",
@@ -105,18 +125,61 @@ export default function Navbar() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50 min-w-[200px]"
+                    className={cn(
+                      "absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50",
+                      link.mega ? "min-w-[700px]" : "min-w-[200px]"
+                    )}
                   >
-                    <div className="bg-white border border-slate-100 shadow-2xl rounded-2xl overflow-hidden p-2">
-                      {link.items?.map((item) => (
-                        <Link
-                          key={item.name}
-                          href={item.href}
-                          className="block px-4 py-3 text-[10px] font-bold text-[#002d5b] hover:bg-slate-50 hover:text-[#2da3c2] rounded-xl transition-all"
-                        >
-                          {item.name}
-                        </Link>
-                      ))}
+                    <div className="bg-white border border-slate-100 shadow-2xl rounded-3xl overflow-hidden p-6">
+                      {(link as any).mega ? (
+                        <div className="grid grid-cols-3 gap-8">
+                          {(link as any).sections?.map((section: any) => (
+                            <div key={section.title} className="flex flex-col gap-4">
+                              <h3 className="text-[10px] font-black text-slate-400 tracking-[0.2em] uppercase border-b border-slate-50 pb-2">
+                                {section.title}
+                              </h3>
+                              <div className="flex flex-col gap-3">
+                                {section.isGrades ? (
+                                  <div className="grid grid-cols-2 gap-4">
+                                    {section.items.map((grade: any) => (
+                                      <div key={grade.name} className="flex flex-col gap-1">
+                                        <span className="text-[10px] font-bold text-[#002d5b]">{grade.name}</span>
+                                        <div className="flex gap-2">
+                                          <Link href={grade.syllabus} className="text-[9px] text-[#2da3c2] hover:text-[#002d5b] font-medium transition-colors">Syllabus</Link>
+                                          <span className="text-slate-200">|</span>
+                                          <Link href={grade.papers} className="text-[9px] text-[#2da3c2] hover:text-[#002d5b] font-medium transition-colors">Sample Papers</Link>
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                ) : (
+                                  section.items.map((item: any) => (
+                                    <Link
+                                      key={item.name}
+                                      href={item.href}
+                                      className="text-[10px] font-bold text-[#002d5b] hover:text-[#2da3c2] transition-colors"
+                                    >
+                                      {item.name}
+                                    </Link>
+                                  ))
+                                )}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="flex flex-col">
+                          {(link as any).items?.map((item: any) => (
+                            <Link
+                              key={item.name}
+                              href={item.href}
+                              className="block px-4 py-3 text-[10px] font-bold text-[#002d5b] hover:bg-slate-50 hover:text-[#2da3c2] rounded-xl transition-all"
+                            >
+                              {item.name}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </motion.div>
                 )}
@@ -157,17 +220,51 @@ export default function Navbar() {
                   </div>
 
                   {link.dropdown && activeDropdown === link.name && (
-                    <div className="pl-4 border-l-2 border-slate-50 flex flex-col gap-3 py-2">
-                      {link.items?.map((item) => (
-                        <Link
-                          key={item.name}
-                          href={item.href}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                          className="text-xs font-bold text-slate-500 hover:text-secondary"
-                        >
-                          {item.name}
-                        </Link>
-                      ))}
+                    <div className="pl-4 border-l-2 border-slate-50 flex flex-col gap-4 py-2">
+                      {(link as any).mega ? (
+                        (link as any).sections?.map((section: any) => (
+                          <div key={section.title} className="flex flex-col gap-3">
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{section.title}</span>
+                            <div className="flex flex-col gap-2 pl-2">
+                              {section.isGrades ? (
+                                <div className="grid grid-cols-1 gap-3">
+                                  {section.items.map((grade: any) => (
+                                    <div key={grade.name} className="flex flex-col gap-1">
+                                      <span className="text-xs font-bold text-[#002d5b]">{grade.name}</span>
+                                      <div className="flex gap-3">
+                                        <Link href={grade.syllabus} onClick={() => setIsMobileMenuOpen(false)} className="text-[10px] text-[#2da3c2] font-bold">Syllabus</Link>
+                                        <Link href={grade.papers} onClick={() => setIsMobileMenuOpen(false)} className="text-[10px] text-[#2da3c2] font-bold">Sample Papers</Link>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              ) : (
+                                section.items.map((item: any) => (
+                                  <Link
+                                    key={item.name}
+                                    href={item.href}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="text-xs font-bold text-slate-500"
+                                  >
+                                    {item.name}
+                                  </Link>
+                                ))
+                              )}
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        (link as any).items?.map((item: any) => (
+                          <Link
+                            key={item.name}
+                            href={item.href}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="text-xs font-bold text-slate-500"
+                          >
+                            {item.name}
+                          </Link>
+                        ))
+                      )}
                     </div>
                   )}
                 </div>
