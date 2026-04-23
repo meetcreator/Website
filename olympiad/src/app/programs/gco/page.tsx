@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { CheckCircle2, Award, BookOpen, Target, Shield, Zap } from "lucide-react";
 import { motion } from "framer-motion";
+import SamplePapersSyllabus from "@/components/SamplePapersSyllabus";
 
 export default function GCOPage() {
   return (
@@ -107,6 +108,16 @@ export default function GCOPage() {
           </div>
         </div>
       </section>
+
+      <SamplePapersSyllabus 
+        programName="GCO"
+        samplePapers={[
+          { grade: "Nursery", link: "#" },
+          { grade: "Junior KG", link: "#" },
+          { grade: "Senior KG", link: "#" }
+        ]}
+        themeColor="#2da3c2"
+      />
 
       <Footer />
     </main>

@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import { Lightbulb, Trophy, Users, BarChart3, GraduationCap, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import SamplePapersSyllabus from "@/components/SamplePapersSyllabus";
 
 export default function HOTSGrade1to8Page() {
   return (
@@ -120,6 +121,21 @@ export default function HOTSGrade1to8Page() {
           </div>
         </div>
       </section>
+
+      <SamplePapersSyllabus 
+        programName="HOTS Grade 1-8"
+        samplePapers={[
+          { grade: "Grade 1", link: "#" },
+          { grade: "Grade 2", link: "#" },
+          { grade: "Grade 3", link: "#" },
+          { grade: "Grade 4", link: "#" },
+          { grade: "Grade 5", link: "#" },
+          { grade: "Grade 6", link: "#" },
+          { grade: "Grade 7", link: "#" },
+          { grade: "Grade 8", link: "#" }
+        ]}
+        themeColor="#2563eb"
+      />
 
       <Footer />
     </main>

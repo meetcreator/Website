@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Brain, Star, Palette, Rocket, Sparkles, Heart } from "lucide-react";
 import { motion } from "framer-motion";
+import SamplePapersSyllabus from "@/components/SamplePapersSyllabus";
 
 export default function HOTSPreschoolPage() {
   return (
@@ -107,6 +108,16 @@ export default function HOTSPreschoolPage() {
           </div>
         </div>
       </section>
+
+      <SamplePapersSyllabus 
+        programName="HOTS Preschool"
+        samplePapers={[
+          { grade: "Nursery", link: "#" },
+          { grade: "Junior KG", link: "#" },
+          { grade: "Senior KG", link: "#" }
+        ]}
+        themeColor="#ec4899"
+      />
 
       <Footer />
     </main>
