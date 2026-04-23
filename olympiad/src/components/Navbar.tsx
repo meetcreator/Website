@@ -14,31 +14,11 @@ const navLinks = [
     name: "Programs",
     href: "/#programs",
     dropdown: true,
-    mega: true,
-    sections: [
-      {
-        title: "GCO",
-        items: [
-          { name: "English", href: "/programs/gco/english" },
-          { name: "Mathematics", href: "/programs/gco/math" },
-          { name: "Science", href: "/programs/gco/science" },
-        ]
-      },
-      {
-        title: "HOTS Preschool",
-        items: [
-          { name: "Assignment Programs", href: "/programs/hots/preschool" },
-        ]
-      },
-      {
-        title: "HOTS (Grade 1-8)",
-        isGrades: true,
-        items: [1, 2, 3, 4, 5, 6, 7, 8].map(g => ({
-          name: `Grade ${g}`,
-          syllabus: `/programs/hots/grade-${g}/syllabus`,
-          papers: `/programs/hots/grade-${g}/papers`
-        }))
-      }
+    mega: false,
+    items: [
+      { name: "GCO", href: "/programs/gco" },
+      { name: "Higher order thinking skills for preschools", href: "/programs/hots-preschool" },
+      { name: "Higher order thinking skills for grade 1-8", href: "/programs/hots-grade-1-8" },
     ]
   },
   {
