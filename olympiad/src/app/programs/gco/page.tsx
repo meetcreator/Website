@@ -113,9 +113,9 @@ export default function GCOPage() {
         programName="GCO"
         samplePapers={[
           { grade: "Nursery", link: "#" },
-          { grade: "Junior KG", link: "/sample_papers/hots_junior_kg.pdf" },
-          { grade: "Senior KG", link: "/sample_papers/hots_senior_kg.pdf" },
-          { grade: "Sample Report", link: "/sample_papers/sample_report.pdf" }
+          { grade: "Junior KG", link: "/olympiad/sample_papers/hots_junior_kg.pdf" },
+          { grade: "Senior KG", link: "/olympiad/sample_papers/hots_senior_kg.pdf" },
+          { grade: "Sample Report", link: "/olympiad/sample_papers/sample_report.pdf" }
         ]}
         themeColor="#2da3c2"
       />

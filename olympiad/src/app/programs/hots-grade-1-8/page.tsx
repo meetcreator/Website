@@ -133,7 +133,7 @@ export default function HOTSGrade1to8Page() {
           { grade: "Grade 6", link: "#" },
           { grade: "Grade 7", link: "#" },
           { grade: "Grade 8", link: "#" },
-          { grade: "Sample Report", link: "/sample_papers/sample_report.pdf" }
+          { grade: "Sample Report", link: "/olympiad/sample_papers/sample_report.pdf" }
         ]}
         themeColor="#2563eb"
       />
