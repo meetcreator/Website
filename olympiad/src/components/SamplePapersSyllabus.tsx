@@ -103,16 +103,27 @@ export default function SamplePapersSyllabus({
 
             <div className="grid sm:grid-cols-2 gap-3">
               {samplePapers.map((paper, i) => (
-                <a
-                  key={i}
-                  href={paper.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between p-4 bg-white rounded-2xl border border-slate-100 hover:border-slate-300 hover:bg-slate-50 transition-all group/item"
-                >
-                  <span className="font-black text-[#002d5b] text-[10px] uppercase tracking-wider">{paper.grade}</span>
-                  <Download size={14} className="text-slate-400 group-hover/item:text-[#002d5b] transition-colors" />
-                </a>
+                paper.link === "#" ? (
+                  <div
+                    key={i}
+                    className="flex items-center justify-between p-4 bg-white rounded-2xl border border-slate-100 opacity-50 cursor-not-allowed"
+                  >
+                    <span className="font-black text-[#002d5b] text-[10px] uppercase tracking-wider">{paper.grade}</span>
+                    <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">Coming Soon</span>
+                  </div>
+                ) : (
+                  <a
+                    key={i}
+                    href={paper.link}
+                    download
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between p-4 bg-white rounded-2xl border border-slate-100 hover:border-slate-300 hover:bg-slate-50 transition-all group/item"
+                  >
+                    <span className="font-black text-[#002d5b] text-[10px] uppercase tracking-wider">{paper.grade}</span>
+                    <Download size={14} className="text-slate-400 group-hover/item:text-[#002d5b] transition-colors" />
+                  </a>
+                )
               ))}
             </div>
           </motion.div>
