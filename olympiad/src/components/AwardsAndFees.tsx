@@ -2,17 +2,12 @@
 
 import { motion } from "framer-motion";
 import { 
-  Trophy, Medal, Star, Gift, Laptop, School, 
-  IndianRupee, Globe, Fingerprint, Calendar, Check,
-  Clock, MapPin, Award
+  Trophy, Medal, Gift,
+  Globe, Check,
+  Clock
 } from "lucide-react";
 
-const fees = [
-  { level: "School Level", fee: "₹250" },
-  { level: "Inter School Level", fee: "₹500" },
-  { level: "State Level", fee: "₹650" },
-  { level: "National Level", fee: "₹800" },
-];
+
 
 const timeline = [
   { level: "School Level", duration: "September – October" },
@@ -44,32 +39,7 @@ export default function AwardsAndFees() {
     <section id="awards" className="py-24 bg-slate-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         
-        <div className="grid lg:grid-cols-2 gap-12 mb-24">
-          {/* Fee Structure Table */}
-          <div className="bg-white p-10 md:p-12 rounded-[3.5rem] shadow-xl border border-slate-100">
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center shrink-0">
-                <IndianRupee size={28} />
-              </div>
-              <div>
-                <h3 className="text-2xl font-black text-[#002d5b] uppercase italic tracking-tighter">Fee Structure</h3>
-                <p className="text-slate-400 font-bold text-[10px] uppercase tracking-widest">Per Subject Enrollment</p>
-              </div>
-            </div>
-            
-            <div className="space-y-3">
-              {fees.map((item, idx) => (
-                <div key={idx} className="flex justify-between items-center p-5 bg-slate-50 rounded-2xl border border-slate-100 group hover:bg-white hover:shadow-lg transition-all">
-                  <span className="font-black text-[#002d5b] uppercase tracking-tight text-sm">{item.level}</span>
-                  <span className="font-black text-blue-600 text-lg">{item.fee}</span>
-                </div>
-              ))}
-            </div>
-            <p className="mt-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center italic">
-              * Students can choose one or multiple subjects.
-            </p>
-          </div>
-
+        <div className="grid lg:grid-cols-1 gap-12 mb-24 max-w-2xl mx-auto w-full">
           {/* Timeline Table */}
           <div className="bg-white p-10 md:p-12 rounded-[3.5rem] shadow-xl border border-slate-100">
             <div className="flex items-center gap-4 mb-8">

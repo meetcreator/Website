@@ -47,7 +47,7 @@ export default function Footer() {
             <ul className="space-y-4 text-[10px] font-black uppercase tracking-widest">
               <li><Link href="#study" className="hover:text-[#ff9c00] transition-colors">Sample Papers</Link></li>
               <li><Link href="#study" className="hover:text-[#ff9c00] transition-colors">Preparatory Material</Link></li>
-              <li><Link href="#awards" className="hover:text-[#ff9c00] transition-colors">Fee Structure</Link></li>
+
               <li><Link href="/register" className="hover:text-[#ff9c00] transition-colors">Registration</Link></li>
             </ul>
           </div>
