@@ -142,6 +142,18 @@
             "destination": "/olympiad/out"
         },
         {
+            "source": "/olympiad/programs/gco",
+            "destination": "/olympiad/out/programs/gco"
+        },
+        {
+            "source": "/olympiad/programs/hots-grade-1-8",
+            "destination": "/olympiad/out/programs/hots-grade-1-8"
+        },
+        {
+            "source": "/olympiad/programs/hots-preschool",
+            "destination": "/olympiad/out/programs/hots-preschool"
+        },
+        {
             "source": "/archshield/_not-found/__next._not-found.__PAGE__.txt",
             "destination": "/archshield-app/frontend/out/_not-found/__next._not-found/__PAGE__.txt"
         },
