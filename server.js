@@ -29,6 +29,14 @@ const PROJECTS = {
         backendArgs: ['run', 'start:prod'],
         // No separate frontend server needed - static files are served by main server
         redirectUrl: '/Business/'
+    },
+    '/olympiad': {
+        name: 'Olympiad',
+        frontendPort: 3000,
+        frontendPath: 'olympiad',
+        frontendCommand: 'npm',
+        frontendArgs: ['run', 'dev'],
+        redirectUrl: 'http://localhost:3000/olympiad'
     }
 };
 
@@ -149,15 +157,18 @@ function launchProject(config, res) {
     } else {
         console.log(`[LAUNCH] Starting ${config.name}...`);
 
-        // Start Backend (Silent if already claimed)
-        const backend = spawn(config.backendCommand, config.backendArgs, {
-            cwd: path.join(__dirname, config.backendPath),
-            shell: true
-        });
-        backend.stdout.on('data', (d) => process.stdout.write(`[BE]: ${d}`));
-        backend.stderr.on('data', (d) => process.stderr.write(`[BE-ERR]: ${d}`));
+        runningProcesses[config.name] = {};
 
-        runningProcesses[config.name] = { backend };
+        // Start Backend (Only if configured)
+        if (config.backendCommand) {
+            const backend = spawn(config.backendCommand, config.backendArgs, {
+                cwd: path.join(__dirname, config.backendPath),
+                shell: true
+            });
+            backend.stdout.on('data', (d) => process.stdout.write(`[BE]: ${d}`));
+            backend.stderr.on('data', (d) => process.stderr.write(`[BE-ERR]: ${d}`));
+            runningProcesses[config.name].backend = backend;
+        }
 
         // Start Frontend (Only if configured)
         if (config.frontendCommand) {
