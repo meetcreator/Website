@@ -380,6 +380,7 @@ export default function HOTSGrade1to8Page() {
 
       <SamplePapersSyllabus 
         programName="HOTS Grade 1-8"
+        syllabusLink="/programs/hots-grade-1-8/syllabus"
         samplePapers={[
           { grade: "Grade 1", link: "#" },
           { grade: "Grade 2", link: "#" },

@@ -1,4 +1,4 @@
 1:"$Sreact.fragment"
 2:I[70665,["/olympiad/_next/static/chunks/0nnv078p4~fhz.js","/olympiad/_next/static/chunks/0_7m5ewi7u7br.js"],"default"]
 3:I[39246,["/olympiad/_next/static/chunks/0nnv078p4~fhz.js","/olympiad/_next/static/chunks/0_7m5ewi7u7br.js"],"default"]
-0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"GgA1WSPFhChSP7UdcpTCZ"}
+0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"pRIjS5ELDR650i19lGRVV"}
