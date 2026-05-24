@@ -106,22 +106,22 @@ export default function Footer() {
           </div>
 
           <Link
-            href="https://wa.me/919726120903"
+            href="https://wa.me/919909045665?text=Hi%20Drumil!%20I%20loved%20the%20Olympiad%20website%20and%20want%20to%20discuss%20getting%20one%20made%20for%20me."
             target="_blank"
             className="group relative flex flex-col items-center gap-3 hover:scale-105 transition-all duration-500"
           >
-            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-white/10 group-hover:text-[#ff9c00] transition-colors duration-500">
-              Handcrafted By
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] sm:tracking-[0.5em] text-white/20 group-hover:text-[#ff9c00] transition-colors duration-500 text-center px-4">
+              Need a stunning website like this?
             </span>
             <div className="flex items-center gap-4 px-6 py-2 rounded-full border border-white/0 group-hover:border-white/5 group-hover:bg-white/[0.02] transition-all duration-500">
-              <span className="text-[12px] font-black uppercase tracking-[0.2em] text-white/20 group-hover:text-white transition-colors duration-500">
-                Drumil Patel
+              <span className="text-[11px] font-black uppercase tracking-[0.2em] text-white/20 group-hover:text-white transition-colors duration-500 flex items-center gap-2">
+                <span className="opacity-50 hidden sm:inline">Handcrafted By</span> Drumil Patel
               </span>
               <div className="w-px h-3 bg-white/10 group-hover:bg-[#ff9c00]/30 transition-colors"></div>
               <div className="flex items-center gap-2">
                 <MessageCircle size={12} className="text-white/10 group-hover:text-[#25D366] transition-colors" />
                 <span className="text-[10px] font-bold text-white/10 group-hover:text-white/40 transition-colors">
-                  9726120903
+                  9909045665
                 </span>
               </div>
             </div>
