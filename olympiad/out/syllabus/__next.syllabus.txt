@@ -2,4 +2,4 @@
 2:I[70665,["/olympiad/_next/static/chunks/0nnv078p4~fhz.js","/olympiad/_next/static/chunks/0_7m5ewi7u7br.js"],"default"]
 3:I[39246,["/olympiad/_next/static/chunks/0nnv078p4~fhz.js","/olympiad/_next/static/chunks/0_7m5ewi7u7br.js"],"default"]
 4:[]
-0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"pRIjS5ELDR650i19lGRVV"}
+0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"UP0MKe6R8-MJLCQlqcZFx"}
