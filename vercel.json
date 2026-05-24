@@ -26,6 +26,66 @@
     ],
     "rewrites": [
         {
+            "source": "/olympiad/gallery",
+            "destination": "/olympiad/out/gallery"
+        },
+        {
+            "source": "/olympiad/register",
+            "destination": "/olympiad/out/register"
+        },
+        {
+            "source": "/olympiad/syllabus",
+            "destination": "/olympiad/out/syllabus"
+        },
+        {
+            "source": "/olympiad/programs/hots-grade-1-8/syllabus",
+            "destination": "/olympiad/out/programs/hots-grade-1-8/syllabus"
+        },
+        {
+            "source": "/olympiad/_not-found/__next._not-found.__PAGE__.txt",
+            "destination": "/olympiad/out/_not-found/__next._not-found/__PAGE__.txt"
+        },
+        {
+            "source": "/olympiad/syllabus/__next.syllabus.__PAGE__.txt",
+            "destination": "/olympiad/out/syllabus/__next.syllabus/__PAGE__.txt"
+        },
+        {
+            "source": "/olympiad/programs/hots-preschool/__next.programs.hots-preschool.txt",
+            "destination": "/olympiad/out/programs/hots-preschool/__next.programs/hots-preschool.txt"
+        },
+        {
+            "source": "/olympiad/programs/hots-preschool/__next.programs.hots-preschool.__PAGE__.txt",
+            "destination": "/olympiad/out/programs/hots-preschool/__next.programs/hots-preschool/__PAGE__.txt"
+        },
+        {
+            "source": "/olympiad/programs/hots-grade-1-8/__next.programs.hots-grade-1-8.txt",
+            "destination": "/olympiad/out/programs/hots-grade-1-8/__next.programs/hots-grade-1-8.txt"
+        },
+        {
+            "source": "/olympiad/programs/hots-grade-1-8/__next.programs.hots-grade-1-8.__PAGE__.txt",
+            "destination": "/olympiad/out/programs/hots-grade-1-8/__next.programs/hots-grade-1-8/__PAGE__.txt"
+        },
+        {
+            "source": "/olympiad/programs/hots-grade-1-8/syllabus/__next.programs.hots-grade-1-8.txt",
+            "destination": "/olympiad/out/programs/hots-grade-1-8/syllabus/__next.programs/hots-grade-1-8.txt"
+        },
+        {
+            "source": "/olympiad/programs/hots-grade-1-8/syllabus/__next.programs.hots-grade-1-8.syllabus.txt",
+            "destination": "/olympiad/out/programs/hots-grade-1-8/syllabus/__next.programs/hots-grade-1-8/syllabus.txt"
+        },
+        {
+            "source": "/olympiad/programs/hots-grade-1-8/syllabus/__next.programs.hots-grade-1-8.syllabus.__PAGE__.txt",
+            "destination": "/olympiad/out/programs/hots-grade-1-8/syllabus/__next.programs/hots-grade-1-8/syllabus/__PAGE__.txt"
+        },
+        {
+            "source": "/olympiad/programs/gco/__next.programs.gco.txt",
+            "destination": "/olympiad/out/programs/gco/__next.programs/gco.txt"
+        },
+        {
+            "source": "/olympiad/programs/gco/__next.programs.gco.__PAGE__.txt",
+            "destination": "/olympiad/out/programs/gco/__next.programs/gco/__PAGE__.txt"
+        },
+        {
             "source": "/404",
             "destination": "/archshield-app/frontend/out/404"
         },
