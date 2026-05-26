@@ -3,11 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Procurement Dashboard - Gujarat GIDC SME Platform</title>
-  <!-- Google Fonts: Outfit -->
+
+  <!-- SEO Meta Tags -->
+  <title>AI Procurement Hub | Gujarat GIDC Industrial Coordination & SME Platform</title>
+  <meta name="description"
+      content="AI Procurement Hub is an intelligent coordination platform for GIDC manufacturing SMEs, featuring automated purchase orders, real-time ledgers, downstream production impact alerts, and supplier reliability scorecards.">
+  <meta name="keywords"
+      content="AI procurement, purchase order automation, GIDC Vatva, smart manufacturing, supply chain optimization, industrial operations, Morbi ceramics, Naroda GIDC, workflow coordination, supplier scorecard, India SME tech">
+  <meta name="author" content="AI Procurement Hub">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#f97316">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- Open Graph Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tinmco.com/">
+  <meta property="og:title" content="AI Procurement Hub | Gujarat GIDC Industrial Coordination & SME Platform">
+  <meta property="og:description"
+      content="Intelligent purchase order automation, real-time coordination ledgers, downstream production impact mapping, and vendor reliability analytics for manufacturing SMEs.">
+  <meta property="og:image" content="https://tinmco.com/og-image.jpg">
+  <meta property="og:site_name" content="AI Procurement Hub">
+
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://tinmco.com/">
+  <meta name="twitter:title" content="AI Procurement Hub | Gujarat GIDC Industrial Coordination & SME Platform">
+  <meta name="twitter:description"
+      content="Intelligent purchase order automation, real-time coordination ledgers, downstream production impact mapping, and vendor reliability analytics for manufacturing SMEs.">
+  <meta name="twitter:image" content="https://tinmco.com/og-image.jpg">
+
+  <!-- Preconnect for Performance & Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "AI Procurement Hub",
+    "url": "https://tinmco.com",
+    "logo": "https://tinmco.com/logo.png",
+    "description": "Intelligent procurement platform and automated PO coordination ledger for GIDC industrial clusters",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Vatva GIDC, Ahmedabad",
+      "addressRegion": "Gujarat",
+      "addressCountry": "IN"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "AI Procurement Hub",
+    "url": "https://tinmco.com",
+    "description": "Automated PO orchestration and industrial supplier reliability intelligence platform"
+  }
+  </script>
   
   <style>
     /* --------------------------------------------------
@@ -747,9 +804,141 @@
       }
     }
 
+    /* --------------------------------------------------
+       TOAST NOTIFICATION SYSTEM
+       -------------------------------------------------- */
+    .toast-container {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+    .toast {
+      background: rgba(16, 23, 38, 0.97);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.7rem 1rem;
+      font-size: 0.82rem;
+      color: var(--text-main);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      animation: slideInToast 0.3s ease forwards;
+      max-width: 320px;
+      pointer-events: auto;
+    }
+    .toast.success { border-left: 3px solid var(--success); }
+    .toast.error   { border-left: 3px solid var(--danger); }
+    .toast.info    { border-left: 3px solid var(--info); }
+    @keyframes slideInToast {
+      from { opacity: 0; transform: translateX(20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Fallback demo-data warning banner */
+    .fallback-banner {
+      background: rgba(245, 158, 11, 0.07);
+      border-bottom: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 0.55rem 2rem;
+      font-size: 0.78rem;
+      color: var(--warning);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* HITL empty state */
+    .hitl-empty {
+      text-align: center;
+      padding: 1.25rem 1rem;
+      color: var(--success);
+      font-size: 0.85rem;
+      background: rgba(16, 185, 129, 0.06);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 8px;
+      font-weight: 500;
+    }
+
+    /* Skeleton loading rows */
+    .skeleton-row td {
+      background: linear-gradient(90deg,
+        rgba(255,255,255,0.03) 25%,
+        rgba(255,255,255,0.08) 50%,
+        rgba(255,255,255,0.03) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      color: transparent !important;
+      border-radius: 3px;
+      user-select: none;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* PO Detail panel (items + vendor metadata) */
+    .detail-panel {
+      background: rgba(0, 0, 0, 0.12);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1.1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+    .detail-panel-title {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .detail-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.65rem;
+    }
+    .detail-meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
+    .detail-meta-label {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .detail-meta-value { font-size: 0.82rem; font-weight: 500; }
+    .items-tbl {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+    .items-tbl th {
+      font-size: 0.65rem;
+      letter-spacing: 0.04em;
+      padding: 0.4rem 0.6rem;
+      background: rgba(255,255,255,0.02);
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    .items-tbl td {
+      padding: 0.45rem 0.6rem;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+
   </style>
 </head>
 <body>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toast-container" class="toast-container"></div>
 
   <!-- HEADER -->
   <header>
@@ -761,14 +950,19 @@
       </div>
     </div>
     
-    <div class="header-actions" style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; justify-content: flex-end;">
-      <a href="operations.html" class="btn primary" style="text-decoration: none;">⚙️ Operations Console</a>
+    <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+      <a href="operations.html" class="btn primary" style="text-decoration: none; font-size: 0.8rem; padding: 0.4rem 0.85rem;">⚙️ Operations Console</a>
       <div class="tenant-badge">
         <div class="tenant-indicator"></div>
         <strong>Kamlesh Engineering (Vatva)</strong>
       </div>
     </div>
   </header>
+
+  <!-- FALLBACK DEMO BANNER -->
+  <div id="fallback-banner" class="fallback-banner" style="display:none;">
+    &#9888; Running on demo dataset &mdash; backend server not reachable. Data is simulated.
+  </div>
 
   <!-- MAIN CONTAINER -->
   <main>
@@ -925,6 +1119,13 @@
 
         </div>
 
+        <!-- PO DETAIL PANEL (Items + Vendor Metadata) -->
+        <div class="detail-panel" id="detail-panel" style="display:none;">
+          <div class="detail-panel-title">&#128203; PO Detail &mdash; Line Items &amp; Vendor Metadata</div>
+          <div id="detail-items"></div>
+          <div id="detail-meta" class="detail-meta-grid"></div>
+        </div>
+
         <!-- SYSTEMIC GIDC ESCALATION HEATMAP -->
         <div class="heatmap-panel">
           <div class="section-title">
@@ -934,27 +1135,8 @@
             Heat zones flagging GIDC regions and raw material categories causing the highest coordination friction.
           </p>
           
-          <div class="heatmap-grid">
-            <div class="heatmap-item critical-zone">
-              <div class="heatmap-zone">Vatva GIDC</div>
-              <div class="heatmap-category">Compound Plastics</div>
-              <div class="heatmap-metric">Friction Index: <strong>65.80 (Critical)</strong></div>
-            </div>
-            <div class="heatmap-item critical-zone">
-              <div class="heatmap-zone">Odhav GIDC</div>
-              <div class="heatmap-category">Casting Alloys</div>
-              <div class="heatmap-metric">Friction Index: <strong>60.50 (Critical)</strong></div>
-            </div>
-            <div class="heatmap-item warning-zone">
-              <div class="heatmap-zone">Morbi Ceramics Zone</div>
-              <div class="heatmap-category">Glaze Materials</div>
-              <div class="heatmap-metric">Friction Index: <strong>72.00 (Warning)</strong></div>
-            </div>
-            <div class="heatmap-item stable-zone">
-              <div class="heatmap-zone">Metoda GIDC</div>
-              <div class="heatmap-category">Fasteners & Tooling</div>
-              <div class="heatmap-metric">Friction Index: <strong>95.00 (Stable)</strong></div>
-            </div>
+          <div class="heatmap-grid" id="heatmap-grid">
+            <!-- Populated dynamically from live PO data -->
           </div>
         </div>
 
@@ -995,7 +1177,7 @@
 
   <!-- FOOTER -->
   <footer style="text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.8rem; border-top: 1px solid var(--card-border); margin-top: auto;">
-    Gujarat Industrial SME Platform Coordination Ledger. Vatva • Morbi • Ankleshwar • Shapar.
+    <div>Gujarat Industrial SME Platform Coordination Ledger. Vatva &bull; Morbi &bull; Ankleshwar &bull; Shapar.</div>
   </footer>
 
   <!-- --------------------------------------------------
@@ -1030,6 +1212,9 @@
       }
     ];
 
+    // Show loading skeleton immediately on page load
+    showSkeletonRows();
+
     // Load mock_500_tasks.json
     fetch('mock_500_tasks.json')
       .then(response => response.json())
@@ -1039,6 +1224,7 @@
         
         calculateDashboardMetrics();
         renderLedgerTable();
+        renderHeatmap();
         renderHitlQueue();
         
         if(filteredTasks.length > 0) {
@@ -1047,6 +1233,7 @@
       })
       .catch(err => {
         console.error("Browser fetch restrictions block local JSON loading. Triggering inline fallback catalog.", err);
+        document.getElementById('fallback-banner').style.display = 'flex';
         generateFallbackDataset();
       });
 
@@ -1070,7 +1257,7 @@
           vendor_name: `Vendor Gujarat SME #${i}`,
           category: categories[i % categories.length],
           industrial_zone: zones[i % zones.length],
-          total_amount: Math.round(15000 + (Math.sin(i) * 2000000)),
+          total_amount: Math.round(50000 + (Math.abs(Math.sin(i)) * 2000000)),
           status: status,
           priority: priority,
           production_impact: `Stops extrusion line C, delaying GIDC assembly C by ${randomHour(i)} hours.`,
@@ -1086,6 +1273,7 @@
       filteredTasks = [...allTasks];
       calculateDashboardMetrics();
       renderLedgerTable();
+      renderHeatmap();
       renderHitlQueue();
       if(filteredTasks.length > 0) {
         selectTask(filteredTasks[0].id);
@@ -1132,6 +1320,15 @@
       const startIndex = (currentPage - 1) * pageSize;
       const endIndex = Math.min(startIndex + pageSize, filteredTasks.length);
       const pagedData = filteredTasks.slice(startIndex, endIndex);
+
+      // Empty state
+      if(filteredTasks.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:2rem; color:var(--text-muted); font-size:0.85rem;">&#9888; No purchase orders match your current filters.</td></tr>`;
+        document.getElementById("pagination-info").innerText = "No results found";
+        document.getElementById("btn-prev").disabled = true;
+        document.getElementById("btn-next").disabled = true;
+        return;
+      }
       
       pagedData.forEach(task => {
         const tr = document.createElement("tr");
@@ -1139,6 +1336,9 @@
           tr.className = "selected";
         }
         tr.onclick = () => selectTask(task.id);
+        tr.setAttribute('tabindex', '0');
+        tr.setAttribute('role', 'row');
+        tr.onkeydown = (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectTask(task.id); } };
         
         tr.innerHTML = `
           <td><strong>${escapeHtml(task.po_number)}</strong></td>
@@ -1259,6 +1459,9 @@
         `;
         timelineFlow.appendChild(item);
       });
+
+      // 4. Render expanded detail panel (items + metadata)
+      renderDetailPanel(task);
     }
 
     function generateSimulatedStateHistory(task) {
@@ -1272,7 +1475,7 @@
       steps.push({ state: "RFQ_SENT", time: `${baseTime} +15m`, desc: "Automated specifications dispatch validated. Checked payment terms: " + (task.metadata?.payment_terms || "not available") });
       if(task.status === "RFQ_SENT") return steps;
       
-      steps.push({ state: "VENDOR_PENDING", time: `${baseTime} +30m`, desc: `WhatsApp coordination template delivered to active number: ${task.vendor_phone}` });
+      steps.push({ state: "VENDOR_PENDING", time: `${baseTime} +30m`, desc: `WhatsApp coordination template delivered to active number: ${task.vendor_phone || "+91 98980 12345"}` });
       if(task.status === "VENDOR_PENDING") return steps;
       
       if(task.status === "DELAYED" || task.status === "ESCALATED") {
@@ -1313,7 +1516,7 @@
       const activeDrafts = hitlDrafts.filter(d => d.status === "draft");
       
       if (activeDrafts.length === 0) {
-        container.innerHTML = `<div class="hitl-empty">🎉 All messages approved! Queue is clear.</div>`;
+        container.innerHTML = `<div class="hitl-empty">&#10003; All messages approved &mdash; queue is clear.</div>`;
         return;
       }
       
@@ -1342,7 +1545,7 @@
       const draft = hitlDrafts.find(d => d.id === draftId);
       if (draft) {
         draft.ai_draft = text;
-        alert(`Draft message for ${draft.vendor} saved successfully.`);
+        showToast(`Draft saved for ${draft.vendor}`, 'success');
       }
     }
 
@@ -1362,9 +1565,143 @@
           selectTask(taskObj.id);
         }
         
-        alert(`[Outbox Sent via Meta Cloud API to ${draft.vendor}]:\n\n"${text}"`);
+        showToast(`Approved & dispatched to ${draft.vendor} via WhatsApp`, 'success');
         renderHitlQueue();
       }
+    }
+
+    // --------------------------------------------------
+    // TOAST NOTIFICATION
+    // --------------------------------------------------
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      const icon = type === 'success' ? '&#10003;' : type === 'error' ? '&#10007;' : 'i';
+      toast.innerHTML = `<span style="font-weight:700;font-size:1rem;">${icon}</span> ${escapeHtml(message)}`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(20px)';
+        toast.style.transition = 'all 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 3200);
+    }
+
+    // --------------------------------------------------
+    // SKELETON LOADING ROWS
+    // --------------------------------------------------
+    function showSkeletonRows() {
+      const tbody = document.getElementById('ledger-body');
+      tbody.innerHTML = Array(8).fill('').map((_, i) => `
+        <tr class="skeleton-row">
+          <td>PO-2026-${1000 + i}</td>
+          <td>CRITICAL</td>
+          <td>Loading vendor name...</td>
+          <td>Loading zone...</td>
+          <td>Loading amount...</td>
+          <td>LOADING</td>
+        </tr>
+      `).join('');
+    }
+
+    // --------------------------------------------------
+    // DYNAMIC HEATMAP (computed from live PO data)
+    // --------------------------------------------------
+    function renderHeatmap() {
+      const grid = document.getElementById('heatmap-grid');
+      if (!grid || !allTasks.length) return;
+
+      // Tally delayed/escalated + friction per zone
+      const zoneStats = {};
+      allTasks.forEach(task => {
+        const z = task.industrial_zone || 'Unknown';
+        if (!zoneStats[z]) zoneStats[z] = { total: 0, critical: 0, friction: 0 };
+        zoneStats[z].total++;
+        if (['DELAYED', 'ESCALATED'].includes(task.status)) zoneStats[z].critical++;
+        zoneStats[z].friction += (task.coordination_friction_sec || 0);
+      });
+
+      // Top 4 zones sorted by critical count
+      const sorted = Object.entries(zoneStats)
+        .sort((a, b) => b[1].critical - a[1].critical)
+        .slice(0, 4);
+
+      grid.innerHTML = sorted.map(([zone, s]) => {
+        const pct = s.total > 0 ? (s.critical / s.total * 100).toFixed(1) : 0;
+        const frictionHrs = s.friction > 0 ? (s.friction / 3600).toFixed(1) + 'h friction' : 'low friction';
+        const zoneClass = s.critical > 10 ? 'critical-zone' : s.critical > 4 ? 'warning-zone' : 'stable-zone';
+        const label = s.critical > 10 ? 'Critical' : s.critical > 4 ? 'Warning' : 'Stable';
+        return `
+          <div class="heatmap-item ${zoneClass}">
+            <div class="heatmap-zone">${escapeHtml(zone)}</div>
+            <div class="heatmap-category">${s.critical} delayed / ${s.total} total &bull; ${frictionHrs}</div>
+            <div class="heatmap-metric">Delay Rate: <strong>${pct}% (${label})</strong></div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // --------------------------------------------------
+    // PO DETAIL PANEL (line items + vendor metadata)
+    // --------------------------------------------------
+    function renderDetailPanel(task) {
+      const panel = document.getElementById('detail-panel');
+      if (!panel) return;
+      panel.style.display = 'block';
+
+      const items = task.items || [];
+      const meta = task.metadata || {};
+
+      // Items table
+      const itemsHtml = items.length > 0 ? `
+        <table class="items-tbl">
+          <thead><tr>
+            <th>Item Description</th><th>HSN Code</th><th>Qty</th><th>Unit Price</th><th>Total</th>
+          </tr></thead>
+          <tbody>
+            ${items.map(item => `
+              <tr>
+                <td>${escapeHtml(item.item_description)}</td>
+                <td style="font-family:monospace;color:var(--info);">${escapeHtml(item.hsn_code || '&mdash;')}</td>
+                <td>${Number(item.quantity).toLocaleString('en-IN')}</td>
+                <td>&#8377;${Number(item.unit_price || 0).toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
+                <td><strong>&#8377;${Number(item.total_amount || 0).toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2})}</strong></td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      ` : '<div style="color:var(--text-muted);font-size:0.8rem;">No item data available.</div>';
+
+      document.getElementById('detail-items').innerHTML = itemsHtml;
+
+      // Vendor metadata
+      document.getElementById('detail-meta').innerHTML = `
+        <div class="detail-meta-item">
+          <span class="detail-meta-label">GSTIN</span>
+          <span class="detail-meta-value" style="font-family:monospace;color:var(--info);font-size:0.78rem;">${escapeHtml(task.vendor_gstin || '&mdash;')}</span>
+        </div>
+        <div class="detail-meta-item">
+          <span class="detail-meta-label">GST Rate</span>
+          <span class="detail-meta-value">${meta.gst_rate != null ? meta.gst_rate + '%' : '&mdash;'}</span>
+        </div>
+        <div class="detail-meta-item">
+          <span class="detail-meta-label">Payment Terms</span>
+          <span class="detail-meta-value">${escapeHtml(meta.payment_terms || '&mdash;')}</span>
+        </div>
+        <div class="detail-meta-item">
+          <span class="detail-meta-label">Freight</span>
+          <span class="detail-meta-value">${escapeHtml(meta.freight_charges || '&mdash;')}</span>
+        </div>
+        <div class="detail-meta-item">
+          <span class="detail-meta-label">Coord. Friction</span>
+          <span class="detail-meta-value">${task.coordination_friction_sec > 0 ? (task.coordination_friction_sec / 3600).toFixed(1) + 'h' : 'None'}</span>
+        </div>
+        <div class="detail-meta-item">
+          <span class="detail-meta-label">Vendor Phone</span>
+          <span class="detail-meta-value">${escapeHtml(task.vendor_phone || '&mdash;')}</span>
+        </div>
+      `;
     }
   </script>
 

@@ -113,16 +113,20 @@ const server = http.createServer((req, res) => {
                 }
             }
         }
+    } else if (lowerUrl === '/procurement_ai' || lowerUrl.startsWith('/procurement_ai/') || lowerUrl === '/procurement') {
+        // Serve Procurement AI from procurement_ai/frontend/
+        let subPath = (lowerUrl === '/procurement' || lowerUrl === '/procurement_ai')
+            ? '/index.html'
+            : url.substring('/procurement_ai'.length);
+        if (subPath === '' || subPath === '/') subPath = '/index.html';
+        const baseDir = path.join(__dirname, '../procurement_ai/frontend');
+        filePath = path.join(baseDir, subPath);
     } else {
-        if (['/procurement', '/procurement_ai'].includes(lowerUrl)) {
-            filePath = path.join(__dirname, 'index.html');
-        } else {
-            filePath = path.join(__dirname, url === '/' ? 'index.html' : url);
-            // Handle clean URLs for general root pages (e.g. /portfolio -> /portfolio.html)
-            if (!path.extname(filePath)) {
-                if (!fs.existsSync(filePath) && fs.existsSync(filePath + '.html')) {
-                    filePath += '.html';
-                }
+        filePath = path.join(__dirname, url === '/' ? 'index.html' : url);
+        // Handle clean URLs for general root pages (e.g. /portfolio -> /portfolio.html)
+        if (!path.extname(filePath)) {
+            if (!fs.existsSync(filePath) && fs.existsSync(filePath + '.html')) {
+                filePath += '.html';
             }
         }
     }
