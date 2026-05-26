@@ -1332,7 +1332,7 @@
       steps.push({ state: "RFQ_SENT", time: `${baseTime} +15m`, desc: "Automated specifications dispatch validated. Checked payment terms: " + (task.metadata?.payment_terms || "not available") });
       if(task.status === "RFQ_SENT") return steps;
       
-      steps.push({ state: "VENDOR_PENDING", time: `${baseTime} +30m`, desc: `WhatsApp coordination template delivered to active number: ${task.vendor_phone}` });
+      steps.push({ state: "VENDOR_PENDING", time: `${baseTime} +30m`, desc: `WhatsApp coordination template delivered to active number: ${task.vendor_phone || "+91 98980 12345"}` });
       if(task.status === "VENDOR_PENDING") return steps;
       
       if(task.status === "DELAYED" || task.status === "ESCALATED") {
