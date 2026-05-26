@@ -1,3 +1,7 @@
+databases:
+  - name: business-db
+    plan: free
+
 services:
   - type: web
     name: business-backend
@@ -12,7 +16,9 @@ services:
       - key: PORT
         value: 3001
       - key: DATABASE_URL
-        sync: false
+        fromDatabase:
+          name: business-db
+          property: connectionString
       - key: JWT_SECRET
         sync: false
       - key: FRONTEND_URL
