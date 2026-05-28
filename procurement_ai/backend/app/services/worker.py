@@ -132,20 +132,28 @@ class WorkerQueue:
 
         return executed_count
 
-    async def _process_task(self, task_name: str, payload: Dict[str, Any]):
+    async def _process_task(self, task_name: str, payload: Dict[str, Any], db: Optional[Session] = None):
         """Executes corresponding operational logic."""
         if payload.get("force_failure"):
             raise ConnectionError("Meta Cloud API gateway timeout (Simulated 503 Network Timeout).")
-            
+
         if task_name == "dispatch_whatsapp_outbox":
-            recipient = payload.get("phone_number")
-            text = payload.get("message_text")
+            recipient  = payload.get("phone_number")
+            text       = payload.get("message_text")
+            org_id     = payload.get("organization_id")
             logger.info(f"Outbox Dispatcher: Message successfully sent to {recipient}: '{text}'")
-            
+            # Track WhatsApp message usage against subscription plan
+            if db is not None and org_id:
+                try:
+                    from app.services.subscription import check_limit
+                    check_limit(db, org_id, "whatsapp_msgs", increment=1)
+                except Exception as e:
+                    logger.warning(f"Usage tracking failed for whatsapp_msgs: {e}")
+
         elif task_name == "escalate_unresponsive_vendor":
             workflow_id = payload.get("workflow_id")
             logger.warning(f"Escalator: Delayed alerts triggered for workflow {workflow_id}.")
-            
+
         await asyncio.sleep(0.01)
 
 # Backwards compatible alias properties to protect legacy validation mocks

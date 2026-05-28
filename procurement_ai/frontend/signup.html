@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account — AI Procurement Hub</title>
+  <meta name="description" content="Create your AI Procurement Hub account. Set up your organisation, invite your team, and start coordinating vendors in minutes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font: 'Outfit', sans-serif;
+      --bg: #08090a;
+      --border: rgba(255,255,255,0.08);
+      --border-focus: rgba(249,115,22,0.6);
+      --text: #f3f4f6;
+      --muted: #9ca3af;
+      --primary: #f97316;
+      --primary-dark: #ea580c;
+      --primary-glow: rgba(249,115,22,0.25);
+      --success: #10b981;
+      --danger: #ef4444;
+      --input-bg: rgba(255,255,255,0.04);
+      --ease: cubic-bezier(0.4,0,0.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Background orbs */
+    .bg-layer { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.13; animation: drift 25s ease-in-out infinite alternate; }
+    .o1 { width:600px; height:600px; background:#f97316; top:-220px; right:-100px; animation-duration:30s; }
+    .o2 { width:450px; height:450px; background:#8b5cf6; bottom:-100px; left:-120px; animation-duration:22s; animation-delay:-8s; }
+    .o3 { width:280px; height:280px; background:#10b981; top:45%;  left:45%; animation-duration:35s; animation-delay:-14s; }
+    @keyframes drift {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(30px,20px) scale(1.1); }
+    }
+
+    /* Layout */
+    .split { display: flex; width: 100%; min-height: 100vh; position: relative; z-index: 1; }
+
+    /* Right brand panel */
+    .brand-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3rem;
+      background: rgba(255,255,255,0.015);
+      border-left: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      order: 2;
+    }
+    .brand-panel::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(225deg, rgba(139,92,246,0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .brand-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .logo-badge {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary), #d97706);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 16px var(--primary-glow);
+    }
+    .logo-name { font-size: 1.1rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+
+    .brand-body { max-width: 400px; }
+
+    .brand-tagline {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1.18;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin-bottom: 1.25rem;
+    }
+    .brand-tagline .accent {
+      background: linear-gradient(135deg, var(--primary), #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .brand-desc { font-size: 0.92rem; color: var(--muted); line-height: 1.7; margin-bottom: 2rem; }
+
+    /* Step timeline */
+    .steps { display: flex; flex-direction: column; gap: 1.25rem; }
+    .step { display: flex; align-items: flex-start; gap: 1rem; }
+    .step-num {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(249,115,22,0.15);
+      border: 1px solid rgba(249,115,22,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem; font-weight: 700;
+      color: var(--primary);
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .step-text h4 { font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.2rem; }
+    .step-text p  { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+    .brand-footer { font-size: 0.75rem; color: rgba(255,255,255,0.18); }
+
+    /* Form panel */
+    .form-panel {
+      width: 500px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 3rem 2.75rem;
+      overflow-y: auto;
+      order: 1;
+    }
+
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.8rem; color: var(--muted); text-decoration: none;
+      margin-bottom: 2rem; transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--text); }
+
+    .form-header { margin-bottom: 1.75rem; }
+    .form-header h1 { font-size: 1.7rem; font-weight: 800; color: #fff; letter-spacing: -0.03em; margin-bottom: 0.4rem; }
+    .form-header p { font-size: 0.88rem; color: var(--muted); }
+    .form-header p a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    .form-header p a:hover { text-decoration: underline; }
+
+    /* Section divider label */
+    .form-section {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 1.25rem 0 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .form-section::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.07);
+    }
+
+    /* Fields */
+    .field { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+    .field label { font-size: 0.75rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+    .input-wrap { position: relative; display: flex; align-items: center; }
+    .input-icon { position: absolute; left: 0.85rem; color: var(--muted); font-size: 0.95rem; pointer-events: none; transition: color 0.2s; }
+
+    .field input,
+    .field select {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.68rem 1rem 0.68rem 2.5rem;
+      font-family: var(--font);
+      font-size: 0.88rem;
+      color: var(--text);
+      transition: all 0.2s var(--ease);
+      outline: none;
+    }
+    .field input::placeholder { color: rgba(255,255,255,0.2); }
+    .field select { -webkit-appearance: none; cursor: pointer; }
+    .field select option { background: #111; color: var(--text); }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--border-focus);
+      background: rgba(249,115,22,0.04);
+      box-shadow: 0 0 0 3px rgba(249,115,22,0.12);
+    }
+    .input-wrap:focus-within .input-icon { color: var(--primary); }
+
+    .eye-btn {
+      position: absolute; right: 0.85rem;
+      background: none; border: none; cursor: pointer;
+      color: var(--muted); font-size: 0.95rem; padding: 0;
+      transition: color 0.2s; display: flex; align-items: center;
+    }
+    .eye-btn:hover { color: var(--text); }
+
+    .row { display: flex; gap: 0.6rem; }
+    .row .field { flex: 1; }
+
+    /* Password strength */
+    .strength-wrap { margin-top: 0.35rem; }
+    .strength-bars {
+      display: flex; gap: 3px; margin-bottom: 0.25rem;
+    }
+    .strength-seg {
+      flex: 1; height: 3px; border-radius: 2px;
+      background: rgba(255,255,255,0.07);
+      transition: background 0.3s;
+    }
+    .strength-seg.weak   { background: var(--danger); }
+    .strength-seg.fair   { background: var(--primary); }
+    .strength-seg.good   { background: #fbbf24; }
+    .strength-seg.strong { background: var(--success); }
+    .strength-label { font-size: 0.68rem; color: var(--muted); }
+
+    /* Terms */
+    .terms-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .terms-row input[type="checkbox"] { accent-color: var(--primary); margin-top: 2px; flex-shrink: 0; }
+    .terms-row a { color: var(--primary); text-decoration: none; }
+    .terms-row a:hover { text-decoration: underline; }
+
+    /* Alert */
+    .alert {
+      border-radius: 10px; padding: 0.75rem 1rem;
+      font-size: 0.85rem; margin-bottom: 1.25rem;
+      display: none; align-items: flex-start; gap: 0.6rem; line-height: 1.5;
+    }
+    .alert.show { display: flex; }
+    .alert.error   { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; }
+    .alert.success { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.3); color: #6ee7b7; }
+
+    /* Submit */
+    .btn-submit {
+      width: 100%;
+      background: var(--primary); color: #fff; border: none;
+      border-radius: 10px; padding: 0.85rem;
+      font-family: var(--font); font-size: 1rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s var(--ease);
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      box-shadow: 0 4px 16px var(--primary-glow);
+    }
+    .btn-submit:hover:not(:disabled) {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px var(--primary-glow);
+    }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .btn-submit .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff;
+      border-radius: 50%; animation: spin 0.7s linear infinite; display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Success card */
+    .success-card {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      background: rgba(16,185,129,0.05);
+      border: 1px solid rgba(16,185,129,0.2);
+      border-radius: 14px;
+    }
+    .success-card.show { display: block; }
+    .success-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .success-card h2 { font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+    .success-card p { font-size: 0.88rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .btn-go {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--success); color: #fff;
+      border: none; border-radius: 10px; padding: 0.75rem 1.5rem;
+      font-family: var(--font); font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; text-decoration: none;
+      transition: all 0.2s; box-shadow: 0 4px 14px rgba(16,185,129,0.3);
+    }
+    .btn-go:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(16,185,129,0.4); }
+
+    /* Responsive */
+    @media (max-width: 1000px) { .brand-panel { display: none; } .form-panel { width: 100%; max-width: 520px; margin: auto; } }
+    @media (max-width: 520px)  { .form-panel { padding: 2rem 1.25rem; } .row { flex-direction: column; } }
+  </style>
+</head>
+<body>
+
+  <div class="bg-layer">
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+    <div class="orb o3"></div>
+  </div>
+
+  <div class="split">
+
+    <!-- ── Form panel ── -->
+    <div class="form-panel">
+      <a href="home.html" class="back-link">← Back to home</a>
+
+      <div class="form-header">
+        <h1>Create your account</h1>
+        <p>Already have one? <a href="login.html">Sign in</a></p>
+      </div>
+
+      <div id="alert" class="alert"></div>
+
+      <form id="signup-form" novalidate>
+
+        <!-- Organisation -->
+        <div class="form-section">🏭 Organisation</div>
+
+        <div class="field">
+          <label for="org-name">Organisation / Company Name</label>
+          <div class="input-wrap">
+            <span class="input-icon">🏭</span>
+            <input type="text" id="org-name" placeholder="e.g. Vatva Forging Plant" required autocomplete="organization">
+          </div>
+        </div>
+
+        <!-- Profile -->
+        <div class="form-section">👤 Your Profile</div>
+
+        <div class="row">
+          <div class="field">
+            <label for="full-name">Full Name</label>
+            <div class="input-wrap">
+              <span class="input-icon">👤</span>
+              <input type="text" id="full-name" placeholder="Rajesh Patel" required autocomplete="name">
+            </div>
+          </div>
+          <div class="field">
+            <label for="role">Role</label>
+            <div class="input-wrap">
+              <span class="input-icon">🎯</span>
+              <select id="role">
+                <option value="owner">Owner / Founder</option>
+                <option value="manager" selected>Procurement Manager</option>
+                <option value="executive">Executive / Coordinator</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="email">Work Email</label>
+          <div class="input-wrap">
+            <span class="input-icon">✉</span>
+            <input type="email" id="email" placeholder="you@company.in" required autocomplete="email">
+          </div>
+        </div>
+
+        <!-- Security -->
+        <div class="form-section">🔐 Security</div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="password" placeholder="Min. 8 characters" required autocomplete="new-password" id="password">
+            <button type="button" class="eye-btn" id="eye-btn">👁</button>
+          </div>
+          <div class="strength-wrap">
+            <div class="strength-bars" id="strength-bars">
+              <div class="strength-seg" id="seg-1"></div>
+              <div class="strength-seg" id="seg-2"></div>
+              <div class="strength-seg" id="seg-3"></div>
+              <div class="strength-seg" id="seg-4"></div>
+            </div>
+            <div class="strength-label" id="strength-label">Enter a password</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="confirm-password">Confirm Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="confirm-password" placeholder="Repeat your password" autocomplete="new-password">
+          </div>
+        </div>
+
+        <div class="terms-row">
+          <input type="checkbox" id="terms">
+          <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I understand that vendor messages may be processed by AI.</label>
+        </div>
+
+        <button type="submit" class="btn-submit" id="submit-btn">
+          <span class="spinner" id="spinner"></span>
+          <span id="btn-label">Create Account →</span>
+        </button>
+
+      </form>
+
+      <!-- Success state -->
+      <div class="success-card" id="success-card">
+        <div class="success-icon">🎉</div>
+        <h2 id="success-name">Welcome aboard!</h2>
+        <p id="success-msg">Your account has been created. You're all set to start managing procurement.</p>
+        <a href="index.html" class="btn-go">Go to Dashboard →</a>
+      </div>
+
+    </div>
+
+    <!-- ── Brand panel ── -->
+    <div class="brand-panel">
+      <a href="home.html" class="brand-logo">
+        <div class="logo-badge">⚙</div>
+        <span class="logo-name">AI Procurement Hub</span>
+      </a>
+
+      <div class="brand-body">
+        <h2 class="brand-tagline">
+          From first PO to<br>
+          <span class="accent">final delivery</span>, automated.
+        </h2>
+        <p class="brand-desc">
+          Get your entire procurement operation up and running in minutes. No training needed — just upload your CSV and the system handles vendor coordination, AI parsing, and HITL review.
+        </p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              <h4>Create your organisation</h4>
+              <p>Register your GIDC factory or trading company in one form.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-text">
+              <h4>Upload your first PO CSV</h4>
+              <p>Drag and drop any CSV or Excel export. The system auto-maps columns.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-text">
+              <h4>Vendors get WhatsApp messages</h4>
+              <p>Confirmation requests go out automatically. Replies come back parsed by AI.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-text">
+              <h4>Review drafts, approve, done</h4>
+              <p>High-risk messages wait for your approval. One click sends the AI reply.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="brand-footer">
+        © 2026 AI Procurement Hub · Gujarat GIDC Industrial Platform
+      </div>
+    </div>
+
+  </div>
+
+  <script src="auth.js"></script>
+  <script>
+    const API = 'http://127.0.0.1:8000/api/v1';
+
+    // Redirect if already logged in
+    if (ProcureAuth.getSession()) {
+      window.location.href = 'index.html';
+    }
+
+    // Eye toggle
+    document.getElementById('eye-btn').addEventListener('click', () => {
+      const pw  = document.getElementById('password');
+      const btn = document.getElementById('eye-btn');
+      pw.type   = pw.type === 'password' ? 'text' : 'password';
+      btn.textContent = pw.type === 'password' ? '👁' : '🙈';
+    });
+
+    // Password strength meter
+    document.getElementById('password').addEventListener('input', (e) => {
+      const val = e.target.value;
+      const segs  = [1,2,3,4].map(i => document.getElementById(`seg-${i}`));
+      const label = document.getElementById('strength-label');
+
+      // Reset
+      segs.forEach(s => s.className = 'strength-seg');
+
+      if (!val) { label.textContent = 'Enter a password'; return; }
+
+      let score = 0;
+      if (val.length >= 8)  score++;
+      if (/[A-Z]/.test(val)) score++;
+      if (/[0-9]/.test(val)) score++;
+      if (/[^A-Za-z0-9]/.test(val)) score++;
+
+      const levels = ['weak', 'fair', 'good', 'strong'];
+      const labels = ['Weak', 'Fair', 'Good', 'Strong'];
+      const cls    = levels[score - 1] || 'weak';
+      const lbl    = labels[score - 1] || 'Too short';
+
+      for (let i = 0; i < score; i++) segs[i].classList.add(cls);
+      label.textContent = lbl;
+      label.style.color = score === 4 ? 'var(--success)' : score >= 2 ? 'var(--primary)' : 'var(--danger)';
+    });
+
+    // Helpers
+    function showAlert(msg, type = 'error') {
+      const el = document.getElementById('alert');
+      el.className = `alert show ${type}`;
+      el.innerHTML = `<span>${type === 'error' ? '⚠' : '✓'}</span> ${msg}`;
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    function hideAlert() { document.getElementById('alert').className = 'alert'; }
+
+    function setLoading(on) {
+      const btn     = document.getElementById('submit-btn');
+      const label   = document.getElementById('btn-label');
+      const spinner = document.getElementById('spinner');
+      btn.disabled        = on;
+      label.textContent   = on ? 'Creating account…' : 'Create Account →';
+      spinner.style.display = on ? 'block' : 'none';
+    }
+
+    function showSuccess(name) {
+      document.getElementById('signup-form').style.display = 'none';
+      document.getElementById('alert').style.display = 'none';
+      const card = document.getElementById('success-card');
+      card.classList.add('show');
+      document.getElementById('success-name').textContent = `Welcome, ${name}! 🎉`;
+      document.getElementById('success-msg').textContent =
+        'Your organisation and account are ready. Click below to open the dashboard.';
+    }
+
+    // Submit
+    document.getElementById('signup-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideAlert();
+
+      const orgName  = document.getElementById('org-name').value.trim();
+      const fullName = document.getElementById('full-name').value.trim();
+      const role     = document.getElementById('role').value;
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirm  = document.getElementById('confirm-password').value;
+      const terms    = document.getElementById('terms').checked;
+
+      // Validation
+      if (!orgName)  { showAlert('Please enter your organisation name.'); return; }
+      if (!fullName) { showAlert('Please enter your full name.'); return; }
+      if (!email)    { showAlert('Please enter your work email.'); return; }
+      if (password.length < 8) { showAlert('Password must be at least 8 characters.'); return; }
+      if (password !== confirm) { showAlert('Passwords do not match.'); return; }
+      if (!terms) { showAlert('Please accept the Terms of Service to continue.'); return; }
+
+      setLoading(true);
+
+      try {
+        const res  = await fetch(`${API}/auth/signup`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            org_name: orgName,
+            full_name: fullName,
+            role,
+            email,
+            password,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          showAlert(data.detail || 'Signup failed. Please try again.');
+          return;
+        }
+
+        // Persist session
+        ProcureAuth.saveSession(data, false);
+
+        showSuccess(fullName.split(' ')[0]);
+
+      } catch (err) {
+        showAlert('Cannot reach the backend server. Please ensure it is running: cd backend && python -m uvicorn app.main:app --reload');
+      } finally {
+        setLoading(false);
+      }
+    });
+  </script>
+</body>
+</html>

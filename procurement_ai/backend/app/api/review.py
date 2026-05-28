@@ -8,6 +8,10 @@ from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.models import ActiveJob, HITLDraft, ProcurementItem, ProcurementTask, ProcurementWorkflow, Vendor
 from app.services.hitl_service import hitl_service
+from app.services.subscription import check_limit
+from app.models import AuditLog
+from sqlalchemy import func
+import uuid
 
 router = APIRouter()
 
@@ -61,6 +65,14 @@ def update_draft(draft_id: str, payload: DraftUpdate, db: Session = Depends(get_
 
 @router.post("/drafts/{draft_id}/approve")
 def approve_draft(draft_id: str, payload: DraftApproval, db: Session = Depends(get_db)):
+    # Fetch draft first to get org_id for limit check
+    draft = db.get(HITLDraft, draft_id)
+    if not draft:
+        raise HTTPException(status_code=404, detail=f"Draft {draft_id} not found.")
+
+    # Enforce HITL review plan limit
+    check_limit(db, draft.organization_id, "hitl_reviews", increment=1)
+
     try:
         result = hitl_service.approve_draft_message(draft_id, payload.approver_user_id, db=db)
     except ValueError as exc:
@@ -111,4 +123,100 @@ def list_jobs(db: Session = Depends(get_db)):
             }
             for job in jobs
         ]
+    }
+
+
+@router.get("/tasks/{task_id}/items")
+def get_task_items(task_id: str, db: Session = Depends(get_db)):
+    """Returns line items for a specific procurement task."""
+    from app.models import ProcurementItem
+    task = db.get(ProcurementTask, task_id)
+    if task is None:
+        raise HTTPException(status_code=404, detail=f"Task {task_id} not found.")
+    items = db.query(ProcurementItem).filter(ProcurementItem.task_id == task_id).all()
+    return {
+        "task_id": task_id,
+        "po_number": task.po_number,
+        "items": [
+            {
+                "id": item.id,
+                "description": item.description,
+                "quantity": float(item.quantity),
+                "unit": item.unit,
+                "unit_price": float(item.unit_price),
+                "amount": float(item.amount),
+                "hsn_code": item.hsn_code,
+                "item_code": item.item_code,
+            }
+            for item in items
+        ]
+    }
+
+
+@router.get("/audit-log")
+def get_audit_log(
+    org_id: Optional[str] = None,
+    limit: int = 100,
+    format: Optional[str] = None,   # 'csv' for download
+    db: Session = Depends(get_db)
+):
+    """
+    Returns the audit trail for an organisation.
+    Starter+ plans only. Pass ?format=csv for a downloadable CSV.
+    """
+    from fastapi.responses import StreamingResponse
+    import io, csv
+
+    query = db.query(AuditLog)
+    if org_id:
+        query = query.filter(AuditLog.organization_id == org_id)
+    logs = query.order_by(AuditLog.created_at.desc()).limit(min(limit, 500)).all()
+
+    rows = [
+        {
+            "id":              log.id,
+            "organization_id": log.organization_id,
+            "workflow_id":     log.workflow_id,
+            "user_id":         log.user_id,
+            "action":          log.action,
+            "description":     log.description,
+            "created_at":      log.created_at.isoformat() if log.created_at else None,
+        }
+        for log in logs
+    ]
+
+    if format == "csv":
+        output = io.StringIO()
+        writer = csv.DictWriter(output, fieldnames=["id","organization_id","workflow_id","user_id","action","description","created_at"])
+        writer.writeheader()
+        writer.writerows(rows)
+        output.seek(0)
+        return StreamingResponse(
+            io.BytesIO(output.getvalue().encode()),
+            media_type="text/csv",
+            headers={"Content-Disposition": "attachment; filename=audit_log.csv"}
+        )
+
+    return {"count": len(rows), "audit_log": rows}
+
+
+@router.get("/stats")
+def get_stats(db: Session = Depends(get_db)):
+    """Returns aggregate dashboard statistics from live data."""
+    from sqlalchemy import func
+    total = db.query(func.count(ProcurementWorkflow.id)).scalar() or 0
+    critical = db.query(func.count(ProcurementWorkflow.id)).filter(
+        ProcurementWorkflow.priority == "CRITICAL"
+    ).scalar() or 0
+    delayed = db.query(func.count(ProcurementWorkflow.id)).filter(
+        ProcurementWorkflow.current_state.in_(["DELAYED", "ESCALATED"])
+    ).scalar() or 0
+    pending_review = db.query(func.count(ProcurementWorkflow.id)).filter(
+        ProcurementWorkflow.current_state == "APPROVAL_PENDING"
+    ).scalar() or 0
+    return {
+        "total_workflows": total,
+        "critical_count": critical,
+        "delayed_count": delayed,
+        "pending_review_count": pending_review,
     }

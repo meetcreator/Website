@@ -10,6 +10,7 @@ from app.core.database import get_db
 from app.models import Organization, ProcurementItem, ProcurementTask, ProcurementWorkflow, Vendor, WorkflowEvent
 from app.services.state_machine import WorkflowState, state_machine
 from app.services.worker import worker_queue
+from app.services.subscription import check_limit
 
 router = APIRouter()
 
@@ -261,7 +262,16 @@ async def ingest_excel_po(
                 "total_amount": float(total_po_amount),
                 "line_items_count": len(items_list)
             })
-            
+
+        # Track usage: count new POs imported this session
+        if registered_count > 0:
+            try:
+                check_limit(db, x_org_id, "po_uploads", increment=registered_count)
+            except HTTPException:
+                # If over limit after import, still return success but attach warning
+                import_logs.append({"po_number": "__LIMIT__", "status": "limit_warning",
+                                     "message": "Monthly PO upload limit reached. Upgrade to import more."})
+
         return {
             "success": True,
             "organization_id": x_org_id,

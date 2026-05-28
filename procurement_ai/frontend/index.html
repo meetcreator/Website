@@ -949,19 +949,31 @@
         <p>GIDC Manufacturing Operations View</p>
       </div>
     </div>
-    
+
     <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
       <a href="operations.html" class="btn primary" style="text-decoration: none; font-size: 0.8rem; padding: 0.4rem 0.85rem;">⚙️ Operations Console</a>
       <div class="tenant-badge">
         <div class="tenant-indicator"></div>
-        <strong>Kamlesh Engineering (Vatva)</strong>
+        <strong id="header-org-name">Kamlesh Engineering (Vatva)</strong>
       </div>
+      <div id="nav-user" style="display:flex;gap:0.5rem;align-items:center;"></div>
     </div>
   </header>
 
   <!-- FALLBACK DEMO BANNER -->
   <div id="fallback-banner" class="fallback-banner" style="display:none;">
     &#9888; Running on demo dataset &mdash; backend server not reachable. Data is simulated.
+  </div>
+  <!-- LIVE DATA BANNER -->
+  <div id="live-banner" style="display:none; background:rgba(16,185,129,0.07); border-bottom:1px solid rgba(16,185,129,0.25); padding:0.55rem 2rem; font-size:0.78rem; color:#10b981; align-items:center; gap:0.5rem;">
+    &#9679; Connected to live backend &mdash; workflow stats reflect real-time database.
+  </div>
+
+  <!-- SUBSCRIPTION USAGE BAR -->
+  <div id="sub-bar" style="display:none; background:rgba(8,9,10,0.7); border-bottom:1px solid rgba(255,255,255,0.06); padding:0.55rem 2rem; align-items:center; gap:1.5rem; flex-wrap:wrap; font-size:0.75rem;">
+    <span id="sub-plan-pill" style="background:rgba(249,115,22,0.12);border:1px solid rgba(249,115,22,0.25);border-radius:6px;padding:0.2rem 0.6rem;font-weight:700;color:#f97316;font-size:0.7rem;"></span>
+    <div id="sub-meters" style="display:flex;gap:1.25rem;align-items:center;flex:1;flex-wrap:wrap;"></div>
+    <a href="pricing.html" style="font-size:0.72rem;font-weight:700;color:#f97316;text-decoration:none;background:rgba(249,115,22,0.1);border:1px solid rgba(249,115,22,0.25);border-radius:6px;padding:0.25rem 0.65rem;white-space:nowrap;">⬆ Upgrade Plan</a>
   </div>
 
   <!-- MAIN CONTAINER -->
@@ -1189,6 +1201,7 @@
     let currentPage = 1;
     const pageSize = 10;
     let selectedTaskId = null;
+    const API_BASE = 'http://127.0.0.1:8000/api/v1';
 
     // Simulated HITL queue drafts
     let hitlDrafts = [
@@ -1215,7 +1228,50 @@
     // Show loading skeleton immediately on page load
     showSkeletonRows();
 
-    // Load mock_500_tasks.json
+    // Try to overlay live backend stats (non-blocking, won't replace mock ledger)
+    async function tryFetchLiveStats() {
+      try {
+        const res = await fetch(`${API_BASE}/review/stats`, { signal: AbortSignal.timeout(2500) });
+        if (!res.ok) return;
+        const stats = await res.json();
+        if (stats.total_workflows > 0) {
+          document.getElementById('live-banner').style.display = 'flex';
+          // Overlay live counts on top metric cards
+          document.getElementById('m-total-pos').innerText = allTasks.length + ' (mock) + ' + stats.total_workflows + ' live';
+          document.getElementById('m-critical-pos').innerText =
+            (allTasks.filter(t => t.priority === 'CRITICAL').length) + (stats.critical_count > 0 ? ` (+${stats.critical_count} live)` : '');
+          document.getElementById('m-delayed-pos').innerText =
+            (allTasks.filter(t => ['DELAYED','ESCALATED'].includes(t.status)).length) + (stats.delayed_count > 0 ? ` (+${stats.delayed_count} live)` : '');
+          document.getElementById('m-review-pos').innerText =
+            (allTasks.filter(t => t.status === 'APPROVAL_PENDING').length) + (stats.pending_review_count > 0 ? ` (+${stats.pending_review_count} live)` : '');
+        }
+      } catch { /* backend offline — ignore, mock data stays */ }
+    }
+
+    // Also try live HITL drafts from backend and merge into UI queue
+    async function tryFetchLiveHitlDrafts() {
+      try {
+        const res = await fetch(`${API_BASE}/review/drafts?status=draft`, { signal: AbortSignal.timeout(2500) });
+        if (!res.ok) return;
+        const data = await res.json();
+        const liveDrafts = (data.drafts || []).map(d => ({
+          id: d.draft_id,
+          po_number: d.workflow_id || '—',
+          vendor: d.vendor_phone,
+          reason: d.review_reason || 'Manual review',
+          incoming_msg: d.vendor_message,
+          ai_draft: d.draft_content,
+          status: d.status,
+          _live: true,
+        }));
+        // Merge: keep simulated + add live (deduplicate by id)
+        const existingIds = new Set(hitlDrafts.map(d => d.id));
+        liveDrafts.forEach(d => { if (!existingIds.has(d.id)) hitlDrafts.push(d); });
+        if (liveDrafts.length) renderHitlQueue();
+      } catch { /* ignore */ }
+    }
+
+    // Load mock_500_tasks.json as the primary ledger
     fetch('mock_500_tasks.json')
       .then(response => response.json())
       .then(data => {
@@ -1230,6 +1286,9 @@
         if(filteredTasks.length > 0) {
           selectTask(filteredTasks[0].id);
         }
+        // Non-blocking live overlay
+        tryFetchLiveStats();
+        tryFetchLiveHitlDrafts();
       })
       .catch(err => {
         console.error("Browser fetch restrictions block local JSON loading. Triggering inline fallback catalog.", err);
@@ -1703,6 +1762,58 @@
         </div>
       `;
     }
+  </script>
+
+  <script src="auth.js"></script>
+  <script>
+    // Render user nav (login/signup or avatar dropdown)
+    ProcureAuth.renderNavUser({ logoutRedirect: 'login.html' });
+
+    // Override org name in header if session exists
+    const _s = ProcureAuth.getSession();
+    if (_s && _s.org_name) {
+      const el = document.getElementById('header-org-name');
+      if (el) el.textContent = _s.org_name;
+    }
+
+    // Load subscription usage bar
+    async function loadSubBar() {
+      const session = ProcureAuth.getSession();
+      if (!session) return;
+      try {
+        const res = await fetch('http://127.0.0.1:8000/api/v1/subscriptions/current', {
+          headers: { 'x-org-id': session.org_id, ...ProcureAuth.getAuthHeader() },
+          signal: AbortSignal.timeout(2500),
+        });
+        if (!res.ok) return;
+        const d = await res.json();
+
+        document.getElementById('sub-plan-pill').textContent = `⭐ ${d.plan_display} Plan`;
+
+        const meters = [
+          { key: 'po_uploads',    icon: '📤', label: 'POs' },
+          { key: 'whatsapp_msgs', icon: '💬', label: 'WA msgs' },
+          { key: 'hitl_reviews',  icon: '🛡️', label: 'HITL' },
+        ];
+
+        document.getElementById('sub-meters').innerHTML = meters.map(m => {
+          const u   = d.usage[m.key];
+          const inf = u.limit === -1;
+          const pct = inf ? 0 : Math.min(u.pct, 100);
+          const col = inf ? '#3b82f6' : pct >= 90 ? '#ef4444' : pct >= 70 ? '#f59e0b' : '#10b981';
+          return `<span style="display:flex;align-items:center;gap:0.35rem;color:rgba(255,255,255,0.6);">
+            ${m.icon} <span style="color:#fff;font-weight:700;">${u.used}</span>/${inf ? '∞' : u.limit} ${m.label}
+            <span style="display:inline-block;width:48px;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;">
+              <span style="display:block;height:100%;width:${inf?100:pct}%;background:${col};border-radius:2px;"></span>
+            </span>
+          </span>`;
+        }).join('');
+
+        const bar = document.getElementById('sub-bar');
+        bar.style.display = 'flex';
+      } catch { /* backend offline */ }
+    }
+    loadSubBar();
   </script>
 
 </body>

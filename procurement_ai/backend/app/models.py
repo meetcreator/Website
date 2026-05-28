@@ -229,3 +229,123 @@ Index("idx_webhook_event_id", WebhookEvent.event_id)
 Index("idx_workflows_org_po", ProcurementWorkflow.organization_id, ProcurementWorkflow.po_number)
 Index("idx_hitl_status", HITLDraft.status)
 Index("idx_active_jobs_status_run", ActiveJob.status, ActiveJob.run_at)
+
+
+# ─────────────────────────────────────────────────────────────────
+# Subscription billing models
+# ─────────────────────────────────────────────────────────────────
+
+class Subscription(Base):
+    """One active subscription per organisation. plan_name matches PLANS catalogue."""
+    __tablename__ = "subscriptions"
+    id                  = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    organization_id     = Column(String, ForeignKey("organizations.id", ondelete="CASCADE"), nullable=False)
+    plan_name           = Column(String(50), nullable=False, default="free")  # free|starter|growth|enterprise
+    status              = Column(String(50), nullable=False, default="active")  # active|cancelled|past_due|trialing
+    billing_interval    = Column(String(20), nullable=False, default="monthly")  # monthly|annual
+    # Payment / Stripe reference (optional — used in production only)
+    payment_provider    = Column(String(50), nullable=True)   # 'stripe' | 'razorpay' | 'manual'
+    external_sub_id     = Column(String(255), nullable=True)  # Stripe subscription ID
+    external_customer_id= Column(String(255), nullable=True)  # Stripe customer ID
+    # Billing period
+    current_period_start= Column(DateTime, nullable=True)
+    current_period_end  = Column(DateTime, nullable=True)
+    cancel_at_period_end= Column(Boolean, default=False)
+    # Metadata
+    created_at          = Column(DateTime, default=datetime.utcnow)
+    updated_at          = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    __table_args__ = (
+        Index("idx_sub_org_status", "organization_id", "status"),
+    )
+
+
+class UsageRecord(Base):
+    """Monthly usage counters per organisation (reset each billing period)."""
+    __tablename__ = "usage_records"
+    id              = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    organization_id = Column(String, ForeignKey("organizations.id", ondelete="CASCADE"), nullable=False)
+    period_start    = Column(DateTime, nullable=False)   # first day of the month UTC
+    # Usage counters
+    po_uploads      = Column(Integer, default=0)
+    whatsapp_msgs   = Column(Integer, default=0)
+    hitl_reviews    = Column(Integer, default=0)
+    api_calls       = Column(Integer, default=0)
+    created_at      = Column(DateTime, default=datetime.utcnow)
+    updated_at      = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    __table_args__ = (
+        UniqueConstraint("organization_id", "period_start", name="uq_usage_org_period"),
+        Index("idx_usage_org_period", "organization_id", "period_start"),
+    )
+
+
+# ─────────────────────────────────────────────────────────────────
+# Outbound webhook endpoints (Growth+ feature)
+# ─────────────────────────────────────────────────────────────────
+
+class WebhookEndpoint(Base):
+    """
+    Customer-registered outbound webhook URLs.
+    The platform fans out workflow events to these URLs via HTTP POST.
+    """
+    __tablename__ = "webhook_endpoints"
+    id              = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    organization_id = Column(String, ForeignKey("organizations.id", ondelete="CASCADE"), nullable=False)
+    url             = Column(String(2048), nullable=False)
+    description     = Column(String(255), nullable=True)
+    # Comma-separated event types to subscribe to, e.g. "STATE_TRANSITION,HITL_APPROVED"
+    # Empty/null means all events
+    event_filter    = Column(Text, nullable=True)
+    secret          = Column(String(255), nullable=True)   # HMAC signing secret
+    is_active       = Column(Boolean, default=True)
+    created_at      = Column(DateTime, default=datetime.utcnow)
+    updated_at      = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    __table_args__ = (
+        Index("idx_webhook_endpoint_org", "organization_id", "is_active"),
+    )
+
+
+class OutboundWebhookLog(Base):
+    """Delivery attempt log for each outbound webhook call."""
+    __tablename__ = "outbound_webhook_logs"
+    id              = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    endpoint_id     = Column(String, ForeignKey("webhook_endpoints.id", ondelete="CASCADE"), nullable=False)
+    organization_id = Column(String, ForeignKey("organizations.id", ondelete="CASCADE"), nullable=False)
+    event_type      = Column(String(100), nullable=False)
+    payload         = Column(JSON, nullable=False)
+    response_status = Column(Integer, nullable=True)   # HTTP response code
+    response_body   = Column(Text, nullable=True)
+    duration_ms     = Column(Integer, nullable=True)
+    success         = Column(Boolean, default=False)
+    error_message   = Column(Text, nullable=True)
+    created_at      = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        Index("idx_ow_log_endpoint", "endpoint_id", "created_at"),
+    )
+
+
+# ─────────────────────────────────────────────────────────────────
+# Team invite system (enforces plan team_members limit)
+# ─────────────────────────────────────────────────────────────────
+
+class TeamInvite(Base):
+    """Single-use invite tokens for adding team members within plan limits."""
+    __tablename__ = "team_invites"
+    id              = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    organization_id = Column(String, ForeignKey("organizations.id", ondelete="CASCADE"), nullable=False)
+    invited_by      = Column(String, ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    email           = Column(String(255), nullable=False)
+    role            = Column(String(50), default="executive")
+    token           = Column(String(512), nullable=False, unique=True)
+    status          = Column(String(50), default="pending")  # pending | accepted | expired | revoked
+    expires_at      = Column(DateTime, nullable=False)
+    accepted_at     = Column(DateTime, nullable=True)
+    created_at      = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        Index("idx_invite_token", "token"),
+        Index("idx_invite_org_email", "organization_id", "email"),
+    )

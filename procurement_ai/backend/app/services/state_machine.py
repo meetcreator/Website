@@ -114,11 +114,29 @@ class StateMachineService:
         # Flush to DB (relying on get_db_session() transaction manager to commit/rollback safely)
         db.flush()
 
+        # Fan out to customer-registered outbound webhooks (Growth+ feature)
+        try:
+            from app.services.outbound_webhooks import fanout_event, WebhookEvent as WHEvent
+            fanout_event(
+                db              = db,
+                organization_id = organization_id,
+                event_type      = WHEvent.STATE_TRANSITION,
+                data            = {
+                    "workflow_id":    workflow_id,
+                    "previous_state": current_state.value,
+                    "new_state":      target_state.value,
+                    "reason":         reason,
+                    "triggered_by":   user_id,
+                },
+            )
+        except Exception as _wh_err:
+            logger.warning(f"Outbound webhook fanout failed (non-critical): {_wh_err}")
+
         return {
-            "success": True,
-            "workflow_id": workflow_id,
+            "success":        True,
+            "workflow_id":    workflow_id,
             "previous_state": current_state,
-            "new_state": target_state
+            "new_state":      target_state
         }
 
     @staticmethod

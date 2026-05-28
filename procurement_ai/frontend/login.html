@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In — AI Procurement Hub</title>
+  <meta name="description" content="Sign in to AI Procurement Hub to manage purchase orders, coordinate vendors, and review HITL drafts.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font: 'Outfit', sans-serif;
+      --bg: #08090a;
+      --card: rgba(14, 20, 34, 0.85);
+      --border: rgba(255,255,255,0.08);
+      --border-focus: rgba(249,115,22,0.6);
+      --text: #f3f4f6;
+      --muted: #9ca3af;
+      --primary: #f97316;
+      --primary-dark: #ea580c;
+      --primary-glow: rgba(249,115,22,0.25);
+      --success: #10b981;
+      --danger: #ef4444;
+      --danger-glass: rgba(239,68,68,0.1);
+      --input-bg: rgba(255,255,255,0.04);
+      --ease: cubic-bezier(0.4,0,0.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+    }
+
+    /* ── Background ── */
+    .bg-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.15;
+      animation: drift 22s ease-in-out infinite alternate;
+    }
+    .o1 { width:550px; height:550px; background:#f97316; top:-180px; left:-180px; animation-duration:28s; }
+    .o2 { width:450px; height:450px; background:#3b82f6; bottom:-120px; right:-120px; animation-duration:22s; animation-delay:-10s; }
+    .o3 { width:300px; height:300px; background:#10b981; top:55%; left:60%; animation-duration:35s; animation-delay:-6s; }
+    @keyframes drift {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(35px,25px) scale(1.1); }
+    }
+
+    /* ── Split layout ── */
+    .split {
+      display: flex;
+      width: 100%;
+      min-height: 100vh;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Left panel — branding */
+    .brand-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3rem;
+      background: rgba(255,255,255,0.015);
+      border-right: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(249,115,22,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .logo-badge {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary), #d97706);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 16px var(--primary-glow);
+    }
+
+    .logo-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .brand-body {
+      max-width: 420px;
+    }
+
+    .brand-tagline {
+      font-size: 2.4rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin-bottom: 1.25rem;
+    }
+
+    .brand-tagline .accent {
+      background: linear-gradient(135deg, var(--primary), #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .brand-desc {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Feature pills on brand panel */
+    .brand-pills {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .brand-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 0.7rem 1rem;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.75);
+      transition: border-color 0.2s;
+    }
+    .brand-pill:hover { border-color: rgba(249,115,22,0.2); }
+
+    .pill-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .pill-icon.orange { background: rgba(249,115,22,0.15); }
+    .pill-icon.green  { background: rgba(16,185,129,0.15); }
+    .pill-icon.blue   { background: rgba(59,130,246,0.15); }
+
+    .brand-footer {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ── Right panel — form ── */
+    .form-panel {
+      width: 460px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 3rem 2.75rem;
+      overflow-y: auto;
+    }
+
+    .form-header {
+      margin-bottom: 2rem;
+    }
+
+    .form-header h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.4rem;
+    }
+
+    .form-header p {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .form-header p a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .form-header p a:hover { text-decoration: underline; }
+
+    /* Form fields */
+    .field { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.1rem; }
+
+    .field label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 0.85rem;
+      color: var(--muted);
+      font-size: 1rem;
+      pointer-events: none;
+      transition: color 0.2s;
+    }
+
+    .field input {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.7rem 1rem 0.7rem 2.6rem;
+      font-family: var(--font);
+      font-size: 0.9rem;
+      color: var(--text);
+      transition: all 0.2s var(--ease);
+      outline: none;
+    }
+
+    .field input::placeholder { color: rgba(255,255,255,0.2); }
+
+    .field input:focus {
+      border-color: var(--border-focus);
+      background: rgba(249,115,22,0.04);
+      box-shadow: 0 0 0 3px rgba(249,115,22,0.12);
+    }
+
+    .field input:focus + .input-icon,
+    .input-wrap:focus-within .input-icon {
+      color: var(--primary);
+    }
+
+    /* Eye toggle for password */
+    .eye-btn {
+      position: absolute;
+      right: 0.85rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 1rem;
+      padding: 0;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+    }
+    .eye-btn:hover { color: var(--text); }
+
+    /* Row helpers */
+    .row { display: flex; gap: 0.6rem; }
+    .row .field { flex: 1; }
+
+    /* Extras row */
+    .extras-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      font-size: 0.82rem;
+    }
+
+    .checkbox-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .checkbox-wrap input[type="checkbox"] {
+      width: 15px; height: 15px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .forgot-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .forgot-link:hover { text-decoration: underline; }
+
+    /* Submit button */
+    .btn-submit {
+      width: 100%;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 0.85rem;
+      font-family: var(--font);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s var(--ease);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 16px var(--primary-glow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px var(--primary-glow);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-submit .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+      color: rgba(255,255,255,0.15);
+      font-size: 0.75rem;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* Demo credentials button */
+    .btn-demo {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.75rem;
+      font-family: var(--font);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .btn-demo:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.15); color: var(--text); }
+
+    /* Error / success alert */
+    .alert {
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      font-size: 0.85rem;
+      margin-bottom: 1.25rem;
+      display: none;
+      align-items: flex-start;
+      gap: 0.6rem;
+      line-height: 1.5;
+    }
+    .alert.show { display: flex; }
+    .alert.error   { background: var(--danger-glass); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; }
+    .alert.success { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.3); color: #6ee7b7; }
+
+    /* Demo banner */
+    .demo-banner {
+      background: linear-gradient(135deg, rgba(249,115,22,0.08), rgba(251,191,36,0.06));
+      border: 1px solid rgba(249,115,22,0.25);
+      border-radius: 14px;
+      padding: 1.1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .demo-banner::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: -1px; right: -1px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), #fbbf24);
+    }
+    .demo-banner-title {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--primary);
+      margin-bottom: 0.55rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .demo-creds {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 0.85rem;
+      font-family: 'Courier New', monospace;
+    }
+    .demo-cred-row { display: flex; gap: 0.5rem; align-items: center; }
+    .demo-cred-key { color: var(--muted); min-width: 70px; font-family: var(--font); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .demo-cred-val { color: #fff; font-weight: 600; }
+    .btn-demo-instant {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary), #d97706);
+      border: none;
+      border-radius: 10px;
+      padding: 0.7rem;
+      font-family: var(--font);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 14px rgba(249,115,22,0.3);
+    }
+    .btn-demo-instant:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(249,115,22,0.4); }
+    .btn-demo-instant:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* Strength bar */
+    .strength-bar-wrap {
+      margin-top: 0.4rem;
+      height: 3px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .strength-bar {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.3s, background 0.3s;
+      width: 0%;
+    }
+
+    /* Back to home link */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--text); }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .brand-panel { display: none; }
+      .form-panel { width: 100%; max-width: 480px; margin: auto; }
+      body { overflow-y: auto; }
+    }
+    @media (max-width: 480px) {
+      .form-panel { padding: 2rem 1.25rem; }
+      .row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-layer">
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+    <div class="orb o3"></div>
+  </div>
+
+  <div class="split">
+
+    <!-- ── Brand panel ── -->
+    <div class="brand-panel">
+      <a href="home.html" class="brand-logo">
+        <div class="logo-badge">⚙</div>
+        <span class="logo-name">AI Procurement Hub</span>
+      </a>
+
+      <div class="brand-body">
+        <h2 class="brand-tagline">
+          Your entire supply chain,<br>
+          <span class="accent">under one roof.</span>
+        </h2>
+        <p class="brand-desc">
+          Upload POs, auto-coordinate vendors on WhatsApp, review AI-drafted replies, and track every workflow state — from CREATED to COMPLETED.
+        </p>
+
+        <div class="brand-pills">
+          <div class="brand-pill">
+            <div class="pill-icon orange">📤</div>
+            <span>Upload a PO CSV and go live in under 2 seconds</span>
+          </div>
+          <div class="brand-pill">
+            <div class="pill-icon green">🛡️</div>
+            <span>HITL review queue keeps humans in control of high-risk messages</span>
+          </div>
+          <div class="brand-pill">
+            <div class="pill-icon blue">🧠</div>
+            <span>GPT-4o-mini reads Gujarati, Hindi & English vendor replies</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="brand-footer">
+        © 2026 AI Procurement Hub · Gujarat GIDC Industrial Platform
+      </div>
+    </div>
+
+    <!-- ── Form panel ── -->
+    <div class="form-panel">
+      <a href="home.html" class="back-link">← Back to home</a>
+
+      <div class="form-header">
+        <h1>Welcome back</h1>
+        <p>Don't have an account? <a href="signup.html">Create one free</a></p>
+      </div>
+
+      <div id="alert" class="alert"></div>
+
+      <form id="login-form" novalidate>
+        <div class="field">
+          <label for="email">Email address</label>
+          <div class="input-wrap">
+            <span class="input-icon">✉</span>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@company.in"
+              autocomplete="email"
+              required
+            >
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            >
+            <button type="button" class="eye-btn" id="eye-btn" aria-label="Toggle password visibility">👁</button>
+          </div>
+        </div>
+
+        <div class="extras-row">
+          <label class="checkbox-wrap">
+            <input type="checkbox" id="remember" name="remember">
+            Remember me
+          </label>
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn-submit" id="submit-btn">
+          <span class="spinner" id="spinner"></span>
+          <span id="btn-label">Sign in →</span>
+        </button>
+
+        <div class="divider">or try without signup</div>
+
+        <!-- Demo banner -->
+        <div class="demo-banner">
+          <div class="demo-banner-title">🚀 Enterprise Demo Account</div>
+          <div class="demo-creds">
+            <div class="demo-cred-row"><span class="demo-cred-key">Email</span><span class="demo-cred-val">demo@aiprocure.in</span></div>
+            <div class="demo-cred-row"><span class="demo-cred-key">Password</span><span class="demo-cred-val">Demo@1234</span></div>
+          </div>
+          <button type="button" class="btn-demo-instant" id="demo-instant-btn">
+            ⚡ One-Click Demo Login — All Features Unlocked
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+  <script>
+    const API = 'http://127.0.0.1:8000/api/v1';
+
+    // Redirect if already logged in
+    if (ProcureAuth.getSession()) {
+      window.location.href = 'index.html';
+    }
+
+    // Eye toggle
+    document.getElementById('eye-btn').addEventListener('click', () => {
+      const pw = document.getElementById('password');
+      const btn = document.getElementById('eye-btn');
+      pw.type = pw.type === 'password' ? 'text' : 'password';
+      btn.textContent = pw.type === 'password' ? '👁' : '🙈';
+    });
+
+    // One-click demo login
+    document.getElementById('demo-instant-btn').addEventListener('click', async () => {
+      const btn = document.getElementById('demo-instant-btn');
+      btn.disabled     = true;
+      btn.textContent  = '⏳ Logging in as demo…';
+
+      try {
+        const res  = await fetch(`${API}/auth/demo`);
+        const data = await res.json();
+
+        if (!res.ok) {
+          showAlert(data.detail || 'Demo login failed. Make sure the server is running.');
+          btn.disabled    = false;
+          btn.textContent = '⚡ One-Click Demo Login — All Features Unlocked';
+          return;
+        }
+
+        ProcureAuth.saveSession(data, true);
+        showAlert('✓ Demo account loaded — Enterprise plan, all features unlocked!', 'success');
+        setTimeout(() => { window.location.href = 'index.html'; }, 800);
+
+      } catch {
+        showAlert('Cannot reach backend. Start the server: cd backend && python -m uvicorn app.main:app --port 8000');
+        btn.disabled    = false;
+        btn.textContent = '⚡ One-Click Demo Login — All Features Unlocked';
+      }
+    });
+
+    function showAlert(msg, type = 'error') {
+      const el = document.getElementById('alert');
+      el.className = `alert show ${type}`;
+      el.innerHTML = `<span>${type === 'error' ? '⚠' : '✓'}</span> ${msg}`;
+    }
+
+    function hideAlert() {
+      document.getElementById('alert').className = 'alert';
+    }
+
+    function setLoading(on) {
+      const btn    = document.getElementById('submit-btn');
+      const label  = document.getElementById('btn-label');
+      const spinner = document.getElementById('spinner');
+      btn.disabled   = on;
+      label.textContent = on ? 'Signing in…' : 'Sign in →';
+      spinner.style.display = on ? 'block' : 'none';
+    }
+
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideAlert();
+
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const remember = document.getElementById('remember').checked;
+
+      if (!email || !password) {
+        showAlert('Please enter your email and password.');
+        return;
+      }
+
+      setLoading(true);
+
+      try {
+        const res  = await fetch(`${API}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          showAlert(data.detail || 'Login failed. Please try again.');
+          return;
+        }
+
+        // Persist session
+        ProcureAuth.saveSession(data, remember);
+
+        // Redirect to operations
+        window.location.href = 'index.html';
+
+      } catch (err) {
+        // Backend offline — fall through to demo mode
+        showAlert('Cannot reach backend. If you are running locally, start the server with: cd backend && python -m uvicorn app.main:app --reload');
+      } finally {
+        setLoading(false);
+      }
+    });
+  </script>
+</body>
+</html>

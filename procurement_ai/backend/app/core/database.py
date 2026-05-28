@@ -78,6 +78,6 @@ def init_db():
     except Exception as e:
         logger.error(f"Error during metadata tables initialization: {e}")
 
-# Automatically initialize tables when falling back to SQLite to prevent table-not-found crashes
-if DATABASE_URL.startswith("sqlite"):
-    init_db()
+# Initialize tables on every startup so new models are never missing
+# (create_all is idempotent — existing tables are left untouched)
+init_db()

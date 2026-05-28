@@ -29,6 +29,14 @@ class Settings(BaseSettings):
     # LLM Settings
     OPENAI_API_KEY: Optional[str] = None
 
+    # Razorpay (billing)
+    RAZORPAY_KEY_ID: Optional[str] = None
+    RAZORPAY_KEY_SECRET: Optional[str] = None
+
+    # Invite system
+    INVITE_TOKEN_EXPIRE_HOURS: int = 48
+    INVITE_SECRET: str = "invite-secret-change-in-production"
+
     @property
     def cors_origins(self) -> List[str]:
         return [origin.strip() for origin in self.CORS_ORIGINS.split(",") if origin.strip()]

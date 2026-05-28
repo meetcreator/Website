@@ -1,0 +1,2222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Procurement Hub — Intelligent Source-to-Pay for GIDC Manufacturing SMEs</title>
+  <meta name="description" content="AI Procurement Hub automates your entire procurement lifecycle — from PO ingestion and WhatsApp vendor coordination to AI-powered HITL review and real-time workflow tracking. Built for Gujarat GIDC manufacturing clusters.">
+  <meta name="keywords" content="AI procurement software, GIDC procurement, WhatsApp vendor coordination, purchase order automation, HITL review, procurement workflow, Gujarat SME">
+  <meta property="og:title" content="AI Procurement Hub — Intelligent Source-to-Pay">
+  <meta property="og:description" content="Automate purchase orders, coordinate vendors over WhatsApp with AI, and review high-risk replies with human oversight. Built for Gujarat's manufacturing clusters.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+    ============================================================ */
+    :root {
+      --font: 'Outfit', sans-serif;
+      --bg-dark:     #08090a;
+      --bg-section:  #f7f6f5;
+      --card-dark:   rgba(20, 25, 40, 0.75);
+      --border-dark: rgba(255,255,255,0.08);
+      --border-light: #e5e5e5;
+      --text-white:  #ffffff;
+      --text-light:  #f3f4f6;
+      --text-muted-dark:  #9ca3af;
+      --text-muted-light: #555;
+      --text-body:   #393535;
+      --primary:     #f97316;
+      --primary-dark:#ea580c;
+      --primary-glow: rgba(249,115,22,0.25);
+      --danger:      #ef4444;
+      --success:     #10b981;
+      --info:        #3b82f6;
+      --warning:     #f59e0b;
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: #fff;
+      color: var(--text-body);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ---- Scroll progress bar ---- */
+    #scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), #fbbf24);
+      z-index: 999;
+      transition: width 0.1s linear;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      transition: background 0.3s, backdrop-filter 0.3s, box-shadow 0.3s;
+    }
+
+    nav.scrolled {
+      background: rgba(8,9,10,0.93);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+    }
+
+    /* ---- Hamburger ---- */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: rgba(8,9,10,0.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 1.5rem 2rem;
+      flex-direction: column;
+      gap: 1rem;
+      z-index: 199;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 1rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* ---- Use cases section ---- */
+    .usecases-section {
+      background: #fff;
+      padding: 6rem 2rem;
+    }
+    .usecases-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .usecases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .usecase-card {
+      border: 1px solid #e5e5e5;
+      border-radius: 14px;
+      padding: 1.75rem;
+      transition: all 0.3s var(--ease);
+      position: relative;
+      overflow: hidden;
+    }
+    .usecase-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), #fbbf24);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s var(--ease);
+    }
+    .usecase-card:hover { border-color: rgba(249,115,22,0.3); box-shadow: 0 8px 30px rgba(249,115,22,0.08); transform: translateY(-3px); }
+    .usecase-card:hover::after { transform: scaleX(1); }
+    .usecase-zone {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+    }
+    .usecase-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #000;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.02em;
+    }
+    .usecase-desc {
+      font-size: 0.85rem;
+      color: #666;
+      line-height: 1.65;
+    }
+    .usecase-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      .nav-links  { display: none; }
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      text-decoration: none;
+    }
+
+    .nav-logo-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--primary), #d97706);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fff;
+      box-shadow: 0 4px 12px var(--primary-glow);
+    }
+
+    .nav-logo-text {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: #fff; }
+
+    .nav-cta {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .btn-ghost {
+      font-family: var(--font);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+      background: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      padding: 0.45rem 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+    .btn-primary {
+      font-family: var(--font);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #fff;
+      background: var(--primary);
+      border: none;
+      border-radius: 8px;
+      padding: 0.5rem 1.25rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 4px 12px var(--primary-glow); }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      background: var(--bg-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.18;
+      animation: float 20s ease-in-out infinite alternate;
+    }
+    .orb-a { width: 600px; height: 600px; background: var(--primary); top: -200px; left: -200px; animation-duration: 25s; }
+    .orb-b { width: 500px; height: 500px; background: var(--info);    bottom: -100px; right: -150px; animation-duration: 20s; animation-delay: -10s; }
+    .orb-c { width: 350px; height: 350px; background: var(--success); top: 40%; left: 60%; animation-duration: 30s; animation-delay: -5s; }
+
+    @keyframes float {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(40px, 30px) scale(1.1); }
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(249,115,22,0.12);
+      border: 1px solid rgba(249,115,22,0.3);
+      border-radius: 999px;
+      padding: 0.35rem 1rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s var(--ease) both;
+    }
+
+    .hero-title {
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      max-width: 900px;
+      margin: 0 auto 1.5rem;
+      animation: fadeUp 0.6s 0.1s var(--ease) both;
+    }
+
+    .hero-title .highlight {
+      background: linear-gradient(135deg, var(--primary), #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--text-muted-dark);
+      max-width: 620px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+      animation: fadeUp 0.6s 0.2s var(--ease) both;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 4rem;
+      animation: fadeUp 0.6s 0.3s var(--ease) both;
+    }
+
+    .btn-hero {
+      font-family: var(--font);
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.85rem 2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-hero.primary {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 20px var(--primary-glow);
+    }
+    .btn-hero.primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 8px 28px var(--primary-glow); }
+
+    .btn-hero.ghost {
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .btn-hero.ghost:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); }
+
+    /* ---- Dashboard Preview ---- */
+    .hero-dashboard {
+      position: relative;
+      max-width: 1000px;
+      width: 90%;
+      margin: 0 auto;
+      animation: fadeUp 0.8s 0.4s var(--ease) both;
+    }
+
+    .dashboard-frame {
+      background: #111;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 40px 80px rgba(0,0,0,0.7), 0 0 80px rgba(249,115,22,0.08);
+    }
+
+    .frame-topbar {
+      background: #000;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .frame-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .frame-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .frame-dot.red   { background: #ff5f57; }
+    .frame-dot.yel   { background: #febc2e; }
+    .frame-dot.grn   { background: #28c840; }
+
+    .frame-url {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.05);
+      border-radius: 6px;
+      padding: 0.25rem 0.85rem;
+    }
+
+    .frame-body {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .frame-body img {
+      width: 100%;
+      display: block;
+    }
+
+    .frame-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40%;
+      background: linear-gradient(to bottom, transparent, var(--bg-dark));
+    }
+
+    /* Floating stat chips */
+    .floating-chip {
+      position: absolute;
+      background: rgba(16,23,40,0.9);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 0.6rem 1rem;
+      backdrop-filter: blur(12px);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      animation: chipFloat 3s ease-in-out infinite alternate;
+      white-space: nowrap;
+    }
+    .chip-1 { top: 18%; left: -6%; animation-delay: 0s; }
+    .chip-2 { top: 45%; right: -5%; animation-delay: -1s; }
+    .chip-3 { bottom: 28%; left: -3%; animation-delay: -2s; }
+
+    @keyframes chipFloat {
+      from { transform: translateY(0); }
+      to   { transform: translateY(-8px); }
+    }
+
+    .chip-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .chip-dot.green  { background: var(--success); box-shadow: 0 0 6px var(--success); }
+    .chip-dot.orange { background: var(--primary); box-shadow: 0 0 6px var(--primary); }
+    .chip-dot.red    { background: var(--danger);  box-shadow: 0 0 6px var(--danger); }
+
+    /* ============================================================
+       SOCIAL PROOF STRIP
+    ============================================================ */
+    .proof-strip {
+      background: var(--bg-dark);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .proof-item {
+      text-align: center;
+    }
+
+    .proof-num {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--primary);
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .proof-label {
+      font-size: 0.78rem;
+      color: var(--text-muted-dark);
+      margin-top: 0.25rem;
+    }
+
+    .proof-divider {
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* ============================================================
+       SECTION SHARED
+    ============================================================ */
+    .section {
+      padding: 6rem 2rem;
+    }
+
+    .section-dark {
+      background: var(--bg-dark);
+      color: var(--text-light);
+    }
+
+    .section-light {
+      background: var(--bg-section);
+      color: var(--text-body);
+    }
+
+    .section-white {
+      background: #fff;
+      color: var(--text-body);
+    }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-muted-light);
+      max-width: 560px;
+    }
+
+    .section-dark .section-title { color: #fff; }
+    .section-dark .section-sub   { color: var(--text-muted-dark); }
+
+    /* ============================================================
+       FEATURE CARDS (DARK, ZOHO-INSPIRED)
+    ============================================================ */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+
+    .feat-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      transition: all 0.3s var(--ease);
+      overflow: hidden;
+    }
+
+    .feat-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(249,115,22,0.06), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .feat-card:hover { border-color: rgba(249,115,22,0.3); transform: translateY(-4px); }
+    .feat-card:hover::before { opacity: 1; }
+
+    .feat-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .feat-icon.orange { background: rgba(249,115,22,0.15); }
+    .feat-icon.green  { background: rgba(16,185,129,0.15); }
+    .feat-icon.blue   { background: rgba(59,130,246,0.15); }
+    .feat-icon.red    { background: rgba(239,68,68,0.15); }
+    .feat-icon.purple { background: rgba(139,92,246,0.15); }
+    .feat-icon.teal   { background: rgba(20,184,166,0.15); }
+
+    .feat-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .feat-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.02em;
+    }
+
+    .feat-desc {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.65;
+    }
+
+    /* ============================================================
+       HOW IT WORKS — STAGE FLOW (ZOHO-STYLE)
+    ============================================================ */
+    .stages-section {
+      background: var(--bg-section);
+      padding: 6rem 2rem;
+    }
+
+    .stages-header {
+      max-width: 700px;
+      margin-bottom: 4rem;
+    }
+
+    .stages-header .section-title { color: #000; text-align: left; }
+
+    .stage-layout {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    /* Stage navigation pills */
+    .stage-nav {
+      position: sticky;
+      top: 90px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .stage-pill {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.25s var(--ease);
+      border: 1px solid transparent;
+      background: transparent;
+      text-align: left;
+    }
+
+    .stage-pill:hover { background: rgba(249,115,22,0.05); }
+    .stage-pill.active {
+      background: #fff;
+      border-color: #e5e5e5;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    .pill-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #e5e5e5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #555;
+      flex-shrink: 0;
+      transition: all 0.25s;
+    }
+    .stage-pill.active .pill-num {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 4px 10px var(--primary-glow);
+    }
+
+    .pill-content {}
+    .pill-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 0.2rem;
+      line-height: 1.3;
+    }
+    .stage-pill.active .pill-title { color: #000; }
+    .pill-sub {
+      font-size: 0.78rem;
+      color: #888;
+      line-height: 1.4;
+    }
+
+    /* Stage content panels */
+    .stage-panels {}
+
+    .stage-panel {
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border-light);
+      opacity: 0.3;
+      transition: opacity 0.3s var(--ease);
+    }
+    .stage-panel:last-child { border-bottom: none; }
+    .stage-panel.active { opacity: 1; }
+
+    .stage-panel h3 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #000;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+      transition: color 0.3s;
+    }
+    .stage-panel.active h3 { color: var(--primary-dark); }
+
+    .stage-panel p {
+      font-size: 0.95rem;
+      color: var(--text-body);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 1rem;
+    }
+
+    .stage-badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .stage-badge {
+      background: #f0f0f0;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 0.3rem 0.65rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #444;
+    }
+    .stage-panel.active .stage-badge {
+      background: rgba(249,115,22,0.08);
+      border-color: rgba(249,115,22,0.25);
+      color: var(--primary-dark);
+    }
+
+    /* Stage preview image */
+    .stage-visual {
+      position: sticky;
+      top: 90px;
+    }
+
+    .stage-img-wrap {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      border: 1px solid #e5e5e5;
+      background: #111;
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s var(--ease);
+    }
+
+    .stage-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.4s, transform 0.5s;
+    }
+
+    /* ============================================================
+       AI BLOCK (DARK)
+    ============================================================ */
+    .ai-section {
+      background: var(--bg-dark);
+      padding: 6rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ai-section::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(249,115,22,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .ai-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .ai-content .section-title { color: #fff; }
+    .ai-content .section-sub   { color: var(--text-muted-dark); }
+
+    .ai-bullets {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .ai-bullet {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+    }
+
+    .ai-bullet-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: rgba(249,115,22,0.12);
+      border: 1px solid rgba(249,115,22,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .ai-bullet-text h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.2rem;
+    }
+
+    .ai-bullet-text p {
+      font-size: 0.85rem;
+      color: var(--text-muted-dark);
+      line-height: 1.6;
+    }
+
+    .ai-visual {
+      position: relative;
+    }
+
+    .ai-card {
+      background: rgba(20,27,45,0.9);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 1.5rem;
+      backdrop-filter: blur(12px);
+    }
+
+    .ai-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .msg-bubble {
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .msg-vendor {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.7);
+    }
+
+    .msg-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.35rem;
+    }
+
+    .msg-vendor .msg-label  { color: var(--text-muted-dark); }
+    .msg-ai    .msg-label   { color: var(--primary); }
+
+    .msg-ai {
+      background: rgba(249,115,22,0.08);
+      border: 1px solid rgba(249,115,22,0.2);
+      color: rgba(255,255,255,0.85);
+    }
+
+    .ai-tag-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .ai-tag {
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .ai-tag.delay   { background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.25); color: #fca5a5; }
+    .ai-tag.intent  { background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25); color: #93c5fd; }
+    .ai-tag.lang    { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.25); color: #6ee7b7; }
+    .ai-tag.hitl    { background: rgba(249,115,22,0.12); border: 1px solid rgba(249,115,22,0.25); color: #fdba74; }
+
+    /* Floating approve button */
+    .ai-approve-float {
+      position: absolute;
+      bottom: -20px;
+      right: -24px;
+      background: var(--success);
+      color: #fff;
+      border-radius: 12px;
+      padding: 0.65rem 1.1rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 8px 24px rgba(16,185,129,0.4);
+      animation: chipFloat 2.5s ease-in-out infinite alternate;
+    }
+
+    /* ============================================================
+       WORKFLOW SECTION
+    ============================================================ */
+    .workflow-section {
+      background: #fff;
+      padding: 6rem 2rem;
+    }
+
+    .workflow-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .workflow-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .workflow-header .section-title { color: #000; }
+
+    .state-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+      position: relative;
+    }
+
+    .state-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      flex-shrink: 0;
+      cursor: default;
+    }
+
+    .state-circle {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 2px solid #e5e5e5;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: all 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+
+    .state-node:hover .state-circle,
+    .state-node.active .state-circle {
+      border-color: var(--primary);
+      background: rgba(249,115,22,0.08);
+      transform: scale(1.15);
+      box-shadow: 0 0 0 4px var(--primary-glow);
+    }
+
+    .state-name {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #666;
+      text-align: center;
+      max-width: 72px;
+    }
+
+    .state-node.done .state-circle    { border-color: var(--success); background: rgba(16,185,129,0.08); }
+    .state-node.delayed .state-circle { border-color: var(--danger);  background: rgba(239,68,68,0.08); }
+    .state-node.active .state-circle  { border-color: var(--primary); background: rgba(249,115,22,0.08); animation: pulseNode 2s infinite; }
+
+    @keyframes pulseNode {
+      0%, 100% { box-shadow: 0 0 0 4px var(--primary-glow); }
+      50%       { box-shadow: 0 0 0 10px rgba(249,115,22,0.05); }
+    }
+
+    .flow-arrow {
+      color: #ccc;
+      font-size: 1.1rem;
+      padding: 0 0.25rem;
+      margin-top: -1.5rem;
+    }
+
+    .state-flow-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+      margin-bottom: 1.5rem;
+    }
+
+    .workflow-legend {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: #555;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .legend-dot.orange { background: var(--primary); }
+    .legend-dot.green  { background: var(--success); }
+    .legend-dot.red    { background: var(--danger); }
+    .legend-dot.grey   { background: #ccc; border: 1px solid #aaa; }
+
+    /* ============================================================
+       METRICS / STATS SECTION
+    ============================================================ */
+    .metrics-section {
+      background: var(--bg-dark);
+      padding: 5rem 2rem;
+    }
+
+    .metrics-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .metric-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    .metric-card:hover { border-color: rgba(249,115,22,0.3); transform: translateY(-4px); }
+
+    .metric-num {
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--primary), #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .metric-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .metric-sublabel {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.3);
+      margin-top: 0.3rem;
+    }
+
+    /* ============================================================
+       INTEGRATION STRIP
+    ============================================================ */
+    .integrations-section {
+      background: var(--bg-section);
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .integrations-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .integrations-section .section-title { color: #000; text-align: center; }
+
+    .integrations-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .integration-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 999px;
+      padding: 0.55rem 1.25rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #333;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      transition: all 0.25s;
+    }
+    .integration-pill:hover { border-color: var(--primary); color: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(249,115,22,0.12); }
+
+    /* ============================================================
+       CTA SECTION
+    ============================================================ */
+    .cta-section {
+      background: var(--bg-dark);
+      padding: 7rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      left: -20%; right: -20%;
+      background: radial-gradient(ellipse at center, rgba(249,115,22,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+
+    .cta-title {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+
+    .cta-title .highlight {
+      background: linear-gradient(135deg, var(--primary), #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .cta-sub {
+      font-size: 1rem;
+      color: var(--text-muted-dark);
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      background: #000;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 3rem 2rem;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .footer-brand .nav-logo { margin-bottom: 1rem; }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.65;
+      max-width: 280px;
+    }
+
+    .footer-col h5 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+
+    .footer-col a {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: #fff; }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 2rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.25);
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    /* ============================================================
+       ANIMATIONS
+    ============================================================ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .stage-layout { grid-template-columns: 1fr; }
+      .stage-nav { position: static; flex-direction: row; flex-wrap: wrap; }
+      .stage-visual { position: static; }
+      .ai-inner { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 1.25rem; }
+      .nav-links { display: none; }
+      .hero { padding: 6rem 1.25rem 3rem; }
+      .hero-dashboard { width: 95%; }
+      .chip-1, .chip-2, .chip-3 { display: none; }
+      .section { padding: 4rem 1.25rem; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .state-flow-row { gap: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll progress -->
+  <div id="scroll-progress"></div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="mobile-menu">
+    <a href="#features">Features</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#ai-engine">AI Engine</a>
+    <a href="#workflow">Workflow</a>
+    <a href="#integrations">Integrations</a>
+    <a href="pricing.html">💳 Pricing</a>
+    <a href="operations.html">⚙️ Operations Console</a>
+    <a href="index.html">📊 Dashboard</a>
+  </div>
+
+  <!-- Live backend stats bar (hidden until backend is online with data) -->
+  <div id="live-stats-bar" style="display:none; position:fixed; bottom:1.25rem; left:50%; transform:translateX(-50%); z-index:300; background:rgba(8,9,10,0.95); border:1px solid rgba(249,115,22,0.3); border-radius:12px; padding:0.65rem 1.25rem; backdrop-filter:blur(14px); gap:1.25rem; align-items:center; font-size:0.8rem; font-weight:600; color:#fff; box-shadow:0 8px 30px rgba(0,0,0,0.5); white-space:nowrap; flex-wrap:wrap; justify-content:center;">
+    <span style="color:var(--primary);">⚡ Live Backend Connected</span>
+    <span style="color:#9ca3af;">|</span>
+    <span>🗂 <span id="live-wf-count">0</span> workflows</span>
+    <span style="color:#fca5a5;">⚠️ <span id="live-critical">0</span> critical</span>
+    <span style="color:#ef4444;">🔴 <span id="live-delayed">0</span> delayed</span>
+    <span style="color:#f59e0b;">🔍 <span id="live-review">0</span> pending review</span>
+    <a href="operations.html" style="color:var(--primary);text-decoration:none;border:1px solid rgba(249,115,22,0.35);border-radius:6px;padding:0.2rem 0.6rem;font-size:0.72rem;">Open Console →</a>
+  </div>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav id="main-nav">
+    <a href="home.html" class="nav-logo">
+      <div class="nav-logo-badge">⚙</div>
+      <span class="nav-logo-text">AI Procurement Hub</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#ai-engine">AI Engine</a></li>
+      <li><a href="#workflow">Workflow</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+    </ul>
+    <div class="nav-cta">
+      <div id="nav-user" style="display:flex;gap:0.5rem;align-items:center;"></div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-orb orb-a"></div>
+      <div class="hero-orb orb-b"></div>
+      <div class="hero-orb orb-c"></div>
+    </div>
+
+    <div class="hero-eyebrow">
+      🏭 Built for Gujarat GIDC Manufacturing Clusters
+    </div>
+
+    <h1 class="hero-title">
+      Smart Procurement.<br>
+      <span class="highlight">Zero Coordination Chaos.</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Automate your entire purchase-order lifecycle — from CSV ingestion and WhatsApp vendor follow-ups to AI-powered message parsing and human-in-the-loop review. All in one platform.
+    </p>
+
+    <div class="hero-actions">
+      <a href="operations.html" class="btn-hero primary">🚀 Open Operations Console</a>
+      <a href="index.html" class="btn-hero ghost">📊 View Live Dashboard</a>
+    </div>
+
+    <!-- Dashboard frame -->
+    <div class="hero-dashboard">
+      <div class="floating-chip chip-1">
+        <div class="chip-dot green"></div>
+        ✅ 2 POs imported in 1.2s
+      </div>
+      <div class="floating-chip chip-2">
+        <div class="chip-dot orange"></div>
+        🛡️ HITL draft queued for review
+      </div>
+      <div class="floating-chip chip-3">
+        <div class="chip-dot red"></div>
+        ⚠️ DELAYED — Morbi Ceramics Zone
+      </div>
+
+      <div class="dashboard-frame">
+        <div class="frame-topbar">
+          <div class="frame-dots">
+            <div class="frame-dot red"></div>
+            <div class="frame-dot yel"></div>
+            <div class="frame-dot grn"></div>
+          </div>
+          <div class="frame-url">127.0.0.1:8000/ui/index.html</div>
+          <div style="width:60px;"></div>
+        </div>
+        <div class="frame-body">
+          <img src="dashboard_preview.png" alt="AI Procurement Hub Dashboard — live workflow ledger and HITL review queue">
+          <div class="frame-overlay"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SOCIAL PROOF STRIP
+  ============================================================ -->
+  <div class="proof-strip">
+    <div class="proof-item">
+      <div class="proof-num">500+</div>
+      <div class="proof-label">Mock POs stress-tested</div>
+    </div>
+    <div class="proof-divider"></div>
+    <div class="proof-item">
+      <div class="proof-num">11</div>
+      <div class="proof-label">Workflow states tracked</div>
+    </div>
+    <div class="proof-divider"></div>
+    <div class="proof-item">
+      <div class="proof-num">6</div>
+      <div class="proof-label">GIDC industrial zones</div>
+    </div>
+    <div class="proof-divider"></div>
+    <div class="proof-item">
+      <div class="proof-num">3</div>
+      <div class="proof-label">Languages supported (en/gu/hi)</div>
+    </div>
+    <div class="proof-divider"></div>
+    <div class="proof-item">
+      <div class="proof-num">&lt; 2s</div>
+      <div class="proof-label">PO ingestion time</div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       FEATURES GRID
+  ============================================================ -->
+  <section class="section section-dark" id="features">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="section-eyebrow">✦ Platform capabilities</div>
+        <h2 class="section-title">Everything your procurement<br>team needs, unified</h2>
+        <p class="section-sub">From first purchase order to final delivery confirmation — with AI assistance at every step.</p>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feat-card reveal" style="transition-delay:0.05s">
+          <div class="feat-icon orange">📤</div>
+          <div class="feat-eyebrow">Ingestion</div>
+          <div class="feat-title">Smart PO File Parser</div>
+          <p class="feat-desc">Upload any CSV or Excel export from Tally, ERP, or spreadsheets. The system auto-detects column aliases and groups line items by PO number — no manual mapping needed.</p>
+        </div>
+        <div class="feat-card reveal" style="transition-delay:0.1s">
+          <div class="feat-icon green">💬</div>
+          <div class="feat-eyebrow">WhatsApp</div>
+          <div class="feat-title">Automated Vendor Coordination</div>
+          <p class="feat-desc">Vendors receive instant WhatsApp confirmation requests in their preferred language — English, Gujarati, or Hindi — via the Meta Cloud API.</p>
+        </div>
+        <div class="feat-card reveal" style="transition-delay:0.15s">
+          <div class="feat-icon blue">🧠</div>
+          <div class="feat-eyebrow">AI Engine</div>
+          <div class="feat-title">GPT-4o Message Intelligence</div>
+          <p class="feat-desc">Incoming vendor replies are parsed by GPT-4o-mini to extract intent, ETA dates, delay flags, price disputes, and language — with a rule-based fallback when offline.</p>
+        </div>
+        <div class="feat-card reveal" style="transition-delay:0.2s">
+          <div class="feat-icon red">🛡️</div>
+          <div class="feat-eyebrow">Human-in-the-Loop</div>
+          <div class="feat-title">HITL Review & Approval Queue</div>
+          <p class="feat-desc">High-risk delay notices and price disputes are staged as editable draft replies for human coordinators to review before any message is sent to the vendor.</p>
+        </div>
+        <div class="feat-card reveal" style="transition-delay:0.25s">
+          <div class="feat-icon purple">🔄</div>
+          <div class="feat-eyebrow">State Machine</div>
+          <div class="feat-title">11-State Workflow Engine</div>
+          <p class="feat-desc">Every PO progresses through a validated state machine (CREATED → COMPLETED) with row-level locking, append-only event sourcing, and a full audit trail.</p>
+        </div>
+        <div class="feat-card reveal" style="transition-delay:0.3s">
+          <div class="feat-icon teal">⚡</div>
+          <div class="feat-eyebrow">Reliability</div>
+          <div class="feat-title">Crash-Safe Job Queue</div>
+          <p class="feat-desc">All outbox jobs are committed to the database before execution. On server restart, the worker recovers queued jobs automatically with exponential-backoff retries.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       HOW IT WORKS — ZOHO-STYLE STAGES
+  ============================================================ -->
+  <section class="stages-section" id="how-it-works">
+    <div class="section-inner">
+      <div class="stages-header reveal">
+        <div class="section-eyebrow">✦ Source to pay</div>
+        <h2 class="section-title" style="color:#000;">How a PO flows through<br>the system</h2>
+        <p class="section-sub">Six stages. Fully automated where possible. Human-reviewed where it matters.</p>
+      </div>
+
+      <div class="stage-layout">
+        <!-- Left: navigation -->
+        <div class="stage-nav" id="stage-nav">
+          <button class="stage-pill active" onclick="setStage(0)" id="pill-0">
+            <div class="pill-num">1</div>
+            <div class="pill-content">
+              <div class="pill-title">PO Ingestion</div>
+              <div class="pill-sub">Upload CSV/Excel, auto-detect columns</div>
+            </div>
+          </button>
+          <button class="stage-pill" onclick="setStage(1)" id="pill-1">
+            <div class="pill-num">2</div>
+            <div class="pill-content">
+              <div class="pill-title">WhatsApp Outbox</div>
+              <div class="pill-sub">Vendor receives confirmation request</div>
+            </div>
+          </button>
+          <button class="stage-pill" onclick="setStage(2)" id="pill-2">
+            <div class="pill-num">3</div>
+            <div class="pill-content">
+              <div class="pill-title">Webhook Processing</div>
+              <div class="pill-sub">Meta sends vendor reply to backend</div>
+            </div>
+          </button>
+          <button class="stage-pill" onclick="setStage(3)" id="pill-3">
+            <div class="pill-num">4</div>
+            <div class="pill-content">
+              <div class="pill-title">AI Intent Parsing</div>
+              <div class="pill-sub">GPT-4o extracts intent, ETA, delays</div>
+            </div>
+          </button>
+          <button class="stage-pill" onclick="setStage(4)" id="pill-4">
+            <div class="pill-num">5</div>
+            <div class="pill-content">
+              <div class="pill-title">HITL Routing</div>
+              <div class="pill-sub">Auto-handle or queue for human review</div>
+            </div>
+          </button>
+          <button class="stage-pill" onclick="setStage(5)" id="pill-5">
+            <div class="pill-num">6</div>
+            <div class="pill-content">
+              <div class="pill-title">Approval & Dispatch</div>
+              <div class="pill-sub">Human approves, reply sent to vendor</div>
+            </div>
+          </button>
+        </div>
+
+        <!-- Right: content panels + image -->
+        <div>
+          <div class="stage-img-wrap" id="stage-image-wrap" style="margin-bottom:2rem;">
+            <img id="stage-img" src="dashboard_preview.png" alt="Stage preview">
+          </div>
+
+          <div id="stage-panels">
+            <div class="stage-panel active" id="panel-0">
+              <h3>Upload any PO file — zero manual mapping</h3>
+              <p>Drag and drop a CSV exported from Tally, or an Excel sheet from any ERP. The ingestion engine auto-detects aliases like "Voucher Number", "Party Name", "WhatsApp No" and more.</p>
+              <p>POs are grouped by PO number, line items are attached, and the vendor is automatically upserted into the vendor directory.</p>
+              <div class="stage-badge-row">
+                <span class="stage-badge">CSV / XLS / XLSX</span>
+                <span class="stage-badge">Auto column detection</span>
+                <span class="stage-badge">Line item grouping</span>
+                <span class="stage-badge">Vendor upsert</span>
+                <span class="stage-badge">POST /ingestion/excel</span>
+              </div>
+            </div>
+            <div class="stage-panel" id="panel-1">
+              <h3>Vendor gets a WhatsApp confirmation instantly</h3>
+              <p>A <code>dispatch_whatsapp_outbox</code> job is committed to the database and processed by the worker. The vendor receives a confirmation request asking them to acknowledge the PO and share their ETA.</p>
+              <p>The workflow transitions from <strong>CREATED → VENDOR_PENDING</strong> automatically.</p>
+              <div class="stage-badge-row">
+                <span class="stage-badge">Meta Cloud API</span>
+                <span class="stage-badge">Durable job queue</span>
+                <span class="stage-badge">VENDOR_PENDING state</span>
+                <span class="stage-badge">Multilingual messages</span>
+              </div>
+            </div>
+            <div class="stage-panel" id="panel-2">
+              <h3>Vendor replies → HMAC-verified, idempotent webhook</h3>
+              <p>When the vendor replies on WhatsApp, Meta sends a webhook to <code>POST /webhooks/whatsapp</code>. The handler verifies the <code>X-Hub-Signature-256</code> signature and checks the <code>message_id</code> against the idempotency ledger to prevent duplicate processing.</p>
+              <div class="stage-badge-row">
+                <span class="stage-badge">HMAC-SHA256 verified</span>
+                <span class="stage-badge">Idempotency deduplication</span>
+                <span class="stage-badge">Text / button / interactive</span>
+                <span class="stage-badge">Correlation ID tracing</span>
+              </div>
+            </div>
+            <div class="stage-panel" id="panel-3">
+              <h3>AI extracts intent, ETA, language, and delay flags</h3>
+              <p>The message body is sent to GPT-4o-mini with a structured prompt. The model returns intent (<em>ack_po, provide_eta, delay_notice, price_discrepancy</em>), an ISO ETA date, a delay flag, a reason, and the dominant language (en/gu/hi).</p>
+              <p>If no OpenAI key is set, a deterministic rule-based fallback handles Gujarati, Hindi, and English keywords.</p>
+              <div class="stage-badge-row">
+                <span class="stage-badge">GPT-4o-mini</span>
+                <span class="stage-badge">JSON structured output</span>
+                <span class="stage-badge">Rule-based fallback</span>
+                <span class="stage-badge">Gujarati / Hindi / English</span>
+              </div>
+            </div>
+            <div class="stage-panel" id="panel-4">
+              <h3>High-risk replies are staged for human review</h3>
+              <p>The HITL router evaluates the parsed intent against routing rules. Delay notices, price disputes, and ETAs exceeding a 3-day variance threshold are staged as editable draft replies — not auto-sent.</p>
+              <p>An AI-generated draft reply in the vendor's language is pre-filled. The coordinator edits if needed, then approves.</p>
+              <div class="stage-badge-row">
+                <span class="stage-badge">Delay → HITL draft</span>
+                <span class="stage-badge">Price dispute → HITL draft</span>
+                <span class="stage-badge">ETA variance &gt; 3d → HITL</span>
+                <span class="stage-badge">ACK → auto-handled</span>
+              </div>
+            </div>
+            <div class="stage-panel" id="panel-5">
+              <h3>Human coordinator approves and dispatches</h3>
+              <p>In the Operations Console, the coordinator sees the vendor's original message, the pre-filled AI reply, and a reason for review. They can edit the text inline, then click <strong>Approve &amp; Send</strong>.</p>
+              <p>Approval updates the draft, message, and approval records, transitions the workflow to <strong>APPROVED</strong>, and enqueues the final dispatch job.</p>
+              <div class="stage-badge-row">
+                <span class="stage-badge">Inline draft editing</span>
+                <span class="stage-badge">PATCH /review/drafts/{id}</span>
+                <span class="stage-badge">POST /drafts/{id}/approve</span>
+                <span class="stage-badge">Workflow → APPROVED</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       AI ENGINE SECTION
+  ============================================================ -->
+  <section class="ai-section" id="ai-engine">
+    <div class="ai-inner section-inner">
+      <div class="ai-content reveal">
+        <div class="section-eyebrow">✦ Intelligence layer</div>
+        <h2 class="section-title">AI that reads your vendors<br>so you don't have to</h2>
+        <p class="section-sub">Every incoming WhatsApp message is parsed for intent, dates, disputes, and language — in under a second.</p>
+
+        <div class="ai-bullets">
+          <div class="ai-bullet">
+            <div class="ai-bullet-icon">🧠</div>
+            <div class="ai-bullet-text">
+              <h4>Multilingual intent extraction</h4>
+              <p>Handles English, Gujarati, and Hindi vendor messages. Detects "moḍu" (late), "tarikh" (date), and "dekhna padega" (will check) natively.</p>
+            </div>
+          </div>
+          <div class="ai-bullet">
+            <div class="ai-bullet-icon">📅</div>
+            <div class="ai-bullet-text">
+              <h4>ETA variance detection</h4>
+              <p>Extracts delivery dates and compares them against the original ETA. If variance exceeds 3 days, the reply is automatically staged for HITL review.</p>
+            </div>
+          </div>
+          <div class="ai-bullet">
+            <div class="ai-bullet-icon">✍️</div>
+            <div class="ai-bullet-text">
+              <h4>AI-drafted replies in vendor's language</h4>
+              <p>When a draft is queued, an AI copywriter pre-fills an appropriate reply in Gujarati, Hindi, or English based on the detected intent and language.</p>
+            </div>
+          </div>
+          <div class="ai-bullet">
+            <div class="ai-bullet-icon">🔌</div>
+            <div class="ai-bullet-text">
+              <h4>Offline rule-based fallback</h4>
+              <p>Works without an OpenAI API key. A deterministic keyword parser handles all major intents so the platform never goes down due to external API availability.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-visual reveal" style="transition-delay:0.15s;">
+        <div class="ai-card">
+          <div class="ai-card-header">
+            <span>🛡️</span> HITL Review — Live Draft
+          </div>
+
+          <div class="msg-bubble msg-vendor">
+            <div class="msg-label">📱 Vendor — +91 98765 43210</div>
+            Delivery delay by 2 days. Machine breakdown in our Morbi plant. Will dispatch parso (day after tomorrow).
+          </div>
+
+          <div class="ai-tag-row">
+            <span class="ai-tag delay">⚠️ delay_flag: true</span>
+            <span class="ai-tag intent">intent: delay_notice</span>
+            <span class="ai-tag lang">lang: gu/en</span>
+            <span class="ai-tag hitl">→ HITL queued</span>
+          </div>
+
+          <div class="msg-bubble msg-ai" style="margin-top:0.85rem;">
+            <div class="msg-label">🤖 AI Draft Reply (editable)</div>
+            We have logged the delay. Since this affects our extrusion line, can you dispatch a partial quantity tomorrow to prevent a production shutdown? Please confirm.
+          </div>
+        </div>
+
+        <div class="ai-approve-float">
+          ✅ Approve &amp; Send
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WORKFLOW STATE MACHINE
+  ============================================================ -->
+  <section class="workflow-section" id="workflow">
+    <div class="workflow-inner">
+      <div class="workflow-header reveal">
+        <div class="section-eyebrow" style="justify-content:center;">✦ State machine</div>
+        <h2 class="section-title" style="text-align:center;color:#000;">Every PO is tracked through<br>11 validated states</h2>
+        <p class="section-sub" style="margin:0 auto;text-align:center;">State transitions are enforced — no skips, no rollbacks, no data races. Every change is logged with event sourcing and a full audit trail.</p>
+      </div>
+
+      <!-- Main flow -->
+      <div class="state-flow-row reveal" style="transition-delay:0.1s">
+        <div class="state-node">
+          <div class="state-circle">📝</div>
+          <div class="state-name">CREATED</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="state-node">
+          <div class="state-circle">📨</div>
+          <div class="state-name">RFQ SENT</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="state-node active">
+          <div class="state-circle">⏳</div>
+          <div class="state-name">VENDOR PENDING</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="state-node">
+          <div class="state-circle">📅</div>
+          <div class="state-name">ETA RECEIVED</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="state-node">
+          <div class="state-circle">🔍</div>
+          <div class="state-name">APPROVAL PENDING</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="state-node done">
+          <div class="state-circle">✅</div>
+          <div class="state-name">APPROVED</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="state-node done">
+          <div class="state-circle">🚚</div>
+          <div class="state-name">IN TRANSIT</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="state-node done">
+          <div class="state-circle">🏁</div>
+          <div class="state-name">COMPLETED</div>
+        </div>
+      </div>
+
+      <!-- Exception states -->
+      <div class="state-flow-row reveal" style="transition-delay:0.2s;margin-top:1.5rem;">
+        <div class="state-node delayed">
+          <div class="state-circle">⚠️</div>
+          <div class="state-name">DELAYED</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="state-node delayed">
+          <div class="state-circle">🚨</div>
+          <div class="state-name">ESCALATED</div>
+        </div>
+        <div class="flow-arrow" style="color:#ccc;">→</div>
+        <div class="state-node" style="opacity:0.4;">
+          <div class="state-circle">🚫</div>
+          <div class="state-name">CANCELLED</div>
+        </div>
+      </div>
+
+      <div class="workflow-legend reveal" style="transition-delay:0.25s">
+        <div class="legend-item"><div class="legend-dot orange"></div> Active / In Progress</div>
+        <div class="legend-item"><div class="legend-dot green"></div> Completed / Approved</div>
+        <div class="legend-item"><div class="legend-dot red"></div> Delayed / Escalated</div>
+        <div class="legend-item"><div class="legend-dot grey"></div> Pending / Not started</div>
+      </div>
+
+      <!-- Features row -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.5rem;margin-top:3.5rem;" class="reveal" style="transition-delay:0.3s">
+        <div style="padding:1.5rem;background:#f9f9f9;border-radius:12px;border:1px solid #eee;">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">🔒</div>
+          <div style="font-weight:700;color:#000;margin-bottom:0.35rem;">Row-level locking</div>
+          <div style="font-size:0.85rem;color:#666;line-height:1.6;">SELECT ... FOR UPDATE prevents concurrent webhooks from corrupting the same PO simultaneously.</div>
+        </div>
+        <div style="padding:1.5rem;background:#f9f9f9;border-radius:12px;border:1px solid #eee;">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">📜</div>
+          <div style="font-weight:700;color:#000;margin-bottom:0.35rem;">Append-only event log</div>
+          <div style="font-size:0.85rem;color:#666;line-height:1.6;">Every state change appends a <code>WorkflowEvent</code> with previous state, new state, and reason — never overwritten.</div>
+        </div>
+        <div style="padding:1.5rem;background:#f9f9f9;border-radius:12px;border:1px solid #eee;">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">🕵️</div>
+          <div style="font-weight:700;color:#000;margin-bottom:0.35rem;">Full audit trail</div>
+          <div style="font-size:0.85rem;color:#666;line-height:1.6;"><code>AuditLog</code> records every action with <code>payload_before</code>, <code>payload_after</code>, user ID, and correlation trace ID.</div>
+        </div>
+        <div style="padding:1.5rem;background:#f9f9f9;border-radius:12px;border:1px solid #eee;">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">🔁</div>
+          <div style="font-weight:700;color:#000;margin-bottom:0.35rem;">Crash-safe worker</div>
+          <div style="font-size:0.85rem;color:#666;line-height:1.6;">Jobs are committed to <code>active_jobs</code> before execution. Restart recovers all pending jobs automatically with 3-retry backoff.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       METRICS
+  ============================================================ -->
+  <section class="metrics-section">
+    <div class="metrics-grid">
+      <div class="metric-card reveal">
+        <div class="metric-num">13</div>
+        <div class="metric-label">Database tables</div>
+        <div class="metric-sublabel">Organizations, Vendors, Workflows, Tasks, Items, Messages, HITLDrafts, Approvals, Events, Audit, Jobs…</div>
+      </div>
+      <div class="metric-card reveal" style="transition-delay:0.08s">
+        <div class="metric-num">6</div>
+        <div class="metric-label">Passing test cases</div>
+        <div class="metric-sublabel">State machine integrity, idempotency, HITL, correlation IDs, WhatsApp policy, crash recovery</div>
+      </div>
+      <div class="metric-card reveal" style="transition-delay:0.16s">
+        <div class="metric-num">3x</div>
+        <div class="metric-label">Retry attempts</div>
+        <div class="metric-sublabel">Each worker job retries with 10s backoff before being quarantined in the dead-letter queue</div>
+      </div>
+      <div class="metric-card reveal" style="transition-delay:0.24s">
+        <div class="metric-num">24h</div>
+        <div class="metric-label">WhatsApp session window</div>
+        <div class="metric-sublabel">Automatically switches from free-form text to approved templates when the session expires</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       INTEGRATIONS
+  ============================================================ -->
+  <section class="integrations-section" id="integrations">
+    <div class="integrations-inner">
+      <div class="reveal">
+        <div class="section-eyebrow" style="justify-content:center;">✦ Built with</div>
+        <h2 class="section-title" style="color:#000;text-align:center;font-size:2.2rem;">Open standards. No vendor lock-in.</h2>
+        <p class="section-sub" style="margin:0.75rem auto 0;text-align:center;">Every component is replaceable — swap SQLite for PostgreSQL, GPT-4o for any LLM, or Meta for any WhatsApp provider.</p>
+      </div>
+
+      <div class="integrations-grid reveal" style="transition-delay:0.1s">
+        <div class="integration-pill">⚡ FastAPI</div>
+        <div class="integration-pill">🗃️ SQLAlchemy + SQLite/PostgreSQL</div>
+        <div class="integration-pill">💬 Meta WhatsApp Cloud API</div>
+        <div class="integration-pill">🧠 OpenAI GPT-4o-mini</div>
+        <div class="integration-pill">📊 Pandas (CSV/Excel parsing)</div>
+        <div class="integration-pill">🔐 HMAC-SHA256 Webhook Signing</div>
+        <div class="integration-pill">🔄 Alembic Migrations</div>
+        <div class="integration-pill">🧪 Pytest + pytest-asyncio</div>
+        <div class="integration-pill">🌐 Vanilla HTML/CSS/JS Frontend</div>
+        <div class="integration-pill">🐍 Python 3.13</div>
+        <div class="integration-pill">📦 Pydantic Settings</div>
+        <div class="integration-pill">🏭 Uvicorn ASGI Server</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CTA
+  ============================================================ -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <h2 class="cta-title reveal">
+        Ready to eliminate<br><span class="highlight">procurement chaos?</span>
+      </h2>
+      <p class="cta-sub reveal" style="transition-delay:0.1s">
+        Start with a sample CSV upload. Your first PO workflow goes live in under 30 seconds — no configuration required in development mode.
+      </p>
+      <div class="cta-actions reveal" style="transition-delay:0.2s">
+        <a href="operations.html" class="btn-hero primary">🚀 Open Operations Console</a>
+        <a href="index.html" class="btn-hero ghost">📊 Explore Dashboard</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo" style="margin-bottom:1rem;display:inline-flex;">
+          <div class="nav-logo-badge">⚙</div>
+          <span class="nav-logo-text">AI Procurement Hub</span>
+        </a>
+        <p>Intelligent source-to-pay coordination for Gujarat's GIDC manufacturing clusters. Automate POs, coordinate vendors on WhatsApp, and eliminate coordination friction.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Product</h5>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#ai-engine">AI Engine</a></li>
+          <li><a href="#workflow">Workflow States</a></li>
+          <li><a href="#integrations">Integrations</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>App</h5>
+        <ul>
+          <li><a href="index.html">Dashboard</a></li>
+          <li><a href="operations.html">Operations Console</a></li>
+          <li><a href="http://127.0.0.1:8000/docs">API Docs</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Developers</h5>
+        <ul>
+          <li><a href="http://127.0.0.1:8000/docs">Swagger UI</a></li>
+          <li><a href="http://127.0.0.1:8000/api/v1/review/stats">Live Stats API</a></li>
+          <li><a href="http://127.0.0.1:8000/api/v1/review/workflows">Workflows API</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 AI Procurement Hub. Gujarat GIDC Industrial Platform.</span>
+      <span>Vatva · Naroda · Morbi · Dahej · Rajkot Shapar · Metoda</span>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       USE CASES SECTION
+  ============================================================ -->
+  <section class="usecases-section">
+    <div class="usecases-inner">
+      <div class="reveal" style="text-align:center;">
+        <div class="section-eyebrow" style="justify-content:center;">✦ Industry use cases</div>
+        <h2 class="section-title" style="color:#000;text-align:center;">Solving real coordination chaos<br>across Gujarat's industrial clusters</h2>
+        <p class="section-sub" style="margin:0 auto;text-align:center;">From Morbi's ceramic tiles to Vatva's chemical plants — every GIDC cluster has a coordination problem this platform solves.</p>
+      </div>
+      <div class="usecases-grid">
+        <div class="usecase-card reveal" style="transition-delay:0.05s">
+          <div class="usecase-icon">🏺</div>
+          <div class="usecase-zone">Morbi Ceramics Zone</div>
+          <div class="usecase-title">Glaze & Kiln Supply Delays</div>
+          <p class="usecase-desc">When Zirconium opacifiers are delayed, the kiln firing loop stops. The system detects the delay from a Gujarati WhatsApp message, routes to HITL, and drafts an alternate logistics request — in seconds.</p>
+        </div>
+        <div class="usecase-card reveal" style="transition-delay:0.1s">
+          <div class="usecase-icon">⚗️</div>
+          <div class="usecase-zone">Ankleshwar GIDC</div>
+          <div class="usecase-title">Chemical ETA Variance Tracking</div>
+          <p class="usecase-desc">Solvent and reagent deliveries with revised ETAs exceeding 3 days are flagged automatically. Coordinators approve rerouting without reading through a WhatsApp thread.</p>
+        </div>
+        <div class="usecase-card reveal" style="transition-delay:0.15s">
+          <div class="usecase-icon">🔩</div>
+          <div class="usecase-zone">Rajkot Shapar GIDC</div>
+          <div class="usecase-title">Forging & Fastener Price Disputes</div>
+          <p class="usecase-desc">Price revisions from forging vendors trigger an automatic HITL draft with the original PO value and the proposed new rate — ready for a one-click decision.</p>
+        </div>
+        <div class="usecase-card reveal" style="transition-delay:0.2s">
+          <div class="usecase-icon">🧴</div>
+          <div class="usecase-zone">Vatva GIDC</div>
+          <div class="usecase-title">Polymer Extrusion Line Risk</div>
+          <p class="usecase-desc">HDPE granule shortages that will stop an extrusion line in 4 hours are escalated immediately. The heatmap flags Vatva as a critical bottleneck zone before a single call is made.</p>
+        </div>
+        <div class="usecase-card reveal" style="transition-delay:0.25s">
+          <div class="usecase-icon">🏗️</div>
+          <div class="usecase-zone">Dahej GIDC</div>
+          <div class="usecase-title">Bulk Chemical Import Coordination</div>
+          <p class="usecase-desc">Large LOT chemical imports with complex payment terms (90-day LC) and freight disputes are tracked end-to-end with full audit history for compliance and GST reconciliation.</p>
+        </div>
+        <div class="usecase-card reveal" style="transition-delay:0.3s">
+          <div class="usecase-icon">🔧</div>
+          <div class="usecase-zone">Naroda GIDC</div>
+          <div class="usecase-title">Steel & Fabrication Turnaround</div>
+          <p class="usecase-desc">Mild steel plate deliveries from multiple vendors are tracked on a single ledger. Workflow state and vendor reliability scores let procurement managers triage risk in one glance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SCRIPTS
+  ============================================================ -->
+  <script>
+    /* ---- Scroll progress bar ---- */
+    const progressBar = document.getElementById('scroll-progress');
+
+    /* ---- Sticky nav ---- */
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      const pct  = docH > 0 ? (window.scrollY / docH) * 100 : 0;
+      progressBar.style.width = pct + '%';
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    /* ---- Hamburger ---- */
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    /* ---- Live backend stats overlay ---- */
+    async function fetchLiveStats() {
+      try {
+        const res = await fetch('http://127.0.0.1:8000/api/v1/review/stats', { signal: AbortSignal.timeout(2000) });
+        if (!res.ok) return;
+        const s = await res.json();
+        if (s.total_workflows > 0) {
+          const liveBar = document.getElementById('live-stats-bar');
+          document.getElementById('live-wf-count').textContent = s.total_workflows;
+          document.getElementById('live-critical').textContent = s.critical_count;
+          document.getElementById('live-delayed').textContent  = s.delayed_count;
+          document.getElementById('live-review').textContent   = s.pending_review_count;
+          liveBar.style.display = 'flex';
+        }
+      } catch { /* backend offline */ }
+    }
+    fetchLiveStats();
+
+    /* ---- Scroll reveal ---- */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* ---- Stage selector ---- */
+    const stageImages = [
+      'dashboard_preview.png',
+      'dashboard_preview.png',
+      'workflow_state_diagram.png',
+      'hitl_review_ui.png',
+      'hitl_review_ui.png',
+      'hitl_review_ui.png',
+    ];
+
+    let currentStage = 0;
+
+    function setStage(idx) {
+      // Deactivate current
+      document.getElementById(`pill-${currentStage}`).classList.remove('active');
+      document.getElementById(`panel-${currentStage}`).classList.remove('active');
+
+      currentStage = idx;
+
+      // Activate new
+      document.getElementById(`pill-${idx}`).classList.add('active');
+      document.getElementById(`panel-${idx}`).classList.add('active');
+
+      // Swap image with fade
+      const img = document.getElementById('stage-img');
+      img.style.opacity = '0';
+      img.style.transform = 'scale(0.97)';
+      img.style.transition = 'opacity 0.25s, transform 0.25s';
+      setTimeout(() => {
+        img.src = stageImages[idx];
+        img.style.opacity = '1';
+        img.style.transform = 'scale(1)';
+      }, 250);
+    }
+
+    /* ---- Auto-cycle stages ---- */
+    let stageTimer = setInterval(() => {
+      const next = (currentStage + 1) % 6;
+      setStage(next);
+    }, 5000);
+
+    document.querySelectorAll('.stage-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        clearInterval(stageTimer);
+      });
+    });
+
+    /* ---- Animated counters ---- */
+    function animateCounter(el, target, suffix = '') {
+      let start = 0;
+      const duration = 1600;
+      const step = (timestamp) => {
+        if (!start) start = timestamp;
+        const progress = Math.min((timestamp - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = Math.floor(eased * target);
+        el.textContent = value + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = target + suffix;
+      };
+      requestAnimationFrame(step);
+    }
+
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const el = e.target;
+          const raw = el.dataset.target;
+          if (!raw) return;
+          const num = parseInt(raw);
+          const suffix = el.dataset.suffix || '';
+          animateCounter(el, num, suffix);
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    // Proof numbers — set data attributes then observe
+    const proofConfig = [
+      { target: 500, suffix: '+' },
+      { target: 11,  suffix: '' },
+      { target: 6,   suffix: '' },
+      { target: 3,   suffix: '' },
+      { target: 2,   suffix: 's' },
+    ];
+    document.querySelectorAll('.proof-num').forEach((el, i) => {
+      const cfg = proofConfig[i];
+      if (!cfg) return;
+      el.dataset.target = cfg.target;
+      el.dataset.suffix = cfg.suffix;
+      counterObserver.observe(el);
+    });
+
+    // Metric cards counters
+    const metricConfig = [
+      { target: 13, suffix: '' },
+      { target: 6,  suffix: '' },
+      { target: 3,  suffix: 'x' },
+      { target: 24, suffix: 'h' },
+    ];
+    document.querySelectorAll('.metric-num').forEach((el, i) => {
+      const cfg = metricConfig[i];
+      if (!cfg) return;
+      el.dataset.target = cfg.target;
+      el.dataset.suffix = cfg.suffix;
+      counterObserver.observe(el);
+    });
+  </script>
+
+  <script src="auth.js"></script>
+  <script>
+    ProcureAuth.renderNavUser({
+      logoutRedirect: 'home.html',
+      loginLink:      'login.html',
+      signupLink:     'signup.html',
+    });
+  </script>
+</body>
+</html>
