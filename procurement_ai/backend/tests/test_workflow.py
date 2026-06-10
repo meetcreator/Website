@@ -16,7 +16,7 @@ from app.core.observability import set_correlation_id, get_correlation_id
 from app.models import (
     Organization, User, Vendor, ProcurementWorkflow, 
     ProcurementTask, WorkflowEvent, AuditLog, WebhookEvent,
-    ActiveJob, Message
+    ActiveJob, Message, TeamInvite
 )
 
 # --------------------------------------------------
@@ -27,7 +27,12 @@ TEST_DATABASE_URL = "sqlite:///:memory:"
 @pytest.fixture(scope="function")
 def db_session():
     """Sets up a fresh in-memory SQLite database and creates a clean session for each test run."""
-    engine = create_engine(TEST_DATABASE_URL, connect_args={"check_same_thread": False})
+    from sqlalchemy.pool import StaticPool
+    engine = create_engine(
+        TEST_DATABASE_URL,
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool
+    )
     Base.metadata.create_all(bind=engine)
     
     SessionClass = sessionmaker(bind=engine)
@@ -279,3 +284,64 @@ async def test_durable_queue_crash_recovery(db_session):
     
     db_job_reloaded = db_session.query(ActiveJob).filter(ActiveJob.id == job_id).first()
     assert db_job_reloaded.status == "completed"
+
+
+def test_invite_details_api(db_session):
+    """Verifies that retrieving invite details via GET /invite/{token} works correctly and validates tokens."""
+    from fastapi.testclient import TestClient
+    from app.main import app
+    from app.models import TeamInvite
+    from datetime import datetime, timedelta
+    
+    # Insert a dummy invite
+    token = "test_invite_token_123"
+    invite = TeamInvite(
+        id="invite_test_id",
+        organization_id="org_test_vatva",
+        email="invitee@vatva.in",
+        role="manager",
+        token=token,
+        status="pending",
+        expires_at=datetime.utcnow() + timedelta(hours=1)
+    )
+    db_session.add(invite)
+    db_session.commit()
+
+    # Create TestClient
+    client = TestClient(app)
+    
+    # Override get_db dependency to return db_session
+    from app.core.database import get_db
+    app.dependency_overrides[get_db] = lambda: db_session
+    
+    try:
+        response = client.get(f"/api/v1/team/invite/{token}")
+        assert response.status_code == 200
+        data = response.json()
+        assert data["email"] == "invitee@vatva.in"
+        assert data["role"] == "manager"
+        assert data["org_name"] == "Vatva Forging Plant"
+        
+        # Test non-existent token
+        response = client.get("/api/v1/team/invite/invalid_token")
+        assert response.status_code == 404
+        
+        # Test expired invite
+        expired_token = "expired_token_123"
+        expired_invite = TeamInvite(
+            id="expired_invite_id",
+            organization_id="org_test_vatva",
+            email="expired@vatva.in",
+            role="executive",
+            token=expired_token,
+            status="pending",
+            expires_at=datetime.utcnow() - timedelta(hours=1)
+        )
+        db_session.add(expired_invite)
+        db_session.commit()
+        
+        response = client.get(f"/api/v1/team/invite/{expired_token}")
+        assert response.status_code == 400
+        assert "expired" in response.json()["detail"].lower()
+    finally:
+        app.dependency_overrides.clear()

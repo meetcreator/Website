@@ -265,12 +265,7 @@ async def ingest_excel_po(
 
         # Track usage: count new POs imported this session
         if registered_count > 0:
-            try:
-                check_limit(db, x_org_id, "po_uploads", increment=registered_count)
-            except HTTPException:
-                # If over limit after import, still return success but attach warning
-                import_logs.append({"po_number": "__LIMIT__", "status": "limit_warning",
-                                     "message": "Monthly PO upload limit reached. Upgrade to import more."})
+            check_limit(db, x_org_id, "po_uploads", increment=registered_count)
 
         return {
             "success": True,

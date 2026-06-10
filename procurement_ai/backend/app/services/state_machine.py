@@ -24,7 +24,7 @@ class WorkflowState(str, Enum):
 VALID_TRANSITIONS: Dict[WorkflowState, List[WorkflowState]] = {
     WorkflowState.CREATED: [WorkflowState.RFQ_SENT, WorkflowState.VENDOR_PENDING, WorkflowState.CANCELLED],
     WorkflowState.RFQ_SENT: [WorkflowState.VENDOR_PENDING, WorkflowState.CANCELLED],
-    WorkflowState.VENDOR_PENDING: [WorkflowState.ETA_RECEIVED, WorkflowState.DELAYED, WorkflowState.ESCALATED, WorkflowState.CANCELLED],
+    WorkflowState.VENDOR_PENDING: [WorkflowState.ETA_RECEIVED, WorkflowState.DELAYED, WorkflowState.ESCALATED, WorkflowState.APPROVAL_PENDING, WorkflowState.CANCELLED],
     WorkflowState.ETA_RECEIVED: [WorkflowState.APPROVED, WorkflowState.APPROVAL_PENDING, WorkflowState.IN_TRANSIT, WorkflowState.CANCELLED],
     WorkflowState.APPROVAL_PENDING: [WorkflowState.APPROVED, WorkflowState.RFQ_SENT, WorkflowState.CANCELLED],
     WorkflowState.APPROVED: [WorkflowState.IN_TRANSIT, WorkflowState.DELAYED, WorkflowState.CANCELLED],

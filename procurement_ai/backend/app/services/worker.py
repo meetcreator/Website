@@ -85,7 +85,7 @@ class WorkerQueue:
                 logger.info(f"Worker: Processing active job {job.id} [{job.task_name}]... Context Trace: {job.correlation_id}")
 
                 try:
-                    await self._process_task(job.task_name, job.payload)
+                    await self._process_task(job.task_name, job.payload, db=db)
                     job.status = "completed"
                     executed_count += 1
                 except Exception as e:

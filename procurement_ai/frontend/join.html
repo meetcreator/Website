@@ -187,17 +187,21 @@
       return;
     }
 
-    // We try to hit the /team/join with an empty body to trigger a controlled 422 vs 404
-    // Instead, we'll just pre-fill the form and let the actual submission verify
-    // Use a lightweight GET with the token in a query param (via a stub endpoint)
-    // Since we don't have a GET-invite-by-token endpoint, we'll prefill and let submit handle it
-
-    // Show form and let user fill it — the token will be validated on submit
-    show('join-form');
-    document.getElementById('invite-org-name').textContent = 'Your organisation';
-    document.getElementById('invite-role-badge').textContent = 'Role will be assigned by your admin';
-    document.getElementById('invite-email-display').textContent = '(from your invite link)';
-    document.getElementById('email-field').value = '(pre-filled on join)';
+    try {
+      const res = await fetch(`${API}/team/invite/${encodeURIComponent(token)}`);
+      const data = await res.json();
+      if (!res.ok) {
+        show('invalid-state');
+        return;
+      }
+      show('join-form');
+      document.getElementById('invite-org-name').textContent = data.org_name;
+      document.getElementById('invite-role-badge').textContent = `Role: ${data.role.toUpperCase()}`;
+      document.getElementById('invite-email-display').textContent = data.email;
+      document.getElementById('email-field').value = data.email;
+    } catch (err) {
+      show('invalid-state');
+    }
   }
 
   function show(id) {

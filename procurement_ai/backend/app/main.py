@@ -49,6 +49,30 @@ frontend_dir = Path(__file__).resolve().parents[2] / "frontend"
 if frontend_dir.exists():
     app.mount("/ui", StaticFiles(directory=str(frontend_dir), html=True), name="ui")
 
+async def start_worker_loop():
+    import asyncio
+    import logging
+    from app.services.worker import worker_queue
+    from app.core.database import SessionLocal
+
+    logger = logging.getLogger("app.worker_loop")
+    logger.info("Background worker loop started.")
+    while True:
+        try:
+            db = SessionLocal()
+            try:
+                await worker_queue.execute_pending_jobs(db=db)
+                db.commit()
+            except Exception as e:
+                db.rollback()
+                logger.error(f"Error executing pending jobs in worker loop: {e}")
+            finally:
+                db.close()
+        except Exception as e:
+            logger.error(f"Error in background worker session: {e}")
+        await asyncio.sleep(5)
+
+
 @app.on_event("startup")
 def startup_init_db():
     """Ensure all tables exist on every startup (create_all is idempotent)."""
@@ -66,6 +90,10 @@ def startup_init_db():
         logging.getLogger(__name__).warning(f"Demo seeder failed (non-critical): {e}")
     finally:
         db.close()
+    
+    # Start periodic background worker task
+    import asyncio
+    asyncio.create_task(start_worker_loop())
 
 @app.get("/")
 def read_root():

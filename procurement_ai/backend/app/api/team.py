@@ -308,3 +308,25 @@ def deactivate_member(
         raise HTTPException(403, "Cannot deactivate the organisation owner.")
     user.is_active = False
     db.commit()
+
+
+@router.get("/invite/{token}")
+def get_invite_details(token: str, db: Session = Depends(get_db)):
+    """Retrieve invite details for a token so the join page can prefill values."""
+    invite = db.query(TeamInvite).filter(TeamInvite.token == token).first()
+    if not invite:
+        raise HTTPException(status_code=404, detail="Invalid invite token.")
+    if invite.status != "pending":
+        raise HTTPException(status_code=400, detail=f"Invite is no longer pending (status: {invite.status}).")
+    if datetime.utcnow() > invite.expires_at:
+        invite.status = "expired"
+        db.commit()
+        raise HTTPException(status_code=400, detail="Invite has expired.")
+
+    org = db.get(Organization, invite.organization_id)
+    return {
+        "email": invite.email,
+        "role": invite.role,
+        "org_name": org.name if org else invite.organization_id,
+        "expires_at": invite.expires_at.isoformat()
+    }

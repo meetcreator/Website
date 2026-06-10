@@ -1599,32 +1599,72 @@
       });
     }
 
-    function modifyDraft(draftId) {
+    async function modifyDraft(draftId) {
       const text = document.getElementById(`editor-${draftId}`).value;
       const draft = hitlDrafts.find(d => d.id === draftId);
       if (draft) {
         draft.ai_draft = text;
-        showToast(`Draft saved for ${draft.vendor}`, 'success');
+        if (draft._live) {
+          try {
+            const res = await fetch(`${API_BASE}/review/drafts/${encodeURIComponent(draftId)}`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ draft_content: text }),
+            });
+            if (!res.ok) {
+              const err = await res.json();
+              showToast(err.detail || 'Save failed.', 'error');
+              return;
+            }
+            showToast(`Draft saved to database for ${draft.vendor}`, 'success');
+          } catch (e) {
+            showToast('Failed to save to backend.', 'error');
+            return;
+          }
+        } else {
+          showToast(`Draft saved for ${draft.vendor}`, 'success');
+        }
       }
     }
 
-    function approveDraft(draftId) {
+    async function approveDraft(draftId) {
       const text = document.getElementById(`editor-${draftId}`).value;
       const draft = hitlDrafts.find(d => d.id === draftId);
       if (draft) {
+        if (draft._live) {
+          try {
+            await fetch(`${API_BASE}/review/drafts/${encodeURIComponent(draftId)}`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ draft_content: text }),
+            });
+            const res = await fetch(`${API_BASE}/review/drafts/${encodeURIComponent(draftId)}/approve`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ approver_user_id: 'local_manager' }),
+            });
+            if (!res.ok) {
+              const err = await res.json();
+              showToast(err.detail || 'Approval failed.', 'error');
+              return;
+            }
+            showToast(`Approved & dispatched to ${draft.vendor} via WhatsApp ✓`, 'success');
+          } catch (e) {
+            showToast('Failed to contact backend for approval.', 'error');
+            return;
+          }
+        } else {
+          const taskObj = allTasks.find(t => t.po_number === draft.po_number);
+          if (taskObj) {
+            taskObj.status = "APPROVED";
+            calculateDashboardMetrics();
+            renderLedgerTable();
+            selectTask(taskObj.id);
+          }
+          showToast(`Approved & dispatched to ${draft.vendor} via WhatsApp`, 'success');
+        }
         draft.status = "approved";
         draft.ai_draft = text;
-        
-        // Find matching task in 500 POs to update state to APPROVED
-        const taskObj = allTasks.find(t => t.po_number === draft.po_number);
-        if (taskObj) {
-          taskObj.status = "APPROVED";
-          calculateDashboardMetrics();
-          renderLedgerTable();
-          selectTask(taskObj.id);
-        }
-        
-        showToast(`Approved & dispatched to ${draft.vendor} via WhatsApp`, 'success');
         renderHitlQueue();
       }
     }
