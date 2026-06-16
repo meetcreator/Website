@@ -113,14 +113,42 @@ const server = http.createServer((req, res) => {
                 }
             }
         }
-    } else if (lowerUrl === '/procurement_ai' || lowerUrl.startsWith('/procurement_ai/') || lowerUrl === '/procurement') {
-        // Serve Procurement AI from procurement_ai/frontend/
-        let subPath = (lowerUrl === '/procurement' || lowerUrl === '/procurement_ai')
-            ? '/index.html'
-            : url.substring('/procurement_ai'.length);
-        if (subPath === '' || subPath === '/') subPath = '/index.html';
-        const baseDir = path.join(__dirname, '../procurement_ai/frontend');
-        filePath = path.join(baseDir, subPath);
+    } else if (lowerUrl === '/procurement' || lowerUrl.startsWith('/procurement/')) {
+        let subPath = lowerUrl === '/procurement' ? 'index.html' : url.substring(13); // '/procurement/'.length
+        if (subPath === '' || subPath === '/') subPath = 'index.html';
+        filePath = path.join(__dirname, 'procurement', subPath);
+
+        // Handle clean URLs
+        if (!path.extname(filePath)) {
+            let isDir = false;
+            try { isDir = fs.statSync(filePath).isDirectory(); } catch (e) { }
+
+            if (!fs.existsSync(filePath) || isDir) {
+                if (fs.existsSync(filePath + '.html')) {
+                    filePath += '.html';
+                } else if (fs.existsSync(path.join(filePath, 'index.html'))) {
+                    filePath = path.join(filePath, 'index.html');
+                }
+            }
+        }
+    } else if (lowerUrl === '/procurement_ai' || lowerUrl.startsWith('/procurement_ai/')) {
+        let subPath = lowerUrl === '/procurement_ai' ? 'index.html' : url.substring(16); // '/procurement_ai/'.length
+        if (subPath === '' || subPath === '/') subPath = 'index.html';
+        filePath = path.join(__dirname, 'procurement', subPath);
+
+        // Handle clean URLs
+        if (!path.extname(filePath)) {
+            let isDir = false;
+            try { isDir = fs.statSync(filePath).isDirectory(); } catch (e) { }
+
+            if (!fs.existsSync(filePath) || isDir) {
+                if (fs.existsSync(filePath + '.html')) {
+                    filePath += '.html';
+                } else if (fs.existsSync(path.join(filePath, 'index.html'))) {
+                    filePath = path.join(filePath, 'index.html');
+                }
+            }
+        }
     } else {
         filePath = path.join(__dirname, url === '/' ? 'index.html' : url);
         // Handle clean URLs for general root pages (e.g. /portfolio -> /portfolio.html)

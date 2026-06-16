@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/procurement/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Procurement Operations Console | AI Procurement Hub</title>
+  <meta name="description" content="Live operations console for procurement workflow management — upload POs, simulate vendor replies, review HITL drafts, and monitor workflow state.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* =====================================================
+       DESIGN SYSTEM — mirrors index.html
+       ===================================================== */
+    :root {
+      --font-sans: 'Outfit', sans-serif;
+      --bg:        #080c14;
+      --card-bg:   rgba(16, 23, 38, 0.72);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --primary:   #f97316;
+      --primary-hover: #ea580c;
+      --primary-glass: rgba(249, 115, 22, 0.12);
+      --success:   #10b981;
+      --success-glass: rgba(16, 185, 129, 0.10);
+      --warning:   #f59e0b;
+      --warning-glass: rgba(245, 158, 11, 0.10);
+      --danger:    #ef4444;
+      --danger-glass: rgba(239, 68, 68, 0.12);
+      --info:      #3b82f6;
+      --info-glass: rgba(59, 130, 246, 0.10);
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: var(--font-sans);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* =====================================================
+       ANIMATED BACKGROUND ORBS
+       ===================================================== */
+    .bg-orbs {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.12;
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+    .orb-1 { width: 500px; height: 500px; background: var(--primary); top: -100px; left: -150px; animation-duration: 22s; }
+    .orb-2 { width: 400px; height: 400px; background: var(--info);    bottom: -80px;  right: -100px; animation-duration: 18s; animation-delay: -8s; }
+    .orb-3 { width: 300px; height: 300px; background: var(--success); top: 40%;  left: 55%; animation-duration: 26s; animation-delay: -4s; }
+    @keyframes drift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(30px, 20px) scale(1.08); }
+    }
+
+    /* =====================================================
+       HEADER
+       ===================================================== */
+    header {
+      background: rgba(8, 12, 20, 0.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .logo-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--primary), #d97706);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+      flex-shrink: 0;
+    }
+
+    .logo-text h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .logo-text p {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .api-status {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 0.4rem 0.85rem;
+      font-size: 0.75rem;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      transition: var(--transition);
+    }
+    .status-dot.online  { background: var(--success); box-shadow: 0 0 8px var(--success); animation: pulse-dot 2s infinite; }
+    .status-dot.offline { background: var(--danger);  box-shadow: 0 0 8px var(--danger); }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.5; }
+    }
+
+    /* =====================================================
+       BUTTONS
+       ===================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: rgba(255,255,255,0.04);
+      color: var(--text-main);
+      transition: var(--transition);
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .btn:hover { background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.14); transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+    .btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+    .btn.primary:hover { background: var(--primary-hover); border-color: var(--primary-hover); }
+    .btn.danger { background: var(--danger-glass); border-color: rgba(239,68,68,0.35); color: #fca5a5; }
+    .btn.success { background: var(--success-glass); border-color: rgba(16,185,129,0.35); color: #6ee7b7; }
+
+    /* =====================================================
+       LAYOUT
+       ===================================================== */
+    main {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      padding: 2rem;
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: minmax(360px, 420px) 1fr;
+      gap: 1.75rem;
+      align-items: start;
+    }
+
+    .left-col { display: flex; flex-direction: column; gap: 1.5rem; }
+    .right-col { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    /* =====================================================
+       GLASS CARD
+       ===================================================== */
+    .glass-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      backdrop-filter: blur(14px);
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: var(--text-main);
+    }
+
+    .card-hint {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-top: -0.4rem;
+    }
+
+    /* =====================================================
+       FORM ELEMENTS
+       ===================================================== */
+    .field { display: flex; flex-direction: column; gap: 0.4rem; }
+
+    .field label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      padding: 0.6rem 0.85rem;
+      transition: var(--transition);
+      width: 100%;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glass);
+    }
+
+    .field textarea { min-height: 90px; resize: vertical; }
+
+    .field input[type="file"] {
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+
+    .field input[type="file"]::-webkit-file-upload-button {
+      background: rgba(249,115,22,0.15);
+      border: 1px solid rgba(249,115,22,0.3);
+      border-radius: 6px;
+      color: var(--primary);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      cursor: pointer;
+      margin-right: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .row { display: flex; gap: 0.75rem; }
+    .row > * { flex: 1; }
+
+    /* =====================================================
+       STATUS READOUT BOX
+       ===================================================== */
+    .status-box {
+      background: rgba(0,0,0,0.2);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.55;
+      min-height: 48px;
+      transition: var(--transition);
+    }
+    .status-box.ok    { border-color: rgba(16,185,129,0.35); background: rgba(16,185,129,0.05); color: #6ee7b7; }
+    .status-box.error { border-color: rgba(239,68,68,0.35);  background: rgba(239,68,68,0.05);  color: #fca5a5; }
+    .status-box.loading {
+      border-color: rgba(249,115,22,0.3);
+      background: rgba(249,115,22,0.03);
+      color: var(--primary);
+      animation: blink-text 1.4s ease-in-out infinite;
+    }
+    @keyframes blink-text { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+    /* =====================================================
+       BADGES
+       ===================================================== */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.18rem 0.55rem;
+      border-radius: 12px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .badge.created        { background: rgba(107,114,128,0.15); color: #9ca3af; }
+    .badge.rfq_sent       { background: rgba(139,92,246,0.15);  color: #a78bfa; }
+    .badge.vendor_pending { background: rgba(245,158,11,0.15);  color: #f59e0b; border: 1px solid rgba(245,158,11,0.3); }
+    .badge.eta_received   { background: rgba(16,185,129,0.15);  color: #10b981; }
+    .badge.approval_pending { background: rgba(249,115,22,0.18); color: var(--primary); border: 1px solid rgba(249,115,22,0.4); }
+    .badge.approved       { background: rgba(16,185,129,0.2);   color: #34d399; }
+    .badge.in_transit     { background: rgba(249,115,22,0.15);  color: #fb923c; }
+    .badge.delayed        { background: rgba(239,68,68,0.15);   color: #ef4444; border: 1px solid rgba(239,68,68,0.35); }
+    .badge.escalated      { background: #7f1d1d; color: #fca5a5; animation: blink-text 2s infinite; }
+    .badge.completed      { background: rgba(16,185,129,0.22);  color: #a7f3d0; }
+    .badge.cancelled      { background: rgba(107,114,128,0.12); color: #6b7280; }
+    .badge.draft          { background: rgba(245,158,11,0.12);  color: #f59e0b; }
+    .badge.auto_sent      { background: rgba(16,185,129,0.12);  color: #10b981; }
+
+    /* =====================================================
+       WORKFLOW TABLE
+       ===================================================== */
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      background: rgba(0,0,0,0.15);
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+
+    th {
+      background: rgba(255,255,255,0.03);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      color: var(--text-main);
+      vertical-align: top;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(249,115,22,0.03); }
+
+    td .muted { color: var(--text-muted); font-size: 0.72rem; }
+
+    /* =====================================================
+       HITL DRAFT CARDS
+       ===================================================== */
+    .draft-cards { display: flex; flex-direction: column; gap: 1rem; }
+
+    .draft-card {
+      background: rgba(0,0,0,0.18);
+      border: 1px solid rgba(249,115,22,0.18);
+      border-radius: 10px;
+      padding: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: var(--transition);
+    }
+    .draft-card:hover { border-color: rgba(249,115,22,0.35); }
+
+    .draft-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .draft-vendor {
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .draft-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .vendor-bubble {
+      background: rgba(255,255,255,0.03);
+      border-left: 2px solid var(--text-muted);
+      border-radius: 0 6px 6px 0;
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .reason-tag {
+      background: var(--danger-glass);
+      border: 1px solid rgba(239,68,68,0.25);
+      border-radius: 6px;
+      padding: 0.4rem 0.65rem;
+      font-size: 0.72rem;
+      color: #fca5a5;
+      font-weight: 500;
+    }
+
+    .draft-reply-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .draft-textarea {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(249,115,22,0.2);
+      border-radius: 8px;
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      padding: 0.65rem 0.85rem;
+      resize: vertical;
+      min-height: 80px;
+      width: 100%;
+      transition: var(--transition);
+    }
+    .draft-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glass);
+    }
+    .draft-textarea:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .draft-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.55rem;
+    }
+
+    /* =====================================================
+       JOBS LIST
+       ===================================================== */
+    .jobs-list { display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .job-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(0,0,0,0.15);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.65rem 0.85rem;
+      font-size: 0.8rem;
+    }
+
+    .job-name { font-weight: 600; flex: 1; }
+    .job-phone { color: var(--text-muted); font-size: 0.72rem; font-family: monospace; }
+
+    .job-status-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .job-status-dot.queued    { background: var(--warning); }
+    .job-status-dot.running   { background: var(--primary); animation: pulse-dot 1s infinite; }
+    .job-status-dot.completed { background: var(--success); }
+    .job-status-dot.failed    { background: var(--danger); }
+
+    /* =====================================================
+       TOOLBAR / REFRESH BAR
+       ===================================================== */
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .auto-refresh-badge {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .spinner {
+      width: 12px;
+      height: 12px;
+      border: 2px solid rgba(255,255,255,0.1);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      display: none;
+      animation: spin 0.7s linear infinite;
+    }
+    .spinner.active { display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* =====================================================
+       EMPTY STATE
+       ===================================================== */
+    .empty-state {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+    }
+    .empty-state .icon { font-size: 2rem; margin-bottom: 0.5rem; opacity: 0.5; }
+
+    .queue-clear {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(16,185,129,0.06);
+      border: 1px solid rgba(16,185,129,0.2);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      font-size: 0.82rem;
+      color: var(--success);
+      font-weight: 500;
+    }
+
+    /* =====================================================
+       TOAST
+       ===================================================== */
+    .toast-container {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+    .toast {
+      background: rgba(16,23,38,0.97);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 0.7rem 1rem;
+      font-size: 0.8rem;
+      color: var(--text-main);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      animation: slideIn 0.3s ease forwards;
+      max-width: 320px;
+      pointer-events: auto;
+    }
+    .toast.success { border-left: 3px solid var(--success); }
+    .toast.error   { border-left: 3px solid var(--danger); }
+    .toast.info    { border-left: 3px solid var(--info); }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 1.5rem 2rem;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      border-top: 1px solid var(--card-border);
+    }
+
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
+    @media (max-width: 1024px) {
+      main { grid-template-columns: 1fr; padding: 1.25rem; }
+    }
+    @media (max-width: 600px) {
+      header { padding: 0.85rem 1rem; }
+      main { padding: 1rem; }
+      .row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANIMATED BACKGROUND -->
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo-row">
+      <div class="logo-badge">⚙️</div>
+      <div class="logo-text">
+        <h1>Operations Console</h1>
+        <p>Live procurement workflow control &amp; HITL review</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="api-status" id="api-status-badge">
+        <div class="status-dot" id="api-dot"></div>
+        <span id="api-status-text">Connecting…</span>
+      </div>
+      <button class="btn" id="refresh-all-btn" onclick="refreshAll()">
+        <span class="spinner" id="refresh-spinner"></span>
+        Refresh All
+      </button>
+      <a href="index.html" class="btn primary">📊 Dashboard</a>
+      <div id="nav-user" style="display:flex;gap:0.5rem;align-items:center;"></div>
+    </div>
+  </header>
+
+  <!-- MAIN GRID -->
+  <main>
+
+    <!-- =================== LEFT COLUMN =================== -->
+    <div class="left-col">
+
+      <!-- 1. API CONFIG -->
+      <div class="glass-card">
+        <div class="card-title">🔌 Connection Settings</div>
+        <div class="field">
+          <label for="api-base">API Base URL</label>
+          <input id="api-base" value="http://127.0.0.1:8000/api/v1" placeholder="http://127.0.0.1:8000/api/v1">
+        </div>
+        <div class="field">
+          <label for="org-id">Organization ID</label>
+          <input id="org-id" value="org_demo_factory" placeholder="org_demo_factory">
+        </div>
+      </div>
+
+      <!-- 2. UPLOAD PURCHASE ORDER -->
+      <div class="glass-card">
+        <div class="card-title">📤 Upload Purchase Order</div>
+        <p class="card-hint">Upload a CSV/XLS/XLSX with PO number, vendor name, phone, item, quantity, and rate columns. The system auto-detects column names.</p>
+        <div class="field">
+          <label for="po-file">PO File (CSV / Excel)</label>
+          <input id="po-file" type="file" accept=".csv,.xls,.xlsx">
+        </div>
+        <div class="row">
+          <button class="btn primary" id="upload-btn">📤 Upload PO</button>
+          <button class="btn" id="sample-btn">🧪 Use Sample CSV</button>
+        </div>
+        <div id="upload-status" class="status-box">Waiting for upload…</div>
+      </div>
+
+      <!-- 3. SIMULATE VENDOR REPLY -->
+      <div class="glass-card">
+        <div class="card-title">💬 Simulate Vendor Reply</div>
+        <p class="card-hint">For local testing before Meta WhatsApp is connected — inject a webhook-shaped vendor message directly into the backend.</p>
+        <div class="field">
+          <label for="vendor-phone">Vendor Phone (E.164)</label>
+          <input id="vendor-phone" value="+919876543210" placeholder="+919876543210">
+        </div>
+        <div class="field">
+          <label for="vendor-message">Vendor Message</label>
+          <textarea id="vendor-message">Delivery delay by 2 days. Machine breakdown.</textarea>
+        </div>
+        <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+          <button class="btn" onclick="setVendorMsg('Parcel dispatch kari dídhu chhe. Lorry receipt aapísh.')">🇮🇳 Gujarati Sample</button>
+          <button class="btn" onclick="setVendorMsg('Price revised to ₹1450/kg due to raw material increase.')">💰 Price Dispute</button>
+          <button class="btn" onclick="setVendorMsg('ETA confirmed: delivery by 2026-05-30.')">📅 ETA Reply</button>
+        </div>
+        <button class="btn primary" id="simulate-btn">📨 Send Vendor Webhook</button>
+        <div id="simulate-status" class="status-box">No vendor reply sent yet.</div>
+      </div>
+
+    </div>
+
+    <!-- =================== RIGHT COLUMN =================== -->
+    <div class="right-col">
+
+      <!-- 4. WORKFLOW LEDGER -->
+      <div class="glass-card">
+        <div class="toolbar">
+          <div class="card-title" style="border:none;padding:0;margin:0;">📋 Live Workflow Ledger</div>
+          <div style="display:flex;align-items:center;gap:0.6rem;">
+            <span class="auto-refresh-badge">⟳ auto-refresh 10s</span>
+            <button class="btn" id="refresh-workflows-btn" onclick="refreshWorkflows()">Refresh</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>PO Number</th>
+                <th>Vendor</th>
+                <th>Amount</th>
+                <th>Items</th>
+                <th>State</th>
+                <th>Updated</th>
+              </tr>
+            </thead>
+            <tbody id="workflow-body">
+              <tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--text-muted);">Loading workflows…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 5. HITL REVIEW QUEUE -->
+      <div class="glass-card">
+        <div class="toolbar">
+          <div class="card-title" style="border:none;padding:0;margin:0;">🛡️ HITL Review Queue</div>
+          <button class="btn" id="refresh-drafts-btn" onclick="refreshDrafts()">Refresh</button>
+        </div>
+        <p class="card-hint">High-risk delay notices or price disputes require human approval before being forwarded to the vendor via WhatsApp.</p>
+        <div id="drafts-container" class="draft-cards">
+          <!-- Dynamic -->
+        </div>
+      </div>
+
+      <!-- 6. WORKER JOBS -->
+      <div class="glass-card">
+        <div class="toolbar">
+          <div class="card-title" style="border:none;padding:0;margin:0;">⚡ Worker Job Queue</div>
+          <button class="btn" onclick="refreshJobs()">Refresh</button>
+        </div>
+        <p class="card-hint">Durable background jobs committed to the database — outbox dispatches and escalation triggers.</p>
+        <div id="jobs-container" class="jobs-list">
+          <div class="status-box loading">Loading jobs…</div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    AI Procurement Hub &bull; Gujarat GIDC Industrial Platform &bull; Operations Console
+  </footer>
+
+  <!-- =====================================================
+       CONTROLLER SCRIPT
+       ===================================================== -->
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    /* -------- helpers -------- */
+    function apiBase() {
+      return $('api-base').value.replace(/\/$/, '');
+    }
+
+    function orgId() {
+      return $('org-id').value.trim();
+    }
+
+    function escapeHtml(v) {
+      return String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+    }
+
+    function setStatus(id, text, type = '') {
+      const el = $(id);
+      el.className = `status-box${type ? ' ' + type : ''}`;
+      el.textContent = typeof text === 'string' ? text : JSON.stringify(text, null, 2);
+    }
+
+    function setVendorMsg(msg) {
+      $('vendor-message').value = msg;
+    }
+
+    function fmtTime(iso) {
+      if (!iso) return '—';
+      try {
+        return new Date(iso).toLocaleString('en-IN', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+      } catch { return iso; }
+    }
+
+    async function requestJson(url, options = {}) {
+      const response = await fetch(url, options);
+      const text = await response.text();
+      let payload = {};
+      try { payload = text ? JSON.parse(text) : {}; } catch { payload = { raw: text }; }
+      if (!response.ok) throw new Error(payload.detail || payload.raw || `HTTP ${response.status}`);
+      return payload;
+    }
+
+    /* -------- API health check -------- */
+    async function checkApiStatus() {
+      const dot  = $('api-dot');
+      const label = $('api-status-text');
+      try {
+        const res = await fetch(`${apiBase().replace('/api/v1', '')}/`, { signal: AbortSignal.timeout(3000) });
+        if (res.ok) {
+          dot.className  = 'status-dot online';
+          label.textContent = 'Backend online';
+          return true;
+        }
+      } catch {}
+      dot.className  = 'status-dot offline';
+      label.textContent = 'Backend offline';
+      return false;
+    }
+
+    /* -------- Upload PO -------- */
+    function sampleCsvFile() {
+      const csv = [
+        'po number,vendor name,phone,item,qty,rate',
+        'PO-2026-DEMO-001,Laxmi Fasteners,9876543210,Hex Bolts M16x80,100,12.5',
+        'PO-2026-DEMO-001,Laxmi Fasteners,9876543210,Spring Washers,200,2.0',
+        'PO-2026-DEMO-002,Somnath Bolt & Fasteners,9898022334,Anchor Fasteners 12mm,500,8.75',
+      ].join('\n');
+      return new File([csv], 'sample_po.csv', { type: 'text/csv' });
+    }
+
+    async function uploadPo(file) {
+      setStatus('upload-status', '⏳ Uploading and parsing…', 'loading');
+      $('upload-btn').disabled = true;
+      $('sample-btn').disabled = true;
+      try {
+        const data = new FormData();
+        data.append('file', file);
+        const result = await requestJson(`${apiBase()}/ingestion/excel`, {
+          method: 'POST',
+          headers: { 'x-org-id': orgId() },
+          body: data,
+        });
+        const summary = result.summary || {};
+        setStatus('upload-status',
+          `✅ Imported ${summary.imported_purchase_orders ?? 0} POs  •  Skipped ${summary.skipped_purchase_orders ?? 0}  •  Rows processed: ${summary.total_rows_processed ?? 0}`,
+          'ok'
+        );
+        showToast(`Imported ${summary.imported_purchase_orders ?? 0} purchase orders`, 'success');
+        await refreshAll();
+      } catch (err) {
+        setStatus('upload-status', `❌ ${err.message}`, 'error');
+        showToast(err.message, 'error');
+      } finally {
+        $('upload-btn').disabled = false;
+        $('sample-btn').disabled = false;
+      }
+    }
+
+    /* -------- Simulate vendor webhook -------- */
+    async function simulateVendorReply() {
+      setStatus('simulate-status', '⏳ Sending webhook payload…', 'loading');
+      $('simulate-btn').disabled = true;
+      try {
+        const payload = {
+          entry: [{
+            changes: [{
+              value: {
+                messages: [{
+                  id: `wamid.local-${Date.now()}`,
+                  from: $('vendor-phone').value,
+                  type: 'text',
+                  text: { body: $('vendor-message').value }
+                }]
+              }
+            }]
+          }]
+        };
+        const result = await requestJson(`${apiBase()}/webhooks/whatsapp`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const intent = result.ai_analysis?.intent || 'unknown';
+        const requiresReview = result.hitl_routing?.requires_review;
+        setStatus('simulate-status',
+          `✅ Processed  •  Intent: ${intent}  •  ${requiresReview ? '⚠️ HITL draft queued for review' : '✓ Auto-handled'}`,
+          'ok'
+        );
+        showToast(`Vendor reply processed — intent: ${intent}`, requiresReview ? 'info' : 'success');
+        await refreshAll();
+      } catch (err) {
+        setStatus('simulate-status', `❌ ${err.message}`, 'error');
+        showToast(err.message, 'error');
+      } finally {
+        $('simulate-btn').disabled = false;
+      }
+    }
+
+    /* -------- Workflow table -------- */
+    async function refreshWorkflows() {
+      const btn = $('refresh-workflows-btn');
+      btn.disabled = true;
+      try {
+        const result = await requestJson(`${apiBase()}/review/workflows`);
+        const body = $('workflow-body');
+        if (!result.workflows?.length) {
+          body.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--text-muted);">No workflows yet — upload a PO to begin.</td></tr>`;
+          return;
+        }
+        body.innerHTML = result.workflows.map(wf => {
+          const state = (wf.state || '').toLowerCase();
+          const updated = fmtTime(wf.updated_at);
+          return `
+            <tr>
+              <td><strong>${escapeHtml(wf.po_number)}</strong></td>
+              <td>${escapeHtml(wf.vendor_name)}<br><span class="muted">${escapeHtml(wf.vendor_phone)}</span></td>
+              <td><strong>₹${Number(wf.total_amount || 0).toLocaleString('en-IN')}</strong></td>
+              <td style="text-align:center;">${escapeHtml(wf.item_count)}</td>
+              <td><span class="badge ${escapeHtml(state)}">${escapeHtml(wf.state)}</span></td>
+              <td class="muted">${updated}</td>
+            </tr>
+          `;
+        }).join('');
+      } catch (err) {
+        $('workflow-body').innerHTML = `<tr><td colspan="6" style="text-align:center;padding:1rem;color:var(--danger);">⚠ ${escapeHtml(err.message)}</td></tr>`;
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    /* -------- HITL drafts -------- */
+    async function refreshDrafts() {
+      const btn = $('refresh-drafts-btn');
+      btn.disabled = true;
+      const container = $('drafts-container');
+      try {
+        const result = await requestJson(`${apiBase()}/review/drafts?status=all`);
+        const activeDrafts = (result.drafts || []).filter(d => d.status === 'draft');
+
+        if (activeDrafts.length === 0) {
+          container.innerHTML = `<div class="queue-clear">✅ All messages approved — HITL queue is clear.</div>`;
+          return;
+        }
+
+        container.innerHTML = '';
+        activeDrafts.forEach(draft => {
+          const card = document.createElement('div');
+          card.className = 'draft-card';
+          const draftId = escapeHtml(draft.draft_id);
+          const isDraft = draft.status === 'draft';
+          card.innerHTML = `
+            <div class="draft-card-header">
+              <div>
+                <div class="draft-vendor">${escapeHtml(draft.detected_intent)}</div>
+                <div class="draft-meta">
+                  <span>📱 ${escapeHtml(draft.vendor_phone)}</span>
+                  <span class="badge ${escapeHtml((draft.target_state || '').toLowerCase())}">${escapeHtml(draft.target_state)}</span>
+                </div>
+              </div>
+              <span class="badge ${escapeHtml(draft.status)}">${escapeHtml(draft.status)}</span>
+            </div>
+            ${draft.review_reason ? `<div class="reason-tag">⚠️ ${escapeHtml(draft.review_reason)}</div>` : ''}
+            <div class="vendor-bubble">"${escapeHtml(draft.vendor_message)}"</div>
+            <div class="draft-reply-label">✏️ Draft AI Reply (editable)</div>
+            <textarea class="draft-textarea" id="draft-${draftId}" ${!isDraft ? 'disabled' : ''}>${escapeHtml(draft.draft_content)}</textarea>
+            <div class="draft-actions">
+              <button class="btn" ${!isDraft ? 'disabled' : ''} onclick="saveDraft('${draftId}')">💾 Save</button>
+              <button class="btn success" ${!isDraft ? 'disabled' : ''} onclick="approveDraft('${draftId}')">✅ Approve &amp; Send</button>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      } catch (err) {
+        container.innerHTML = `<div class="status-box error">❌ ${escapeHtml(err.message)}</div>`;
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    async function saveDraft(draftId) {
+      const text = $(`draft-${draftId}`)?.value;
+      if (!text) return;
+      try {
+        await requestJson(`${apiBase()}/review/drafts/${encodeURIComponent(draftId)}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ draft_content: text }),
+        });
+        showToast('Draft saved successfully', 'success');
+      } catch (err) {
+        showToast(`Save failed: ${err.message}`, 'error');
+      }
+    }
+
+    async function approveDraft(draftId) {
+      const text = $(`draft-${draftId}`)?.value;
+      try {
+        if (text) {
+          await requestJson(`${apiBase()}/review/drafts/${encodeURIComponent(draftId)}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ draft_content: text }),
+          });
+        }
+        await requestJson(`${apiBase()}/review/drafts/${encodeURIComponent(draftId)}/approve`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ approver_user_id: 'local_manager' }),
+        });
+        showToast('Draft approved and dispatched via WhatsApp ✓', 'success');
+        await refreshAll();
+      } catch (err) {
+        showToast(`Approval failed: ${err.message}`, 'error');
+      }
+    }
+
+    /* -------- Jobs -------- */
+    async function refreshJobs() {
+      const container = $('jobs-container');
+      try {
+        const result = await requestJson(`${apiBase()}/review/jobs`);
+        if (!result.jobs?.length) {
+          container.innerHTML = `<div class="empty-state"><div class="icon">⚡</div>No jobs queued yet.</div>`;
+          return;
+        }
+        container.innerHTML = result.jobs.map(job => {
+          const statusCls = (job.status || 'queued').toLowerCase();
+          return `
+            <div class="job-row">
+              <div class="job-status-dot ${statusCls}"></div>
+              <div class="job-name">${escapeHtml(job.task_name)}</div>
+              <div class="job-phone">${escapeHtml(job.payload?.phone_number || job.payload?.workflow_id || '')}</div>
+              <span class="badge ${statusCls}">${escapeHtml(job.status)}</span>
+            </div>
+          `;
+        }).join('');
+      } catch (err) {
+        container.innerHTML = `<div class="status-box error">❌ ${escapeHtml(err.message)}</div>`;
+      }
+    }
+
+    /* -------- Refresh all -------- */
+    async function refreshAll() {
+      const spinner = $('refresh-spinner');
+      spinner.classList.add('active');
+      await checkApiStatus();
+      await Promise.allSettled([refreshWorkflows(), refreshDrafts(), refreshJobs()]);
+      spinner.classList.remove('active');
+    }
+
+    /* -------- Toast -------- */
+    function showToast(message, type = 'info') {
+      const container = $('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ';
+      toast.innerHTML = `<span style="font-weight:800;">${icon}</span> ${escapeHtml(message)}`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(20px)';
+        toast.style.transition = 'all 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    /* -------- Event listeners -------- */
+    $('upload-btn').addEventListener('click', async () => {
+      const file = $('po-file').files[0];
+      if (!file) { showToast('Choose a CSV/XLS/XLSX file first', 'error'); return; }
+      await uploadPo(file);
+    });
+
+    $('sample-btn').addEventListener('click', async () => {
+      await uploadPo(sampleCsvFile());
+    });
+
+    $('simulate-btn').addEventListener('click', simulateVendorReply);
+
+    /* -------- Boot -------- */
+    refreshAll();
+
+    // Auto-refresh every 10 seconds
+    setInterval(refreshAll, 10000);
+  </script>
+
+  <script src="auth.js"></script>
+  <script>
+    ProcureAuth.renderNavUser({ logoutRedirect: 'login.html' });
+  </script>
+</body>
+</html>

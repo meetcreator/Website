@@ -22,6 +22,26 @@
             "source": "/Archshield/:path*",
             "destination": "/archshield/:path*",
             "statusCode": 301
+        },
+        {
+            "source": "/procurement_ai/:path*",
+            "destination": "/procurement/:path*",
+            "statusCode": 301
+        },
+        {
+            "source": "/procurement_ai",
+            "destination": "/procurement",
+            "statusCode": 301
+        },
+        {
+            "source": "/operations/:path*",
+            "destination": "/procurement/operations/:path*",
+            "statusCode": 301
+        },
+        {
+            "source": "/operations",
+            "destination": "/procurement/operations",
+            "statusCode": 301
         }
     ],
     "rewrites": [
@@ -30,16 +50,8 @@
             "destination": "/portfolio.html"
         },
         {
-            "source": "/operations",
-            "destination": "/operations.html"
-        },
-        {
             "source": "/procurement",
-            "destination": "/index.html"
-        },
-        {
-            "source": "/procurement_ai",
-            "destination": "/index.html"
+            "destination": "/procurement/index.html"
         },
         {
             "source": "/olympiad/gallery",

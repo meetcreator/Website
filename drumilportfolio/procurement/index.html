@@ -1,0 +1,1861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/procurement/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Meta Tags -->
+  <title>AI Procurement Hub | Gujarat GIDC Industrial Coordination & SME Platform</title>
+  <meta name="description"
+      content="AI Procurement Hub is an intelligent coordination platform for GIDC manufacturing SMEs, featuring automated purchase orders, real-time ledgers, downstream production impact alerts, and supplier reliability scorecards.">
+  <meta name="keywords"
+      content="AI procurement, purchase order automation, GIDC Vatva, smart manufacturing, supply chain optimization, industrial operations, Morbi ceramics, Naroda GIDC, workflow coordination, supplier scorecard, India SME tech">
+  <meta name="author" content="AI Procurement Hub">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#f97316">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- Open Graph Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tinmco.com/">
+  <meta property="og:title" content="AI Procurement Hub | Gujarat GIDC Industrial Coordination & SME Platform">
+  <meta property="og:description"
+      content="Intelligent purchase order automation, real-time coordination ledgers, downstream production impact mapping, and vendor reliability analytics for manufacturing SMEs.">
+  <meta property="og:image" content="https://tinmco.com/og-image.jpg">
+  <meta property="og:site_name" content="AI Procurement Hub">
+
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://tinmco.com/">
+  <meta name="twitter:title" content="AI Procurement Hub | Gujarat GIDC Industrial Coordination & SME Platform">
+  <meta name="twitter:description"
+      content="Intelligent purchase order automation, real-time coordination ledgers, downstream production impact mapping, and vendor reliability analytics for manufacturing SMEs.">
+  <meta name="twitter:image" content="https://tinmco.com/og-image.jpg">
+
+  <!-- Preconnect for Performance & Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "AI Procurement Hub",
+    "url": "https://tinmco.com",
+    "logo": "https://tinmco.com/logo.png",
+    "description": "Intelligent procurement platform and automated PO coordination ledger for GIDC industrial clusters",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Vatva GIDC, Ahmedabad",
+      "addressRegion": "Gujarat",
+      "addressCountry": "IN"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "AI Procurement Hub",
+    "url": "https://tinmco.com",
+    "description": "Automated PO orchestration and industrial supplier reliability intelligence platform"
+  }
+  </script>
+  
+  <style>
+    /* --------------------------------------------------
+       PREMIUM DESIGN SYSTEM & THEME
+       -------------------------------------------------- */
+    :root {
+      --font-sans: 'Outfit', sans-serif;
+      --background: #080c14;
+      --card-bg: rgba(16, 23, 38, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --primary: #f97316; /* Vibrant Industrial Amber */
+      --primary-hover: #ea580c;
+      --primary-glass: rgba(249, 115, 22, 0.12);
+      
+      --success: #10b981;
+      --success-glass: rgba(16, 185, 129, 0.12);
+      --warning: #f59e0b;
+      --warning-glass: rgba(245, 158, 11, 0.12);
+      --danger: #ef4444;
+      --danger-glass: rgba(239, 68, 68, 0.15);
+      --info: #3b82f6;
+      --info-glass: rgba(59, 130, 246, 0.12);
+      
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--background);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* --------------------------------------------------
+       HEADER
+       -------------------------------------------------- */
+    header {
+      background: rgba(8, 12, 20, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-badge {
+      background: linear-gradient(135deg, var(--primary), #d97706);
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #fff;
+      font-size: 1.3rem;
+      box-shadow: 0 4px 15px rgba(249, 115, 22, 0.35);
+    }
+
+    .logo-text h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-text p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .tenant-badge {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tenant-indicator {
+      width: 8px;
+      height: 8px;
+      background-color: var(--success);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--success);
+    }
+
+    main {
+      flex: 1;
+      padding: 2rem;
+      max-width: 1700px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* --------------------------------------------------
+       METRICS GRID (COMPUTED STATS)
+       -------------------------------------------------- */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .metric-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+
+    .metric-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: transparent;
+      transition: var(--transition);
+    }
+
+    .metric-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+      border-color: rgba(249, 115, 22, 0.35);
+    }
+
+    .metric-card.primary::before { background: var(--primary); }
+    .metric-card.success::before { background: var(--success); }
+    .metric-card.warning::before { background: var(--warning); }
+    .metric-card.danger::before { background: var(--danger); }
+
+    .metric-info h3 {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .metric-val {
+      font-size: 2.25rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+    }
+
+    .metric-icon {
+      font-size: 1.75rem;
+      opacity: 0.8;
+    }
+
+    /* --------------------------------------------------
+       LAYOUT SECTIONS
+       -------------------------------------------------- */
+    .dashboard-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+    }
+
+    .glass-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 1.75rem;
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* --------------------------------------------------
+       FILTRATION PANEL (PRIORITY & GIDC)
+       -------------------------------------------------- */
+    .filter-panel {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.85rem;
+    }
+
+    .search-input {
+      flex: 2;
+      min-width: 240px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      color: #fff;
+      padding: 0.55rem 0.85rem;
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      transition: var(--transition);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--primary-glass);
+    }
+
+    .select-filter {
+      flex: 1;
+      min-width: 140px;
+      background: #0d121e;
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      color: #fff;
+      padding: 0.55rem 0.85rem;
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      cursor: pointer;
+    }
+
+    .select-filter:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    /* --------------------------------------------------
+       DATATABLE (PAGINATED LEDGER)
+       -------------------------------------------------- */
+    .table-container {
+      overflow-x: auto;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.15);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+
+    th {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.85rem 1.1rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--card-border);
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+    }
+
+    td {
+      padding: 0.85rem 1.1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      transition: var(--transition);
+    }
+
+    tr {
+      cursor: pointer;
+    }
+
+    tr:hover td {
+      background: rgba(249, 115, 22, 0.03);
+    }
+
+    tr.selected td {
+      background: rgba(249, 115, 22, 0.08);
+      border-left: 2px solid var(--primary);
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem 0.5rem;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .badge.critical { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); }
+    .badge.high { background: rgba(249, 115, 22, 0.18); color: #fb923c; }
+    .badge.normal { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+    .badge.low { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+
+    .badge.created { background: rgba(107, 114, 128, 0.15); color: #9ca3af; }
+    .badge.rfq_sent { background: rgba(139, 92, 246, 0.15); color: #a78bfa; }
+    .badge.vendor_pending { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+    .badge.eta_received { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+    .badge.approval_pending { background: rgba(249, 115, 22, 0.2); color: #fb923c; border: 1px solid var(--primary); }
+    .badge.approved { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+    .badge.in_transit { background: rgba(249, 115, 22, 0.15); color: #f97316; }
+    .badge.delayed { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid var(--danger); }
+    .badge.escalated { background: #7f1d1d; color: #fca5a5; font-weight: 700; animation: blink 2s infinite; }
+    .badge.completed { background: rgba(16, 185, 129, 0.25); color: #a7f3d0; }
+    .badge.cancelled { background: rgba(107, 114, 128, 0.15); color: #9ca3af; }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .pagination-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 0.25rem;
+    }
+
+    .pagination-info {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 0.45rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-family: var(--font-sans);
+      font-weight: 500;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .btn.primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    .btn.primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    /* --------------------------------------------------
+       INTEL PANEL (PRODUCTION IMPACT & VENDOR SCORECARD)
+       -------------------------------------------------- */
+    .intel-container {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 1.25rem;
+    }
+
+    /* Downstream Impact Alert */
+    .impact-panel {
+      background: rgba(239, 68, 68, 0.03);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      border-radius: 10px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      position: relative;
+    }
+
+    .impact-header {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--danger);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .impact-desc {
+      font-size: 0.95rem;
+      font-weight: 500;
+      line-height: 1.4;
+      color: #fca5a5;
+    }
+
+    /* Vendor scorecard dial */
+    .scorecard-panel {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .scorecard-header {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    .scorecard-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      text-align: center;
+    }
+
+    .score-meter {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .score-val {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .score-val.high-perf { color: var(--success); }
+    .score-val.med-perf { color: var(--warning); }
+    .score-val.low-perf { color: var(--danger); }
+
+    .score-lbl {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+
+    /* --------------------------------------------------
+       GIDC ESCALATION HEATMAP
+       -------------------------------------------------- */
+    .heatmap-panel {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+
+    .heatmap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .heatmap-item {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      position: relative;
+    }
+
+    .heatmap-item::after {
+      content: '';
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .heatmap-item.critical-zone::after { background-color: var(--danger); box-shadow: 0 0 8px var(--danger); }
+    .heatmap-item.warning-zone::after { background-color: var(--warning); }
+    .heatmap-item.stable-zone::after { background-color: var(--success); }
+
+    .heatmap-zone {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .heatmap-category {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .heatmap-metric {
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-top: 0.25rem;
+    }
+
+    /* --------------------------------------------------
+       HUMAN-IN-THE-LOOP SIDEBAR
+       -------------------------------------------------- */
+    .hitl-queue {
+      background: rgba(249, 115, 22, 0.01);
+      border: 1px solid rgba(249, 115, 22, 0.15);
+    }
+
+    .hitl-card {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(249, 115, 22, 0.18);
+      border-radius: 8px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .hitl-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+    }
+
+    .hitl-tag {
+      background: var(--danger-glass);
+      color: #fca5a5;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.68rem;
+      font-weight: 600;
+    }
+
+    .hitl-bubble {
+      background: rgba(255, 255, 255, 0.02);
+      padding: 0.65rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-style: italic;
+      border-left: 2px solid var(--text-muted);
+    }
+
+    .hitl-editor {
+      width: 100%;
+      background: #0b0f19;
+      border: 1px solid rgba(249, 115, 22, 0.25);
+      border-radius: 6px;
+      color: #fff;
+      padding: 0.65rem;
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    .hitl-editor:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .hitl-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+    }
+
+    /* --------------------------------------------------
+       TIMELINE FLOW UI
+       -------------------------------------------------- */
+    .timeline-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 0.85rem;
+      position: relative;
+    }
+
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 9px;
+      width: 2px;
+      height: calc(100% - 8px);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .timeline-item:last-child::after {
+      display: none;
+    }
+
+    .timeline-node {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid var(--background);
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+    }
+
+    .timeline-node.active {
+      background: var(--primary);
+      box-shadow: 0 0 6px var(--primary);
+    }
+
+    .timeline-node.success {
+      background: var(--success);
+      box-shadow: 0 0 6px var(--success);
+    }
+
+    .timeline-content {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      padding: 0.6rem 0.85rem;
+    }
+
+    .timeline-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.2rem;
+    }
+
+    .timeline-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .timeline-time {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+    }
+
+    .timeline-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* --------------------------------------------------
+       MOBILE-FIRST RESPONSIVE STYLING (Priority 5)
+       -------------------------------------------------- */
+    @media (max-width: 1024px) {
+      header {
+        padding: 0.85rem 1.25rem;
+      }
+      
+      main {
+        padding: 1.25rem;
+      }
+
+      .dashboard-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      /* Re-orient filters */
+      .filter-panel {
+        flex-direction: column;
+      }
+      
+      .search-input, .select-filter {
+        width: 100%;
+        flex: none;
+      }
+
+      /* Re-orient card splits */
+      .intel-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      .logo-text p {
+        display: none; /* Keep clean on phone screens */
+      }
+      
+      .tenant-badge {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.78rem;
+      }
+
+      /* Compact table rows */
+      th:nth-child(3), td:nth-child(3), /* hide category column */
+      th:nth-child(4), td:nth-child(4)  /* hide zone column */ {
+        display: none;
+      }
+    }
+
+    /* --------------------------------------------------
+       TOAST NOTIFICATION SYSTEM
+       -------------------------------------------------- */
+    .toast-container {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+    .toast {
+      background: rgba(16, 23, 38, 0.97);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.7rem 1rem;
+      font-size: 0.82rem;
+      color: var(--text-main);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      animation: slideInToast 0.3s ease forwards;
+      max-width: 320px;
+      pointer-events: auto;
+    }
+    .toast.success { border-left: 3px solid var(--success); }
+    .toast.error   { border-left: 3px solid var(--danger); }
+    .toast.info    { border-left: 3px solid var(--info); }
+    @keyframes slideInToast {
+      from { opacity: 0; transform: translateX(20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Fallback demo-data warning banner */
+    .fallback-banner {
+      background: rgba(245, 158, 11, 0.07);
+      border-bottom: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 0.55rem 2rem;
+      font-size: 0.78rem;
+      color: var(--warning);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* HITL empty state */
+    .hitl-empty {
+      text-align: center;
+      padding: 1.25rem 1rem;
+      color: var(--success);
+      font-size: 0.85rem;
+      background: rgba(16, 185, 129, 0.06);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 8px;
+      font-weight: 500;
+    }
+
+    /* Skeleton loading rows */
+    .skeleton-row td {
+      background: linear-gradient(90deg,
+        rgba(255,255,255,0.03) 25%,
+        rgba(255,255,255,0.08) 50%,
+        rgba(255,255,255,0.03) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      color: transparent !important;
+      border-radius: 3px;
+      user-select: none;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* PO Detail panel (items + vendor metadata) */
+    .detail-panel {
+      background: rgba(0, 0, 0, 0.12);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1.1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+    .detail-panel-title {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .detail-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.65rem;
+    }
+    .detail-meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
+    .detail-meta-label {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .detail-meta-value { font-size: 0.82rem; font-weight: 500; }
+    .items-tbl {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+    .items-tbl th {
+      font-size: 0.65rem;
+      letter-spacing: 0.04em;
+      padding: 0.4rem 0.6rem;
+      background: rgba(255,255,255,0.02);
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    .items-tbl td {
+      padding: 0.45rem 0.6rem;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo-container">
+      <div class="logo-badge">AP</div>
+      <div class="logo-text">
+        <h1>AI Procurement Hub</h1>
+        <p>GIDC Manufacturing Operations View</p>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+      <a href="operations.html" class="btn primary" style="text-decoration: none; font-size: 0.8rem; padding: 0.4rem 0.85rem;">⚙️ Operations Console</a>
+      <div class="tenant-badge">
+        <div class="tenant-indicator"></div>
+        <strong id="header-org-name">Kamlesh Engineering (Vatva)</strong>
+      </div>
+      <div id="nav-user" style="display:flex;gap:0.5rem;align-items:center;"></div>
+    </div>
+  </header>
+
+  <!-- FALLBACK DEMO BANNER -->
+  <div id="fallback-banner" class="fallback-banner" style="display:none;">
+    &#9888; Running on demo dataset &mdash; backend server not reachable. Data is simulated.
+  </div>
+  <!-- LIVE DATA BANNER -->
+  <div id="live-banner" style="display:none; background:rgba(16,185,129,0.07); border-bottom:1px solid rgba(16,185,129,0.25); padding:0.55rem 2rem; font-size:0.78rem; color:#10b981; align-items:center; gap:0.5rem;">
+    &#9679; Connected to live backend &mdash; workflow stats reflect real-time database.
+  </div>
+
+  <!-- SUBSCRIPTION USAGE BAR -->
+  <div id="sub-bar" style="display:none; background:rgba(8,9,10,0.7); border-bottom:1px solid rgba(255,255,255,0.06); padding:0.55rem 2rem; align-items:center; gap:1.5rem; flex-wrap:wrap; font-size:0.75rem;">
+    <span id="sub-plan-pill" style="background:rgba(249,115,22,0.12);border:1px solid rgba(249,115,22,0.25);border-radius:6px;padding:0.2rem 0.6rem;font-weight:700;color:#f97316;font-size:0.7rem;"></span>
+    <div id="sub-meters" style="display:flex;gap:1.25rem;align-items:center;flex:1;flex-wrap:wrap;"></div>
+    <a href="pricing.html" style="font-size:0.72rem;font-weight:700;color:#f97316;text-decoration:none;background:rgba(249,115,22,0.1);border:1px solid rgba(249,115,22,0.25);border-radius:6px;padding:0.25rem 0.65rem;white-space:nowrap;">⬆ Upgrade Plan</a>
+  </div>
+
+  <!-- MAIN CONTAINER -->
+  <main>
+
+    <!-- REAL-TIME COMPUTED STATS GRID -->
+    <section class="metrics-grid">
+      <div class="metric-card primary">
+        <div class="metric-info">
+          <h3>Total PO Directory</h3>
+          <div class="metric-val" id="m-total-pos">500</div>
+        </div>
+        <div class="metric-icon">📦</div>
+      </div>
+      <div class="metric-card danger">
+        <div class="metric-info">
+          <h3>Critical Urgency POs</h3>
+          <div class="metric-val" id="m-critical-pos">0</div>
+        </div>
+        <div class="metric-icon">🚨</div>
+      </div>
+      <div class="metric-card warning">
+        <div class="metric-info">
+          <h3>Delayed Materials</h3>
+          <div class="metric-val" id="m-delayed-pos">0</div>
+        </div>
+        <div class="metric-icon">⚠️</div>
+      </div>
+      <div class="metric-card success">
+        <div class="metric-info">
+          <h3>Staged approvals</h3>
+          <div class="metric-val" id="m-review-pos">0</div>
+        </div>
+        <div class="metric-icon">⏳</div>
+      </div>
+    </section>
+
+    <!-- TWO COLUMN LAYOUT -->
+    <section class="dashboard-layout">
+      
+      <!-- COLUMN 1: PAGINATED LEDGER & INTEL -->
+      <div style="display: flex; flex-direction: column; gap: 2rem;">
+        
+        <!-- Ledger Box -->
+        <div class="glass-box">
+          <div class="section-title">
+            <span>📊</span> Dynamic Procurement Ledger (500 stress-test POs)
+          </div>
+          
+          <!-- Filters -->
+          <div class="filter-panel">
+            <input type="text" class="search-input" id="search-box" placeholder="Search POs, HSN, or GIDC Vendors..." oninput="handleFilterChange()">
+            
+            <select class="select-filter" id="priority-filter" onchange="handleFilterChange()">
+              <option value="ALL">All Priorities</option>
+              <option value="CRITICAL">CRITICAL (Blocking)</option>
+              <option value="HIGH">HIGH (Shipping Risk)</option>
+              <option value="NORMAL">NORMAL (Routine)</option>
+              <option value="LOW">LOW (Non-Blocking)</option>
+            </select>
+            
+            <select class="select-filter" id="zone-filter" onchange="handleFilterChange()">
+              <option value="ALL">All GIDC Zones</option>
+              <option value="Vatva GIDC">Vatva GIDC</option>
+              <option value="Naroda GIDC">Naroda GIDC</option>
+              <option value="Dahej GIDC">Dahej GIDC</option>
+              <option value="Rajkot Shapar">Rajkot Shapar</option>
+              <option value="Morbi Ceramics Zone">Morbi Ceramics Zone</option>
+              <option value="Metoda GIDC">Metoda GIDC</option>
+            </select>
+            
+            <select class="select-filter" id="state-filter" onchange="handleFilterChange()">
+              <option value="ALL">All States</option>
+              <option value="CREATED">CREATED</option>
+              <option value="RFQ_SENT">RFQ_SENT</option>
+              <option value="VENDOR_PENDING">VENDOR_PENDING</option>
+              <option value="ETA_RECEIVED">ETA_RECEIVED</option>
+              <option value="APPROVAL_PENDING">APPROVAL_PENDING</option>
+              <option value="APPROVED">APPROVED</option>
+              <option value="IN_TRANSIT">IN_TRANSIT</option>
+              <option value="DELAYED">DELAYED</option>
+              <option value="ESCALATED">ESCALATED</option>
+              <option value="COMPLETED">COMPLETED</option>
+            </select>
+          </div>
+
+          <!-- Table -->
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Voucher Ref</th>
+                  <th>Priority</th>
+                  <th>SME Vendor</th>
+                  <th>GIDC Cluster</th>
+                  <th>Value</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="ledger-body">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination -->
+          <div class="pagination-bar">
+            <div class="pagination-info" id="pagination-info">Showing 1 to 10 of 500 records</div>
+            <div style="display: flex; gap: 0.5rem;">
+              <button class="btn" id="btn-prev" onclick="changePage(-1)" disabled>Previous</button>
+              <button class="btn" id="btn-next" onclick="changePage(1)">Next</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- OPERATIONAL INTEL BLOCK (PRODUCTION IMPACT & SCORECARD) -->
+        <div class="intel-container" id="intel-block" style="display: none;">
+          
+          <!-- Downstream Impact Alert -->
+          <div class="impact-panel" id="impact-card">
+            <div class="impact-header">
+              <span>🚨</span> DOWNSTREAM PRODUCTION IMPACT
+            </div>
+            <div class="impact-desc" id="impact-text">
+              Stops automated tile pressing loop B by 8 hours.
+            </div>
+            <p style="font-size:0.72rem; color: var(--text-muted); margin-top:0.25rem;">
+              Calculated dynamically based on structural item specifications and floor routing.
+            </p>
+          </div>
+
+          <!-- Vendor Scorecard Dial -->
+          <div class="scorecard-panel">
+            <div class="scorecard-header">
+              📊 Vendor Reliability ledger
+            </div>
+            <div class="scorecard-stats">
+              <div class="score-meter">
+                <div class="score-val" id="score-rel">84.5%</div>
+                <div class="score-lbl">Reliability</div>
+              </div>
+              <div class="score-meter">
+                <div class="score-val" id="score-delay">1.2d</div>
+                <div class="score-lbl">Avg Delay</div>
+              </div>
+              <div class="score-meter">
+                <div class="score-val" id="score-late">11.5%</div>
+                <div class="score-lbl">Late Rate</div>
+              </div>
+            </div>
+            <p style="font-size:0.68rem; color: var(--text-muted); text-align:center;">
+              Operational ledger based on past 6 months of dispatch timelines.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- PO DETAIL PANEL (Items + Vendor Metadata) -->
+        <div class="detail-panel" id="detail-panel" style="display:none;">
+          <div class="detail-panel-title">&#128203; PO Detail &mdash; Line Items &amp; Vendor Metadata</div>
+          <div id="detail-items"></div>
+          <div id="detail-meta" class="detail-meta-grid"></div>
+        </div>
+
+        <!-- SYSTEMIC GIDC ESCALATION HEATMAP -->
+        <div class="heatmap-panel">
+          <div class="section-title">
+            <span>🔥</span> Systemic GIDC Escalation Heatmap (Bottleneck Analysis)
+          </div>
+          <p style="font-size:0.8rem; color: var(--text-muted); margin-top:0.25rem;">
+            Heat zones flagging GIDC regions and raw material categories causing the highest coordination friction.
+          </p>
+          
+          <div class="heatmap-grid" id="heatmap-grid">
+            <!-- Populated dynamically from live PO data -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- COLUMN 2: HITL CONTROLS & TIMELINE -->
+      <div style="display: flex; flex-direction: column; gap: 2rem;">
+        
+        <!-- HITL Outbox approvals -->
+        <div class="glass-box hitl-queue">
+          <div class="section-title">
+            <span style="color: var(--primary);">🛡️</span> Human-in-the-Loop Approval Queue
+          </div>
+          <p style="font-size: 0.78rem; color: var(--text-muted);">
+            High-risk late notifications or price disputes. Review and tap approve to forward to WhatsApp.
+          </p>
+          
+          <div id="hitl-queue-container" style="display: flex; flex-direction: column; gap: 0.85rem;">
+            <!-- Dynamic -->
+          </div>
+        </div>
+
+        <!-- Workflow Timeline Trace -->
+        <div class="glass-box" id="timeline-box" style="display: none;">
+          <div class="section-title" id="timeline-title-text">
+            <span>📍</span> Active State machine trace
+          </div>
+          
+          <div class="timeline-container" id="timeline-flow">
+            <!-- Dynamic -->
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer style="text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.8rem; border-top: 1px solid var(--card-border); margin-top: auto;">
+    <div>Gujarat Industrial SME Platform Coordination Ledger. Vatva &bull; Morbi &bull; Ankleshwar &bull; Shapar.</div>
+  </footer>
+
+  <!-- --------------------------------------------------
+       DASHBOARD CONTROLLER BUSINESS LOGIC
+       -------------------------------------------------- -->
+  <script>
+    let allTasks = [];
+    let filteredTasks = [];
+    let currentPage = 1;
+    const pageSize = 10;
+    let selectedTaskId = null;
+    const API_BASE = 'http://127.0.0.1:8000/api/v1';
+
+    // Simulated HITL queue drafts
+    let hitlDrafts = [
+      {
+        id: "hitl_01",
+        po_number: "PO-2026-1014",
+        vendor: "Vatva Polymer Compounds",
+        reason: "Critical delay (stops extrusion line)",
+        incoming_msg: "Polymer: HDPE raw supply short. Extrusion delivery will delay by 4 days.",
+        ai_draft: "We have reviewed the extrusion delay. Since this stops line #4, can we redirect 1 Ton from your Metoda warehouse tomorrow? We are ready to authorize the freight variance.",
+        status: "draft"
+      },
+      {
+        id: "hitl_02",
+        po_number: "PO-2026-1025",
+        vendor: "Morbi Ceramic Glazes",
+        reason: "Zirconium ETA variance > 3 days",
+        incoming_msg: "Glazes: Kiln glaze powder dispatch pushed back to June 3 due to logistics strike.",
+        ai_draft: "This delays ceramic firing loop #3. Can you dispatch our pending Zirconium bags through alternate Ankleshwar logistics?",
+        status: "draft"
+      }
+    ];
+
+    // Show loading skeleton immediately on page load
+    showSkeletonRows();
+
+    // Try to overlay live backend stats (non-blocking, won't replace mock ledger)
+    async function tryFetchLiveStats() {
+      try {
+        const res = await fetch(`${API_BASE}/review/stats`, { signal: AbortSignal.timeout(2500) });
+        if (!res.ok) return;
+        const stats = await res.json();
+        if (stats.total_workflows > 0) {
+          document.getElementById('live-banner').style.display = 'flex';
+          // Overlay live counts on top metric cards
+          document.getElementById('m-total-pos').innerText = allTasks.length + ' (mock) + ' + stats.total_workflows + ' live';
+          document.getElementById('m-critical-pos').innerText =
+            (allTasks.filter(t => t.priority === 'CRITICAL').length) + (stats.critical_count > 0 ? ` (+${stats.critical_count} live)` : '');
+          document.getElementById('m-delayed-pos').innerText =
+            (allTasks.filter(t => ['DELAYED','ESCALATED'].includes(t.status)).length) + (stats.delayed_count > 0 ? ` (+${stats.delayed_count} live)` : '');
+          document.getElementById('m-review-pos').innerText =
+            (allTasks.filter(t => t.status === 'APPROVAL_PENDING').length) + (stats.pending_review_count > 0 ? ` (+${stats.pending_review_count} live)` : '');
+        }
+      } catch { /* backend offline — ignore, mock data stays */ }
+    }
+
+    // Also try live HITL drafts from backend and merge into UI queue
+    async function tryFetchLiveHitlDrafts() {
+      try {
+        const res = await fetch(`${API_BASE}/review/drafts?status=draft`, { signal: AbortSignal.timeout(2500) });
+        if (!res.ok) return;
+        const data = await res.json();
+        const liveDrafts = (data.drafts || []).map(d => ({
+          id: d.draft_id,
+          po_number: d.workflow_id || '—',
+          vendor: d.vendor_phone,
+          reason: d.review_reason || 'Manual review',
+          incoming_msg: d.vendor_message,
+          ai_draft: d.draft_content,
+          status: d.status,
+          _live: true,
+        }));
+        // Merge: keep simulated + add live (deduplicate by id)
+        const existingIds = new Set(hitlDrafts.map(d => d.id));
+        liveDrafts.forEach(d => { if (!existingIds.has(d.id)) hitlDrafts.push(d); });
+        if (liveDrafts.length) renderHitlQueue();
+      } catch { /* ignore */ }
+    }
+
+    // Load mock_500_tasks.json as the primary ledger
+    fetch('mock_500_tasks.json')
+      .then(response => response.json())
+      .then(data => {
+        allTasks = data;
+        filteredTasks = [...allTasks];
+        
+        calculateDashboardMetrics();
+        renderLedgerTable();
+        renderHeatmap();
+        renderHitlQueue();
+        
+        if(filteredTasks.length > 0) {
+          selectTask(filteredTasks[0].id);
+        }
+        // Non-blocking live overlay
+        tryFetchLiveStats();
+        tryFetchLiveHitlDrafts();
+      })
+      .catch(err => {
+        console.error("Browser fetch restrictions block local JSON loading. Triggering inline fallback catalog.", err);
+        document.getElementById('fallback-banner').style.display = 'flex';
+        generateFallbackDataset();
+      });
+
+    function generateFallbackDataset() {
+      const zones = ["Vatva GIDC", "Naroda GIDC", "Dahej GIDC", "Rajkot Shapar", "Morbi Ceramics Zone", "Metoda GIDC"];
+      const categories = ["Steel Plates", "Glaze Materials", "Chemicals", "Plastics", "Forgings"];
+      const states = ["CREATED", "RFQ_SENT", "VENDOR_PENDING", "ETA_RECEIVED", "APPROVAL_PENDING", "APPROVED", "IN_TRANSIT", "DELAYED", "ESCALATED", "COMPLETED", "CANCELLED"];
+      const priorities = ["CRITICAL", "HIGH", "NORMAL", "LOW"];
+      
+      allTasks = [];
+      for(let i=1; i<=500; i++) {
+        const status = states[i % states.length];
+        let priority = priorities[i % priorities.length];
+        
+        if (status === "ESCALATED") priority = "CRITICAL";
+        
+        allTasks.push({
+          id: i,
+          po_number: `PO-2026-${1000 + i}`,
+          po_date: "2026-05-20",
+          vendor_name: `Vendor Gujarat SME #${i}`,
+          category: categories[i % categories.length],
+          industrial_zone: zones[i % zones.length],
+          total_amount: Math.round(50000 + (Math.abs(Math.sin(i)) * 2000000)),
+          status: status,
+          priority: priority,
+          production_impact: `Stops extrusion line C, delaying GIDC assembly C by ${randomHour(i)} hours.`,
+          vendor_reliability_score: (84.5 - (i % 25)).toFixed(2),
+          vendor_avg_delay_days: (1.2 + (i % 4)).toFixed(1),
+          vendor_late_deliveries_pct: (11.5 + (i % 15)).toFixed(1),
+          original_eta: "2026-05-28",
+          revised_eta: (status === 'DELAYED') ? "2026-06-03" : null,
+          items: [{ item_description: "Industrial Consumables", quantity: 500, unit_price: 150, total_amount: 75000 }],
+          escalation_level: (status === 'ESCALATED') ? 2 : 0
+        });
+      }
+      filteredTasks = [...allTasks];
+      calculateDashboardMetrics();
+      renderLedgerTable();
+      renderHeatmap();
+      renderHitlQueue();
+      if(filteredTasks.length > 0) {
+        selectTask(filteredTasks[0].id);
+      }
+    }
+
+    function randomHour(index) {
+      const hrs = [4, 6, 8, 12, 16, 24];
+      return hrs[index % hrs.length];
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    // --------------------------------------------------
+    // COUNTER COMPUTATIONS
+    // --------------------------------------------------
+    function calculateDashboardMetrics() {
+      document.getElementById("m-total-pos").innerText = allTasks.length;
+      
+      const criticalCount = allTasks.filter(t => t.priority === "CRITICAL").length;
+      document.getElementById("m-critical-pos").innerText = criticalCount;
+      
+      const delayedCount = allTasks.filter(t => ["DELAYED", "ESCALATED"].includes(t.status)).length;
+      document.getElementById("m-delayed-pos").innerText = delayedCount;
+      
+      const reviewCount = allTasks.filter(t => t.status === "APPROVAL_PENDING").length;
+      document.getElementById("m-review-pos").innerText = reviewCount;
+    }
+
+    // --------------------------------------------------
+    // RENDER DATATABLE WITH PAGINATION
+    // --------------------------------------------------
+    function renderLedgerTable() {
+      const tbody = document.getElementById("ledger-body");
+      tbody.innerHTML = "";
+      
+      const startIndex = (currentPage - 1) * pageSize;
+      const endIndex = Math.min(startIndex + pageSize, filteredTasks.length);
+      const pagedData = filteredTasks.slice(startIndex, endIndex);
+
+      // Empty state
+      if(filteredTasks.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:2rem; color:var(--text-muted); font-size:0.85rem;">&#9888; No purchase orders match your current filters.</td></tr>`;
+        document.getElementById("pagination-info").innerText = "No results found";
+        document.getElementById("btn-prev").disabled = true;
+        document.getElementById("btn-next").disabled = true;
+        return;
+      }
+      
+      pagedData.forEach(task => {
+        const tr = document.createElement("tr");
+        if(selectedTaskId === task.id) {
+          tr.className = "selected";
+        }
+        tr.onclick = () => selectTask(task.id);
+        tr.setAttribute('tabindex', '0');
+        tr.setAttribute('role', 'row');
+        tr.onkeydown = (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectTask(task.id); } };
+        
+        tr.innerHTML = `
+          <td><strong>${escapeHtml(task.po_number)}</strong></td>
+          <td><span class="badge ${escapeHtml(task.priority.toLowerCase())}">${escapeHtml(task.priority)}</span></td>
+          <td>${escapeHtml(task.vendor_name)}</td>
+          <td style="color: var(--text-muted); font-size: 0.78rem;">${escapeHtml(task.industrial_zone)}</td>
+          <td><strong>&#8377;${Number(task.total_amount || 0).toLocaleString('en-IN')}</strong></td>
+          <td><span class="badge ${escapeHtml(task.status.toLowerCase())}">${escapeHtml(task.status)}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+      
+      document.getElementById("pagination-info").innerText = `Showing ${startIndex + 1} to ${endIndex} of ${filteredTasks.length} records`;
+      document.getElementById("btn-prev").disabled = (currentPage === 1);
+      document.getElementById("btn-next").disabled = (endIndex >= filteredTasks.length);
+    }
+
+    function changePage(direction) {
+      currentPage += direction;
+      renderLedgerTable();
+    }
+
+    function handleFilterChange() {
+      const query = document.getElementById("search-box").value.toLowerCase();
+      const priority = document.getElementById("priority-filter").value;
+      const zone = document.getElementById("zone-filter").value;
+      const state = document.getElementById("state-filter").value;
+      
+      filteredTasks = allTasks.filter(task => {
+        const matchesQuery = 
+          task.po_number.toLowerCase().includes(query) || 
+          task.vendor_name.toLowerCase().includes(query) ||
+          task.category.toLowerCase().includes(query);
+          
+        const matchesPriority = (priority === "ALL" || task.priority === priority);
+        const matchesZone = (zone === "ALL" || task.industrial_zone === zone);
+        const matchesState = (state === "ALL" || task.status === state);
+        
+        return matchesQuery && matchesPriority && matchesZone && matchesState;
+      });
+      
+      currentPage = 1;
+      renderLedgerTable();
+    }
+
+    // --------------------------------------------------
+    // RENDER OPERATIONAL TRACE & SCORECARDS
+    // --------------------------------------------------
+    function selectTask(taskId) {
+      selectedTaskId = taskId;
+      renderLedgerTable();
+      
+      const task = allTasks.find(t => t.id === taskId);
+      if(!task) return;
+      
+      // 1. Reveal Downstream Impact & Scorecard Block
+      const intelBlock = document.getElementById("intel-block");
+      intelBlock.style.display = "grid";
+      
+      // Setup production impact
+      const impactCard = document.getElementById("impact-card");
+      const impactText = document.getElementById("impact-text");
+      impactText.innerText = task.production_impact;
+      
+      // Adjust impact styling based on PO priority
+      if(task.priority === 'CRITICAL') {
+        impactCard.style.borderColor = "rgba(239, 68, 68, 0.6)";
+        impactCard.style.background = "rgba(239, 68, 68, 0.06)";
+      } else if (task.priority === 'HIGH') {
+        impactCard.style.borderColor = "rgba(249, 115, 22, 0.4)";
+        impactCard.style.background = "rgba(249, 115, 22, 0.03)";
+      } else {
+        impactCard.style.borderColor = "rgba(255, 255, 255, 0.08)";
+        impactCard.style.background = "rgba(255, 255, 255, 0.01)";
+      }
+
+      // 2. Setup Vendor scorecards
+      const relScore = parseFloat(task.vendor_reliability_score);
+      const relEl = document.getElementById("score-rel");
+      relEl.innerText = `${relScore}%`;
+      relEl.className = "score-val";
+      if(relScore >= 85) relEl.classList.add("high-perf");
+      else if(relScore >= 70) relEl.classList.add("med-perf");
+      else relEl.classList.add("low-perf");
+
+      document.getElementById("score-delay").innerText = `${task.vendor_avg_delay_days}d`;
+      document.getElementById("score-late").innerText = `${task.vendor_late_deliveries_pct}%`;
+
+      // 3. Reveal timeline trace
+      const timelineBox = document.getElementById("timeline-box");
+      timelineBox.style.display = "block";
+      document.getElementById("timeline-title-text").innerHTML = `<span>Trace</span> Workflow state trace: <strong>${escapeHtml(task.po_number)}</strong>`;
+      
+      const timelineFlow = document.getElementById("timeline-flow");
+      timelineFlow.innerHTML = "";
+      
+      const history = generateSimulatedStateHistory(task);
+      history.forEach((step, idx) => {
+        const item = document.createElement("div");
+        item.className = "timeline-item";
+        
+        let nodeClass = "timeline-node";
+        if(idx === history.length - 1) {
+          nodeClass += " active";
+        } else {
+          nodeClass += " success";
+        }
+        
+        item.innerHTML = `
+          <div class="${nodeClass}">${idx + 1}</div>
+          <div class="timeline-content">
+            <div class="timeline-title-row">
+              <span class="timeline-title">${step.state}</span>
+              <span class="timeline-time">${step.time}</span>
+            </div>
+            <div class="timeline-desc">${escapeHtml(step.desc)}</div>
+          </div>
+        `;
+        timelineFlow.appendChild(item);
+      });
+
+      // 4. Render expanded detail panel (items + metadata)
+      renderDetailPanel(task);
+    }
+
+    function generateSimulatedStateHistory(task) {
+      const steps = [];
+      const baseTime = task.po_date;
+      
+      steps.push({ state: "CREATED", time: `${baseTime}`, desc: `PO record ingested. Urgency: ${task.priority}. Downstream impact mapped.` });
+      
+      if(task.status === "CREATED") return steps;
+      
+      steps.push({ state: "RFQ_SENT", time: `${baseTime} +15m`, desc: "Automated specifications dispatch validated. Checked payment terms: " + (task.metadata?.payment_terms || "not available") });
+      if(task.status === "RFQ_SENT") return steps;
+      
+      steps.push({ state: "VENDOR_PENDING", time: `${baseTime} +30m`, desc: `WhatsApp coordination template delivered to active number: ${task.vendor_phone || "+91 98980 12345"}` });
+      if(task.status === "VENDOR_PENDING") return steps;
+      
+      if(task.status === "DELAYED" || task.status === "ESCALATED") {
+        steps.push({ state: "VENDOR_PENDING", time: "Timeout SLA", desc: "No dispatch reply within 12h follow-up deadline." });
+        steps.push({ state: "DELAYED", time: "ETA Mismatch", desc: `Supplier reported delay. Extruded ETA delayed: ${task.revised_eta || 'June 03, 2026'}. Impact warning activated.` });
+        if(task.status === "DELAYED") return steps;
+        
+        steps.push({ state: "ESCALATED", time: "Escalation Level " + task.escalation_level, desc: `Critical bottleneck alert dispatched directly to GIDC management group.` });
+        return steps;
+      }
+      
+      if(task.status === "APPROVAL_PENDING") {
+        steps.push({ state: "ETA_RECEIVED", time: "Variance Alert", desc: `Supplier submitted revised date: ${task.revised_eta || 'June 02, 2026'}.` });
+        steps.push({ state: "APPROVAL_PENDING", time: "Staged DRAFT", desc: "ETA exceeds 3 days tolerance limits. System locked response draft in HITL Queue." });
+        return steps;
+      }
+
+      steps.push({ state: "ETA_RECEIVED", time: "ETA Logged", desc: `Supplier acknowledged PO. Responded with delivery date: ${task.original_eta}.` });
+      if(task.status === "ETA_RECEIVED") return steps;
+      
+      steps.push({ state: "APPROVED", time: "Approved", desc: "Coordinator manual bypass verified. Timelines locked." });
+      if(task.status === "APPROVED") return steps;
+      
+      steps.push({ state: "IN_TRANSIT", time: "In Transit", desc: "Lorry Receipt (Bilty) verified. Shipment in route." });
+      if(task.status === "IN_TRANSIT") return steps;
+      
+      steps.push({ state: "COMPLETED", time: "Completed", desc: "Materials reached Vatva factory gates. Verification match successful." });
+      return steps;
+    }
+
+    // --------------------------------------------------
+    // HUMAN-IN-THE-LOOP ACTIONS
+    // --------------------------------------------------
+    function renderHitlQueue() {
+      const container = document.getElementById("hitl-queue-container");
+      container.innerHTML = "";
+      
+      const activeDrafts = hitlDrafts.filter(d => d.status === "draft");
+      
+      if (activeDrafts.length === 0) {
+        container.innerHTML = `<div class="hitl-empty">&#10003; All messages approved &mdash; queue is clear.</div>`;
+        return;
+      }
+      
+      activeDrafts.forEach(draft => {
+        const card = document.createElement("div");
+        card.className = "hitl-card";
+        card.innerHTML = `
+          <div class="hitl-header">
+            <strong>${escapeHtml(draft.vendor)} (${escapeHtml(draft.po_number)})</strong>
+            <span class="hitl-tag">${escapeHtml(draft.reason)}</span>
+          </div>
+          <div class="hitl-bubble">"${escapeHtml(draft.incoming_msg)}"</div>
+          <div style="font-size: 0.72rem; color: var(--primary); font-weight:600;">Draft Response (Editable):</div>
+          <textarea class="hitl-editor" id="editor-${escapeHtml(draft.id)}">${escapeHtml(draft.ai_draft)}</textarea>
+          <div class="hitl-actions">
+            <button class="btn" style="padding:0.35rem 0.75rem; font-size:0.75rem;" onclick="modifyDraft('${draft.id}')">Save</button>
+            <button class="btn primary" style="padding:0.35rem 0.75rem; font-size:0.75rem;" onclick="approveDraft('${draft.id}')">Approve & Send</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    async function modifyDraft(draftId) {
+      const text = document.getElementById(`editor-${draftId}`).value;
+      const draft = hitlDrafts.find(d => d.id === draftId);
+      if (draft) {
+        draft.ai_draft = text;
+        if (draft._live) {
+          try {
+            const res = await fetch(`${API_BASE}/review/drafts/${encodeURIComponent(draftId)}`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ draft_content: text }),
+            });
+            if (!res.ok) {
+              const err = await res.json();
+              showToast(err.detail || 'Save failed.', 'error');
+              return;
+            }
+            showToast(`Draft saved to database for ${draft.vendor}`, 'success');
+          } catch (e) {
+            showToast('Failed to save to backend.', 'error');
+            return;
+          }
+        } else {
+          showToast(`Draft saved for ${draft.vendor}`, 'success');
+        }
+      }
+    }
+
+    async function approveDraft(draftId) {
+      const text = document.getElementById(`editor-${draftId}`).value;
+      const draft = hitlDrafts.find(d => d.id === draftId);
+      if (draft) {
+        if (draft._live) {
+          try {
+            await fetch(`${API_BASE}/review/drafts/${encodeURIComponent(draftId)}`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ draft_content: text }),
+            });
+            const res = await fetch(`${API_BASE}/review/drafts/${encodeURIComponent(draftId)}/approve`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ approver_user_id: 'local_manager' }),
+            });
+            if (!res.ok) {
+              const err = await res.json();
+              showToast(err.detail || 'Approval failed.', 'error');
+              return;
+            }
+            showToast(`Approved & dispatched to ${draft.vendor} via WhatsApp ✓`, 'success');
+          } catch (e) {
+            showToast('Failed to contact backend for approval.', 'error');
+            return;
+          }
+        } else {
+          const taskObj = allTasks.find(t => t.po_number === draft.po_number);
+          if (taskObj) {
+            taskObj.status = "APPROVED";
+            calculateDashboardMetrics();
+            renderLedgerTable();
+            selectTask(taskObj.id);
+          }
+          showToast(`Approved & dispatched to ${draft.vendor} via WhatsApp`, 'success');
+        }
+        draft.status = "approved";
+        draft.ai_draft = text;
+        renderHitlQueue();
+      }
+    }
+
+    // --------------------------------------------------
+    // TOAST NOTIFICATION
+    // --------------------------------------------------
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      const icon = type === 'success' ? '&#10003;' : type === 'error' ? '&#10007;' : 'i';
+      toast.innerHTML = `<span style="font-weight:700;font-size:1rem;">${icon}</span> ${escapeHtml(message)}`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(20px)';
+        toast.style.transition = 'all 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 3200);
+    }
+
+    // --------------------------------------------------
+    // SKELETON LOADING ROWS
+    // --------------------------------------------------
+    function showSkeletonRows() {
+      const tbody = document.getElementById('ledger-body');
+      tbody.innerHTML = Array(8).fill('').map((_, i) => `
+        <tr class="skeleton-row">
+          <td>PO-2026-${1000 + i}</td>
+          <td>CRITICAL</td>
+          <td>Loading vendor name...</td>
+          <td>Loading zone...</td>
+          <td>Loading amount...</td>
+          <td>LOADING</td>
+        </tr>
+      `).join('');
+    }
+
+    // --------------------------------------------------
+    // DYNAMIC HEATMAP (computed from live PO data)
+    // --------------------------------------------------
+    function renderHeatmap() {
+      const grid = document.getElementById('heatmap-grid');
+      if (!grid || !allTasks.length) return;
+
+      // Tally delayed/escalated + friction per zone
+      const zoneStats = {};
+      allTasks.forEach(task => {
+        const z = task.industrial_zone || 'Unknown';
+        if (!zoneStats[z]) zoneStats[z] = { total: 0, critical: 0, friction: 0 };
+        zoneStats[z].total++;
+        if (['DELAYED', 'ESCALATED'].includes(task.status)) zoneStats[z].critical++;
+        zoneStats[z].friction += (task.coordination_friction_sec || 0);
+      });
+
+      // Top 4 zones sorted by critical count
+      const sorted = Object.entries(zoneStats)
+        .sort((a, b) => b[1].critical - a[1].critical)
+        .slice(0, 4);
+
+      grid.innerHTML = sorted.map(([zone, s]) => {
+        const pct = s.total > 0 ? (s.critical / s.total * 100).toFixed(1) : 0;
+        const frictionHrs = s.friction > 0 ? (s.friction / 3600).toFixed(1) + 'h friction' : 'low friction';
+        const zoneClass = s.critical > 10 ? 'critical-zone' : s.critical > 4 ? 'warning-zone' : 'stable-zone';
+        const label = s.critical > 10 ? 'Critical' : s.critical > 4 ? 'Warning' : 'Stable';
+        return `
+          <div class="heatmap-item ${zoneClass}">
+            <div class="heatmap-zone">${escapeHtml(zone)}</div>
+            <div class="heatmap-category">${s.critical} delayed / ${s.total} total &bull; ${frictionHrs}</div>
+            <div class="heatmap-metric">Delay Rate: <strong>${pct}% (${label})</strong></div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // --------------------------------------------------
+    // PO DETAIL PANEL (line items + vendor metadata)
+    // --------------------------------------------------
+    function renderDetailPanel(task) {
+      const panel = document.getElementById('detail-panel');
+      if (!panel) return;
+      panel.style.display = 'block';
+
+      const items = task.items || [];
+      const meta = task.metadata || {};
+
+      // Items table
+      const itemsHtml = items.length > 0 ? `
+        <table class="items-tbl">
+          <thead><tr>
+            <th>Item Description</th><th>HSN Code</th><th>Qty</th><th>Unit Price</th><th>Total</th>
+          </tr></thead>
+          <tbody>
+            ${items.map(item => `
+              <tr>
+                <td>${escapeHtml(item.item_description)}</td>
+                <td style="font-family:monospace;color:var(--info);">${escapeHtml(item.hsn_code || '&mdash;')}</td>
+                <td>${Number(item.quantity).toLocaleString('en-IN')}</td>
+                <td>&#8377;${Number(item.unit_price || 0).toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
+                <td><strong>&#8377;${Number(item.total_amount || 0).toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2})}</strong></td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      ` : '<div style="color:var(--text-muted);font-size:0.8rem;">No item data available.</div>';
+
+      document.getElementById('detail-items').innerHTML = itemsHtml;
+
+      // Vendor metadata
+      document.getElementById('detail-meta').innerHTML = `
+        <div class="detail-meta-item">
+          <span class="detail-meta-label">GSTIN</span>
+          <span class="detail-meta-value" style="font-family:monospace;color:var(--info);font-size:0.78rem;">${escapeHtml(task.vendor_gstin || '&mdash;')}</span>
+        </div>
+        <div class="detail-meta-item">
+          <span class="detail-meta-label">GST Rate</span>
+          <span class="detail-meta-value">${meta.gst_rate != null ? meta.gst_rate + '%' : '&mdash;'}</span>
+        </div>
+        <div class="detail-meta-item">
+          <span class="detail-meta-label">Payment Terms</span>
+          <span class="detail-meta-value">${escapeHtml(meta.payment_terms || '&mdash;')}</span>
+        </div>
+        <div class="detail-meta-item">
+          <span class="detail-meta-label">Freight</span>
+          <span class="detail-meta-value">${escapeHtml(meta.freight_charges || '&mdash;')}</span>
+        </div>
+        <div class="detail-meta-item">
+          <span class="detail-meta-label">Coord. Friction</span>
+          <span class="detail-meta-value">${task.coordination_friction_sec > 0 ? (task.coordination_friction_sec / 3600).toFixed(1) + 'h' : 'None'}</span>
+        </div>
+        <div class="detail-meta-item">
+          <span class="detail-meta-label">Vendor Phone</span>
+          <span class="detail-meta-value">${escapeHtml(task.vendor_phone || '&mdash;')}</span>
+        </div>
+      `;
+    }
+  </script>
+
+  <script src="auth.js"></script>
+  <script>
+    // Render user nav (login/signup or avatar dropdown)
+    ProcureAuth.renderNavUser({ logoutRedirect: 'login.html' });
+
+    // Override org name in header if session exists
+    const _s = ProcureAuth.getSession();
+    if (_s && _s.org_name) {
+      const el = document.getElementById('header-org-name');
+      if (el) el.textContent = _s.org_name;
+    }
+
+    // Load subscription usage bar
+    async function loadSubBar() {
+      const session = ProcureAuth.getSession();
+      if (!session) return;
+      try {
+        const res = await fetch('http://127.0.0.1:8000/api/v1/subscriptions/current', {
+          headers: { 'x-org-id': session.org_id, ...ProcureAuth.getAuthHeader() },
+          signal: AbortSignal.timeout(2500),
+        });
+        if (!res.ok) return;
+        const d = await res.json();
+
+        document.getElementById('sub-plan-pill').textContent = `⭐ ${d.plan_display} Plan`;
+
+        const meters = [
+          { key: 'po_uploads',    icon: '📤', label: 'POs' },
+          { key: 'whatsapp_msgs', icon: '💬', label: 'WA msgs' },
+          { key: 'hitl_reviews',  icon: '🛡️', label: 'HITL' },
+        ];
+
+        document.getElementById('sub-meters').innerHTML = meters.map(m => {
+          const u   = d.usage[m.key];
+          const inf = u.limit === -1;
+          const pct = inf ? 0 : Math.min(u.pct, 100);
+          const col = inf ? '#3b82f6' : pct >= 90 ? '#ef4444' : pct >= 70 ? '#f59e0b' : '#10b981';
+          return `<span style="display:flex;align-items:center;gap:0.35rem;color:rgba(255,255,255,0.6);">
+            ${m.icon} <span style="color:#fff;font-weight:700;">${u.used}</span>/${inf ? '∞' : u.limit} ${m.label}
+            <span style="display:inline-block;width:48px;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;">
+              <span style="display:block;height:100%;width:${inf?100:pct}%;background:${col};border-radius:2px;"></span>
+            </span>
+          </span>`;
+        }).join('');
+
+        const bar = document.getElementById('sub-bar');
+        bar.style.display = 'flex';
+      } catch { /* backend offline */ }
+    }
+    loadSubBar();
+  </script>
+
+</body>
+</html>

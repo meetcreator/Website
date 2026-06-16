@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/procurement/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing — AI Procurement Hub</title>
+  <meta name="description" content="Simple, transparent pricing for AI Procurement Hub. Free plan available. Upgrade to Starter, Growth or Enterprise to unlock more PO uploads, WhatsApp coordination, and team seats.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font: 'Outfit', sans-serif;
+      --bg: #08090a;
+      --border: rgba(255,255,255,0.08);
+      --text: #f3f4f6;
+      --muted: #9ca3af;
+      --primary: #f97316;
+      --primary-dark: #ea580c;
+      --primary-glow: rgba(249,115,22,0.22);
+      --success: #10b981;
+      --danger: #ef4444;
+      --info: #3b82f6;
+      --ease: cubic-bezier(0.4,0,0.2,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+    /* BG orbs */
+    .bg-layer { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(110px); opacity: 0.12; animation: drift 25s ease-in-out infinite alternate; }
+    .o1 { width:700px; height:700px; background:#f97316; top:-300px; left:-200px; animation-duration:30s; }
+    .o2 { width:500px; height:500px; background:#3b82f6; bottom:-150px; right:-150px; animation-duration:22s; animation-delay:-10s; }
+    .o3 { width:320px; height:320px; background:#10b981; top:50%; left:55%; animation-duration:35s; animation-delay:-7s; }
+    @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(30px,20px) scale(1.08); } }
+
+    /* Nav */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 64px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem;
+      background: rgba(8,9,10,0.85); backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+    .logo-badge { width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, var(--primary), #d97706); display: flex; align-items: center; justify-content: center; font-size: 1rem; color: #fff; box-shadow: 0 4px 12px var(--primary-glow); }
+    .logo-name { font-size: 1rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+    .nav-links { display: flex; gap: 0.6rem; }
+    .nav-btn { font-family: var(--font); font-size: 0.84rem; font-weight: 600; padding: 0.42rem 1rem; border-radius: 8px; cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.4rem; }
+    .nav-btn.ghost { background: none; border: 1px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.75); }
+    .nav-btn.ghost:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
+    .nav-btn.primary { background: var(--primary); border: none; color: #fff; }
+    .nav-btn.primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+    /* Page */
+    .page { position: relative; z-index: 1; padding-top: 64px; }
+
+    /* Hero */
+    .hero { text-align: center; padding: 5rem 2rem 3rem; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.25); border-radius: 999px; padding: 0.3rem 1rem; font-size: 0.72rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.25rem; }
+    .hero h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; color: #fff; margin-bottom: 1rem; }
+    .hero h1 span { background: linear-gradient(135deg, var(--primary), #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero p { font-size: 1.05rem; color: var(--muted); max-width: 520px; margin: 0 auto 2rem; line-height: 1.7; }
+
+    /* Billing toggle */
+    .billing-toggle { display: inline-flex; align-items: center; gap: 0.75rem; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 999px; padding: 0.35rem 0.5rem 0.35rem 1rem; font-size: 0.85rem; font-weight: 600; color: var(--muted); margin-bottom: 3.5rem; }
+    .toggle-switch { width: 42px; height: 22px; background: rgba(255,255,255,0.1); border-radius: 999px; position: relative; cursor: pointer; transition: background 0.25s; }
+    .toggle-switch.on { background: var(--primary); }
+    .toggle-thumb { position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: #fff; transition: transform 0.25s; box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+    .toggle-switch.on .toggle-thumb { transform: translateX(20px); }
+    .discount-tag { background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 999px; padding: 0.2rem 0.55rem; font-size: 0.68rem; font-weight: 700; color: #34d399; margin-left: 0.25rem; }
+
+    /* Plans grid */
+    .plans { max-width: 1160px; margin: 0 auto; padding: 0 2rem 6rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; align-items: start; }
+
+    /* Plan card */
+    .plan-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 2rem 1.75rem;
+      position: relative;
+      transition: all 0.3s var(--ease);
+      display: flex;
+      flex-direction: column;
+    }
+    .plan-card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .plan-card.featured {
+      background: rgba(249,115,22,0.07);
+      border-color: rgba(249,115,22,0.4);
+      box-shadow: 0 0 0 1px rgba(249,115,22,0.15), 0 20px 50px rgba(0,0,0,0.3);
+    }
+    .plan-card.featured:hover { transform: translateY(-6px); box-shadow: 0 0 0 1px rgba(249,115,22,0.3), 0 28px 60px rgba(249,115,22,0.1); }
+
+    .featured-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--primary); color: #fff; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.25rem 0.9rem; border-radius: 999px; white-space: nowrap; box-shadow: 0 4px 12px var(--primary-glow); }
+
+    .plan-name { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.6rem; }
+    .plan-card.featured .plan-name { color: var(--primary); }
+
+    .plan-price { margin-bottom: 0.35rem; }
+    .price-amount { font-size: 2.6rem; font-weight: 900; color: #fff; letter-spacing: -0.04em; line-height: 1; }
+    .price-amount.big { font-size: 2.1rem; }
+    .price-currency { font-size: 1.1rem; font-weight: 700; color: var(--muted); vertical-align: super; margin-right: 2px; }
+    .price-period { font-size: 0.8rem; color: var(--muted); margin-left: 2px; }
+    .price-annual { font-size: 0.72rem; color: var(--success); margin-bottom: 1rem; height: 16px; }
+
+    .plan-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.5rem; min-height: 52px; }
+
+    .plan-cta {
+      width: 100%; padding: 0.75rem; border-radius: 10px;
+      font-family: var(--font); font-size: 0.9rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s; text-align: center;
+      text-decoration: none; display: block; margin-bottom: 1.75rem;
+      border: none;
+    }
+    .plan-cta.outline { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); color: var(--text); }
+    .plan-cta.outline:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); }
+    .plan-cta.filled { background: var(--primary); color: #fff; box-shadow: 0 4px 14px var(--primary-glow); }
+    .plan-cta.filled:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 8px 22px var(--primary-glow); }
+    .plan-cta.dark  { background: #fff; color: #000; }
+    .plan-cta.dark:hover  { background: #f0f0f0; }
+
+    .plan-cta.current-plan { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); color: #34d399; cursor: default; }
+
+    /* Feature list */
+    .feature-divider { height: 1px; background: rgba(255,255,255,0.07); margin-bottom: 1.25rem; }
+    .feature-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.3); margin-bottom: 0.85rem; }
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .feature-item { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.82rem; color: rgba(255,255,255,0.65); line-height: 1.4; }
+    .fi-check { color: var(--success); flex-shrink: 0; font-size: 0.85rem; margin-top: 1px; }
+    .fi-x     { color: rgba(255,255,255,0.2); flex-shrink: 0; font-size: 0.85rem; margin-top: 1px; }
+    .fi-bold  { color: #fff; font-weight: 600; }
+    .plan-card.featured .feature-item { color: rgba(255,255,255,0.8); }
+
+    /* Usage meter section */
+    .usage-section { max-width: 900px; margin: 0 auto; padding: 0 2rem 6rem; }
+    .section-title { font-size: 1.6rem; font-weight: 800; color: #fff; letter-spacing: -0.03em; margin-bottom: 0.5rem; text-align: center; }
+    .section-sub   { font-size: 0.9rem; color: var(--muted); text-align: center; margin-bottom: 2.5rem; }
+
+    .usage-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+    }
+
+    .usage-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1.75rem; flex-wrap: wrap; gap: 1rem;
+    }
+
+    .usage-plan-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.25);
+      border-radius: 8px; padding: 0.4rem 0.85rem;
+      font-size: 0.82rem; font-weight: 700; color: var(--primary);
+    }
+
+    .usage-period { font-size: 0.78rem; color: var(--muted); }
+
+    .usage-rows { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    .usage-row { }
+    .usage-row-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem; }
+    .usage-row-label { font-size: 0.85rem; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 0.4rem; }
+    .usage-row-counts { font-size: 0.78rem; color: var(--muted); }
+    .usage-row-counts strong { color: #fff; }
+
+    .meter-track { height: 6px; background: rgba(255,255,255,0.07); border-radius: 999px; overflow: hidden; }
+    .meter-fill { height: 100%; border-radius: 999px; transition: width 1s var(--ease); }
+    .meter-fill.low    { background: var(--success); }
+    .meter-fill.medium { background: var(--primary); }
+    .meter-fill.high   { background: #f59e0b; }
+    .meter-fill.full   { background: var(--danger); }
+    .meter-fill.unlimited { background: linear-gradient(90deg, var(--info), var(--success)); width: 100% !important; }
+
+    /* FAQ */
+    .faq-section { max-width: 740px; margin: 0 auto; padding: 0 2rem 6rem; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-q {
+      width: 100%; background: none; border: none; text-align: left;
+      padding: 1.25rem 0; font-family: var(--font); font-size: 0.95rem;
+      font-weight: 700; color: var(--text); cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+      transition: color 0.2s;
+    }
+    .faq-q:hover { color: var(--primary); }
+    .faq-arrow { font-size: 0.75rem; color: var(--muted); transition: transform 0.3s; flex-shrink: 0; }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s var(--ease); }
+    .faq-a-inner { font-size: 0.88rem; color: var(--muted); line-height: 1.7; padding-bottom: 1.25rem; }
+    .faq-item.open .faq-a { max-height: 300px; }
+
+    /* CTA strip */
+    .cta-strip {
+      background: rgba(249,115,22,0.06); border-top: 1px solid rgba(249,115,22,0.15);
+      border-bottom: 1px solid rgba(249,115,22,0.15);
+      text-align: center; padding: 4rem 2rem;
+    }
+    .cta-strip h2 { font-size: 2rem; font-weight: 800; color: #fff; margin-bottom: 0.75rem; letter-spacing: -0.03em; }
+    .cta-strip p  { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.75rem; }
+    .cta-btn-row { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+    .cta-btn { font-family: var(--font); font-size: 0.95rem; font-weight: 700; padding: 0.8rem 1.75rem; border-radius: 10px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.45rem; transition: all 0.2s; }
+    .cta-btn.primary { background: var(--primary); color: #fff; border: none; box-shadow: 0 4px 16px var(--primary-glow); }
+    .cta-btn.primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 8px 24px var(--primary-glow); }
+    .cta-btn.ghost { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.8); }
+    .cta-btn.ghost:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
+
+    /* Toast */
+    #toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 999; background: rgba(14,20,34,0.97); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 0.75rem 1.25rem; font-size: 0.85rem; font-weight: 600; color: #fff; display: none; align-items: center; gap: 0.6rem; box-shadow: 0 12px 30px rgba(0,0,0,0.5); backdrop-filter: blur(14px); max-width: 500px; text-align: center; }
+    #toast.show { display: flex; animation: fadeUp 0.3s ease both; }
+    @keyframes fadeUp { from { opacity:0; transform: translateX(-50%) translateY(12px); } to { opacity:1; transform: translateX(-50%) translateY(0); } }
+
+    /* Responsive */
+    @media (max-width: 1100px) { .plans { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px)  { .plans { grid-template-columns: 1fr; } .nav-links { display: none; } }
+  </style>
+</head>
+<body>
+
+<div class="bg-layer">
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
+  <div class="orb o3"></div>
+</div>
+
+<nav>
+  <a href="home.html" class="nav-logo">
+    <div class="logo-badge">⚙</div>
+    <span class="logo-name">AI Procurement Hub</span>
+  </a>
+  <div class="nav-links">
+    <a href="home.html"        class="nav-btn ghost">← Back</a>
+    <a href="login.html"       class="nav-btn ghost">Sign in</a>
+    <a href="signup.html"      class="nav-btn primary">Get Started Free</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="eyebrow">💳 Simple, transparent pricing</div>
+    <h1>Pick the plan that fits<br><span>your operation</span></h1>
+    <p>Start free. Upgrade when your volume grows. No hidden fees — every plan includes AI parsing, WhatsApp coordination, and HITL review.</p>
+
+    <div class="billing-toggle" id="billing-toggle">
+      Monthly
+      <div class="toggle-switch" id="toggle-sw" onclick="toggleBilling()">
+        <div class="toggle-thumb"></div>
+      </div>
+      Annual <span class="discount-tag">Save 20%</span>
+    </div>
+  </section>
+
+  <!-- Plans -->
+  <div class="plans" id="plans-grid">
+
+    <!-- FREE -->
+    <div class="plan-card">
+      <div class="plan-name">Free</div>
+      <div class="plan-price">
+        <span class="price-currency">₹</span><span class="price-amount">0</span>
+      </div>
+      <div class="price-annual">&nbsp;</div>
+      <p class="plan-desc">Perfect for trying the platform or very small batches of POs.</p>
+      <a href="signup.html" class="plan-cta outline" id="cta-free">Start Free →</a>
+      <div class="feature-divider"></div>
+      <div class="feature-label">What's included</div>
+      <ul class="feature-list">
+        <li class="feature-item"><span class="fi-check">✓</span><span><span class="fi-bold">10 PO uploads</span> / month</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span><span class="fi-bold">50 WhatsApp messages</span> / month</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span><span class="fi-bold">5 HITL reviews</span> / month</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span>1 team member</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span>AI message parsing</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span>Workflow state machine</span></li>
+        <li class="feature-item"><span class="fi-x">✗</span><span>API access</span></li>
+        <li class="feature-item"><span class="fi-x">✗</span><span>Priority support</span></li>
+      </ul>
+    </div>
+
+    <!-- STARTER -->
+    <div class="plan-card">
+      <div class="plan-name">Starter</div>
+      <div class="plan-price">
+        <span class="price-currency">₹</span><span class="price-amount" id="price-starter">2,999</span><span class="price-period">/mo</span>
+      </div>
+      <div class="price-annual" id="annual-starter">&nbsp;</div>
+      <p class="plan-desc">Ideal for small procurement teams handling up to 100 POs a month.</p>
+      <button class="plan-cta outline" id="cta-starter" onclick="upgradePlan('starter')">Upgrade to Starter →</button>
+      <div class="feature-divider"></div>
+      <div class="feature-label">Everything in Free, plus</div>
+      <ul class="feature-list">
+        <li class="feature-item"><span class="fi-check">✓</span><span><span class="fi-bold">100 PO uploads</span> / month</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span><span class="fi-bold">500 WhatsApp messages</span> / month</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span><span class="fi-bold">50 HITL reviews</span> / month</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span>5 team members</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span>API access</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span>Audit trail export</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span>Email support</span></li>
+        <li class="feature-item"><span class="fi-x">✗</span><span>Priority support</span></li>
+      </ul>
+    </div>
+
+    <!-- GROWTH (Featured) -->
+    <div class="plan-card featured">
+      <div class="featured-badge">⭐ Most Popular</div>
+      <div class="plan-name">Growth</div>
+      <div class="plan-price">
+        <span class="price-currency">₹</span><span class="price-amount" id="price-growth">9,999</span><span class="price-period">/mo</span>
+      </div>
+      <div class="price-annual" id="annual-growth">&nbsp;</div>
+      <p class="plan-desc">For growing GIDC factories coordinating hundreds of vendors across multiple zones.</p>
+      <button class="plan-cta filled" id="cta-growth" onclick="upgradePlan('growth')">Upgrade to Growth →</button>
+      <div class="feature-divider"></div>
+      <div class="feature-label">Everything in Starter, plus</div>
+      <ul class="feature-list">
+        <li class="feature-item"><span class="fi-check">✓</span><span><span class="fi-bold">500 PO uploads</span> / month</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span><span class="fi-bold">2,500 WhatsApp messages</span> / month</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span><span class="fi-bold">250 HITL reviews</span> / month</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span>15 team members</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span>Priority support (4h SLA)</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span>Multi-zone GIDC heatmap</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span>Vendor reliability analytics</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span>Webhook integrations</span></li>
+      </ul>
+    </div>
+
+    <!-- ENTERPRISE -->
+    <div class="plan-card">
+      <div class="plan-name">Enterprise</div>
+      <div class="plan-price">
+        <span class="price-currency">₹</span><span class="price-amount big" id="price-enterprise">29,999</span><span class="price-period">/mo</span>
+      </div>
+      <div class="price-annual" id="annual-enterprise">&nbsp;</div>
+      <p class="plan-desc">Unlimited scale for large manufacturers, group companies, and multi-site operations.</p>
+      <button class="plan-cta dark" id="cta-enterprise" onclick="upgradePlan('enterprise')">Contact Sales →</button>
+      <div class="feature-divider"></div>
+      <div class="feature-label">Everything in Growth, plus</div>
+      <ul class="feature-list">
+        <li class="feature-item"><span class="fi-check">✓</span><span><span class="fi-bold">Unlimited</span> PO uploads</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span><span class="fi-bold">Unlimited</span> WhatsApp messages</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span><span class="fi-bold">Unlimited</span> team members</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span>Dedicated account manager</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span>On-premise deployment option</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span>Custom Razorpay / NACH billing</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span>SLA guarantee + uptime SLA</span></li>
+        <li class="feature-item"><span class="fi-check">✓</span><span>White-label option</span></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Live usage meter (shown when logged in) -->
+  <div class="usage-section" id="usage-section" style="display:none;">
+    <h2 class="section-title">Your current usage</h2>
+    <p class="section-sub">Usage resets at the start of each calendar month.</p>
+    <div class="usage-card" id="usage-card">
+      <div class="usage-header">
+        <div>
+          <div class="usage-plan-badge" id="usage-plan-badge">⭐ Free Plan</div>
+        </div>
+        <div class="usage-period" id="usage-period">This billing period</div>
+      </div>
+      <div class="usage-rows" id="usage-rows">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <h2 class="section-title">Frequently asked questions</h2>
+    <p class="section-sub">Can't find what you're looking for? <a href="mailto:support@aiprocure.in" style="color:var(--primary);">Email us</a>.</p>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Do I need a credit card to start? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a"><div class="faq-a-inner">No. The Free plan is completely free forever — no card required. You only provide payment details when you upgrade to a paid plan.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What counts as a "PO upload"? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a"><div class="faq-a-inner">Each unique PO number in an uploaded CSV or Excel file counts as one PO upload. A file with 5 PO numbers uses 5 of your monthly quota. Uploading the same PO again (re-importing) does not count twice — it updates the existing record.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What counts as a "WhatsApp message"? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a"><div class="faq-a-inner">Each outbound message sent to a vendor (confirmation requests, approved HITL replies, escalation alerts) counts as one message. Inbound replies from vendors do not count against your quota.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Can I upgrade mid-month? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a"><div class="faq-a-inner">Yes. When you upgrade, your new limits take effect immediately. You'll be charged a prorated amount for the remainder of the current billing period if you are on annual billing.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What happens when I hit a limit? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a"><div class="faq-a-inner">The system will return a clear error message explaining which limit was reached and with a direct link to this pricing page to upgrade. No data is lost — existing workflows continue normally, only new actions are blocked.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Is this integrated with Razorpay or Stripe? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a"><div class="faq-a-inner">In the current demo mode, plan upgrades activate instantly without payment processing. For production deployments, Stripe and Razorpay integration points are built in — just configure your API keys and the checkout flow activates automatically.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Do you offer GST invoices? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a"><div class="faq-a-inner">Yes. All paid plan invoices include a valid GST invoice (GSTIN of AI Procurement Hub Pvt. Ltd.) for input tax credit on your 18% GST payment.</div></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-strip">
+    <h2>Start automating today</h2>
+    <p>No credit card. No setup. Your first 10 POs are completely free.</p>
+    <div class="cta-btn-row">
+      <a href="signup.html" class="cta-btn primary">🚀 Create Free Account</a>
+      <a href="home.html"   class="cta-btn ghost">Learn more →</a>
+    </div>
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script src="auth.js"></script>
+<script>
+  const API = 'http://127.0.0.1:8000/api/v1';
+  let isAnnual = false;
+
+  const MONTHLY = { starter: 2999, growth: 9999, enterprise: 29999 };
+  const ANNUAL  = { starter: 2399, growth: 7999, enterprise: 23999 };
+
+  /* ── Billing toggle ── */
+  function toggleBilling() {
+    isAnnual = !isAnnual;
+    const sw = document.getElementById('toggle-sw');
+    sw.classList.toggle('on', isAnnual);
+
+    const prices = isAnnual ? ANNUAL : MONTHLY;
+
+    ['starter','growth','enterprise'].forEach(plan => {
+      const el = document.getElementById(`price-${plan}`);
+      const al = document.getElementById(`annual-${plan}`);
+      if (el) el.textContent = prices[plan].toLocaleString('en-IN');
+      if (al) al.textContent = isAnnual ? `₹${(prices[plan]*12).toLocaleString('en-IN')}/year` : '';
+    });
+  }
+
+  /* ── Toast ── */
+  function showToast(msg, type = 'info') {
+    const t = document.getElementById('toast');
+    const icons = { info: 'ℹ', success: '✅', error: '⚠️', loading: '⏳' };
+    t.innerHTML = `<span>${icons[type] || 'ℹ'}</span> ${msg}`;
+    t.className = 'show';
+    if (type !== 'loading') setTimeout(() => { t.className = ''; }, 4000);
+  }
+
+  /* ── Upgrade plan — routes through Razorpay checkout ── */
+  async function upgradePlan(plan) {
+    const session = ProcureAuth.getSession();
+    if (!session) { window.location.href = 'signup.html'; return; }
+
+    if (plan === 'enterprise') {
+      showToast('Contact sales@aiprocure.in for Enterprise onboarding.', 'info');
+      return;
+    }
+
+    showToast(`Initiating checkout for ${plan.charAt(0).toUpperCase() + plan.slice(1)}…`, 'loading');
+
+    try {
+      // Step 1: Create Razorpay order (or demo order)
+      const checkoutRes = await fetch(`${API}/subscriptions/checkout/razorpay`, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json', 'x-org-id': session.org_id, ...ProcureAuth.getAuthHeader() },
+        body:    JSON.stringify({ plan_name: plan, billing_interval: isAnnual ? 'annual' : 'monthly' }),
+      });
+      const order = await checkoutRes.json();
+      if (!checkoutRes.ok) { showToast(order.detail || 'Checkout failed.', 'error'); return; }
+
+      if (order.mode === 'demo') {
+        // Demo mode — auto-confirm without real payment
+        showToast('Demo mode: confirming instantly (no payment needed)…', 'loading');
+        const confirmRes = await fetch(`${API}/subscriptions/confirm/razorpay`, {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json', 'x-org-id': session.org_id, ...ProcureAuth.getAuthHeader() },
+          body:    JSON.stringify({
+            razorpay_order_id:   order.order_id,
+            razorpay_payment_id: 'pay_DEMO_' + Date.now(),
+            razorpay_signature:  'demo_sig',
+            plan_name:           plan,
+            billing_interval:    isAnnual ? 'annual' : 'monthly',
+          }),
+        });
+        const confirmed = await confirmRes.json();
+        if (!confirmRes.ok) { showToast(confirmed.detail || 'Confirm failed.', 'error'); return; }
+        showToast(`✓ ${plan.charAt(0).toUpperCase()+plan.slice(1)} plan activated! (demo)`, 'success');
+        setTimeout(loadUsage, 500);
+        markCurrentPlan(plan);
+        return;
+      }
+
+      // Real Razorpay — load SDK and open modal
+      const existingScript = document.getElementById('rzp-sdk');
+      const loadSdk = existingScript
+        ? Promise.resolve()
+        : new Promise((resolve, reject) => {
+            const s = document.createElement('script');
+            s.id  = 'rzp-sdk';
+            s.src = 'https://checkout.razorpay.com/v1/checkout.js';
+            s.onload  = resolve;
+            s.onerror = reject;
+            document.head.appendChild(s);
+          });
+
+      await loadSdk;
+
+      const rzp = new window.Razorpay({
+        key:         order.key_id,
+        amount:      order.amount,
+        currency:    order.currency,
+        name:        'AI Procurement Hub',
+        description: order.description,
+        order_id:    order.order_id,
+        prefill:     { email: session.email || '', name: session.full_name || '' },
+        theme:       { color: '#f97316' },
+        handler: async function(response) {
+          showToast('Payment captured! Activating plan…', 'loading');
+          const confirmRes = await fetch(`${API}/subscriptions/confirm/razorpay`, {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json', 'x-org-id': session.org_id, ...ProcureAuth.getAuthHeader() },
+            body: JSON.stringify({
+              razorpay_order_id:   response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature:  response.razorpay_signature,
+              plan_name:           plan,
+              billing_interval:    isAnnual ? 'annual' : 'monthly',
+            }),
+          });
+          const confirmed = await confirmRes.json();
+          if (!confirmRes.ok) { showToast(confirmed.detail || 'Activation failed. Contact support.', 'error'); return; }
+          showToast(`✓ ${plan.charAt(0).toUpperCase()+plan.slice(1)} plan activated!`, 'success');
+          setTimeout(loadUsage, 500);
+          markCurrentPlan(plan);
+        },
+        modal: { ondismiss: () => showToast('Payment cancelled.', 'info') },
+      });
+      rzp.open();
+
+    } catch (err) {
+      showToast('Cannot reach backend. Make sure the server is running.', 'error');
+    }
+  }
+
+  /* ── Mark current plan button ── */
+  function markCurrentPlan(planName) {
+    ['free','starter','growth','enterprise'].forEach(p => {
+      const btn = document.getElementById(`cta-${p}`);
+      if (!btn) return;
+      if (p === planName) {
+        btn.textContent  = '✓ Current Plan';
+        btn.className    = 'plan-cta current-plan';
+        btn.disabled     = true;
+      } else {
+        btn.disabled = false;
+        btn.className = p === 'growth' ? 'plan-cta filled' : (p === 'enterprise' ? 'plan-cta dark' : 'plan-cta outline');
+      }
+    });
+  }
+
+  /* ── Load live usage ── */
+  async function loadUsage() {
+    const session = ProcureAuth.getSession();
+    if (!session) return;
+
+    try {
+      const res = await fetch(`${API}/subscriptions/current`, {
+        headers: { 'x-org-id': session.org_id, ...ProcureAuth.getAuthHeader() },
+        signal: AbortSignal.timeout(3000),
+      });
+      if (!res.ok) return;
+      const data = await res.json();
+
+      // Show usage section
+      document.getElementById('usage-section').style.display = 'block';
+      document.getElementById('usage-plan-badge').textContent = `⭐ ${data.plan_display} Plan`;
+
+      const period = new Date(data.period_start);
+      document.getElementById('usage-period').textContent =
+        `Billing period: ${period.toLocaleString('en-IN', { month: 'long', year: 'numeric' })}`;
+
+      // Render meters
+      const rows = [
+        { key: 'po_uploads',    icon: '📤', label: 'PO Uploads' },
+        { key: 'whatsapp_msgs', icon: '💬', label: 'WhatsApp Messages' },
+        { key: 'hitl_reviews',  icon: '🛡️', label: 'HITL Reviews' },
+      ];
+
+      const container = document.getElementById('usage-rows');
+      container.innerHTML = rows.map(r => {
+        const u = data.usage[r.key];
+        const isUnlimited = u.limit === -1;
+        const pct  = isUnlimited ? 100 : Math.min(u.pct, 100);
+        const cls  = isUnlimited ? 'unlimited' : pct >= 100 ? 'full' : pct >= 80 ? 'high' : pct >= 50 ? 'medium' : 'low';
+        const countLabel = isUnlimited
+          ? `${u.used.toLocaleString()} / Unlimited`
+          : `${u.used.toLocaleString()} / ${u.limit.toLocaleString()}`;
+
+        return `
+          <div class="usage-row">
+            <div class="usage-row-header">
+              <div class="usage-row-label">${r.icon} ${r.label}</div>
+              <div class="usage-row-counts"><strong>${countLabel}</strong>${!isUnlimited ? ` (${u.pct}%)` : ''}</div>
+            </div>
+            <div class="meter-track">
+              <div class="meter-fill ${cls}" style="width:${pct}%"></div>
+            </div>
+          </div>`;
+      }).join('');
+
+      markCurrentPlan(data.plan);
+
+    } catch { /* backend offline */ }
+  }
+
+  /* ── FAQ accordion ── */
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    item.classList.toggle('open');
+  }
+
+  /* ── Init ── */
+  ProcureAuth.renderNavUser({
+    containerSelector: '.nav-links',
+    logoutRedirect: 'home.html',
+    loginLink:  'login.html',
+    signupLink: 'signup.html',
+  });
+
+  loadUsage();
+</script>
+</body>
+</html>
