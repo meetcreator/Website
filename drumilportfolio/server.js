@@ -37,6 +37,14 @@ const PROJECTS = {
         frontendCommand: 'npm',
         frontendArgs: ['run', 'dev'],
         redirectUrl: 'http://localhost:3000/olympiad'
+    },
+    '/procurement': {
+        name: 'procurement',
+        backendPort: 8000,
+        backendPath: '../procurement_ai/backend',
+        backendCommand: 'python',
+        backendArgs: ['-m', 'uvicorn', 'app.main:app', '--host', '127.0.0.1', '--port', '8000'],
+        redirectUrl: '/procurement/'
     }
 };
 
