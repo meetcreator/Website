@@ -17,8 +17,8 @@ Lightweight static HTML/CSS/vanilla JS site for an Indian Chartered Accountancy 
 ## Replace Before Publishing
 
 - Firm name if required
-- ICAI Firm Registration Number: currently `012345S`
-- Partner ICAI membership numbers: currently `XXXXXX`
+- ICAI Firm Registration Number: currently `to be added before publication`
+- Partner ICAI membership numbers: currently `to be verified`
 - Address, phone, email, office hours and map location
 - Team photos, if real approved photography is available
 - Privacy policy wording after legal review
