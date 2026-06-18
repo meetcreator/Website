@@ -145,16 +145,6 @@ const server = http.createServer((req, res) => {
                 else if (fs.existsSync(path.join(filePath, 'index.html'))) filePath = path.join(filePath, 'index.html');
             }
         }
-    } else if (lowerUrl.startsWith('/_next/')) {
-        const referer = req.headers.referer || '';
-        if (referer.includes('/archshield')) {
-            filePath = path.join(__dirname, 'archshield-app/frontend/out', url);
-        } else if (referer.includes('/business')) {
-            filePath = path.join(__dirname, 'business/out', url);
-        } else {
-            // Default to archshield if unknown, or return 404
-            filePath = path.join(__dirname, 'archshield-app/frontend/out', url);
-        }
     } else if (lowerUrl === '/ca-webcodex' || lowerUrl.startsWith('/ca-webcodex/')) {
         const subPath = url.substring(13) || 'index.html'; // '/ca-webcodex/'.length = 13
         filePath = path.join(__dirname, '../demo-websites/ca-webcodex', subPath === '/' ? 'index.html' : subPath);
@@ -165,7 +155,15 @@ const server = http.createServer((req, res) => {
         const subPath = url.substring(15) || 'index.html'; // '/import-export/'.length = 15
         filePath = path.join(__dirname, '../demo-websites/import-export-website', subPath === '/' ? 'index.html' : subPath);
     } else {
-        filePath = path.join(__dirname, url === '/' ? 'index.html' : url);
+        const referer = req.headers.referer || '';
+        if (referer.includes('/archshield') && !lowerUrl.startsWith('/archshield')) {
+            filePath = path.join(__dirname, 'archshield-app/frontend/out', url);
+        } else if (referer.includes('/business') && !lowerUrl.startsWith('/business')) {
+            filePath = path.join(__dirname, 'business/out', url);
+        } else {
+            filePath = path.join(__dirname, url === '/' ? 'index.html' : url);
+        }
+        
         // Handle clean URLs for general root pages (e.g. /portfolio -> /portfolio.html)
         if (!path.extname(filePath)) {
             if (!fs.existsSync(filePath) && fs.existsSync(filePath + '.html')) {
