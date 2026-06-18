@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products | GlobalTrade Co.</title>
+  <meta name="description" content="Browse GlobalTrade Co.'s product categories — agriculture, textiles, chemicals, machinery, electronics, food & beverage, metals and more." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="logo">Global<em>Trade</em><span class="logo-dot">.</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li><li><a href="products.html" class="active">Products</a></li>
+      <li><a href="countries.html">Trade Routes</a></li><li><a href="contact.html">Contact</a></li>
+      <li><a href="quote.html" class="nav-cta">Get a Quote</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="page-hero page-hero--has-bg">
+  <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1600&q=80')"></div>
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a><i class="fa-solid fa-chevron-right"></i>Products</div>
+    <span class="section-tag">Commodities & Categories</span>
+    <h1>Products we<br /><em>trade globally.</em></h1>
+    <p>From raw agricultural commodities to high-tech electronics — deep specialist knowledge in every category we handle.</p>
+  </div>
+</section>
+
+<section class="section section--white">
+  <div class="container">
+    <div class="prod-filter">
+      <button class="flt-btn active" data-filter="all">All Categories</button>
+      <button class="flt-btn" data-filter="agri">Agriculture</button>
+      <button class="flt-btn" data-filter="textiles">Textiles</button>
+      <button class="flt-btn" data-filter="chemicals">Chemicals</button>
+      <button class="flt-btn" data-filter="machinery">Machinery</button>
+      <button class="flt-btn" data-filter="electronics">Electronics</button>
+      <button class="flt-btn" data-filter="food">Food & Beverage</button>
+      <button class="flt-btn" data-filter="metals">Metals & Minerals</button>
+    </div>
+
+    <div class="prod-detail-grid">
+
+      <div class="prod-detail-card" data-category="agri" id="agri">
+        <div class="prod-card-img" style="background:none;height:auto;padding:0">
+          <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=600&q=80" alt="Agricultural produce — wheat field" loading="lazy" style="width:100%;height:180px;object-fit:cover" />
+        </div>
+        <div class="prod-card-body">
+          <h3>Agriculture & Agri-Commodities</h3>
+          <p>Wide range of agricultural products with full phytosanitary compliance across South Asia, Africa, and the Middle East.</p>
+          <div class="prod-tags"><span class="prod-tag">Basmati Rice</span><span class="prod-tag">Wheat</span><span class="prod-tag">Soybeans</span><span class="prod-tag">Spices</span><span class="prod-tag">Pulses</span><span class="prod-tag">Edible Oils</span><span class="prod-tag">Coffee</span><span class="prod-tag">Tea</span></div>
+        </div>
+      </div>
+
+      <div class="prod-detail-card" data-category="textiles" id="textiles">
+        <div class="prod-card-img" style="background:none;height:auto;padding:0">
+          <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=600&q=80" alt="Textile fabric rolls" loading="lazy" style="width:100%;height:180px;object-fit:cover" />
+        </div>
+        <div class="prod-card-body">
+          <h3>Textiles & Apparel</h3>
+          <p>Connecting South and Southeast Asian manufacturers with buyers in Europe, North America and the Gulf.</p>
+          <div class="prod-tags"><span class="prod-tag">Raw Cotton</span><span class="prod-tag">Woven Fabrics</span><span class="prod-tag">Garments</span><span class="prod-tag">Denim</span><span class="prod-tag">Synthetic Yarn</span><span class="prod-tag">Home Textiles</span></div>
+        </div>
+      </div>
+
+      <div class="prod-detail-card" data-category="chemicals" id="chemicals">
+        <div class="prod-card-img" style="background:none;height:auto;padding:0">
+          <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80" alt="Chemical laboratory flasks" loading="lazy" style="width:100%;height:180px;object-fit:cover" />
+        </div>
+        <div class="prod-card-body">
+          <h3>Chemicals & Petrochemicals</h3>
+          <p>Specialized handling with full REACH, MSDS, and HAZMAT compliance across all shipment modes.</p>
+          <div class="prod-tags"><span class="prod-tag">Industrial Chemicals</span><span class="prod-tag">Agrochemicals</span><span class="prod-tag">Polymers</span><span class="prod-tag">Resins</span><span class="prod-tag">Pharma APIs</span></div>
+        </div>
+      </div>
+
+      <div class="prod-detail-card" data-category="machinery" id="machinery">
+        <div class="prod-card-img" style="background:none;height:auto;padding:0">
+          <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=600&q=80" alt="Industrial machinery and equipment" loading="lazy" style="width:100%;height:180px;object-fit:cover" />
+        </div>
+        <div class="prod-card-body">
+          <h3>Machinery & Equipment</h3>
+          <p>Heavy and light industrial equipment including project cargo management for oversized shipments.</p>
+          <div class="prod-tags"><span class="prod-tag">Construction Equipment</span><span class="prod-tag">Agricultural Machinery</span><span class="prod-tag">CNC Machines</span><span class="prod-tag">Generators</span><span class="prod-tag">Pumps & Valves</span></div>
+        </div>
+      </div>
+
+      <div class="prod-detail-card" data-category="electronics" id="electronics">
+        <div class="prod-card-img" style="background:none;height:auto;padding:0">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80" alt="Electronics circuit board" loading="lazy" style="width:100%;height:180px;object-fit:cover" />
+        </div>
+        <div class="prod-card-body">
+          <h3>Electronics & Technology</h3>
+          <p>ESD-safe packaging and climate-controlled freight for sensitive electronics of all kinds.</p>
+          <div class="prod-tags"><span class="prod-tag">Semiconductors</span><span class="prod-tag">PCBs</span><span class="prod-tag">Consumer Electronics</span><span class="prod-tag">Solar Panels</span><span class="prod-tag">Telecom Equipment</span></div>
+        </div>
+      </div>
+
+      <div class="prod-detail-card" data-category="food" id="food">
+        <div class="prod-card-img" style="background:none;height:auto;padding:0">
+          <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80" alt="Fresh produce and food items" loading="lazy" style="width:100%;height:180px;object-fit:cover" />
+        </div>
+        <div class="prod-card-body">
+          <h3>Food & Beverage</h3>
+          <p>Cold chain expertise for perishables and processed foods ensuring product integrity in every market.</p>
+          <div class="prod-tags"><span class="prod-tag">Frozen Seafood</span><span class="prod-tag">Fresh Produce</span><span class="prod-tag">Dairy</span><span class="prod-tag">Beverages</span><span class="prod-tag">Processed Foods</span></div>
+        </div>
+      </div>
+
+      <div class="prod-detail-card" data-category="metals" id="metals">
+        <div class="prod-card-img" style="background:none;height:auto;padding:0">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80" alt="Steel metal rolls at factory" loading="lazy" style="width:100%;height:180px;object-fit:cover" />
+        </div>
+        <div class="prod-card-body">
+          <h3>Metals & Minerals</h3>
+          <p>Bulk and break-bulk metal shipments with origin inspection, weight certification, and full documentation.</p>
+          <div class="prod-tags"><span class="prod-tag">Steel Coils</span><span class="prod-tag">Copper Wire</span><span class="prod-tag">Aluminum Ingots</span><span class="prod-tag">Iron Ore</span><span class="prod-tag">Zinc</span></div>
+        </div>
+      </div>
+
+      <div class="prod-detail-card" data-category="chemicals">
+        <div class="prod-card-img" style="background:none;height:auto;padding:0">
+          <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=600&q=80" alt="Pharmaceutical medicines and vials" loading="lazy" style="width:100%;height:180px;object-fit:cover" />
+        </div>
+        <div class="prod-card-body">
+          <h3>Pharmaceuticals</h3>
+          <p>GDP-compliant pharmaceutical logistics with strict cold chain, serialization and controlled substance handling.</p>
+          <div class="prod-tags"><span class="prod-tag">Finished Drugs</span><span class="prod-tag">Bulk APIs</span><span class="prod-tag">Vaccines</span><span class="prod-tag">Medical Devices</span><span class="prod-tag">Diagnostics</span></div>
+        </div>
+      </div>
+
+      <div class="prod-detail-card" data-category="agri">
+        <div class="prod-card-img" style="background:none;height:auto;padding:0">
+          <img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=600&q=80" alt="Livestock on farmland" loading="lazy" style="width:100%;height:180px;object-fit:cover" />
+        </div>
+        <div class="prod-card-body">
+          <h3>Animal Feed & Livestock</h3>
+          <p>Veterinary-certified exports with CITES and health certification management across all corridors.</p>
+          <div class="prod-tags"><span class="prod-tag">Soybean Meal</span><span class="prod-tag">Corn Gluten</span><span class="prod-tag">Fish Meal</span><span class="prod-tag">Feed Additives</span><span class="prod-tag">Hay & Fodder</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <div class="container">
+    <h2>Don't see your<br /><em class="italic-serif">product listed?</em></h2>
+    <p>We handle many more categories. Contact us to check availability for your commodity.</p>
+    <div class="cta-actions">
+      <a href="quote.html" class="btn btn-orange">Get Free Quote</a>
+      <a href="contact.html" class="btn btn-outline-white">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer"><div class="container"><div class="footer-main"><div class="footer-brand"><a href="index.html" class="logo">Global<em>Trade</em><span class="logo-dot">.</span></a><p>Connecting businesses worldwide with reliable, compliant, and efficient global trade solutions since 2012.</p><div class="socials"><a href="#"><i class="fa-brands fa-linkedin-in"></i></a><a href="#"><i class="fa-brands fa-x-twitter"></i></a><a href="#"><i class="fa-brands fa-facebook-f"></i></a><a href="#"><i class="fa-brands fa-instagram"></i></a></div></div><div class="footer-col"><h5>Company</h5><ul><li><a href="about.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="products.html">Products</a></li><li><a href="countries.html">Trade Routes</a></li><li><a href="contact.html">Contact</a></li></ul></div><div class="footer-col"><h5>Products</h5><ul><li><a href="#agri">Agriculture</a></li><li><a href="#textiles">Textiles</a></li><li><a href="#chemicals">Chemicals</a></li><li><a href="#machinery">Machinery</a></li><li><a href="#electronics">Electronics</a></li></ul></div><div class="footer-col footer-contact-items"><h5>Contact</h5><p><i class="fa-solid fa-location-dot"></i>42 Trade Center Blvd, Dubai</p><p><i class="fa-solid fa-phone"></i>+971 4 123 4567</p><p><i class="fa-solid fa-envelope"></i>info@globaltradeco.com</p></div></div><div class="footer-bottom"><p>© 2024 GlobalTrade Co. All rights reserved.</p><div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div></div></div></footer>
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -427,6 +427,35 @@
                         <a href="/olympiad" class="btn" style="padding: 12px 24px;">Visit</a>
                     </div>
                 </div>
+                <!-- Demo Websites Card -->
+                <div class="project-card demo-websites-card" style="grid-column: 1 / -1;">
+                    <span class="project-status">Live Demos</span>
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px; margin-bottom:28px;">
+                        <h3 style="margin:0;">Demo Websites</h3>
+                        <div class="demo-tabs">
+                            <button class="demo-tab active" data-demo="archshield" onclick="switchDemo(this,'archshield')">Archshield</button>
+                            <button class="demo-tab" data-demo="business" onclick="switchDemo(this,'business')">BusinessAnalytics</button>
+                            <button class="demo-tab" data-demo="olympiad" onclick="switchDemo(this,'olympiad')">INO</button>
+                            <button class="demo-tab" data-demo="ca-webcodex" onclick="switchDemo(this,'ca-webcodex')">Rao & Mehta CA</button>
+                            <button class="demo-tab" data-demo="ca-website" onclick="switchDemo(this,'ca-website')">Mehta & Assoc.</button>
+                            <button class="demo-tab" data-demo="import-export" onclick="switchDemo(this,'import-export')">GlobalTrade Co.</button>
+                        </div>
+                    </div>
+                    <!-- Browser Mockup -->
+                    <div class="browser-mockup">
+                        <div class="browser-bar">
+                            <div class="browser-dots"><span></span><span></span><span></span></div>
+                            <div class="browser-url" id="demo-url-label">tinmco.com/archshield</div>
+                            <a class="browser-open-btn" id="demo-open-link" href="/archshield" target="_blank" rel="noopener noreferrer" title="Open in new tab"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <div class="browser-viewport">
+                            <iframe id="demo-iframe" src="/archshield" title="Archshield Demo" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms" style="width:100%;height:100%;border:none;"></iframe>
+                        </div>
+                    </div>
+                    <div class="tech-tag-list" id="demo-tags">
+                        <span>Next.js 16</span><span>FastAPI</span><span>Python</span><span>Terraform</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

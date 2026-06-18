@@ -134,23 +134,26 @@ const server = http.createServer((req, res) => {
             }
         }
     } else if (lowerUrl === '/procurement_ai' || lowerUrl.startsWith('/procurement_ai/')) {
-        let subPath = lowerUrl === '/procurement_ai' ? 'index.html' : url.substring(16); // '/procurement_ai/'.length
+        let subPath = lowerUrl === '/procurement_ai' ? 'index.html' : url.substring(16);
         if (subPath === '' || subPath === '/') subPath = 'index.html';
         filePath = path.join(__dirname, 'procurement', subPath);
-
-        // Handle clean URLs
         if (!path.extname(filePath)) {
             let isDir = false;
             try { isDir = fs.statSync(filePath).isDirectory(); } catch (e) { }
-
             if (!fs.existsSync(filePath) || isDir) {
-                if (fs.existsSync(filePath + '.html')) {
-                    filePath += '.html';
-                } else if (fs.existsSync(path.join(filePath, 'index.html'))) {
-                    filePath = path.join(filePath, 'index.html');
-                }
+                if (fs.existsSync(filePath + '.html')) filePath += '.html';
+                else if (fs.existsSync(path.join(filePath, 'index.html'))) filePath = path.join(filePath, 'index.html');
             }
         }
+    } else if (lowerUrl === '/ca-webcodex' || lowerUrl.startsWith('/ca-webcodex/')) {
+        const subPath = url.substring(13) || 'index.html'; // '/ca-webcodex/'.length = 13
+        filePath = path.join(__dirname, '../demo-websites/ca-webcodex', subPath === '/' ? 'index.html' : subPath);
+    } else if (lowerUrl === '/ca-website' || lowerUrl.startsWith('/ca-website/')) {
+        const subPath = url.substring(12) || 'index.html'; // '/ca-website/'.length = 12
+        filePath = path.join(__dirname, '../demo-websites/ca-website', subPath === '/' ? 'index.html' : subPath);
+    } else if (lowerUrl === '/import-export' || lowerUrl.startsWith('/import-export/')) {
+        const subPath = url.substring(15) || 'index.html'; // '/import-export/'.length = 15
+        filePath = path.join(__dirname, '../demo-websites/import-export-website', subPath === '/' ? 'index.html' : subPath);
     } else {
         filePath = path.join(__dirname, url === '/' ? 'index.html' : url);
         // Handle clean URLs for general root pages (e.g. /portfolio -> /portfolio.html)

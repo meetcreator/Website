@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get a Quote | GlobalTrade Co.</title>
+  <meta name="description" content="Request a free, no-obligation import-export quote from GlobalTrade Co. Complete our 4-step form and receive a tailored proposal within 24 hours." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="logo">Global<em>Trade</em><span class="logo-dot">.</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li><li><a href="products.html">Products</a></li>
+      <li><a href="countries.html">Trade Routes</a></li><li><a href="contact.html">Contact</a></li>
+      <li><a href="quote.html" class="nav-cta active">Get a Quote</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO with port image -->
+<section class="page-hero page-hero--has-bg">
+  <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1580674684071-1c28d86ed9d5?auto=format&fit=crop&w=1600&q=80')"></div>
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a><i class="fa-solid fa-chevron-right"></i>Get a Quote</div>
+    <span class="section-tag">Free Consultation</span>
+    <h1>Get your custom<br /><em>trade quote.</em></h1>
+    <p>Complete our 4-step form and receive a detailed, no-obligation quote from our specialists within 24 hours.</p>
+  </div>
+</section>
+
+<section class="section section--white">
+  <div class="container quote-wrap">
+
+    <!-- TRUST STRIP -->
+    <div style="display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-bottom:48px;padding:20px;background:var(--cream);border-radius:var(--r);border:1px solid var(--border)">
+      <span style="display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.85rem;font-weight:500"><i class="fa-solid fa-lock" style="color:var(--orange)"></i> Secure & Confidential</span>
+      <span style="display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.85rem;font-weight:500"><i class="fa-solid fa-clock" style="color:var(--orange)"></i> Response within 24 hours</span>
+      <span style="display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.85rem;font-weight:500"><i class="fa-solid fa-file-invoice" style="color:var(--orange)"></i> No-obligation quote</span>
+    </div>
+
+    <form id="quoteForm" novalidate>
+      <div class="quote-form-card">
+
+        <!-- STEPS -->
+        <div class="quote-steps">
+          <div class="qstep active"><div class="qstep-circle">1</div><div class="qstep-label">Shipment</div></div>
+          <div class="qstep"><div class="qstep-circle">2</div><div class="qstep-label">Cargo</div></div>
+          <div class="qstep"><div class="qstep-circle">3</div><div class="qstep-label">Trade Terms</div></div>
+          <div class="qstep"><div class="qstep-circle">4</div><div class="qstep-label">Your Details</div></div>
+        </div>
+
+        <!-- STEP 1 -->
+        <div class="quote-section visible">
+          <h3><i class="fa-solid fa-ship" style="color:var(--orange);margin-right:8px"></i>Shipment Information</h3>
+          <div class="form-row">
+            <div class="form-group"><label for="shipType">Shipment Type *</label><select id="shipType" required><option value="" disabled selected>Select type</option><option>Import</option><option>Export</option><option>Re-Export / Transit</option><option>Cross-Trade</option></select></div>
+            <div class="form-group"><label for="freightMode">Freight Mode *</label><select id="freightMode" required><option value="" disabled selected>Select mode</option><option>Ocean Freight – FCL</option><option>Ocean Freight – LCL</option><option>Air Freight</option><option>Road Transport</option><option>Rail Freight</option><option>Multimodal</option></select></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="originPort">Origin Country / Port *</label><input type="text" id="originPort" placeholder="e.g. India – Nhava Sheva" required /></div>
+            <div class="form-group"><label for="destPort">Destination Country / Port *</label><input type="text" id="destPort" placeholder="e.g. Netherlands – Rotterdam" required /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="readyDate">Cargo Ready Date</label><input type="date" id="readyDate" /></div>
+            <div class="form-group"><label for="deliveryDate">Required Delivery Date</label><input type="date" id="deliveryDate" /></div>
+          </div>
+          <div class="quote-nav"><span></span><button type="button" class="btn btn-navy" data-next>Next Step <i class="fa-solid fa-arrow-right"></i></button></div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="quote-section">
+          <h3><i class="fa-solid fa-boxes-stacked" style="color:var(--orange);margin-right:8px"></i>Cargo Details</h3>
+          <div class="form-row">
+            <div class="form-group"><label for="commodity">Commodity / Product *</label><input type="text" id="commodity" placeholder="e.g. Basmati Rice, Steel Coils" required /></div>
+            <div class="form-group"><label for="hsCode">HS Code (if known)</label><input type="text" id="hsCode" placeholder="e.g. 1006.30" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="weight">Total Weight (kg) *</label><input type="number" id="weight" placeholder="e.g. 20000" min="1" required /></div>
+            <div class="form-group"><label for="volume">Volume (CBM)</label><input type="number" id="volume" placeholder="e.g. 45" min="0.01" step="0.01" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="packaging">Packaging Type *</label><select id="packaging" required><option value="" disabled selected>Select packaging</option><option>Pallets</option><option>Cartons</option><option>Drums</option><option>Bags / Sacks</option><option>Bulk (Loose)</option><option>Crates</option><option>Big Bags (FIBC)</option></select></div>
+            <div class="form-group"><label for="cargoValue">Cargo Value (USD)</label><input type="number" id="cargoValue" placeholder="e.g. 150000" min="0" /></div>
+          </div>
+          <div class="form-group"><label style="display:flex;align-items:center;gap:10px;cursor:pointer"><input type="checkbox" id="hazmat" style="width:auto;accent-color:var(--navy)" /><span>This shipment contains hazardous / dangerous goods</span></label></div>
+          <div class="form-group"><label style="display:flex;align-items:center;gap:10px;cursor:pointer"><input type="checkbox" id="insurance" style="width:auto;accent-color:var(--navy)" /><span>I require cargo insurance coverage</span></label></div>
+          <div class="form-group"><label for="specialNotes">Special Handling Requirements</label><textarea id="specialNotes" placeholder="Temperature control, fragile items, oversized dimensions, etc."></textarea></div>
+          <div class="quote-nav"><button type="button" class="btn btn-outline-navy" data-prev><i class="fa-solid fa-arrow-left"></i> Previous</button><button type="button" class="btn btn-navy" data-next>Next Step <i class="fa-solid fa-arrow-right"></i></button></div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="quote-section">
+          <h3><i class="fa-solid fa-scale-balanced" style="color:var(--orange);margin-right:8px"></i>Trade Terms & Compliance</h3>
+          <div class="form-group">
+            <label>Preferred INCOTERM *</label>
+            <div class="incoterms-grid">
+              <button type="button" class="inco-btn">EXW</button><button type="button" class="inco-btn">FCA</button>
+              <button type="button" class="inco-btn">FOB</button><button type="button" class="inco-btn">CFR</button>
+              <button type="button" class="inco-btn">CIF</button><button type="button" class="inco-btn">DAP</button>
+              <button type="button" class="inco-btn">DDP</button><button type="button" class="inco-btn">CPT</button>
+              <button type="button" class="inco-btn">Not Sure</button>
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:24px"><label for="paymentMethod">Payment / Finance Method</label><select id="paymentMethod"><option value="" disabled selected>Select method</option><option>Open Account (T/T)</option><option>Letter of Credit (LC)</option><option>Documents Against Payment (D/P)</option><option>Documents Against Acceptance (D/A)</option><option>Advance Payment</option><option>Supply Chain Finance</option></select></div>
+          <div class="form-group"><label for="certRequirements">Certificate Requirements</label><select id="certRequirements"><option value="" disabled selected>Select if applicable</option><option>Certificate of Origin</option><option>Phytosanitary Certificate</option><option>Health Certificate</option><option>CITES Certificate</option><option>Halal Certificate</option><option>Multiple Certificates</option><option>None required</option></select></div>
+          <div class="form-group"><label for="customsServices">Customs Clearance Needed</label><select id="customsServices"><option>At Origin</option><option>At Destination</option><option>Both Origin & Destination</option><option>Not Required</option></select></div>
+          <div class="form-group"><label for="additionalServices">Additional Services</label><textarea id="additionalServices" placeholder="Warehousing, distribution, last-mile delivery, inspection, etc."></textarea></div>
+          <div class="quote-nav"><button type="button" class="btn btn-outline-navy" data-prev><i class="fa-solid fa-arrow-left"></i> Previous</button><button type="button" class="btn btn-navy" data-next>Next Step <i class="fa-solid fa-arrow-right"></i></button></div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="quote-section">
+          <h3><i class="fa-solid fa-user" style="color:var(--orange);margin-right:8px"></i>Your Contact Details</h3>
+          <div class="form-row">
+            <div class="form-group"><label for="qFirstName">First Name *</label><input type="text" id="qFirstName" placeholder="John" required /></div>
+            <div class="form-group"><label for="qLastName">Last Name *</label><input type="text" id="qLastName" placeholder="Smith" required /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="qEmail">Business Email *</label><input type="email" id="qEmail" placeholder="john@company.com" required /></div>
+            <div class="form-group"><label for="qPhone">Phone *</label><input type="tel" id="qPhone" placeholder="+1 555 000 0000" required /></div>
+          </div>
+          <div class="form-group"><label for="qCompany">Company Name *</label><input type="text" id="qCompany" placeholder="Your Company Ltd." required /></div>
+          <div class="form-group"><label for="qRole">Your Role</label><select id="qRole"><option>CEO / Owner</option><option>Logistics Manager</option><option>Procurement Manager</option><option>Import/Export Manager</option><option>Finance</option><option>Other</option></select></div>
+          <div class="form-group"><label for="qHow">How Did You Hear About Us?</label><select id="qHow"><option value="" disabled selected>Select</option><option>Google Search</option><option>LinkedIn</option><option>Referral / Word of Mouth</option><option>Trade Fair</option><option>Industry Publication</option><option>Other</option></select></div>
+          <div class="form-group"><label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer"><input type="checkbox" style="width:auto;margin-top:3px;accent-color:var(--navy)" required /><span style="font-size:.82rem;color:var(--muted)">I agree to GlobalTrade Co.'s <a href="#" style="color:var(--orange)">Privacy Policy</a> and consent to be contacted regarding my quote request.</span></label></div>
+          <div class="quote-nav">
+            <button type="button" class="btn btn-outline-navy" data-prev><i class="fa-solid fa-arrow-left"></i> Previous</button>
+            <button type="submit" class="btn btn-orange"><i class="fa-solid fa-paper-plane"></i> Submit Quote Request</button>
+          </div>
+          <div class="form-success" id="quoteSuccess" style="margin-top:24px">
+            <i class="fa-solid fa-circle-check"></i> Submitted! Our team will contact you within 24 hours.
+          </div>
+        </div>
+
+      </div>
+    </form>
+
+    <!-- FAQ -->
+    <div style="margin-top:72px">
+      <div class="section-header section-header--center" style="margin-bottom:40px">
+        <span class="section-tag">FAQ</span>
+        <h2>Common questions<br /><em class="italic-serif">about our quote process.</em></h2>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <details style="background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:22px 24px">
+          <summary style="font-weight:700;color:var(--navy);display:flex;justify-content:space-between;align-items:center">How long does it take to receive a quote? <i class="fa-solid fa-chevron-down" style="color:var(--orange);font-size:.75rem"></i></summary>
+          <p style="color:var(--muted);font-size:.9rem;margin-top:14px">Standard quotes are delivered within 24 business hours. Complex multi-leg shipments or hazardous cargo may take up to 48 hours.</p>
+        </details>
+        <details style="background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:22px 24px">
+          <summary style="font-weight:700;color:var(--navy);display:flex;justify-content:space-between;align-items:center">Is the quote binding? <i class="fa-solid fa-chevron-down" style="color:var(--orange);font-size:.75rem"></i></summary>
+          <p style="color:var(--muted);font-size:.9rem;margin-top:14px">Initial quotes are indicative. Final binding rates are confirmed after verifying exact cargo specs, current carrier rates, and port conditions.</p>
+        </details>
+        <details style="background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:22px 24px">
+          <summary style="font-weight:700;color:var(--navy);display:flex;justify-content:space-between;align-items:center">What information do I need to prepare? <i class="fa-solid fa-chevron-down" style="color:var(--orange);font-size:.75rem"></i></summary>
+          <p style="color:var(--muted);font-size:.9rem;margin-top:14px">Origin and destination, commodity description, weight & dimensions, HS code (if known), and preferred timeline. The more detail, the faster and more accurate your quote.</p>
+        </details>
+        <details style="background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:22px 24px">
+          <summary style="font-weight:700;color:var(--navy);display:flex;justify-content:space-between;align-items:center">Can I get quotes for recurring shipments? <i class="fa-solid fa-chevron-down" style="color:var(--orange);font-size:.75rem"></i></summary>
+          <p style="color:var(--muted);font-size:.9rem;margin-top:14px">Yes. We offer long-term rate agreements for regular lanes. Contact our team directly for dedicated account pricing.</p>
+        </details>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer"><div class="container"><div class="footer-main"><div class="footer-brand"><a href="index.html" class="logo">Global<em>Trade</em><span class="logo-dot">.</span></a><p>Connecting businesses worldwide with reliable, compliant, and efficient global trade solutions since 2012.</p><div class="socials"><a href="#"><i class="fa-brands fa-linkedin-in"></i></a><a href="#"><i class="fa-brands fa-x-twitter"></i></a><a href="#"><i class="fa-brands fa-facebook-f"></i></a><a href="#"><i class="fa-brands fa-instagram"></i></a></div></div><div class="footer-col"><h5>Company</h5><ul><li><a href="about.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="products.html">Products</a></li><li><a href="countries.html">Trade Routes</a></li><li><a href="contact.html">Contact</a></li></ul></div><div class="footer-col"><h5>Services</h5><ul><li><a href="services.html#ocean">Ocean Freight</a></li><li><a href="services.html#air">Air Freight</a></li><li><a href="services.html#customs">Customs Clearance</a></li><li><a href="services.html#warehouse">Warehousing</a></li></ul></div><div class="footer-col footer-contact-items"><h5>Contact</h5><p><i class="fa-solid fa-location-dot"></i>42 Trade Center Blvd, Dubai</p><p><i class="fa-solid fa-phone"></i>+971 4 123 4567</p><p><i class="fa-solid fa-envelope"></i>info@globaltradeco.com</p></div></div><div class="footer-bottom"><p>© 2024 GlobalTrade Co. All rights reserved.</p><div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div></div></div></footer>
+<script src="js/main.js"></script>
+</body>
+</html>

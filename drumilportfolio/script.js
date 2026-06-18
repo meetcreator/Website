@@ -111,3 +111,62 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+const DEMO_DATA = {
+    archshield: {
+        url: 'tinmco.com/archshield',
+        href: '/archshield',
+        tags: ['Next.js 16', 'FastAPI', 'Python', 'Terraform']
+    },
+    business: {
+        url: 'tinmco.com/business',
+        href: '/business',
+        tags: ['React', 'FastAPI', 'Pandas', 'Tailwind']
+    },
+    olympiad: {
+        url: 'tinmco.com/olympiad',
+        href: '/olympiad',
+        tags: ['Next.js', 'Tailwind CSS', 'Framer Motion', 'Firebase']
+    },
+    'ca-webcodex': {
+        url: 'tinmco.com/ca-webcodex',
+        href: '/ca-webcodex/',
+        tags: ['HTML5', 'CSS3', 'Vanilla JS', 'Static']
+    },
+    'ca-website': {
+        url: 'tinmco.com/ca-website',
+        href: '/ca-website/',
+        tags: ['HTML5', 'CSS3', 'Vanilla JS', 'Static']
+    },
+    'import-export': {
+        url: 'tinmco.com/import-export',
+        href: '/import-export/',
+        tags: ['HTML5', 'CSS3', 'Vanilla JS', 'Logistics']
+    }
+};
+
+function switchDemo(btn, key) {
+    document.querySelectorAll('.demo-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+
+    const d = DEMO_DATA[key];
+    const viewport = document.querySelector('.browser-viewport');
+    const iframe = document.getElementById('demo-iframe');
+    const urlLabel = document.getElementById('demo-url-label');
+    const openLink = document.getElementById('demo-open-link');
+    const tagsEl = document.getElementById('demo-tags');
+
+    viewport.classList.add('loading');
+    iframe.style.opacity = '0';
+
+    setTimeout(() => {
+        iframe.src = d.href;
+        urlLabel.textContent = d.url;
+        openLink.href = d.href;
+        tagsEl.innerHTML = d.tags.map(t => `<span>${t}</span>`).join('');
+        iframe.onload = () => {
+            iframe.style.opacity = '1';
+            viewport.classList.remove('loading');
+        };
+    }, 200);
+}

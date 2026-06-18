@@ -601,3 +601,116 @@ footer {
     width: 0%;
     transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* Demo Websites Card */
+.demo-tabs {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--border-light);
+    overflow: hidden;
+}
+
+.demo-tab {
+    padding: 8px 20px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    background: transparent;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: background 0.25s, color 0.25s;
+    border-right: 1px solid var(--border-light);
+}
+
+.demo-tab:last-child { border-right: none; }
+
+.demo-tab.active,
+.demo-tab:hover {
+    background: var(--accent-primary);
+    color: #fff;
+}
+
+.browser-mockup {
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    background: rgba(0,0,0,0.03);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.browser-dots {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.browser-dots span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border-light);
+}
+
+.browser-dots span:nth-child(1) { background: #fc5c57; }
+.browser-dots span:nth-child(2) { background: #fdbc40; }
+.browser-dots span:nth-child(3) { background: #34c84a; }
+
+.browser-url {
+    flex: 1;
+    font-size: 0.75rem;
+    font-family: 'Inter', monospace;
+    color: var(--text-dim);
+    background: rgba(0,0,0,0.04);
+    border: 1px solid var(--border-light);
+    border-radius: 3px;
+    padding: 4px 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.browser-open-btn {
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: color 0.2s;
+    flex-shrink: 0;
+}
+
+.browser-open-btn:hover { color: var(--accent-primary); }
+
+.browser-viewport {
+    height: 480px;
+    position: relative;
+    background: #f8f8f8;
+}
+
+.browser-viewport iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    transition: opacity 0.3s;
+}
+
+.browser-viewport.loading::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.7);
+}
+
+@media (max-width: 768px) {
+    .browser-viewport { height: 320px; }
+    .demo-tab { padding: 8px 12px; font-size: 0.7rem; }
+}
