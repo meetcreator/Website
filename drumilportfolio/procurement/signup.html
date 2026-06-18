@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <base href="/procurement/">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Account — AI Procurement Hub</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
   <meta name="description" content="Create your AI Procurement Hub account. Set up your organisation, invite your team, and start coordinating vendors in minutes.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,17 +12,19 @@
   <style>
     :root {
       --font: 'Outfit', sans-serif;
-      --bg: #08090a;
-      --border: rgba(255,255,255,0.08);
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --border: #e2e8f0;
       --border-focus: rgba(249,115,22,0.6);
-      --text: #f3f4f6;
-      --muted: #9ca3af;
+      --text: #0f172a;
+      --muted: #64748b;
       --primary: #f97316;
       --primary-dark: #ea580c;
-      --primary-glow: rgba(249,115,22,0.25);
+      --primary-glow: rgba(249,115,22,0.12);
       --success: #10b981;
       --danger: #ef4444;
-      --input-bg: rgba(255,255,255,0.04);
+      --danger-glass: rgba(239,68,68,0.05);
+      --input-bg: #ffffff;
       --ease: cubic-bezier(0.4,0,0.2,1);
     }
 
@@ -40,7 +42,7 @@
 
     /* Background orbs */
     .bg-layer { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
-    .orb { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.13; animation: drift 25s ease-in-out infinite alternate; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.04; animation: drift 25s ease-in-out infinite alternate; }
     .o1 { width:600px; height:600px; background:#f97316; top:-220px; right:-100px; animation-duration:30s; }
     .o2 { width:450px; height:450px; background:#8b5cf6; bottom:-100px; left:-120px; animation-duration:22s; animation-delay:-8s; }
     .o3 { width:280px; height:280px; background:#10b981; top:45%;  left:45%; animation-duration:35s; animation-delay:-14s; }
@@ -59,7 +61,7 @@
       flex-direction: column;
       justify-content: space-between;
       padding: 3rem;
-      background: rgba(255,255,255,0.015);
+      background: #ffffff;
       border-left: 1px solid var(--border);
       position: relative;
       overflow: hidden;
@@ -68,7 +70,7 @@
     .brand-panel::before {
       content: '';
       position: absolute; inset: 0;
-      background: linear-gradient(225deg, rgba(139,92,246,0.05) 0%, transparent 60%);
+      background: linear-gradient(225deg, rgba(249,115,22,0.03) 0%, transparent 60%);
       pointer-events: none;
     }
 
@@ -78,6 +80,7 @@
       background: linear-gradient(135deg, var(--primary), #d97706);
       display: flex; align-items: center; justify-content: center;
       font-size: 1.2rem;
+      color: #fff;
       box-shadow: 0 4px 16px var(--primary-glow);
     }
     .logo-name { font-size: 1.1rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
@@ -89,7 +92,7 @@
       font-weight: 800;
       line-height: 1.18;
       letter-spacing: -0.03em;
-      color: #fff;
+      color: #0f172a;
       margin-bottom: 1.25rem;
     }
     .brand-tagline .accent {
@@ -105,17 +108,17 @@
     .step { display: flex; align-items: flex-start; gap: 1rem; }
     .step-num {
       width: 30px; height: 30px; border-radius: 50%;
-      background: rgba(249,115,22,0.15);
-      border: 1px solid rgba(249,115,22,0.3);
+      background: rgba(249,115,22,0.08);
+      border: 1px solid rgba(249,115,22,0.2);
       display: flex; align-items: center; justify-content: center;
       font-size: 0.78rem; font-weight: 700;
       color: var(--primary);
       flex-shrink: 0; margin-top: 2px;
     }
-    .step-text h4 { font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.2rem; }
+    .step-text h4 { font-size: 0.9rem; font-weight: 700; color: #0f172a; margin-bottom: 0.2rem; }
     .step-text p  { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
 
-    .brand-footer { font-size: 0.75rem; color: rgba(255,255,255,0.18); }
+    .brand-footer { font-size: 0.75rem; color: var(--muted); opacity: 0.6; }
 
     /* Form panel */
     .form-panel {
@@ -137,7 +140,7 @@
     .back-link:hover { color: var(--text); }
 
     .form-header { margin-bottom: 1.75rem; }
-    .form-header h1 { font-size: 1.7rem; font-weight: 800; color: #fff; letter-spacing: -0.03em; margin-bottom: 0.4rem; }
+    .form-header h1 { font-size: 1.7rem; font-weight: 800; color: #0f172a; letter-spacing: -0.03em; margin-bottom: 0.4rem; }
     .form-header p { font-size: 0.88rem; color: var(--muted); }
     .form-header p a { color: var(--primary); text-decoration: none; font-weight: 600; }
     .form-header p a:hover { text-decoration: underline; }
@@ -158,7 +161,7 @@
       content: '';
       flex: 1;
       height: 1px;
-      background: rgba(255,255,255,0.07);
+      background: var(--border);
     }
 
     /* Fields */
@@ -181,9 +184,9 @@
       transition: all 0.2s var(--ease);
       outline: none;
     }
-    .field input::placeholder { color: rgba(255,255,255,0.2); }
+    .field input::placeholder { color: #94a3b8; }
     .field select { -webkit-appearance: none; cursor: pointer; }
-    .field select option { background: #111; color: var(--text); }
+    .field select option { background: #ffffff; color: var(--text); }
 
     .field input:focus,
     .field select:focus {
@@ -211,7 +214,7 @@
     }
     .strength-seg {
       flex: 1; height: 3px; border-radius: 2px;
-      background: rgba(255,255,255,0.07);
+      background: #e2e8f0;
       transition: background 0.3s;
     }
     .strength-seg.weak   { background: var(--danger); }
@@ -241,8 +244,8 @@
       display: none; align-items: flex-start; gap: 0.6rem; line-height: 1.5;
     }
     .alert.show { display: flex; }
-    .alert.error   { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; }
-    .alert.success { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.3); color: #6ee7b7; }
+    .alert.error   { background: #fef2f2; border: 1px solid #fee2e2; color: #b91c1c; }
+    .alert.success { background: #ecfdf5; border: 1px solid #d1fae5; color: #047857; }
 
     /* Submit */
     .btn-submit {
@@ -272,13 +275,13 @@
       display: none;
       text-align: center;
       padding: 2rem;
-      background: rgba(16,185,129,0.05);
-      border: 1px solid rgba(16,185,129,0.2);
+      background: #ecfdf5;
+      border: 1px solid #d1fae5;
       border-radius: 14px;
     }
     .success-card.show { display: block; }
     .success-icon { font-size: 3rem; margin-bottom: 1rem; }
-    .success-card h2 { font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+    .success-card h2 { font-size: 1.4rem; font-weight: 800; color: #047857; margin-bottom: 0.5rem; }
     .success-card p { font-size: 0.88rem; color: var(--muted); margin-bottom: 1.5rem; }
     .btn-go {
       display: inline-flex; align-items: center; gap: 0.5rem;

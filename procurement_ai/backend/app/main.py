@@ -74,12 +74,13 @@ async def start_worker_loop():
 
 
 @app.on_event("startup")
-def startup_init_db():
+async def startup_init_db():
     """Ensure all tables exist on every startup (create_all is idempotent)."""
+    import asyncio
+    import logging
     from app.core.database import engine, SessionLocal
     from app.models import Base
     Base.metadata.create_all(bind=engine)
-    import logging
     logging.getLogger(__name__).info("DB tables verified / created at startup.")
     # Seed demo account
     db = SessionLocal()
@@ -90,9 +91,8 @@ def startup_init_db():
         logging.getLogger(__name__).warning(f"Demo seeder failed (non-critical): {e}")
     finally:
         db.close()
-    
-    # Start periodic background worker task
-    import asyncio
+
+    # Start periodic background worker task (requires async context)
     asyncio.create_task(start_worker_loop())
 
 @app.get("/")

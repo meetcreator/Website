@@ -83,7 +83,7 @@ const ProcureAuth = (() => {
     if (!session) {
       // Show login / sign up buttons
       container.innerHTML = `
-        <a href="${loginLink}"  id="nav-login-btn"  style="font-family:inherit;font-size:0.85rem;font-weight:600;color:rgba(255,255,255,0.8);background:none;border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:0.45rem 1rem;cursor:pointer;text-decoration:none;transition:all 0.2s;">Sign in</a>
+        <a href="${loginLink}"  id="nav-login-btn"  style="font-family:inherit;font-size:0.85rem;font-weight:600;color:#374151;background:#ffffff;border:1px solid #d1d5db;border-radius:8px;padding:0.45rem 1rem;cursor:pointer;text-decoration:none;transition:all 0.2s;">Sign in</a>
         <a href="${signupLink}" id="nav-signup-btn" style="font-family:inherit;font-size:0.88rem;font-weight:700;color:#fff;background:#f97316;border:none;border-radius:8px;padding:0.5rem 1.25rem;cursor:pointer;text-decoration:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem;">Get Started</a>
       `;
       return;
@@ -98,25 +98,25 @@ const ProcureAuth = (() => {
 
     container.innerHTML = `
       <div id="user-menu-wrap" style="position:relative;">
-        <button id="user-menu-btn" style="display:flex;align-items:center;gap:0.6rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.35rem 0.75rem 0.35rem 0.4rem;cursor:pointer;color:#fff;font-family:inherit;transition:all 0.2s;" aria-haspopup="true" aria-expanded="false">
+        <button id="user-menu-btn" style="display:flex;align-items:center;gap:0.6rem;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:10px;padding:0.35rem 0.75rem 0.35rem 0.4rem;cursor:pointer;color:#0f172a;font-family:inherit;transition:all 0.2s;" aria-haspopup="true" aria-expanded="false">
           <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#f97316,#d97706);display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:800;color:#fff;flex-shrink:0;">${initials}</div>
           <div style="text-align:left;line-height:1.2;">
-            <div style="font-size:0.8rem;font-weight:700;">${session.full_name.split(' ')[0]}</div>
-            <div style="font-size:0.65rem;color:rgba(255,255,255,0.45);">${roleLabel(session.role)}</div>
+            <div style="font-size:0.8rem;font-weight:700;color:#0f172a;">${session.full_name.split(' ')[0]}</div>
+            <div style="font-size:0.65rem;color:#64748b;">${roleLabel(session.role)}</div>
           </div>
-          <span style="font-size:0.6rem;color:rgba(255,255,255,0.4);margin-left:2px;">▼</span>
+          <span style="font-size:0.6rem;color:#94a3b8;margin-left:2px;">▼</span>
         </button>
 
-        <div id="user-dropdown" style="display:none;position:absolute;top:calc(100% + 8px);right:0;width:220px;background:rgba(14,20,34,0.97);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0.5rem;box-shadow:0 16px 40px rgba(0,0,0,0.6);backdrop-filter:blur(16px);z-index:500;">
-          <div style="padding:0.6rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:0.35rem;">
-            <div style="font-size:0.8rem;font-weight:700;color:#fff;">${session.full_name}</div>
-            <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);">${session.email}</div>
-            <div style="margin-top:0.3rem;font-size:0.65rem;background:rgba(249,115,22,0.12);border:1px solid rgba(249,115,22,0.25);border-radius:4px;padding:0.15rem 0.4rem;display:inline-block;color:#f97316;font-weight:700;">${session.org_name}</div>
+        <div id="user-dropdown" style="display:none;position:absolute;top:calc(100% + 8px);right:0;width:220px;background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;padding:0.5rem;box-shadow:0 10px 25px rgba(0,0,0,0.1);z-index:500;">
+          <div style="padding:0.6rem 0.75rem;border-bottom:1px solid #f1f5f9;margin-bottom:0.35rem;">
+            <div style="font-size:0.8rem;font-weight:700;color:#0f172a;">${session.full_name}</div>
+            <div style="font-size:0.72rem;color:#64748b;">${session.email}</div>
+            <div style="margin-top:0.3rem;font-size:0.65rem;background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.2);border-radius:4px;padding:0.15rem 0.4rem;display:inline-block;color:#f97316;font-weight:700;">${session.org_name}</div>
           </div>
           <a href="index.html"       style="${_ddItemStyle()}">📊 Dashboard</a>
           <a href="operations.html"  style="${_ddItemStyle()}">⚙ Operations Console</a>
-          <div style="height:1px;background:rgba(255,255,255,0.07);margin:0.35rem 0;"></div>
-          <button id="logout-btn" style="${_ddItemStyle(true)}border:none;cursor:pointer;font-family:inherit;width:100%;text-align:left;color:#fca5a5;">🚪 Sign out</button>
+          <div style="height:1px;background:#f1f5f9;margin:0.35rem 0;"></div>
+          <button id="logout-btn" style="${_ddItemStyle(true)}border:none;cursor:pointer;font-family:inherit;width:100%;text-align:left;color:#ef4444;">🚪 Sign out</button>
         </div>
       </div>
     `;
@@ -141,7 +141,7 @@ const ProcureAuth = (() => {
   }
 
   function _ddItemStyle(isBtn = false) {
-    return `display:block;padding:0.5rem 0.75rem;font-size:0.82rem;font-weight:500;color:rgba(255,255,255,0.75);text-decoration:none;border-radius:7px;transition:background 0.15s;background:none;${isBtn ? '' : ''}`;
+    return `display:block;padding:0.5rem 0.75rem;font-size:0.82rem;font-weight:500;color:#374151;text-decoration:none;border-radius:7px;transition:background 0.15s;background:none;`;
   }
 
   return { saveSession, getSession, clearSession, requireAuth, getAuthHeader, renderNavUser };

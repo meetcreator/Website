@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /Archshield/backend/
+Disallow: /archshield/backend/
 Disallow: /business/backend/
 Disallow: /*.json$
 Disallow: /node_modules/

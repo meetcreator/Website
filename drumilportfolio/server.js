@@ -6,29 +6,23 @@ const net = require('net');
 
 /* --- CONFIGURATION --- */
 const PROJECTS = {
-    '/Archshield': {
+    '/archshield': {
         name: 'Archshield',
-        // No frontend port - served statically via 8080
         backendPort: 8001,
         frontendPath: 'archshield-app/frontend',
         backendPath: 'archshield-app/backend',
-        // Use venv python
         backendCommand: path.join(__dirname, 'archshield-app/backend/venv/Scripts/python.exe'),
         backendArgs: ['-m', 'uvicorn', 'app.main:app', '--host', '0.0.0.0', '--port', '8001'],
-        // No separate frontend server needed - static files are served by main server
-        redirectUrl: '/Archshield/'
+        redirectUrl: '/archshield/'
     },
-    '/Business': {
+    '/business': {
         name: 'Business',
-        // No frontend port - served statically via 8080
         backendPort: 8002,
         frontendPath: 'business',
         backendPath: 'business/backend',
-        // Use Node/NPM for NestJS backend
         backendCommand: 'npm',
         backendArgs: ['run', 'start:prod'],
-        // No separate frontend server needed - static files are served by main server
-        redirectUrl: '/Business/'
+        redirectUrl: '/business/'
     },
     '/olympiad': {
         name: 'Olympiad',
@@ -75,15 +69,15 @@ const server = http.createServer((req, res) => {
     console.log(`[REQUEST] ${req.method} ${req.url}`);
 
     // 1. Handle Project Routes (Launchers)
-    if (PROJECTS[req.url]) {
-        launchProject(PROJECTS[req.url], res);
+    const lowerUrl = req.url.split('?')[0].toLowerCase();
+    if (PROJECTS[lowerUrl]) {
+        launchProject(PROJECTS[lowerUrl], res);
         return;
     }
 
     // 2. Resolve File Path
     let filePath;
     const url = req.url.split('?')[0]; // Ignore query strings
-    const lowerUrl = url.toLowerCase();
 
     if (lowerUrl.startsWith('/archshield')) {
         const subPath = url.substring(11); // '/archshield'.length
@@ -269,8 +263,8 @@ function servePollingPage(res, config, checkPortNum, targetUrl) {
         <head>
             <title>Opening ${config.name}...</title>
             <style>
-                body { background: #050a14; color: white; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
-                .loader { width: 50px; height: 50px; border: 3px solid rgba(255,255,255,0.1); border-radius: 50%; border-top-color: #3b82f6; animation: spin 0.8s ease-in-out infinite; }
+                body { background: #ffffff; color: black; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+                .loader { width: 50px; height: 50px; border: 3px solid rgba(0,0,0,0.1); border-top-color: #000000; animation: spin 0.8s ease-in-out infinite; }
                 @keyframes spin { to { transform: rotate(360deg); } }
             </style>
             <script>

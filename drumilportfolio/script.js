@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         el.addEventListener('mouseenter', () => {
             cursorOutline.style.width = '60px';
             cursorOutline.style.height = '60px';
-            cursorOutline.style.backgroundColor = 'rgba(255,255,255,0.1)';
+            cursorOutline.style.backgroundColor = 'rgba(0,0,0,0.05)';
         });
         el.addEventListener('mouseleave', () => {
             cursorOutline.style.width = '40px';
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.clearRect(0, 0, width, height);
 
             // Draw particles
-            ctx.fillStyle = 'rgba(59, 130, 246, 0.6)';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
             particles.forEach(p => {
                 p.update();
                 ctx.beginPath();
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             // Draw connections
-            ctx.strokeStyle = 'rgba(59, 130, 246, 0.15)';
+            ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)';
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
         el.addEventListener('mouseenter', () => {
             cursorOutline.style.width = '60px';
             cursorOutline.style.height = '60px';
-            cursorOutline.style.backgroundColor = 'rgba(255,255,255,0.1)';
+            cursorOutline.style.backgroundColor = 'rgba(0,0,0,0.05)';
         });
         el.addEventListener('mouseleave', () => {
             cursorOutline.style.width = '40px';

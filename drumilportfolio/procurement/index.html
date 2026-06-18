@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <base href="/procurement/">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14,9 +13,8 @@
   <meta name="author" content="AI Procurement Hub">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#f97316">
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
 
   <!-- Open Graph Tags -->
   <meta property="og:type" content="website">
@@ -73,23 +71,23 @@
        -------------------------------------------------- */
     :root {
       --font-sans: 'Outfit', sans-serif;
-      --background: #080c14;
-      --card-bg: rgba(16, 23, 38, 0.7);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
+      --background: #f8fafc;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
       --primary: #f97316; /* Vibrant Industrial Amber */
       --primary-hover: #ea580c;
-      --primary-glass: rgba(249, 115, 22, 0.12);
+      --primary-glass: rgba(249, 115, 22, 0.08);
       
       --success: #10b981;
-      --success-glass: rgba(16, 185, 129, 0.12);
+      --success-glass: rgba(16, 185, 129, 0.08);
       --warning: #f59e0b;
-      --warning-glass: rgba(245, 158, 11, 0.12);
+      --warning-glass: rgba(245, 158, 11, 0.08);
       --danger: #ef4444;
-      --danger-glass: rgba(239, 68, 68, 0.15);
+      --danger-glass: rgba(239, 68, 68, 0.08);
       --info: #3b82f6;
-      --info-glass: rgba(59, 130, 246, 0.12);
+      --info-glass: rgba(59, 130, 246, 0.08);
       
       --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -115,7 +113,7 @@
        HEADER
        -------------------------------------------------- */
     header {
-      background: rgba(8, 12, 20, 0.85);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--card-border);
       padding: 1rem 2rem;
@@ -144,13 +142,14 @@
       font-weight: 700;
       color: #fff;
       font-size: 1.3rem;
-      box-shadow: 0 4px 15px rgba(249, 115, 22, 0.35);
+      box-shadow: 0 4px 15px rgba(249, 115, 22, 0.2);
     }
 
     .logo-text h1 {
       font-size: 1.25rem;
       font-weight: 700;
       letter-spacing: -0.02em;
+      color: var(--text-main);
     }
 
     .logo-text p {
@@ -159,7 +158,7 @@
     }
 
     .tenant-badge {
-      background: rgba(255, 255, 255, 0.04);
+      background: #f1f5f9;
       border: 1px solid var(--card-border);
       padding: 0.5rem 1rem;
       border-radius: 20px;
@@ -167,6 +166,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      color: var(--text-main);
     }
 
     .tenant-indicator {
@@ -174,7 +174,7 @@
       height: 8px;
       background-color: var(--success);
       border-radius: 50%;
-      box-shadow: 0 0 10px var(--success);
+      box-shadow: 0 0 6px var(--success);
     }
 
     main {
@@ -208,7 +208,7 @@
       transition: var(--transition);
       position: relative;
       overflow: hidden;
-      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
     }
 
     .metric-card::before {
@@ -224,8 +224,8 @@
 
     .metric-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
-      border-color: rgba(249, 115, 22, 0.35);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      border-color: rgba(249, 115, 22, 0.3);
     }
 
     .metric-card.primary::before { background: var(--primary); }
@@ -245,6 +245,7 @@
       font-size: 2.25rem;
       font-weight: 700;
       letter-spacing: -0.04em;
+      color: var(--text-main);
     }
 
     .metric-icon {
@@ -266,10 +267,10 @@
       border: 1px solid var(--card-border);
       border-radius: 14px;
       padding: 1.75rem;
-      backdrop-filter: blur(12px);
       display: flex;
       flex-direction: column;
       gap: 1.25rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
 
     .section-title {
@@ -279,7 +280,8 @@
       align-items: center;
       gap: 0.6rem;
       padding-bottom: 0.5rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid var(--card-border);
+      color: var(--text-main);
     }
 
     /* --------------------------------------------------
@@ -289,7 +291,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.75rem;
-      background: rgba(255, 255, 255, 0.02);
+      background: #f1f5f9;
       border: 1px solid var(--card-border);
       border-radius: 8px;
       padding: 0.85rem;
@@ -298,14 +300,18 @@
     .search-input {
       flex: 2;
       min-width: 240px;
-      background: rgba(255, 255, 255, 0.04);
+      background: #ffffff;
       border: 1px solid var(--card-border);
       border-radius: 6px;
-      color: #fff;
+      color: var(--text-main);
       padding: 0.55rem 0.85rem;
       font-family: var(--font-sans);
       font-size: 0.88rem;
       transition: var(--transition);
+    }
+
+    .search-input::placeholder {
+      color: #94a3b8;
     }
 
     .search-input:focus {
@@ -317,14 +323,19 @@
     .select-filter {
       flex: 1;
       min-width: 140px;
-      background: #0d121e;
+      background: #ffffff;
       border: 1px solid var(--card-border);
       border-radius: 6px;
-      color: #fff;
+      color: var(--text-main);
       padding: 0.55rem 0.85rem;
       font-family: var(--font-sans);
       font-size: 0.88rem;
       cursor: pointer;
+    }
+
+    .select-filter option {
+      background: #ffffff;
+      color: var(--text-main);
     }
 
     .select-filter:focus {
@@ -339,7 +350,7 @@
       overflow-x: auto;
       border: 1px solid var(--card-border);
       border-radius: 8px;
-      background: rgba(0, 0, 0, 0.15);
+      background: #ffffff;
     }
 
     table {
@@ -350,7 +361,7 @@
     }
 
     th {
-      background: rgba(255, 255, 255, 0.03);
+      background: #f8fafc;
       padding: 0.85rem 1.1rem;
       font-weight: 600;
       color: var(--text-muted);
@@ -362,8 +373,9 @@
 
     td {
       padding: 0.85rem 1.1rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid #f1f5f9;
       transition: var(--transition);
+      color: var(--text-main);
     }
 
     tr {
@@ -371,11 +383,11 @@
     }
 
     tr:hover td {
-      background: rgba(249, 115, 22, 0.03);
+      background: rgba(249, 115, 22, 0.02);
     }
 
     tr.selected td {
-      background: rgba(249, 115, 22, 0.08);
+      background: rgba(249, 115, 22, 0.06);
       border-left: 2px solid var(--primary);
     }
 
@@ -390,22 +402,22 @@
       text-transform: uppercase;
     }
 
-    .badge.critical { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); }
-    .badge.high { background: rgba(249, 115, 22, 0.18); color: #fb923c; }
-    .badge.normal { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
-    .badge.low { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .badge.critical { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+    .badge.high { background: #ffedd5; color: #c2410c; border: 1px solid #fed7aa; }
+    .badge.normal { background: #dbeafe; color: #1d4ed8; border: 1px solid #bfdbfe; }
+    .badge.low { background: #d1fae5; color: #047857; border: 1px solid #a7f3d0; }
 
-    .badge.created { background: rgba(107, 114, 128, 0.15); color: #9ca3af; }
-    .badge.rfq_sent { background: rgba(139, 92, 246, 0.15); color: #a78bfa; }
-    .badge.vendor_pending { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
-    .badge.eta_received { background: rgba(16, 185, 129, 0.15); color: #10b981; }
-    .badge.approval_pending { background: rgba(249, 115, 22, 0.2); color: #fb923c; border: 1px solid var(--primary); }
-    .badge.approved { background: rgba(16, 185, 129, 0.2); color: #34d399; }
-    .badge.in_transit { background: rgba(249, 115, 22, 0.15); color: #f97316; }
-    .badge.delayed { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid var(--danger); }
-    .badge.escalated { background: #7f1d1d; color: #fca5a5; font-weight: 700; animation: blink 2s infinite; }
-    .badge.completed { background: rgba(16, 185, 129, 0.25); color: #a7f3d0; }
-    .badge.cancelled { background: rgba(107, 114, 128, 0.15); color: #9ca3af; }
+    .badge.created { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+    .badge.rfq_sent { background: #f3e8ff; color: #6b21a8; border: 1px solid #e9d5ff; }
+    .badge.vendor_pending { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+    .badge.eta_received { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+    .badge.approval_pending { background: #ffedd5; color: #ea580c; border: 1px solid #fed7aa; }
+    .badge.approved { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+    .badge.in_transit { background: #fff7ed; color: #c2410c; border: 1px solid #ffedd5; }
+    .badge.delayed { background: #fee2e2; color: #ef4444; border: 1px solid #fecaca; }
+    .badge.escalated { background: #991b1b; color: #ffffff; border: 1px solid #7f1d1d; font-weight: 700; animation: blink 2s infinite; }
+    .badge.completed { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+    .badge.cancelled { background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; }
 
     @keyframes blink {
       0%, 100% { opacity: 1; }
@@ -425,7 +437,7 @@
     }
 
     .btn {
-      background: rgba(255, 255, 255, 0.04);
+      background: #ffffff;
       border: 1px solid var(--card-border);
       color: var(--text-main);
       padding: 0.45rem 1rem;
@@ -441,8 +453,8 @@
     }
 
     .btn:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.15);
+      background: #f1f5f9;
+      border-color: #cbd5e1;
     }
 
     .btn.primary {
@@ -471,8 +483,8 @@
 
     /* Downstream Impact Alert */
     .impact-panel {
-      background: rgba(239, 68, 68, 0.03);
-      border: 1px solid rgba(239, 68, 68, 0.25);
+      background: #fef2f2;
+      border: 1px solid #fecaca;
       border-radius: 10px;
       padding: 1.25rem;
       display: flex;
@@ -494,12 +506,12 @@
       font-size: 0.95rem;
       font-weight: 500;
       line-height: 1.4;
-      color: #fca5a5;
+      color: #991b1b;
     }
 
     /* Vendor scorecard dial */
     .scorecard-panel {
-      background: rgba(255, 255, 255, 0.02);
+      background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 10px;
       padding: 1rem 1.25rem;
@@ -532,7 +544,7 @@
     .score-val {
       font-size: 1.25rem;
       font-weight: 700;
-      color: #fff;
+      color: var(--text-main);
     }
 
     .score-val.high-perf { color: var(--success); }
@@ -549,7 +561,7 @@
        GIDC ESCALATION HEATMAP
        -------------------------------------------------- */
     .heatmap-panel {
-      background: rgba(255, 255, 255, 0.01);
+      background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 12px;
       padding: 1.25rem;
@@ -563,7 +575,7 @@
     }
 
     .heatmap-item {
-      background: rgba(0, 0, 0, 0.2);
+      background: #f8fafc;
       border: 1px solid var(--card-border);
       border-radius: 8px;
       padding: 0.85rem;
@@ -590,6 +602,7 @@
     .heatmap-zone {
       font-size: 0.85rem;
       font-weight: 600;
+      color: var(--text-main);
     }
 
     .heatmap-category {
@@ -601,19 +614,20 @@
       font-size: 0.8rem;
       font-weight: 500;
       margin-top: 0.25rem;
+      color: var(--text-main);
     }
 
     /* --------------------------------------------------
        HUMAN-IN-THE-LOOP SIDEBAR
        -------------------------------------------------- */
     .hitl-queue {
-      background: rgba(249, 115, 22, 0.01);
+      background: rgba(249, 115, 22, 0.02);
       border: 1px solid rgba(249, 115, 22, 0.15);
     }
 
     .hitl-card {
-      background: rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(249, 115, 22, 0.18);
+      background: #ffffff;
+      border: 1px solid var(--card-border);
       border-radius: 8px;
       padding: 1rem;
       display: flex;
@@ -630,7 +644,7 @@
 
     .hitl-tag {
       background: var(--danger-glass);
-      color: #fca5a5;
+      color: #b91c1c;
       padding: 0.15rem 0.4rem;
       border-radius: 4px;
       font-size: 0.68rem;
@@ -638,21 +652,21 @@
     }
 
     .hitl-bubble {
-      background: rgba(255, 255, 255, 0.02);
+      background: #f8fafc;
       padding: 0.65rem;
       border-radius: 6px;
       font-size: 0.8rem;
-      color: var(--text-muted);
+      color: #475569;
       font-style: italic;
-      border-left: 2px solid var(--text-muted);
+      border-left: 2px solid #94a3b8;
     }
 
     .hitl-editor {
       width: 100%;
-      background: #0b0f19;
-      border: 1px solid rgba(249, 115, 22, 0.25);
+      background: #ffffff;
+      border: 1px solid var(--card-border);
       border-radius: 6px;
-      color: #fff;
+      color: var(--text-main);
       padding: 0.65rem;
       font-family: var(--font-sans);
       font-size: 0.82rem;
@@ -693,7 +707,7 @@
       left: 9px;
       width: 2px;
       height: calc(100% - 8px);
-      background: rgba(255, 255, 255, 0.05);
+      background: #cbd5e1;
     }
 
     .timeline-item:last-child::after {
@@ -704,8 +718,8 @@
       width: 20px;
       height: 20px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid var(--background);
+      background: #e2e8f0;
+      border: 2px solid #ffffff;
       z-index: 1;
       display: flex;
       align-items: center;
@@ -725,7 +739,7 @@
 
     .timeline-content {
       flex: 1;
-      background: rgba(255, 255, 255, 0.01);
+      background: #f8fafc;
       border: 1px solid var(--card-border);
       border-radius: 6px;
       padding: 0.6rem 0.85rem;
@@ -741,6 +755,7 @@
     .timeline-title {
       font-size: 0.8rem;
       font-weight: 600;
+      color: var(--text-main);
     }
 
     .timeline-time {
@@ -820,14 +835,13 @@
     }
 
     .toast {
-      background: rgba(16, 23, 38, 0.97);
+      background: #ffffff;
       border: 1px solid var(--card-border);
       border-radius: 8px;
       padding: 0.7rem 1rem;
       font-size: 0.82rem;
       color: var(--text-main);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -859,10 +873,10 @@
     .hitl-empty {
       text-align: center;
       padding: 1.25rem 1rem;
-      color: var(--success);
+      color: #047857;
       font-size: 0.85rem;
-      background: rgba(16, 185, 129, 0.06);
-      border: 1px solid rgba(16, 185, 129, 0.2);
+      background: #ecfdf5;
+      border: 1px solid #d1fae5;
       border-radius: 8px;
       font-weight: 500;
     }
@@ -870,9 +884,9 @@
     /* Skeleton loading rows */
     .skeleton-row td {
       background: linear-gradient(90deg,
-        rgba(255,255,255,0.03) 25%,
-        rgba(255,255,255,0.08) 50%,
-        rgba(255,255,255,0.03) 75%);
+        #f1f5f9 25%,
+        #e2e8f0 50%,
+        #f1f5f9 75%);
       background-size: 200% 100%;
       animation: shimmer 1.4s infinite;
       color: transparent !important;
@@ -886,7 +900,7 @@
 
     /* PO Detail panel (items + vendor metadata) */
     .detail-panel {
-      background: rgba(0, 0, 0, 0.12);
+      background: #f8fafc;
       border: 1px solid var(--card-border);
       border-radius: 10px;
       padding: 1.1rem 1.25rem;
@@ -901,7 +915,7 @@
       text-transform: uppercase;
       letter-spacing: 0.05em;
       padding-bottom: 0.4rem;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid var(--card-border);
     }
     .detail-meta-grid {
       display: grid;
@@ -915,7 +929,7 @@
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }
-    .detail-meta-value { font-size: 0.82rem; font-weight: 500; }
+    .detail-meta-value { font-size: 0.82rem; font-weight: 500; color: var(--text-main); }
     .items-tbl {
       width: 100%;
       border-collapse: collapse;
@@ -925,13 +939,14 @@
       font-size: 0.65rem;
       letter-spacing: 0.04em;
       padding: 0.4rem 0.6rem;
-      background: rgba(255,255,255,0.02);
+      background: #f1f5f9;
       color: var(--text-muted);
       text-transform: uppercase;
     }
     .items-tbl td {
       padding: 0.45rem 0.6rem;
-      border-bottom: 1px solid rgba(255,255,255,0.03);
+      border-bottom: 1px solid var(--card-border);
+      color: var(--text-main);
     }
 
   </style>
@@ -971,10 +986,10 @@
   </div>
 
   <!-- SUBSCRIPTION USAGE BAR -->
-  <div id="sub-bar" style="display:none; background:rgba(8,9,10,0.7); border-bottom:1px solid rgba(255,255,255,0.06); padding:0.55rem 2rem; align-items:center; gap:1.5rem; flex-wrap:wrap; font-size:0.75rem;">
-    <span id="sub-plan-pill" style="background:rgba(249,115,22,0.12);border:1px solid rgba(249,115,22,0.25);border-radius:6px;padding:0.2rem 0.6rem;font-weight:700;color:#f97316;font-size:0.7rem;"></span>
+  <div id="sub-bar" style="display:none; background:#ffffff; border-bottom:1px solid var(--card-border); padding:0.55rem 2rem; align-items:center; gap:1.5rem; flex-wrap:wrap; font-size:0.75rem;">
+    <span id="sub-plan-pill" style="background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.2);border-radius:6px;padding:0.2rem 0.6rem;font-weight:700;color:#f97316;font-size:0.7rem;"></span>
     <div id="sub-meters" style="display:flex;gap:1.25rem;align-items:center;flex:1;flex-wrap:wrap;"></div>
-    <a href="pricing.html" style="font-size:0.72rem;font-weight:700;color:#f97316;text-decoration:none;background:rgba(249,115,22,0.1);border:1px solid rgba(249,115,22,0.25);border-radius:6px;padding:0.25rem 0.65rem;white-space:nowrap;">⬆ Upgrade Plan</a>
+    <a href="pricing.html" style="font-size:0.72rem;font-weight:700;color:#f97316;text-decoration:none;background:rgba(249,115,22,0.1);border:1px solid rgba(249,115,22,0.2);border-radius:6px;padding:0.25rem 0.65rem;white-space:nowrap;">⬆ Upgrade Plan</a>
   </div>
 
   <!-- MAIN CONTAINER -->
