@@ -1,7 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
-
 export function Announcement() {
   return (
     <section className="bg-[#69cc63] py-8 flex justify-center">

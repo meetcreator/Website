@@ -1,0 +1,245 @@
+:root {
+  --background: #07111f;
+  --panel: #0f1b2d;
+  --panel-soft: #14243a;
+  --border: rgba(148, 163, 184, 0.22);
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --blue: #38bdf8;
+  --green: #34d399;
+  --amber: #f59e0b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 34rem),
+    linear-gradient(135deg, #07111f 0%, #0b1730 46%, #08111f 100%);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+.button {
+  border: 0;
+  border-radius: 10px;
+  color: #04111f;
+  background: linear-gradient(135deg, #38bdf8, #22d3ee);
+  font: inherit;
+  font-weight: 700;
+  padding: 0.78rem 1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shell {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--border);
+  background: rgba(7, 17, 31, 0.86);
+  backdrop-filter: blur(16px);
+}
+
+.nav-inner {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  color: #04111f;
+  background: linear-gradient(135deg, #38bdf8, #34d399);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.hero {
+  padding: 7rem 0 5rem;
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-flex;
+  color: #bae6fd;
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  background: rgba(56, 189, 248, 0.1);
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.88rem;
+}
+
+h1 {
+  margin: 1rem auto;
+  max-width: 900px;
+  font-size: clamp(2.8rem, 7vw, 5.8rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+h2 {
+  margin: 0 0 1rem;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.lead {
+  max-width: 760px;
+  margin: 0 auto;
+  font-size: 1.15rem;
+}
+
+.actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.button.secondary {
+  color: var(--text);
+  border: 1px solid var(--border);
+  background: rgba(15, 27, 45, 0.76);
+}
+
+.stats,
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.stat,
+.card {
+  border: 1px solid var(--border);
+  background: rgba(15, 27, 45, 0.74);
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.18);
+}
+
+.stat strong {
+  display: block;
+  color: var(--blue);
+  font-size: 2rem;
+}
+
+.section {
+  padding: 4rem 0;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  min-height: calc(100vh - 72px);
+}
+
+.sidebar {
+  border-right: 1px solid var(--border);
+  background: rgba(7, 17, 31, 0.68);
+  padding: 1rem;
+}
+
+.sidebar a {
+  display: block;
+  color: var(--muted);
+  border-radius: 10px;
+  padding: 0.75rem;
+}
+
+.sidebar a:hover {
+  color: var(--text);
+  background: rgba(148, 163, 184, 0.12);
+}
+
+.content {
+  padding: 2rem;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.metric {
+  min-height: 150px;
+}
+
+.status {
+  display: inline-flex;
+  padding: 0.3rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(52, 211, 153, 0.12);
+  color: #bbf7d0;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 760px) {
+  .nav-links {
+    display: none;
+  }
+
+  .stats,
+  .grid,
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .content {
+    padding: 1rem;
+  }
+}

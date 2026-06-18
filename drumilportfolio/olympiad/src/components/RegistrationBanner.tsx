@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, BookOpen, Star, Trophy, Users, Heart } from "lucide-react";
+import { ArrowRight, Sparkles, Star, Trophy, Users, Heart } from "lucide-react";
 import Link from "next/link";
 
 export default function RegistrationBanner() {
@@ -31,7 +31,7 @@ export default function RegistrationBanner() {
                 <span className="text-[#ff9c00]">An Opportunity</span> to Shine
               </h2>
               <p className="text-white/70 text-lg mb-12 font-bold leading-relaxed max-w-xl">
-                Register your school today in the Global Competency Olympiad and build a strong foundation for your students' future success.
+                Register your school today in the Global Competency Olympiad and build a strong foundation for your students&apos; future success.
               </p>
               
               <div className="flex flex-wrap gap-4 justify-center md:justify-start">

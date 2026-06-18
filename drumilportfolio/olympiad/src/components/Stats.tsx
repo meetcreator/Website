@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Users, Trophy, School, Award, BookOpen } from "lucide-react";
+import { Users, Trophy, School, BookOpen } from "lucide-react";
 
 const stats = [
   { label: "Participants", value: "49000 +", icon: <Users size={36} /> },

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { School, ArrowRight, UserCircle, MapPin, Mail, Phone, Users } from "lucide-react";
+import { School, ArrowRight, UserCircle, Mail, Users } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 

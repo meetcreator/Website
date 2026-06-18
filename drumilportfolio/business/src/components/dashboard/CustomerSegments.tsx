@@ -91,7 +91,7 @@ export default function CustomerSegments() {
                     </div>
                     <div>
                         <h4 className="font-bold text-lg tracking-tight text-white underline decoration-indigo-500 decoration-2 underline-offset-4">AI Insight: High Churn Risk</h4>
-                        <p className="text-slate-500 text-sm mt-1 max-w-md">Our predictive model identified 124 users in the "At Risk" segment with high cart abandonment rates today. Recommended action: 15% discount push notification.</p>
+                        <p className="text-slate-500 text-sm mt-1 max-w-md">Our predictive model identified 124 users in the &quot;At Risk&quot; segment with high cart abandonment rates today. Recommended action: 15% discount push notification.</p>
                     </div>
                 </div>
                 <button

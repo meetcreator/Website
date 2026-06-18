@@ -1,8 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: 'export',
-  basePath: '/olympiad',
+  output: "export",
   turbopack: {
     root: process.cwd(),
   },

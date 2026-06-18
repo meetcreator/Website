@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, ChevronLeft, Globe, School, Trophy, Monitor, Download, BookOpen, Calculator, Beaker } from "lucide-react";
+import { ChevronRight, ChevronLeft, School, BookOpen, Calculator, Beaker } from "lucide-react";
 import Link from "next/link";
 import { assetPath } from "@/lib/basePath";
 

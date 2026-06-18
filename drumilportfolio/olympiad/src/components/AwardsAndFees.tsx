@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { 
   Trophy, Medal, Gift,
-  Globe, Check,
+  Check,
   Clock
 } from "lucide-react";
 

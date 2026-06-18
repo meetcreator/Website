@@ -372,7 +372,7 @@ export default function HOTSPreschoolPage() {
               Four Cognitive <span className="text-pink-500">Domains</span>
             </h2>
             <p className="text-slate-500 text-base max-w-2xl mx-auto">
-              Aligned with Bloom's Taxonomy, each domain builds progressively across Nursery, Jr. KG, and Sr. KG.
+              Aligned with Bloom&apos;s Taxonomy, each domain builds progressively across Nursery, Jr. KG, and Sr. KG.
             </p>
           </div>
 
@@ -549,7 +549,7 @@ export default function HOTSPreschoolPage() {
               Benefits of the <span className="text-pink-400">Program</span>
             </h2>
             <p className="text-slate-400 text-base max-w-xl mx-auto">
-              Transforming learning outcomes for every stakeholder in a child's journey.
+              Transforming learning outcomes for every stakeholder in a child&apos;s journey.
             </p>
           </div>
 

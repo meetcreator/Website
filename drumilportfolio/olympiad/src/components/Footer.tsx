@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Mail, Phone, Globe, Camera, MessageCircle, Share2, MapPin } from "lucide-react";
 import { assetPath } from "@/lib/basePath";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -11,9 +12,12 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-8">
-              <img
+              <Image
                 src={assetPath('/logo.png')}
                 alt="Global Competency Olympiad Logo"
+                width={96}
+                height={48}
+                unoptimized
                 className="h-12 w-auto object-contain brightness-0 invert"
               />
               <span className="text-xl font-black tracking-tighter text-white uppercase italic">

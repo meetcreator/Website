@@ -30,7 +30,7 @@ export function useSocket(onEvent?: (event: string, data: any) => void) {
         return () => {
             socket.disconnect();
         };
-    }, []);
+    }, [onEvent]);
 
     return socketRef.current;
 }

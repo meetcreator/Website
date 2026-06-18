@@ -4,13 +4,6 @@ import { motion } from "framer-motion";
 import { FileText, Download, BookOpen, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
-interface Resource {
-  title: string;
-  description: string;
-  link: string;
-  type: "syllabus" | "sample-paper";
-}
-
 interface SamplePapersSyllabusProps {
   programName: string;
   syllabusLink?: string;

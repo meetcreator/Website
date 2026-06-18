@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
     LayoutDashboard,
     Users,
@@ -46,7 +46,7 @@ function DashboardContent() {
     const [dateRange, setDateRange] = useState("12M");
     const [showProfit, setShowProfit] = useState(true);
 
-    const fetchData = async () => {
+    const fetchData = useCallback(async () => {
         try {
             setLoading(true);
             const [kpiData, trendData, forecasts, insightsData] = await Promise.all([
@@ -71,13 +71,13 @@ function DashboardContent() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [dateRange]);
 
     useEffect(() => {
         if (user || isGuest) {
             fetchData();
         }
-    }, [businessType, user, isGuest, dateRange]);
+    }, [businessType, user, isGuest, dateRange, fetchData]);
 
     const { useSocket } = require("@/hooks/useSocket");
     useSocket((event: string) => {

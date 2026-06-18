@@ -288,7 +288,7 @@ function IntegrationsContent() {
                     <AlertCircle className="h-6 w-6 text-blue-400 mt-0.5" />
                     <div>
                         <h4 className="font-bold text-blue-400 mb-1">Automatic Webhook Sync</h4>
-                        <p className="text-sm text-gray-400">Once connected, your store will automatically ping our servers whenever a new sale occurs. The "Units Sold" count on your dashboard will update in real-time without manual intervention.</p>
+                        <p className="text-sm text-gray-400">Once connected, your store will automatically ping our servers whenever a new sale occurs. The &quot;Units Sold&quot; count on your dashboard will update in real-time without manual intervention.</p>
                     </div>
                 </div>
             </main>

@@ -2,8 +2,7 @@
 
 import { motion } from "framer-motion";
 import { 
-  Calculator, Beaker, BookOpen, Brain, 
-  FileText, Microscope, PencilLine, HelpCircle
+  Calculator, Beaker, BookOpen
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 

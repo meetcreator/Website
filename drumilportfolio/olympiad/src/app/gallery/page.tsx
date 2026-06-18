@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import { assetPath } from "@/lib/basePath";
+import Image from "next/image";
 
 const images = [
   { src: assetPath('/gallery/childrenawards.jpg'), title: "Global Competency Recognition" },
@@ -76,9 +77,12 @@ export default function GalleryPage() {
                 transition={{ delay: idx * 0.05 }}
                 className="relative group rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all break-inside-avoid bg-white p-3"
               >
-                <img
+                <Image
                   src={image.src}
                   alt={image.title}
+                  width={800}
+                  height={600}
+                  unoptimized
                   className="w-full h-auto rounded-[2rem] group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#002d5b]/90 via-[#002d5b]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-8 pointer-events-none rounded-[2.5rem]">

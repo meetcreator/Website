@@ -110,7 +110,7 @@ export default function SyllabusPage() {
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-8 relative z-10">
-                  {subject.levels.map((level, lIdx) => (
+                  {subject.levels.map((level) => (
                     <div key={level.grade} className="bg-white/60 p-8 rounded-[2.5rem] border border-white/40 shadow-sm hover:shadow-md transition-all">
                       <h3 className="text-[#002d5b] font-black text-xl mb-6 italic">{level.grade}</h3>
                       <ul className="space-y-4">

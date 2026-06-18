@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { BASE_PATH } from "@/lib/basePath";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Global Competency Olympiad | Early Skill Development",
@@ -24,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} min-h-screen bg-background text-foreground antialiased`}>
+      <body className="min-h-screen bg-background text-foreground antialiased">
         {children}
         <WhatsAppButton />
       </body>

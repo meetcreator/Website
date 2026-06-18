@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Book, FileText, Layout, CheckCircle2, ArrowRight, Award, Trophy } from "lucide-react";
+import { Book, FileText, Layout, CheckCircle2, Trophy } from "lucide-react";
 
 const materials = [
   {

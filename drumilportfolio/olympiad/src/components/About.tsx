@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle2, Languages, Target, Brain, Trophy, Zap, BookOpen, Calculator, Beaker } from "lucide-react";
+import { CheckCircle2, Languages, Target, Brain, Zap, Calculator, Beaker } from "lucide-react";
 import { assetPath } from "@/lib/basePath";
+import Image from "next/image";
 
 const aims = [
   { text: "Language proficiency", icon: <Languages className="text-purple-500" /> },
@@ -72,11 +73,14 @@ export default function About() {
             className="lg:w-1/2 relative"
           >
             <div className="aspect-[4/5] bg-[#2da3c2]/10 rounded-[4rem] p-4 relative overflow-hidden">
-               <img 
-                 src={assetPath('/gallery/childAward.jpg')} 
-                 alt="Olympiad Success" 
-                 className="w-full h-full object-cover rounded-[3rem] shadow-2xl"
-               />
+               <Image
+                  src={assetPath('/gallery/childAward.jpg')}
+                  alt="Olympiad Success"
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  unoptimized
+                  className="w-full h-full object-cover rounded-[3rem] shadow-2xl"
+                />
                
                {/* Decorative floating card */}
                <div className="absolute top-10 right-10 bg-white p-6 rounded-3xl shadow-2xl border border-slate-100">
