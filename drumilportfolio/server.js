@@ -207,6 +207,30 @@ const server = http.createServer((req, res) => {
     } else if (lowerUrl === '/import-export' || lowerUrl.startsWith('/import-export/')) {
         const subPath = url.substring(15) || 'index.html'; // '/import-export/'.length = 15
         filePath = path.join(__dirname, '../demo-websites/import-export-website', subPath === '/' ? 'index.html' : subPath);
+    } else if (
+        lowerUrl.startsWith('/dashboard') || 
+        lowerUrl === '/login' || lowerUrl.startsWith('/login/') || 
+        lowerUrl === '/signup' || lowerUrl.startsWith('/signup/') || 
+        lowerUrl.startsWith('/_not-found') || 
+        lowerUrl === '/favicon.ico' || 
+        (lowerUrl.startsWith('/_next/') && !req.headers.referer?.includes('/business') && !req.headers.referer?.includes('/olympiad'))
+    ) {
+        const baseDir = path.join(__dirname, 'archshield-app/frontend/out');
+        filePath = path.join(baseDir, url);
+
+        // Handle Next.js clean URLs
+        if (!path.extname(filePath)) {
+            let isDir = false;
+            try { isDir = fs.statSync(filePath).isDirectory(); } catch (e) { }
+
+            if (!fs.existsSync(filePath) || isDir) {
+                if (fs.existsSync(filePath + '.html')) {
+                    filePath += '.html';
+                } else if (fs.existsSync(path.join(filePath, 'index.html'))) {
+                    filePath = path.join(filePath, 'index.html');
+                }
+            }
+        }
     } else {
         const referer = req.headers.referer || '';
         if (referer.includes('/archshield') && !lowerUrl.startsWith('/archshield')) {
