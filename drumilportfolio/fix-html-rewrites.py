@@ -1,6 +1,10 @@
 import json
 
-with open('vercel.json', 'r') as f:
+from pathlib import Path
+
+vercel_path = Path(__file__).parent / 'vercel.json'
+
+with open(vercel_path, 'r') as f:
     data = json.load(f)
 
 for rw in data.get('rewrites', []):
@@ -10,5 +14,5 @@ for rw in data.get('rewrites', []):
     elif dest.endswith('.html'):
         rw['destination'] = dest[:-5]
 
-with open('vercel.json', 'w') as f:
+with open(vercel_path, 'w') as f:
     json.dump(data, f, indent=4)

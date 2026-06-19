@@ -1,6 +1,10 @@
 import json
 
-with open('vercel.json', 'r') as f:
+from pathlib import Path
+
+vercel_path = Path(__file__).parent / 'vercel.json'
+
+with open(vercel_path, 'r') as f:
     data = json.load(f)
 
 new_rewrites = [
@@ -28,5 +32,5 @@ for rw in new_rewrites:
     if rw['source'] not in existing_sources:
         data['rewrites'].append(rw)
 
-with open('vercel.json', 'w') as f:
+with open(vercel_path, 'w') as f:
     json.dump(data, f, indent=4)

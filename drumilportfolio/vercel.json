@@ -47,11 +47,11 @@
     "rewrites": [
         {
             "source": "/portfolio",
-            "destination": "/portfolio.html"
+            "destination": "/portfolio"
         },
         {
             "source": "/procurement",
-            "destination": "/procurement/index.html"
+            "destination": "/procurement"
         },
         {
             "source": "/olympiad/gallery",

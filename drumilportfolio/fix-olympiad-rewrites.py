@@ -2,8 +2,8 @@ import json
 import os
 from pathlib import Path
 
-vercel_path = "vercel.json"
-base_dir = Path("olympiad/out")
+vercel_path = Path(__file__).parent / "vercel.json"
+base_dir = Path(__file__).parent / "olympiad/out"
 
 with open(vercel_path, "r", encoding="utf-8") as f:
     data = json.load(f)

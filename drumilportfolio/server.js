@@ -64,18 +64,65 @@ function checkPort(port, callback) {
     socket.connect(port, '127.0.0.1');
 }
 
+/* --- HELPER: NEXT.JS STATIC PATHS RESOLVER --- */
+function resolveNextStaticPath(filePath) {
+    if (filePath.includes('__next') && !fs.existsSync(filePath)) {
+        const parts = filePath.split('__next');
+        const prefix = parts[0];
+        let suffix = parts.slice(1).join('__next');
+        
+        if (suffix.startsWith('.')) {
+            suffix = '/' + suffix.substring(1);
+            if (suffix.endsWith('.__PAGE__.txt')) {
+                const base = suffix.substring(0, suffix.length - 13);
+                suffix = base.replace(/\./g, '/') + '.__PAGE__.txt';
+            } else if (suffix.endsWith('.txt')) {
+                const base = suffix.substring(0, suffix.length - 4);
+                suffix = base.replace(/\./g, '/') + '.txt';
+            }
+            const candidate = prefix + '__next' + suffix;
+            if (fs.existsSync(candidate)) {
+                return candidate;
+            }
+        }
+    }
+    return filePath;
+}
+
 /* --- SERVER LOGIC --- */
 const server = http.createServer((req, res) => {
     console.log(`[REQUEST] ${req.method} ${req.url}`);
 
-    // 1. Handle Project Routes (Launchers)
     const lowerUrl = req.url.split('?')[0].toLowerCase();
+
+    // 1. Redirection & Rewrites matching Vercel configurations
+    if (lowerUrl === '/operations' || lowerUrl.startsWith('/operations/')) {
+        const subPath = lowerUrl === '/operations' ? '' : req.url.substring(11);
+        res.writeHead(301, { 'Location': '/procurement/operations' + subPath });
+        res.end();
+        return;
+    }
+    if (lowerUrl === '/procurement_ai' || lowerUrl.startsWith('/procurement_ai/')) {
+        const subPath = lowerUrl === '/procurement_ai' ? '' : req.url.substring(15);
+        res.writeHead(301, { 'Location': '/procurement' + subPath });
+        res.end();
+        return;
+    }
+
+    // Trailing slash redirects for static demo directories
+    if (lowerUrl === '/ca-webcodex' || lowerUrl === '/ca-website' || lowerUrl === '/import-export') {
+        res.writeHead(301, { 'Location': req.url + '/' });
+        res.end();
+        return;
+    }
+
+    // 2. Handle Project Routes (Launchers)
     if (PROJECTS[lowerUrl]) {
         launchProject(PROJECTS[lowerUrl], res);
         return;
     }
 
-    // 2. Resolve File Path
+    // 3. Resolve File Path
     let filePath;
     const url = req.url.split('?')[0]; // Ignore query strings
 
@@ -84,7 +131,7 @@ const server = http.createServer((req, res) => {
         const baseDir = path.join(__dirname, 'archshield-app/frontend/out');
         filePath = path.join(baseDir, subPath === '' || subPath === '/' ? 'index.html' : subPath);
 
-        // Handle Next.js clean URLs (e.g., /login -> /login.html or /login/index.html)
+        // Handle Next.js clean URLs
         if (!path.extname(filePath)) {
             let isDir = false;
             try { isDir = fs.statSync(filePath).isDirectory(); } catch (e) { }
@@ -100,6 +147,24 @@ const server = http.createServer((req, res) => {
     } else if (lowerUrl.startsWith('/business')) {
         const subPath = url.substring(9); // '/business'.length
         const baseDir = path.join(__dirname, 'business/out');
+        filePath = path.join(baseDir, subPath === '' || subPath === '/' ? 'index.html' : subPath);
+
+        // Handle Next.js clean URLs
+        if (!path.extname(filePath)) {
+            let isDir = false;
+            try { isDir = fs.statSync(filePath).isDirectory(); } catch (e) { }
+
+            if (!fs.existsSync(filePath) || isDir) {
+                if (fs.existsSync(filePath + '.html')) {
+                    filePath += '.html';
+                } else if (fs.existsSync(path.join(filePath, 'index.html'))) {
+                    filePath = path.join(filePath, 'index.html');
+                }
+            }
+        }
+    } else if (lowerUrl.startsWith('/olympiad')) {
+        const subPath = url.substring(9); // '/olympiad'.length
+        const baseDir = path.join(__dirname, 'olympiad/out');
         filePath = path.join(baseDir, subPath === '' || subPath === '/' ? 'index.html' : subPath);
 
         // Handle Next.js clean URLs
@@ -133,18 +198,6 @@ const server = http.createServer((req, res) => {
                 }
             }
         }
-    } else if (lowerUrl === '/procurement_ai' || lowerUrl.startsWith('/procurement_ai/')) {
-        let subPath = lowerUrl === '/procurement_ai' ? 'index.html' : url.substring(16);
-        if (subPath === '' || subPath === '/') subPath = 'index.html';
-        filePath = path.join(__dirname, 'procurement', subPath);
-        if (!path.extname(filePath)) {
-            let isDir = false;
-            try { isDir = fs.statSync(filePath).isDirectory(); } catch (e) { }
-            if (!fs.existsSync(filePath) || isDir) {
-                if (fs.existsSync(filePath + '.html')) filePath += '.html';
-                else if (fs.existsSync(path.join(filePath, 'index.html'))) filePath = path.join(filePath, 'index.html');
-            }
-        }
     } else if (lowerUrl === '/ca-webcodex' || lowerUrl.startsWith('/ca-webcodex/')) {
         const subPath = url.substring(13) || 'index.html'; // '/ca-webcodex/'.length = 13
         filePath = path.join(__dirname, '../demo-websites/ca-webcodex', subPath === '/' ? 'index.html' : subPath);
@@ -160,6 +213,16 @@ const server = http.createServer((req, res) => {
             filePath = path.join(__dirname, 'archshield-app/frontend/out', url);
         } else if (referer.includes('/business') && !lowerUrl.startsWith('/business')) {
             filePath = path.join(__dirname, 'business/out', url);
+        } else if (referer.includes('/olympiad') && !lowerUrl.startsWith('/olympiad')) {
+            filePath = path.join(__dirname, 'olympiad/out', url);
+        } else if (referer.includes('/procurement') && !lowerUrl.startsWith('/procurement')) {
+            filePath = path.join(__dirname, 'procurement', url);
+        } else if (referer.includes('/ca-webcodex') && !lowerUrl.startsWith('/ca-webcodex')) {
+            filePath = path.join(__dirname, '../demo-websites/ca-webcodex', url);
+        } else if (referer.includes('/ca-website') && !lowerUrl.startsWith('/ca-website')) {
+            filePath = path.join(__dirname, '../demo-websites/ca-website', url);
+        } else if (referer.includes('/import-export') && !lowerUrl.startsWith('/import-export')) {
+            filePath = path.join(__dirname, '../demo-websites/import-export-website', url);
         } else {
             filePath = path.join(__dirname, url === '/' ? 'index.html' : url);
         }
@@ -171,6 +234,8 @@ const server = http.createServer((req, res) => {
             }
         }
     }
+
+    filePath = resolveNextStaticPath(filePath);
 
     const extname = path.extname(filePath);
     let contentType = 'text/html';

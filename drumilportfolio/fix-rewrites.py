@@ -2,8 +2,8 @@ import os
 import json
 from pathlib import Path
 
-base_dir = Path(r"c:\Users\Drumil\Documents\GitHub\Website\archshield-app\frontend\out")
-vercel_json_path = Path(r"c:\Users\Drumil\Documents\GitHub\Website\vercel.json")
+base_dir = Path(__file__).parent / "archshield-app/frontend/out"
+vercel_json_path = Path(__file__).parent / "vercel.json"
 
 with open(vercel_json_path, 'r', encoding='utf-8') as f:
     vercel = json.load(f)
