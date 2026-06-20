@@ -129,18 +129,18 @@ const DEMO_DATA = {
         tags: ['Next.js', 'Tailwind CSS', 'Framer Motion', 'Firebase']
     },
     'ca-webcodex': {
-        url: 'tinmco.com/ca-webcodex',
-        href: '/ca-webcodex/',
+        url: 'tinmco.com/demo-websites/ca-webcodex',
+        href: '/demo-websites/ca-webcodex',
         tags: ['HTML5', 'CSS3', 'Vanilla JS', 'Static']
     },
     'ca-website': {
-        url: 'tinmco.com/ca-website',
-        href: '/ca-website/',
+        url: 'tinmco.com/demo-websites/ca-website',
+        href: '/demo-websites/ca-website',
         tags: ['HTML5', 'CSS3', 'Vanilla JS', 'Static']
     },
     'import-export': {
-        url: 'tinmco.com/import-export',
-        href: '/import-export/',
+        url: 'tinmco.com/demo-websites/import-export',
+        href: '/demo-websites/import-export',
         tags: ['HTML5', 'CSS3', 'Vanilla JS', 'Logistics']
     }
 };
