@@ -222,6 +222,30 @@
             "destination": "/archshield-app/frontend/out/dashboard/settings"
         },
         {
+            "source": "/ca-webcodex",
+            "destination": "/demo-websites/ca-webcodex/index.html"
+        },
+        {
+            "source": "/ca-webcodex/:path*",
+            "destination": "/demo-websites/ca-webcodex/:path*"
+        },
+        {
+            "source": "/ca-website",
+            "destination": "/demo-websites/ca-website/index.html"
+        },
+        {
+            "source": "/ca-website/:path*",
+            "destination": "/demo-websites/ca-website/:path*"
+        },
+        {
+            "source": "/import-export",
+            "destination": "/demo-websites/import-export/index.html"
+        },
+        {
+            "source": "/import-export/:path*",
+            "destination": "/demo-websites/import-export/:path*"
+        },
+        {
             "source": "/business",
             "destination": "/business/out"
         },

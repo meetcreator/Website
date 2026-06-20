@@ -200,13 +200,13 @@ const server = http.createServer((req, res) => {
         }
     } else if (lowerUrl === '/ca-webcodex' || lowerUrl.startsWith('/ca-webcodex/')) {
         const subPath = url.substring(13) || 'index.html'; // '/ca-webcodex/'.length = 13
-        filePath = path.join(__dirname, '../demo-websites/ca-webcodex', subPath === '/' ? 'index.html' : subPath);
+        filePath = path.join(__dirname, 'demo-websites/ca-webcodex', subPath === '/' ? 'index.html' : subPath);
     } else if (lowerUrl === '/ca-website' || lowerUrl.startsWith('/ca-website/')) {
         const subPath = url.substring(12) || 'index.html'; // '/ca-website/'.length = 12
-        filePath = path.join(__dirname, '../demo-websites/ca-website', subPath === '/' ? 'index.html' : subPath);
+        filePath = path.join(__dirname, 'demo-websites/ca-website', subPath === '/' ? 'index.html' : subPath);
     } else if (lowerUrl === '/import-export' || lowerUrl.startsWith('/import-export/')) {
         const subPath = url.substring(15) || 'index.html'; // '/import-export/'.length = 15
-        filePath = path.join(__dirname, '../demo-websites/import-export-website', subPath === '/' ? 'index.html' : subPath);
+        filePath = path.join(__dirname, 'demo-websites/import-export', subPath === '/' ? 'index.html' : subPath);
     } else if (
         lowerUrl.startsWith('/dashboard') || 
         lowerUrl === '/login' || lowerUrl.startsWith('/login/') || 
@@ -242,11 +242,11 @@ const server = http.createServer((req, res) => {
         } else if (referer.includes('/procurement') && !lowerUrl.startsWith('/procurement')) {
             filePath = path.join(__dirname, 'procurement', url);
         } else if (referer.includes('/ca-webcodex') && !lowerUrl.startsWith('/ca-webcodex')) {
-            filePath = path.join(__dirname, '../demo-websites/ca-webcodex', url);
+            filePath = path.join(__dirname, 'demo-websites/ca-webcodex', url);
         } else if (referer.includes('/ca-website') && !lowerUrl.startsWith('/ca-website')) {
-            filePath = path.join(__dirname, '../demo-websites/ca-website', url);
+            filePath = path.join(__dirname, 'demo-websites/ca-website', url);
         } else if (referer.includes('/import-export') && !lowerUrl.startsWith('/import-export')) {
-            filePath = path.join(__dirname, '../demo-websites/import-export-website', url);
+            filePath = path.join(__dirname, 'demo-websites/import-export', url);
         } else {
             filePath = path.join(__dirname, url === '/' ? 'index.html' : url);
         }
