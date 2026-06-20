@@ -693,7 +693,7 @@ footer {
 .browser-viewport {
     height: 600px;
     position: relative;
-    background: #f8f8f8;
+    background: #fff;
     overflow: hidden;
 }
 
