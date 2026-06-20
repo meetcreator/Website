@@ -1,0 +1,5 @@
+1:"$Sreact.fragment"
+2:I[97367,["/archshield/_next/static/chunks/ff1a16fafef87110.js","/archshield/_next/static/chunks/d2be314c3ece3fbe.js"],"OutletBoundary"]
+3:"$Sreact.suspense"
+0:{"buildId":"L6Cju259TtZ6sBjCtF8_e","rsc":["$","$1","c",{"children":[[["$","h1",null,{"children":"Architecture Designer"}],["$","p",null,{"children":"Sketch cloud services, data flows, and trust boundaries before sending the design to analysis."}],["$","div",null,{"className":"grid","children":[["$","div",null,{"className":"card","children":"VPC"}],["$","div",null,{"className":"card","children":"Load Balancer"}],["$","div",null,{"className":"card","children":"Database"}]]}]],null,["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"loading":null,"isPartial":false}
+4:null

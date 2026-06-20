@@ -12,10 +12,10 @@ jspm_packages/
 **/.next/
 
 # whitelist specific build folders for Vercel static monorepo
-!archshield-app/frontend/out/
-!business/out/
-!business/backend/dist/
-!olympiad/out/
+!drumilportfolio/archshield-app/frontend/out/
+!drumilportfolio/business/out/
+!drumilportfolio/business/backend/dist/
+!drumilportfolio/olympiad/out/
 
 # Python / FastAPI
 __pycache__/
