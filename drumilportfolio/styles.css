@@ -691,15 +691,18 @@ footer {
 .browser-open-btn:hover { color: var(--accent-primary); }
 
 .browser-viewport {
-    height: 480px;
+    height: 600px;
     position: relative;
     background: #f8f8f8;
+    overflow: hidden;
 }
 
 .browser-viewport iframe {
-    width: 100%;
-    height: 100%;
+    width: 133.33%;
+    height: 133.33%;
     border: none;
+    transform: scale(0.75);
+    transform-origin: top left;
     transition: opacity 0.3s;
 }
 
@@ -711,6 +714,7 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .browser-viewport { height: 320px; }
+    .browser-viewport { height: 400px; }
+    .browser-viewport iframe { width: 150%; height: 150%; transform: scale(0.667); }
     .demo-tab { padding: 8px 12px; font-size: 0.7rem; }
 }
