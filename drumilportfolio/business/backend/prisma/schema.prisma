@@ -15,18 +15,24 @@ enum Role {
 }
 
 model Tenant {
-  id        String     @id @default(cuid())
-  name      String
-  email     String?
-  users     User[]
-  products    Product[]
-  orders      Order[]
-  customers   Customer[]
-  clients     StrategicClient[]
-  campaigns   Campaign[]
-  integrations Integration[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id                String             @id @default(cuid())
+  name              String
+  email             String?
+  users             User[]
+  products          Product[]
+  orders            Order[]
+  customers         Customer[]
+  clients           StrategicClient[]
+  campaigns         Campaign[]
+  integrations      Integration[]
+  suppliers         Supplier[]
+  purchaseOrders    PurchaseOrder[]
+  followUpTasks     FollowUpTask[]
+  cashFlowSnapshots CashFlowSnapshot[]
+  auditLogs         AuditLog[]
+  settings          Json?              // { autoProcurement, autoFollowUp, cashBalanceManual, digestSchedule }
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
 }
 
 model User {
@@ -42,41 +48,47 @@ model User {
 }
 
 model Product {
-  id          String      @id @default(cuid())
-  sku         String
-  name        String
-  category    String?
-  price       Float
-  cost        Float
-  inventory   Inventory?
-  orders      OrderItem[]
-  tenantId    String
-  tenant      Tenant      @relation(fields: [tenantId], references: [id])
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id            String         @id @default(cuid())
+  sku           String
+  name          String
+  category      String?
+  price         Float
+  cost          Float
+  inventory     Inventory?
+  orders        OrderItem[]
+  purchaseItems PurchaseItem[]
+  tenantId      String
+  tenant        Tenant         @relation(fields: [tenantId], references: [id])
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 
   @@unique([sku, tenantId])
 }
 
 model Inventory {
-  id           String   @id @default(cuid())
-  productId    String   @unique
-  product      Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  quantity     Int      @default(0)
-  minThreshold Int      @default(10)
-  warehouseId  String?
-  updatedAt    DateTime @updatedAt
+  id            String    @id @default(cuid())
+  productId     String    @unique
+  product       Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantity      Int       @default(0)
+  minThreshold  Int       @default(10)
+  warehouseId   String?
+  supplierId    String?
+  supplier      Supplier? @relation(fields: [supplierId], references: [id])
+  salesVelocity Float     @default(0) // avg units sold/day, rolling 30d
+  lastOrderedAt DateTime?
+  updatedAt     DateTime  @updatedAt
 }
 
 model StrategicClient {
-  id        String   @id @default(cuid())
-  name      String
-  value     Float
-  growth    String
-  tenantId  String
-  tenant    Tenant   @relation(fields: [tenantId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String              @id @default(cuid())
+  name        String
+  value       Float
+  growth      String
+  healthScore AccountHealthScore?
+  tenantId    String
+  tenant      Tenant              @relation(fields: [tenantId], references: [id])
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
 }
 
 model Campaign {
@@ -90,31 +102,40 @@ model Campaign {
 }
 
 model Customer {
-  id        String   @id @default(cuid())
-  email     String?
-  name      String
-  orders    Order[]
-  tenantId  String
-  tenant    Tenant   @relation(fields: [tenantId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id              String              @id @default(cuid())
+  email           String?
+  name            String
+  orders          Order[]
+  followUpTasks   FollowUpTask[]
+  healthScore     AccountHealthScore?
+  tenantId        String
+  tenant          Tenant              @relation(fields: [tenantId], references: [id])
+  lastContactAt   DateTime?
+  lifetimeValue   Float               @default(0)
+  contactInsights Json?               // { avgReplyDays, bestDayOfWeek, preferredChannel }
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
 }
 
 model Order {
-  id          String      @id @default(cuid())
-  orderNumber String
-  customerId  String
-  customer    Customer    @relation(fields: [customerId], references: [id])
-  items       OrderItem[]
-  totalAmount Float
-  totalCost   Float
-  revenue     Float
-  profit      Float
-  status      String      @default("COMPLETED")
-  tenantId    String
-  tenant      Tenant      @relation(fields: [tenantId], references: [id])
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id            String         @id @default(cuid())
+  orderNumber   String
+  customerId    String
+  customer      Customer       @relation(fields: [customerId], references: [id])
+  items         OrderItem[]
+  followUpTasks FollowUpTask[]
+  totalAmount   Float
+  totalCost     Float
+  revenue       Float
+  profit        Float
+  status        String         @default("COMPLETED") // COMPLETED | PENDING | OVERDUE | PAID
+  invoiceStatus String         @default("NONE")      // NONE | SENT | OVERDUE | PAID
+  dueDate       DateTime?
+  paidAt        DateTime?
+  tenantId      String
+  tenant        Tenant         @relation(fields: [tenantId], references: [id])
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 }
 
 model OrderItem {
@@ -132,6 +153,7 @@ model Forecast {
   id         String   @id @default(cuid())
   tenantId   String
   period     String
+  type       String   @default("REVENUE") // REVENUE | CASHFLOW | DEMAND
   value      Float
   confidence Float
   createdAt  DateTime @default(now())
@@ -143,15 +165,125 @@ enum IntegrationType {
 }
 
 model Integration {
-  id              String          @id @default(cuid())
-  tenantId        String
-  tenant          Tenant          @relation(fields: [tenantId], references: [id])
-  type            IntegrationType
-  status          String          @default("ACTIVE")
-  credentials     String          // JSON stringified credentials (should be encrypted in production)
-  lastSyncAt      DateTime?
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
+  id          String          @id @default(cuid())
+  tenantId    String
+  tenant      Tenant          @relation(fields: [tenantId], references: [id])
+  type        IntegrationType
+  status      String          @default("ACTIVE")
+  credentials String          // JSON stringified, should be encrypted in production
+  lastSyncAt  DateTime?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
 
   @@unique([tenantId, type])
+}
+
+// ─── New Models ────────────────────────────────────────────────────────────────
+
+model Supplier {
+  id             String                 @id @default(cuid())
+  tenantId       String
+  tenant         Tenant                 @relation(fields: [tenantId], references: [id])
+  name           String
+  contactEmail   String?
+  phone          String?
+  leadTimeDays   Int                    @default(7)
+  inventory      Inventory[]
+  purchaseOrders PurchaseOrder[]
+  priceHistory   SupplierPriceHistory[]
+  createdAt      DateTime               @default(now())
+  updatedAt      DateTime               @updatedAt
+}
+
+model SupplierPriceHistory {
+  id         String   @id @default(cuid())
+  supplierId String
+  supplier   Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  sku        String
+  unitCost   Float
+  recordedAt DateTime @default(now())
+}
+
+model PurchaseOrder {
+  id         String         @id @default(cuid())
+  tenantId   String
+  tenant     Tenant         @relation(fields: [tenantId], references: [id])
+  supplierId String
+  supplier   Supplier       @relation(fields: [supplierId], references: [id])
+  items      PurchaseItem[]
+  status     String         @default("DRAFT") // DRAFT | PENDING_APPROVAL | SENT | RECEIVED | CANCELLED
+  draftEmail String?
+  notes      String?
+  approvedBy String?
+  sentAt     DateTime?
+  receivedAt DateTime?
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+}
+
+model PurchaseItem {
+  id              String        @id @default(cuid())
+  purchaseOrderId String
+  purchaseOrder   PurchaseOrder @relation(fields: [purchaseOrderId], references: [id], onDelete: Cascade)
+  productId       String
+  product         Product       @relation(fields: [productId], references: [id])
+  quantity        Int
+  unitCost        Float
+}
+
+model FollowUpTask {
+  id           String    @id @default(cuid())
+  tenantId     String
+  tenant       Tenant    @relation(fields: [tenantId], references: [id])
+  customerId   String
+  customer     Customer  @relation(fields: [customerId], references: [id])
+  orderId      String?
+  order        Order?    @relation(fields: [orderId], references: [id])
+  priority     Float     @default(0) // dealValue × probability × log(daysSinceTouch+1)
+  draftMessage String?
+  reasoning    String?
+  status       String    @default("PENDING") // PENDING | SENT | RESOLVED | DISMISSED
+  sentAt       DateTime?
+  repliedAt    DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model CashFlowSnapshot {
+  id         String   @id @default(cuid())
+  tenantId   String
+  tenant     Tenant   @relation(fields: [tenantId], references: [id])
+  horizon    Int      // 30 | 60 | 90 days
+  projected  Float
+  confidence Float    @default(0.85)
+  warnings   Json?    // [{ type, message, estimatedImpact }]
+  snapshotAt DateTime @default(now())
+}
+
+model AccountHealthScore {
+  id         String          @id @default(cuid())
+  tenantId   String
+  customerId String?         @unique
+  customer   Customer?       @relation(fields: [customerId], references: [id])
+  clientId   String?         @unique
+  client     StrategicClient? @relation(fields: [clientId], references: [id])
+  score      Float           // 0–100, lower = higher risk
+  factors    Json            // [{ name, weight, value, contribution, direction }]
+  suggestion String?
+  scoredAt   DateTime        @default(now())
+}
+
+model AuditLog {
+  id         String    @id @default(cuid())
+  tenantId   String
+  tenant     Tenant    @relation(fields: [tenantId], references: [id])
+  module     String    // PROCUREMENT | FOLLOWUP | CASHFLOW | CHURN | DIGEST
+  action     String    // FLAGGED | DRAFTED | APPROVED | SENT | DISMISSED | RESOLVED
+  entityType String?
+  entityId   String?
+  reasoning  String?
+  outcome       String?   // RESOLVED | IGNORED | WRONG
+  resolvedById  String?   // email of the person who recorded the outcome
+  createdAt     DateTime  @default(now())
+  resolvedAt    DateTime?
 }

@@ -12,22 +12,37 @@ import { NotificationModule } from './notifications/notifications.module';
 import { ClientModule } from './client/client.module';
 import { RealtimeModule } from './realtime/realtime.module';
 import { IntegrationsModule } from './integrations/integrations.module';
+import { CommonModule } from './common/common.module';
+import { CashFlowModule } from './cashflow/cashflow.module';
+import { FollowUpModule } from './followup/followup.module';
+import { ChurnModule } from './churn/churn.module';
+import { ProcurementModule } from './procurement/procurement.module';
+import { DigestModule } from './digest/digest.module';
+import { SettingsModule } from './settings/settings.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    PrismaModule,
-    AuthModule,
-    RealtimeModule,
-    AnalyticsModule,
-    InventoryModule,
-    ExportModule,
-    AIModule,
-    NotificationModule,
-    ClientModule,
-    IntegrationsModule,
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+    imports: [
+        ConfigModule.forRoot({ isGlobal: true }),
+        PrismaModule,
+        AuthModule,
+        RealtimeModule,
+        AnalyticsModule,
+        InventoryModule,
+        ExportModule,
+        AIModule,
+        NotificationModule,
+        ClientModule,
+        IntegrationsModule,
+        // Co-pilot modules
+        CommonModule,
+        CashFlowModule,
+        FollowUpModule,
+        ChurnModule,
+        ProcurementModule,
+        DigestModule,
+        SettingsModule,
+    ],
+    controllers: [AppController],
+    providers: [AppService],
 })
 export class AppModule { }
