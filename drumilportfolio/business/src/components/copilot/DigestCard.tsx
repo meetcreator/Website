@@ -53,10 +53,10 @@ export default function DigestCard({ onAction }: { onAction?: (action: any) => v
 
     if (loading) {
         return (
-            <div className="rounded-[2.5rem] border border-slate-900 bg-slate-900/30 p-8 md:p-10 animate-pulse">
-                <div className="h-5 w-40 bg-slate-800 rounded mb-6" />
+            <div className="rounded-[2.5rem] border border-slate-200 bg-white shadow-sm p-8 md:p-10 animate-pulse">
+                <div className="h-5 w-40 bg-slate-200 rounded mb-6" />
                 <div className="space-y-4">
-                    {[1, 2, 3].map(i => <div key={i} className="h-20 bg-slate-800/50 rounded-2xl" />)}
+                    {[1, 2, 3].map(i => <div key={i} className="h-20 bg-slate-100 rounded-2xl" />)}
                 </div>
             </div>
         );
@@ -68,7 +68,7 @@ export default function DigestCard({ onAction }: { onAction?: (action: any) => v
         <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-[2.5rem] border border-slate-900 bg-gradient-to-br from-slate-900/60 to-slate-950 p-8 md:p-10 font-sans"
+            className="rounded-[2.5rem] border border-slate-200 bg-white shadow-sm p-8 md:p-10 font-sans"
         >
             {/* Header */}
             <div className="flex items-start justify-between mb-6">
@@ -92,7 +92,7 @@ export default function DigestCard({ onAction }: { onAction?: (action: any) => v
                     <button
                         onClick={refresh}
                         disabled={refreshing}
-                        className="p-2 rounded-xl text-slate-500 hover:text-white hover:bg-slate-800 transition-all"
+                        className="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-all"
                     >
                         <RefreshCw size={14} className={refreshing ? 'animate-spin' : ''} />
                     </button>
@@ -101,8 +101,8 @@ export default function DigestCard({ onAction }: { onAction?: (action: any) => v
 
             {/* AI Summary */}
             {digest.summary && (
-                <div className="mb-6 p-4 rounded-2xl bg-blue-500/5 border border-blue-500/10">
-                    <p className="text-sm text-slate-300 leading-relaxed font-light italic">
+                <div className="mb-6 p-4 rounded-2xl bg-blue-50 border border-blue-200">
+                    <p className="text-sm text-slate-600 leading-relaxed font-light italic">
                         &ldquo;{digest.summary}&rdquo;
                     </p>
                 </div>
@@ -121,7 +121,7 @@ export default function DigestCard({ onAction }: { onAction?: (action: any) => v
                                 initial={{ opacity: 0, x: -8 }}
                                 animate={{ opacity: done ? 0.4 : 1, x: 0 }}
                                 transition={{ delay: idx * 0.08 }}
-                                className={`flex items-start gap-4 p-4 rounded-2xl border transition-all ${done ? 'border-emerald-500/20 bg-emerald-500/5' : 'border-slate-800 bg-slate-900/40 hover:bg-slate-900/70'}`}
+                                className={`flex items-start gap-4 p-4 rounded-2xl border transition-all ${done ? 'border-emerald-500/20 bg-emerald-50' : 'border-slate-200 bg-slate-50 hover:bg-white'}`}
                             >
                                 {/* Rank + severity */}
                                 <div className="flex flex-col items-center gap-1.5 pt-0.5 shrink-0">
@@ -141,8 +141,8 @@ export default function DigestCard({ onAction }: { onAction?: (action: any) => v
                                             </span>
                                         )}
                                     </div>
-                                    <p className="font-bold text-sm text-white mb-0.5">{item.title}</p>
-                                    <p className="text-xs text-slate-400 font-light leading-relaxed line-clamp-2">{item.reasoning}</p>
+                                    <p className="font-bold text-sm text-slate-900 mb-0.5">{item.title}</p>
+                                    <p className="text-xs text-slate-500 font-light leading-relaxed line-clamp-2">{item.reasoning}</p>
                                 </div>
 
                                 {/* Action */}
@@ -154,7 +154,7 @@ export default function DigestCard({ onAction }: { onAction?: (action: any) => v
                                     ) : (
                                         <button
                                             onClick={() => handleAction(item, idx)}
-                                            className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-[10px] font-black text-white transition-all whitespace-nowrap"
+                                            className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-[10px] font-black text-blue-700 transition-all whitespace-nowrap"
                                         >
                                             {item.action.label} <ChevronRight size={10} />
                                         </button>

@@ -135,27 +135,27 @@ export default function InventoryList() {
     };
 
     return (
-        <div className="rounded-[2rem] md:rounded-[2.5rem] border border-slate-900 bg-slate-900/10 p-5 md:p-10">
+        <div className="rounded-[2rem] md:rounded-[2.5rem] border border-slate-200 bg-white shadow-sm p-5 md:p-10">
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-8 md:mb-10">
                 <div>
                     <div className="flex items-center gap-2 mb-2">
                         <Layers size={18} className="text-blue-400" />
-                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Live Logistics Data</span>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Live Logistics Data</span>
                     </div>
-                    <h3 className="text-xl md:text-2xl font-black tracking-tighter text-white">Inventory Intelligence</h3>
-                    <p className="text-slate-500 text-xs md:text-sm mt-1">{inventory.filter(i => i.status !== 'ok').length} items need attention</p>
+                    <h3 className="text-xl md:text-2xl font-black tracking-tighter text-slate-900">Inventory Intelligence</h3>
+                    <p className="text-slate-400 text-xs md:text-sm mt-1">{inventory.filter(i => i.status !== 'ok').length} items need attention</p>
                 </div>
                 <div className="flex flex-wrap gap-2 w-full lg:w-auto">
                     <button
                         onClick={handleExport}
-                        className="flex-1 lg:flex-none px-4 py-2.5 rounded-xl border border-slate-800 text-xs font-bold hover:bg-slate-800 transition-all flex items-center justify-center gap-2"
+                        className="flex-1 lg:flex-none px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
                     >
                         <Download size={14} /> Export
                     </button>
                     <button
                         onClick={handleRestockAll}
                         disabled={restocking}
-                        className="flex-1 lg:flex-none px-4 py-2.5 rounded-xl border border-slate-800 bg-slate-900 text-xs font-bold hover:bg-slate-800 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                        className="flex-1 lg:flex-none px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-700 text-xs font-bold hover:bg-slate-50 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
                     >
                         {restocking ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />}
                         Restock
@@ -176,48 +176,48 @@ export default function InventoryList() {
             )}
 
             {showNewEntry && (
-                <div className="mb-8 p-6 rounded-3xl border border-blue-500/20 bg-blue-500/5 flex flex-col gap-4">
+                <div className="mb-8 p-6 rounded-3xl border border-blue-200 bg-blue-50 flex flex-col gap-4">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div className="flex-1">
-                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1 block">Product Name</label>
+                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 block">Product Name</label>
                             <input
                                 value={newItem.name}
                                 onChange={e => setNewItem(p => ({ ...p, name: e.target.value }))}
                                 placeholder="e.g. Server Rack Unit"
-                                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-all text-white"
+                                className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-all text-slate-900"
                             />
                         </div>
                         <div className="">
-                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1 block">Stock Qty</label>
+                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 block">Stock Qty</label>
                             <input
                                 type="number"
                                 value={newItem.stock}
                                 onChange={e => setNewItem(p => ({ ...p, stock: e.target.value }))}
                                 placeholder="100"
-                                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-all text-white"
+                                className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-all text-slate-900"
                             />
                         </div>
                         <div className="">
-                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1 block">Min Threshold</label>
+                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 block">Min Threshold</label>
                             <input
                                 type="number"
                                 value={newItem.minStock}
                                 onChange={e => setNewItem(p => ({ ...p, minStock: e.target.value }))}
                                 placeholder="20"
-                                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-all text-white"
+                                className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-all text-slate-900"
                             />
                         </div>
                     </div>
                     <div className="flex gap-2">
                         <button onClick={handleAddEntry} className="flex-1 py-3 rounded-xl bg-blue-600 text-white text-sm font-bold hover:bg-blue-500 transition-all">Add Item</button>
-                        <button onClick={() => setShowNewEntry(false)} className="px-5 py-3 rounded-xl border border-slate-800 text-sm font-bold hover:bg-slate-800 transition-all text-white"><X size={16} /></button>
+                        <button onClick={() => setShowNewEntry(false)} className="px-5 py-3 rounded-xl border border-slate-200 text-slate-700 text-sm font-bold hover:bg-slate-50 transition-all"><X size={16} /></button>
                     </div>
                 </div>
             )}
 
             <div className="grid grid-cols-1 gap-4">
                 {inventory.map((item) => (
-                    <div key={item.id} className="group p-5 md:p-6 rounded-2xl md:rounded-3xl border border-slate-900 bg-slate-900/40 hover:bg-slate-900 transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                    <div key={item.id} className="group p-5 md:p-6 rounded-2xl md:rounded-3xl border border-slate-200 bg-white hover:shadow-md transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                         <div className="flex items-center gap-4 md:gap-5 w-full md:w-auto">
                             <div className={`w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0 ${item.status === 'critical' ? 'bg-rose-500/10 text-rose-400' :
                                 item.status === 'low' ? 'bg-amber-500/10 text-amber-400' :
@@ -226,23 +226,23 @@ export default function InventoryList() {
                                 <Package size={24} className="md:w-7 md:h-7" />
                             </div>
                             <div className="min-w-0">
-                                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-0.5 truncate">{item.id}</p>
-                                <h4 className="text-base md:text-lg font-bold tracking-tight text-white truncate">{item.name}</h4>
+                                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-0.5 truncate">{item.id}</p>
+                                <h4 className="text-base md:text-lg font-bold tracking-tight text-slate-900 truncate">{item.name}</h4>
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-4 md:gap-8 w-full md:w-auto text-center border-y border-slate-800/50 md:border-none py-4 md:py-0">
+                        <div className="grid grid-cols-3 gap-4 md:gap-8 w-full md:w-auto text-center border-y border-slate-100 md:border-none py-4 md:py-0">
                             <div>
-                                <p className="text-[9px] md:text-[10px] text-slate-500 font-black uppercase tracking-widest mb-1">Stock</p>
-                                <p className={`text-lg md:text-xl font-black tracking-tighter font-mono ${item.status === 'critical' ? 'text-rose-400' : item.status === 'low' ? 'text-amber-400' : 'text-white'}`}>{item.stock}</p>
+                                <p className="text-[9px] md:text-[10px] text-slate-400 font-black uppercase tracking-widest mb-1">Stock</p>
+                                <p className={`text-lg md:text-xl font-black tracking-tighter font-mono ${item.status === 'critical' ? 'text-rose-500' : item.status === 'low' ? 'text-amber-500' : 'text-slate-900'}`}>{item.stock}</p>
                             </div>
                             <div>
-                                <p className="text-[9px] md:text-[10px] text-slate-500 font-black uppercase tracking-widest mb-1">Min</p>
-                                <p className="text-lg md:text-xl font-black tracking-tighter text-slate-400 font-mono">{item.minStock}</p>
+                                <p className="text-[9px] md:text-[10px] text-slate-400 font-black uppercase tracking-widest mb-1">Min</p>
+                                <p className="text-lg md:text-xl font-black tracking-tighter text-slate-500 font-mono">{item.minStock}</p>
                             </div>
                             <div>
-                                <p className="text-[9px] md:text-[10px] text-slate-500 font-black uppercase tracking-widest mb-1">Turn</p>
-                                <p className="text-lg md:text-xl font-black tracking-tighter text-blue-400 font-mono">{item.turnover}</p>
+                                <p className="text-[9px] md:text-[10px] text-slate-400 font-black uppercase tracking-widest mb-1">Turn</p>
+                                <p className="text-lg md:text-xl font-black tracking-tighter text-blue-500 font-mono">{item.turnover}</p>
                             </div>
                         </div>
 
@@ -259,7 +259,7 @@ export default function InventoryList() {
                                 <button
                                     onClick={() => handleAdjustStock(item.id, -10)}
                                     disabled={adjustingId === item.id || item.stock <= 0}
-                                    className="w-10 h-10 rounded-xl border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 transition-all disabled:opacity-30"
+                                    className="w-10 h-10 rounded-xl border border-slate-200 flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-all disabled:opacity-30"
                                     title="Remove 10 units"
                                 >
                                     <Minus size={14} />
@@ -267,14 +267,14 @@ export default function InventoryList() {
                                 <button
                                     onClick={() => handleAdjustStock(item.id, 50)}
                                     disabled={adjustingId === item.id}
-                                    className="w-10 h-10 rounded-xl border border-slate-800 flex items-center justify-center text-slate-400 hover:text-emerald-400 hover:border-emerald-500/30 transition-all disabled:opacity-30"
+                                    className="w-10 h-10 rounded-xl border border-slate-200 flex items-center justify-center text-slate-400 hover:text-emerald-600 hover:border-emerald-300 transition-all disabled:opacity-30"
                                     title="Add 50 units"
                                 >
                                     {adjustingId === item.id ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
                                 </button>
                                 <button
                                     onClick={() => handleDeleteItem(item.id)}
-                                    className="w-10 h-10 rounded-xl border border-slate-800 flex items-center justify-center text-slate-500 hover:text-rose-400 hover:border-rose-500/30 transition-all"
+                                    className="w-10 h-10 rounded-xl border border-slate-200 flex items-center justify-center text-slate-400 hover:text-rose-500 hover:border-rose-300 transition-all"
                                     title="Remove item"
                                 >
                                     <Trash2 size={14} />

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-    title: "AnalyticsPro | B2B & B2C Business Intelligence",
+    title: "NexusIQ | Business Intelligence & Management",
     description: "Advanced analytics for modern businesses",
 };
 

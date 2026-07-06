@@ -31,20 +31,20 @@ export default function CashFlowPanel() {
 
     if (loading) return (
         <div className="space-y-6 animate-pulse">
-            <div className="h-40 bg-slate-900/40 rounded-3xl" />
-            <div className="h-40 bg-slate-900/40 rounded-3xl" />
+            <div className="h-40 bg-slate-100 rounded-3xl" />
+            <div className="h-40 bg-slate-100 rounded-3xl" />
         </div>
     );
 
     return (
         <div className="space-y-6 font-sans">
             {/* Projections */}
-            <div className="p-6 md:p-8 rounded-[2rem] border border-slate-900 bg-slate-900/30">
+            <div className="p-6 md:p-8 rounded-[2rem] border border-slate-200 bg-white shadow-sm">
                 <div className="flex items-center gap-2 mb-2">
-                    <TrendingDown size={16} className="text-blue-400" />
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Cash Flow Projection</span>
+                    <TrendingDown size={16} className="text-blue-500" />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Cash Flow Projection</span>
                 </div>
-                <h3 className="text-xl font-black tracking-tight text-white mb-6">30 / 60 / 90-Day Outlook</h3>
+                <h3 className="text-xl font-black tracking-tight text-slate-900 mb-6">30 / 60 / 90-Day Outlook</h3>
 
                 <div className="space-y-5">
                     {projections.map((p: any, i: number) => (
@@ -58,7 +58,7 @@ export default function CashFlowPanel() {
                                     <span className="text-[9px] text-slate-600 font-bold">{Math.round(p.confidence * 100)}% conf.</span>
                                 </div>
                             </div>
-                            <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
+                            <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden">
                                 <motion.div
                                     className={`h-full rounded-full ${HORIZON_BAR(p.projected)}`}
                                     initial={{ width: 0 }}
@@ -79,12 +79,12 @@ export default function CashFlowPanel() {
 
             {/* Anomalies */}
             {anomalies.length > 0 && (
-                <div className="p-6 md:p-8 rounded-[2rem] border border-slate-900 bg-slate-900/30">
+                <div className="p-6 md:p-8 rounded-[2rem] border border-slate-200 bg-white shadow-sm">
                     <div className="flex items-center gap-2 mb-2">
-                        <AlertTriangle size={16} className="text-amber-400" />
-                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Anomaly Detection</span>
+                        <AlertTriangle size={16} className="text-amber-500" />
+                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Anomaly Detection</span>
                     </div>
-                    <h3 className="text-xl font-black tracking-tight text-white mb-6">{anomalies.length} Flag{anomalies.length > 1 ? 's' : ''} Detected</h3>
+                    <h3 className="text-xl font-black tracking-tight text-slate-900 mb-6">{anomalies.length} Flag{anomalies.length > 1 ? 's' : ''} Detected</h3>
 
                     <div className="space-y-3">
                         {anomalies.map((a: any, i: number) => (
@@ -95,7 +95,7 @@ export default function CashFlowPanel() {
                                 >
                                     <div className="flex items-center gap-3">
                                         <div className={`w-2 h-2 rounded-full shrink-0 ${a.severity === 'high' ? 'bg-rose-500' : 'bg-amber-400'}`} />
-                                        <span className="font-bold text-sm text-white">{a.title}</span>
+                                        <span className="font-bold text-sm text-slate-900">{a.title}</span>
                                         {a.estimatedImpact > 0 && (
                                             <span className="text-[10px] font-black text-slate-500">${(a.estimatedImpact / 1000).toFixed(0)}k</span>
                                         )}
@@ -104,7 +104,7 @@ export default function CashFlowPanel() {
                                 </button>
                                 {expandedAnomaly === i && (
                                     <div className="px-4 pb-4">
-                                        <p className="text-xs text-slate-400 font-light leading-relaxed">{a.reasoning}</p>
+                                        <p className="text-xs text-slate-500 font-light leading-relaxed">{a.reasoning}</p>
                                     </div>
                                 )}
                             </div>

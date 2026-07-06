@@ -40,24 +40,24 @@ export default function SettingsPanel() {
         }
     };
 
-    if (loading) return <div className="h-64 bg-slate-900/40 rounded-3xl animate-pulse" />;
+    if (loading) return <div className="h-64 bg-slate-100 rounded-3xl animate-pulse" />;
 
     return (
         <div className="max-w-2xl space-y-6 font-sans">
             <div className="flex items-center gap-2 mb-6">
-                <Settings size={18} className="text-blue-400" />
-                <h3 className="text-xl font-black tracking-tight text-white">Co-Pilot Settings</h3>
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-600 ml-auto">Tenant-level</span>
+                <Settings size={18} className="text-blue-500" />
+                <h3 className="text-xl font-black tracking-tight text-slate-900">Co-Pilot Settings</h3>
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-auto">Tenant-level</span>
             </div>
 
             <div className="space-y-3">
                 {SETTINGS.map((s, i) => (
                     <motion.div key={s.key} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
-                        className="p-5 rounded-2xl border border-slate-800 bg-slate-900/40 flex items-center gap-4"
+                        className="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm flex items-center gap-4"
                     >
                         <div className="flex-1 min-w-0">
-                            <p className="font-bold text-sm text-white">{s.label}</p>
-                            <p className="text-[10px] text-slate-500 mt-0.5 leading-relaxed">{s.description}</p>
+                            <p className="font-bold text-sm text-slate-900">{s.label}</p>
+                            <p className="text-[10px] text-slate-400 mt-0.5 leading-relaxed">{s.description}</p>
                         </div>
 
                         {s.type === "toggle" ? (
@@ -73,7 +73,7 @@ export default function SettingsPanel() {
                                     type="number"
                                     value={values[s.key] ?? ""}
                                     onChange={e => setValues(v => ({ ...v, [s.key]: parseFloat(e.target.value) || 0 }))}
-                                    className="w-24 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm font-bold text-white text-right focus:outline-none focus:border-blue-500/50"
+                                    className="w-24 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm font-bold text-slate-900 text-right focus:outline-none focus:border-blue-500"
                                 />
                                 {s.unit && <span className="text-[10px] text-slate-500 font-bold">{s.unit}</span>}
                             </div>
