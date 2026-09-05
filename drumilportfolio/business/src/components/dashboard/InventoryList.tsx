@@ -5,13 +5,6 @@ import { Package, AlertTriangle, RefreshCw, Layers, Plus, CheckCircle, Loader2, 
 import { api } from "@/lib/api";
 import { useSocket } from "@/hooks/useSocket";
 
-const mockInventory = [
-    { id: "PR-1024", name: "Executive Suite A1", stock: 12, minStock: 20, turnover: "4.2x", status: "low" },
-    { id: "PR-2048", name: "Cloud Enterprise License", stock: 842, minStock: 100, turnover: "12.5x", status: "ok" },
-    { id: "PR-3072", name: "Premium Support Unit", stock: 45, minStock: 50, turnover: "2.8x", status: "critical" },
-    { id: "PR-4096", name: "Infrastructure Node B", stock: 124, minStock: 80, turnover: "8.1x", status: "ok" },
-];
-
 type InventoryItem = {
     id: string;
     name: string;

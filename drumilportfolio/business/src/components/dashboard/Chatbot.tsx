@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { Send, MessageSquare, X, Bot } from "lucide-react";
 import { api, API_BASE_URL } from "@/lib/api";
 
-export default function Chatbot() {
+export default function Chatbot({ inline = false }: { inline?: boolean }) {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<{ role: 'user' | 'ai', text: string }[]>([
         { role: 'ai', text: "Hello! I'm ARCH-AI, your Business Intelligence Engine. Ask me about revenue, inventory, churn risk, or forecasts." }
@@ -59,6 +59,108 @@ export default function Chatbot() {
             sendMessage();
         }
     };
+
+    if (inline) {
+        return (
+            <div className="rounded-[2.5rem] border border-slate-800 bg-slate-900/95 backdrop-blur-2xl shadow-2xl flex flex-col overflow-hidden" style={{ height: 560 }}>
+                {/* Header */}
+                <div className="p-6 bg-gradient-to-br from-blue-600 via-blue-600 to-indigo-700 flex items-center gap-4 relative overflow-hidden flex-shrink-0">
+                    <div className="relative z-10 flex items-center gap-4">
+                        <div className="p-2.5 bg-white/10 rounded-2xl backdrop-blur-md">
+                            <Bot size={20} className="text-white" />
+                        </div>
+                        <div>
+                            <span className="font-black text-white text-base tracking-tighter block leading-tight">ARCH-AI · Procurement</span>
+                            <div className="flex items-center gap-1.5">
+                                <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></div>
+                                <span className="text-[10px] text-white/70 font-bold uppercase tracking-widest">Neural Link Active</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 blur-3xl -mr-16 -mt-16"></div>
+                </div>
+
+                {/* Messages */}
+                <div className="flex-1 p-5 overflow-y-auto flex flex-col gap-4 bg-slate-950/30">
+                    {messages.map((m, i) => (
+                        <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                            {m.role === 'ai' && (
+                                <div className="w-7 h-7 rounded-xl bg-blue-600/20 flex items-center justify-center mr-2 flex-shrink-0 mt-1">
+                                    <Bot size={14} className="text-blue-400" />
+                                </div>
+                            )}
+                            <div className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${m.role === 'user'
+                                ? 'bg-blue-600 text-white rounded-tr-sm shadow-lg shadow-blue-600/20'
+                                : 'bg-slate-800/80 text-slate-200 border border-slate-700/50 rounded-tl-sm'
+                                }`}>
+                                {m.role === 'ai' ? (
+                                    <div className="space-y-1">
+                                        {m.text.split('\n').map((line, lineIdx) => {
+                                            if (!line.trim()) return <div key={lineIdx} className="h-1" />;
+                                            const parts = line.split(/(\*\*[^*]+\*\*)/g);
+                                            return (
+                                                <p key={lineIdx} className={line.startsWith('- ') || line.startsWith('• ') ? 'pl-3 border-l-2 border-blue-500/40' : ''}>
+                                                    {parts.map((part, pi) =>
+                                                        part.startsWith('**') && part.endsWith('**')
+                                                            ? <strong key={pi} className="text-white font-semibold">{part.slice(2, -2)}</strong>
+                                                            : <span key={pi}>{part}</span>
+                                                    )}
+                                                </p>
+                                            );
+                                        })}
+                                    </div>
+                                ) : m.text}
+                            </div>
+                        </div>
+                    ))}
+                    {loading && (
+                        <div className="flex justify-start">
+                            <div className="w-7 h-7 rounded-xl bg-blue-600/20 flex items-center justify-center mr-2 flex-shrink-0">
+                                <Bot size={14} className="text-blue-400" />
+                            </div>
+                            <div className="bg-slate-800/80 border border-slate-700/50 p-4 rounded-2xl rounded-tl-sm flex items-center gap-1.5">
+                                <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
+                                <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce [animation-delay:0.15s]"></div>
+                                <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce [animation-delay:0.3s]"></div>
+                            </div>
+                        </div>
+                    )}
+                    <div ref={messagesEndRef} />
+                </div>
+
+                {/* Quick prompts */}
+                <div className="px-5 pb-2 flex gap-2 overflow-x-auto flex-shrink-0 scrollbar-hide">
+                    {["Reorder status", "Price anomalies", "Supplier cost trend", "Low stock items"].map(prompt => (
+                        <button
+                            key={prompt}
+                            onClick={() => { setInput(prompt); }}
+                            className="whitespace-nowrap px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-400 text-[10px] font-bold hover:bg-slate-700 hover:text-white transition-all flex-shrink-0"
+                        >
+                            {prompt}
+                        </button>
+                    ))}
+                </div>
+
+                {/* Input */}
+                <div className="p-4 bg-slate-900 border-t border-slate-800 flex gap-3 flex-shrink-0">
+                    <input
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                        placeholder="Ask about procurement..."
+                        className="flex-1 bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500/60 transition-all placeholder:text-slate-600 text-white"
+                    />
+                    <button
+                        onClick={sendMessage}
+                        disabled={!input.trim() || loading}
+                        className="w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center hover:bg-blue-500 transition-all shadow-lg shadow-blue-600/30 flex-shrink-0 disabled:opacity-50"
+                    >
+                        <Send size={18} />
+                    </button>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[100]">

@@ -81,7 +81,7 @@ export default function DigestCard({ onAction }: { onAction?: (action: any) => v
                             Daily Co-Pilot Brief
                         </span>
                     </div>
-                    <h3 className="text-xl font-black tracking-tight text-white">
+                    <h3 className="text-xl font-black tracking-tight text-slate-900">
                         {digest.items?.length || 0} items need attention
                     </h3>
                 </div>

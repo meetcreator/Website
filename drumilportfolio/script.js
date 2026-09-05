@@ -76,6 +76,7 @@ const DEMO_DATA = {
     archshield:    { url: 'tinmco.com/archshield',              href: '/archshield',              tags: ['Next.js 16', 'FastAPI', 'Python', 'Terraform'] },
     business:      { url: 'tinmco.com/business',               href: '/business',               tags: ['React', 'FastAPI', 'Pandas', 'Tailwind'] },
     olympiad:      { url: 'tinmco.com/olympiad',               href: '/olympiad',               tags: ['Next.js', 'Tailwind CSS', 'Framer Motion', 'Firebase'] },
+    procurement:   { url: 'tinmco.com/procurement',            href: '/procurement',            tags: ['Python', 'FastAPI', 'LLM', 'SQLite', 'Vanilla JS'] },
     'ca-webcodex': { url: 'tinmco.com/demo-websites/ca-webcodex', href: '/demo-websites/ca-webcodex', tags: ['HTML5', 'CSS3', 'Vanilla JS', 'Static'] },
     'ca-website':  { url: 'tinmco.com/demo-websites/ca-website',  href: '/demo-websites/ca-website',  tags: ['HTML5', 'CSS3', 'Vanilla JS', 'Static'] },
     'import-export': { url: 'tinmco.com/demo-websites/import-export', href: '/demo-websites/import-export', tags: ['HTML5', 'CSS3', 'Vanilla JS', 'Logistics'] }

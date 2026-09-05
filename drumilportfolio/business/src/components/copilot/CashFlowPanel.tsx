@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { TrendingDown, AlertTriangle, Copy, ChevronDown, ChevronUp } from "lucide-react";
+import { TrendingDown, AlertTriangle, ChevronDown, ChevronUp } from "lucide-react";
 import { api } from "@/lib/api";
 
 const HORIZON_LABELS: Record<number, string> = { 30: "30 days", 60: "60 days", 90: "90 days" };

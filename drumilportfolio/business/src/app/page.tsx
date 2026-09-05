@@ -7,6 +7,7 @@ import {
     Menu, X, BrainCircuit, Mail, TrendingDown, ShieldAlert, Truck,
     BarChart2, SlidersHorizontal
 } from "lucide-react";
+import { useSocket } from "@/hooks/useSocket";
 import GrowthChart from "@/components/charts/GrowthChart";
 import SegmentChart from "@/components/charts/SegmentChart";
 import { api } from "@/lib/api";
@@ -105,10 +106,10 @@ function DashboardContent() {
 
     useEffect(() => { if (user || isGuest) fetchData(); }, [businessType, user, isGuest, dateRange, fetchData]);
 
-    const { useSocket } = require("@/hooks/useSocket");
-    useSocket((event: string) => {
+    const handleSocketEvent = useCallback((event: string) => {
         if (event.startsWith("inventory.") || event.startsWith("client.") || event.startsWith("analytics.")) fetchData();
-    });
+    }, [fetchData]);
+    useSocket(handleSocketEvent);
 
     if (!user && !isGuest) return <LoginPage />;
 
@@ -426,12 +427,15 @@ function DashboardContent() {
                 {activeView === "FollowUp" && <div className="max-w-3xl"><FollowUpPanel /></div>}
                 {activeView === "CashFlow" && <div className="max-w-3xl"><CashFlowPanel /></div>}
                 {activeView === "Churn" && <div className="max-w-3xl"><ChurnPanel /></div>}
-                {activeView === "Procurement" && <div className="max-w-3xl"><ProcurementPanel /></div>}
+                {activeView === "Procurement" && (
+                    <div className="max-w-3xl space-y-8">
+                        <ProcurementPanel />
+                        <Chatbot inline />
+                    </div>
+                )}
                 {activeView === "Settings" && <div className="max-w-2xl"><SettingsPanel /></div>}
                 {activeView === "Roi" && <div className="max-w-3xl"><RoiPanel /></div>}
             </div>
-
-            <Chatbot />
         </main>
     );
 }
