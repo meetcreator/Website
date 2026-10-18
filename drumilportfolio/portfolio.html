@@ -95,21 +95,45 @@
 </head>
 
 <body>
-    <header>
-        <div class="container">
-            <nav>
-                <div style="display: flex; align-items: baseline; gap: 0;">
-                    <div class="logo"><a href="/">AETHEL <span class="brand-hq" style="font-size: 0.6em; text-transform: lowercase; font-weight: 500; opacity: 0.85; vertical-align: baseline;">hq</span></a></div>
-                    <span class="logo-byline">by <a href="https://github.com/meetcreator" target="_blank" rel="noopener noreferrer">Drumil Patel</a></span>
-                </div>
-                <ul class="nav-links">
-                    <li><a href="#methodology">Strategy</a></li>
-                    <li><a href="#capabilities">Services</a></li>
-                    <li><a href="#portfolio">Work</a></li>
-                    <li><a href="#faq">FAQ</a></li>
-                    <li><a href="#contact" class="btn" style="padding: 9px 20px; font-size: 0.82rem;">Let's talk</a></li>
-                </ul>
+    <header class="site-header">
+        <div class="nav-container">
+            <!-- Brand Logo & Founder Badge -->
+            <div class="brand-group">
+                <a href="/" class="brand-logo" aria-label="AETHEL hq Home">
+                    <span class="brand-mark">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="24" height="24" rx="7" fill="#141312"/>
+                            <path d="M6.5 17.5L12 6.5L17.5 17.5M8.5 13.5H15.5" stroke="#c17d3c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                    <span class="brand-text">AETHEL <span class="brand-hq">hq</span></span>
+                </a>
+                <span class="brand-divider">/</span>
+                <a href="https://github.com/meetcreator" target="_blank" rel="noopener noreferrer" class="brand-creator-badge" title="View GitHub Profile">
+                    <i class="fab fa-github"></i>
+                    <span>Drumil Patel</span>
+                </a>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="nav-menu">
+                <a href="#methodology" class="nav-item">Strategy</a>
+                <a href="#capabilities" class="nav-item">Services</a>
+                <a href="#portfolio" class="nav-item">Work</a>
+                <a href="#faq" class="nav-item">FAQ</a>
             </nav>
+
+            <!-- Actions / Live Status CTA -->
+            <div class="nav-actions">
+                <a href="#contact" class="nav-cta-btn">
+                    <span class="pulse-indicator">
+                        <span class="pulse-ring"></span>
+                        <span class="pulse-core"></span>
+                    </span>
+                    <span>Let's talk</span>
+                    <i class="fas fa-arrow-right nav-cta-arrow"></i>
+                </a>
+            </div>
         </div>
     </header>
 

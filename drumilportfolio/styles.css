@@ -197,21 +197,38 @@ a {
     color: var(--text-primary);
 }
 
-/* Header & Navigation */
-header {
+/* Header & Navigation — Premium Floating Glass Capsule */
+header,
+header.site-header {
     position: fixed;
-    top: 0;
+    top: 16px;
     left: 0;
-    width: 100%;
-    height: var(--header-height);
+    right: 0;
+    width: min(calc(100% - 36px), 1180px);
+    margin: 0 auto;
+    height: 64px;
     z-index: 1000;
-    background: rgba(251, 250, 248, 0.88);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--border-light);
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 100px;
+    box-shadow: 0 10px 32px -4px rgba(0, 0, 0, 0.06), 0 2px 8px -2px rgba(0, 0, 0, 0.03);
+    padding: 0 10px 0 22px;
     display: flex;
     align-items: center;
-    transition: background 0.3s, border-color 0.3s;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+header .container,
+.nav-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 nav {
@@ -221,15 +238,46 @@ nav {
     align-items: center;
 }
 
+/* Brand Group & Logo */
+.brand-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-logo,
 .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.brand-logo:hover,
+.logo:hover {
+    transform: translateY(-0.5px);
+}
+
+.brand-mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
+}
+
+.brand-text,
+.logo a {
     font-family: 'Instrument Serif', Georgia, serif;
     font-size: 1.55rem;
     font-weight: 400;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
     color: var(--text-primary);
     display: inline-flex;
     align-items: baseline;
-    gap: 2px;
+    gap: 3px;
+    line-height: 1;
 }
 
 .brand-hq {
@@ -239,44 +287,156 @@ nav {
     opacity: 0.85;
     vertical-align: baseline;
     letter-spacing: normal;
+    color: var(--accent-warm);
 }
 
+.brand-divider {
+    color: var(--border-mid);
+    font-size: 0.85rem;
+    user-select: none;
+}
+
+.brand-creator-badge,
 .logo-byline {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 11px;
+    border-radius: 100px;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-light);
+    font-size: 0.74rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    margin-left: 0;
+    transition: var(--transition);
+}
+
+.brand-creator-badge i {
     font-size: 0.8rem;
     color: var(--text-dim);
-    margin-left: 10px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-}
-
-.logo-byline a {
-    color: var(--accent-warm);
-    text-decoration: underline;
-    text-underline-offset: 2px;
     transition: color 0.2s;
 }
 
-.logo-byline a:hover {
-    color: var(--accent-warm-hover);
+.brand-creator-badge a,
+.logo-byline a {
+    color: inherit;
+    text-decoration: none;
 }
 
+.brand-creator-badge:hover,
+.logo-byline:hover {
+    background: #ffffff;
+    border-color: var(--border-warm);
+    color: var(--accent-warm);
+    box-shadow: var(--shadow-subtle);
+}
+
+.brand-creator-badge:hover i {
+    color: var(--accent-warm);
+}
+
+/* Nav Menu Items */
+.nav-menu,
 .nav-links {
     display: flex;
-    gap: 32px;
+    align-items: center;
+    gap: 4px;
+    background: rgba(0, 0, 0, 0.025);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    padding: 4px;
+    border-radius: 100px;
     list-style: none;
+}
+
+.nav-item,
+.nav-links a {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    padding: 6px 16px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.nav-item:hover,
+.nav-links a:hover {
+    color: var(--text-primary);
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+/* Nav Actions & Live CTA Button */
+.nav-actions {
+    display: flex;
     align-items: center;
 }
 
-.nav-links a {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
+.nav-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 20px;
+    border-radius: 100px;
+    background: var(--accent);
+    color: #ffffff !important;
+    font-size: 0.82rem;
     font-weight: 500;
-    transition: color 0.2s;
-    position: relative;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: var(--transition);
+    white-space: nowrap;
 }
 
-.nav-links a:hover { 
-    color: var(--text-primary); 
+.nav-cta-btn:hover {
+    background: var(--accent-hover);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+    transform: translateY(-1px);
+    color: #ffffff !important;
+}
+
+.nav-cta-arrow {
+    font-size: 0.68rem;
+    transition: transform 0.2s ease;
+}
+
+.nav-cta-btn:hover .nav-cta-arrow {
+    transform: translateX(3px);
+}
+
+/* Live Pulse Indicator */
+.pulse-indicator {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.pulse-core {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #10b981;
+}
+
+.pulse-ring {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(16, 185, 129, 0.45);
+    animation: pulse 2s infinite ease-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.6); opacity: 1; }
+    100% { transform: scale(1.6); opacity: 0; }
 }
 
 /* Hero Section */
@@ -959,8 +1119,30 @@ footer {
         grid-template-columns: 1fr; 
     }
 
+    header,
+    header.site-header {
+        top: 10px;
+        width: calc(100% - 24px);
+        height: 56px;
+        padding: 0 8px 0 16px;
+    }
+
+    .brand-divider,
+    .brand-creator-badge,
+    .logo-byline,
+    .nav-menu,
     .nav-links { 
         display: none; 
+    }
+
+    .brand-text,
+    .logo a {
+        font-size: 1.32rem;
+    }
+
+    .nav-cta-btn {
+        padding: 7px 14px;
+        font-size: 0.78rem;
     }
 
     .hero {
