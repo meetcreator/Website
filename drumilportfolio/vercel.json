@@ -2,24 +2,6 @@
     "cleanUrls": true,
     "trailingSlash": false,
     "redirects": [
-        {
-            "source": "/(.*)",
-            "has": [{ "type": "host", "value": "www.aethelhq.com" }],
-            "destination": "https://aethelhq.com/$1",
-            "statusCode": 301
-        },
-        {
-            "source": "/(.*)",
-            "has": [{ "type": "host", "value": "tinmco.com" }],
-            "destination": "https://aethelhq.com/$1",
-            "statusCode": 301
-        },
-        {
-            "source": "/(.*)",
-            "has": [{ "type": "host", "value": "www.tinmco.com" }],
-            "destination": "https://aethelhq.com/$1",
-            "statusCode": 301
-        },
         { "source": "/Business/:path*",       "destination": "/business/:path*",              "statusCode": 301 },
         { "source": "/Archshield/:path*",      "destination": "/archshield/:path*",            "statusCode": 301 },
         { "source": "/procurement_ai/:path*",  "destination": "/procurement/:path*",           "statusCode": 301 },
