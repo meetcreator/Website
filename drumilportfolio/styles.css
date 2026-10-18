@@ -161,6 +161,15 @@ nav {
     color: var(--text-primary);
 }
 
+.brand-hq {
+    font-size: 0.58em;
+    font-weight: 600;
+    text-transform: lowercase;
+    opacity: 0.85;
+    vertical-align: baseline;
+    letter-spacing: normal;
+}
+
 .logo-byline {
     font-size: 0.8rem;
     color: var(--text-dim);
