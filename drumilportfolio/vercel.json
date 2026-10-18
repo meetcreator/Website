@@ -4,8 +4,20 @@
     "redirects": [
         {
             "source": "/(.*)",
+            "has": [{ "type": "host", "value": "www.aethelhq.com" }],
+            "destination": "https://aethelhq.com/$1",
+            "statusCode": 301
+        },
+        {
+            "source": "/(.*)",
+            "has": [{ "type": "host", "value": "tinmco.com" }],
+            "destination": "https://aethelhq.com/$1",
+            "statusCode": 301
+        },
+        {
+            "source": "/(.*)",
             "has": [{ "type": "host", "value": "www.tinmco.com" }],
-            "destination": "https://tinmco.com/$1",
+            "destination": "https://aethelhq.com/$1",
             "statusCode": 301
         },
         { "source": "/Business/:path*",       "destination": "/business/:path*",              "statusCode": 301 },

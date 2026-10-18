@@ -67,8 +67,8 @@ exports.RealtimeGateway = RealtimeGateway = __decorate([
         cors: {
             origin: [
                 process.env.FRONTEND_URL || 'http://localhost:3000',
-                'https://tinmco.com',
-                'https://www.tinmco.com'
+                'https://aethelhq.com',
+                'https://www.aethelhq.com'
             ],
             credentials: true,
         },

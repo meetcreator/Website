@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     
     # Database
-    DATABASE_URL: str = "postgresql://postgres:postgres@localhost:5432/archshield"
+    DATABASE_URL: str = "sqlite:///./archshield.db"
     
     # AI Integration
     GOOGLE_API_KEY: Optional[str] = None

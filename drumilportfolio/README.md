@@ -1,6 +1,6 @@
-# TINMCO Website — Monorepo
+# AethelHQ Website — Monorepo
 
-Deployed on Vercel at **[tinmco.com](https://tinmco.com)**. The Vercel project root is set to `/drumilportfolio`.
+Deployed on Vercel at **[aethelhq.com](https://aethelhq.com)**. The Vercel project root is set to `/drumilportfolio`.
 
 ---
 
@@ -30,9 +30,9 @@ drumilportfolio/
 ├── procurement/            # Procurement AI project (static HTML)
 │
 ├── demo-websites/          # Static CA/GlobalTrade demo sites
-│   ├── ca-webcodex/        → tinmco.com/demo-websites/ca-webcodex
-│   ├── ca-website/         → tinmco.com/demo-websites/ca-website
-│   └── import-export/      → tinmco.com/demo-websites/import-export
+│   ├── ca-webcodex/        → aethelhq.com/demo-websites/ca-webcodex
+│   ├── ca-website/         → aethelhq.com/demo-websites/ca-website
+│   └── import-export/      → aethelhq.com/demo-websites/import-export
 │
 ├── render.yaml             # Render.com config for business backend
 ├── launch.bat              # Run local dev server (Windows)
